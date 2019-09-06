@@ -15,3 +15,10 @@ No one knows except you. The course requires both theoretical and engineering un
 ### I am a student from the business school, do I need to spend a lot of time to design and implement stuffs in big data platforms?
 
 Unfortunately, to understand big data platforms, we need to work on design, development, testing and operation aspects. While, business school students can focus more on utilizing big data platforms for running analytics, we require all students to understand big data platforms from a holistic view.
+
+### Can I learn the course without knowning cloud computing?
+Cloud computing is an important background as our big data platforms rely on cloud technologies (not necessarily requires specific cloud providers). If you dont know cloud computing, you should learn cloud computing at the same time, e.g. from Mobile & Cloud Computing course.
+
+### Can I use my own dataset (e.g. from my company) for exercises/assignments?
+
+Yes you can but you need to discuss with the lecturer first.

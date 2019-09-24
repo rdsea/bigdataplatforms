@@ -1,0 +1,7 @@
+{
+  "name":"btssensor",
+  "tags":["bts","sensor"],
+   "port": 8080,
+   "address":"123.123.123.123"
+}
+

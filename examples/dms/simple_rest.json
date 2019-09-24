@@ -1,0 +1,13 @@
+{
+  "name":"simplerest",
+  "tags":["bdp","nothing","aalto"],
+   "port": 3000,
+   "address":"192.168.2.135",
+   "check": {
+       "id": "checksimplerest",
+       "name": "Simple Status",
+       "args": ["curl","http://localhost:3000"],
+       "interval": "20s",
+       "timeout": "10s"
+   }
+}

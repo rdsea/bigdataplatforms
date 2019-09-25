@@ -1,6 +1,6 @@
 # A simple guideline
 
-> change the code to fix to your setting
+> change the code to fix it into your setting, especially, we have some specific paths/urls in the code
 
 * Make sure that you have consul installed in your machine.
 * using consul-server.sh to run a consul server for testing

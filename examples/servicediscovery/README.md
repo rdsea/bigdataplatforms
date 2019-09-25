@@ -12,8 +12,8 @@
 * test the publishing service information:
   -using the program simple_registry.js and simple service descriptions
   ```
-  $node simple_registry.js mongoservice.json
-  $node simple_registry.js ../dms/simple_rest.json
+  $node simple_register.js mongoservice.json
+  $node simple_register.js ../dms/simple_rest.json
   ```
 * check consul service using http://localhost:8500/ui
 * start and stop simple_rest.js and mongodb container to see service states.

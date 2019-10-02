@@ -1,4 +1,4 @@
-country,duration_seconds,english_cname,file_id,species,latitude,longitude
+country,duration_seconds,english_cname,id,species,latitude,longitude
 United States,3,Abert's Towhee,17804,aberti,33.3117,-114.68911999999999
 United States,4,Abert's Towhee,177367,aberti,34.285,-114.069
 United States,4,Abert's Towhee,145505,aberti,34.285,-114.069

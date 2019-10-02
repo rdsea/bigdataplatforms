@@ -21,14 +21,18 @@ if __name__ == "__main__":
     session = cluster.connect()
     # replace values with data from dataset
     # or change the code so that it reads data from the file
+    #input 1
+    '''
     input= """
     INSERT INTO tutorial12345.bird3 (country, duration_seconds, english_cname, id,  species, latitude, longitude)
     VALUES
     ('Mexico',29,'Black-tailed Gnatcatcher',71907,'melanura',32.156,-115.79299999999999)
     ;
     """
+    '''
+    #input 2
     input2 = """
-    INSERT INTO tutorial12345.bird3 (country, duration_seconds, english_cname, id,species)
+    INSERT INTO tutorial1.bird1 (country, duration_seconds, english_cname, id,species)
     VALUES
     ('United States',6,'Black-tailed Gnatcatcher',361929,'melanura')
     ;
@@ -39,6 +43,7 @@ if __name__ == "__main__":
     #consistency_level =ConsistencyLevel.ONE
     #consistency_level =ConsistencyLevel.QUORUM
     consistency_level =ConsistencyLevel.ALL
+    ## correct the input
     query = SimpleStatement(input2,
         consistency_level=consistency_level)
     session.execute(query)

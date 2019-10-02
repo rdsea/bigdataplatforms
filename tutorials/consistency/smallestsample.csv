@@ -1,5 +1,4 @@
-
-country,duration_seconds,english_cname,file_id,species,latitude,longitude
+country,duration_seconds,english_cname,id,species,latitude,longitude
 United States,31,American Bushtit,283953,minimus,32.5547,-117.0634
 Mexico,31,American Bushtit,339894,minimus,32.5372,-116.9394
 United States,25,Ash-throated Flycatcher,235964,cinerascens,38.527,-121.79899999999999

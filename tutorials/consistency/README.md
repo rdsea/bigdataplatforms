@@ -1,4 +1,4 @@
-# Tutorial on Consistency and Performance on Thu 3.10.2019
+--u mybdp# Tutorial on Consistency and Performance on Thu 3.10.2019
 By Linh Truong
 Last modified: 02.10.2019
 
@@ -16,7 +16,7 @@ The Cassandra under test is setup in Google Cloud Platform with 5 nodes, using [
 * **Node3**: IP address to be obtained during the tutorial
 
 You need a username and password to access Cassandra:
-* username: **cassandra**
+* username: **mybdp**
 * password: *will let you know*
 
 You need to make sure that **cqlsh** and Cassandra Python Driver (as we use some python code examples) are installed in your machine:
@@ -39,7 +39,7 @@ We use the data set [Avian Vocalizations from CA & NV, USA](https://www.kaggle.c
 ### 3.1 Create a keyspace
 Login into Cassandra using *cqlsh*:
 ```
-$cqlsh [Node1|2|3] -u cassandra
+$cqlsh [Node1|2|3] -u mybdp
 ```
 
 Choose your keyspace name, e.g. **tutorial-studentid**. Pls. keep the *replication factor* as in the following example.
@@ -90,7 +90,7 @@ what do you see?
 #### Test if you can connect to Cassandra using a Python program
 
 ```
-$python3 test_connection.py --host [Node1|2|3] --u cassandra --p [Password] --q "SELECT * FROM tutorial12345.bird1234;"
+$python3 test_connection.py --host [Node1|2|3] --u mybdp --p [Password] --q "SELECT * FROM tutorial12345.bird1234;"
 ```
 
 ### 3.4 Programming consistency levels
@@ -135,7 +135,7 @@ Note:
 Using different nodes, you can try to run a read test using Python to see the performance and data accuracy:
 
 ```
-python3 test_consistency_read.py --host [node] --u cassandra --p [password] --q "SELECT * FROM tutorial12345.bird1234"
+python3 test_consistency_read.py --host [node] --u mybdp --p [password] --q "SELECT * FROM tutorial12345.bird1234"
 ```
 What do you see, compared with a similar query from other nodes.
 
@@ -147,7 +147,7 @@ What do you see, compared with a similar query from other nodes.
 
 Change the level of consistency in the code and see if it affects the performance.
 ```
-python3 test_consistency_write.py --host [node1|2|3] --u cassandra --p [password]
+python3 test_consistency_write.py --host [node1|2|3] --u mybdp --p [password]
 ```
 Check if you program works.
 

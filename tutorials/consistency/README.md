@@ -1,4 +1,4 @@
-# Tutorial on Consistency and Performance
+# Tutorial on Consistency and Performance on Thu 3.10.2019
 By Linh Truong
 Last modified: 02.10.2019
 

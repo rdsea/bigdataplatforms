@@ -45,7 +45,7 @@ $cqlsh [Node1|2|3] -u mybdp
 Choose your keyspace name, e.g. **tutorial-studentid**. Pls. keep the *replication factor* as in the following example.
 
 ```
-cassandra@cqlsh>
+mybdp@cqlsh>
 CREATE KEYSPACE tutorial12345
   WITH REPLICATION = {
    'class' : 'SimpleStrategy',
@@ -57,7 +57,7 @@ CREATE KEYSPACE tutorial12345
 
 Choose your table name, e.g., **bird1234**
 ```
-cassandra@cqlsh>
+mybdp@cqlsh>
 CREATE TABLE tutorial12345.bird1234 (
    country text,
    duration_seconds int ,
@@ -75,14 +75,14 @@ PRIMARY KEY (id,species,country));
 Using **cqlsh**
 
 ```
-cassandra@cqlsh>SELECT * from tutorial12345.bird1234;
+mybdp@cqlsh>SELECT * from tutorial12345.bird1234;
 ```
 
 #### Access data from another Aassandra node
 Assume that you open a new terminal and connect to the cluster using **Node2** or **Node3**:
 
 ```
-cassandra@cqlsh>SELECT * from tutorial12345.bird1234;
+mybdp@cqlsh>SELECT * from tutorial12345.bird1234;
 ```
 
 what do you see?
@@ -97,7 +97,7 @@ $python3 test_connection.py --host [Node1|2|3] --u mybdp --p [Password] --q "SEL
 
 #### Insert data by connecting to **Node1**
 ```
-cassandra@cqlsh>
+mybdp@cqlsh>
 INSERT INTO tutorial12345.bird1234 (country, duration_seconds, english_cname, id,  species, latitude, longitude) values ('United States',42,'Yellow-breasted Chat',408123,'virens',33.6651,-117.8434);
 ```
 
@@ -109,19 +109,19 @@ From **Node2** or **Node3**, check if you see the data:
 
 first make sure you turn on tracing:
 ```
-cassandra@cqlsh>TRACING ON;
+mybdp@cqlsh>TRACING ON;
 ```
 
 then you can set consistency level, e.g. **ONE, QUORUM, ALL**:
 
 ```
-cassandra@cqlsh>CONSISTENCY QUORUM;
+mybdp@cqlsh>CONSISTENCY QUORUM;
 ```
 
 Write a simple query, e.g.,
 
 ```
-cassandra@cqlsh>SELECT * from tutorial12345.bird1234;
+mybdp@cqlsh>SELECT * from tutorial12345.bird1234;
 ```
 The analyzing the trace to understand how Cassandra handles queries
 
@@ -163,7 +163,7 @@ Login into **Node2** or **Node3**
 You can repeat the previous tests but with a different replication level, e.g, **2**:
 
 ```
-cassandra@cqlsh>CREATE KEYSPACE tutorialfactor2
+mybdp@cqlsh>CREATE KEYSPACE tutorialfactor2
   WITH REPLICATION = {
    'class' : 'SimpleStrategy',
    'replication_factor' : 2
@@ -171,7 +171,7 @@ cassandra@cqlsh>CREATE KEYSPACE tutorialfactor2
 ```
 Choose your table name, e.g. bird1234
 ```
-cassandra@cqlsh>CREATE TABLE tutorialfactor2.bird1234 (
+mybdp@cqlsh>CREATE TABLE tutorialfactor2.bird1234 (
    country text,
    duration_seconds int ,
    english_cname text ,
@@ -184,8 +184,8 @@ PRIMARY KEY (id, species,country));
 
 Then if you set consistency level THREE and query:
 ```
-cassandra@cqlsh>CONSISTENCY THREE;
-cassandra@cqlsh> select * from tutorialfactor2.bird1234;
+mybdp@cqlsh>CONSISTENCY THREE;
+mybdp@cqlsh> select * from tutorialfactor2.bird1234;
 ```
 
 What do you get?

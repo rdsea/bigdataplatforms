@@ -15,6 +15,6 @@ In fact, in course, we do not teach which technologies in this case but we expla
 ## I have only 1 machine, I design my system for the cloud, but the performance is worse because I dont have enough machines to demonstrate the real performance of my design, how should I report?
 
 Your own testing system in a single machine cannot tell the true value of performance of your design for clouds, as you measure the real performance in your machine you will see. But if you have many machines to test the scalability of your solutions 
-then you can report the real measurements in your real machine with real scaling solution. Then you can explain why these real numbers actually look not good and argue that if you have a real cloud environment 
-with many nodes, your design will lead to better performance (theoretical design but no real measurement due to the lack of machines). This principle applies for whichever case when you 
+then you can report the real measurements in your real machine with real scaling solutions. Then you can explain why these real numbers actually look not good and argue that if you have a real cloud environment 
+with many machines, your design will lead to better performance (theoretical design but no real measurement due to the lack of machines). This principle applies for whichever case when you 
 dont have many machines (but your design is for many machines). Without designing for the cloud, you cannot argue that "by doing xyz, my system will scale". But with a real design and test in a limited environment, you can convince other people with your solutions.

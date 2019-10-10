@@ -63,7 +63,7 @@ hdfs getconf -confKey dfs.blocksize
 Perform some tasks to upload data into HDFS. What would be steps for moving data into the Hadoo system?
 ### Understanding Configuration of HDFS
 
-Look at **/etc/hadoop/conf/hdfs-site.xml/hdfs-site.xml** and check
+Look at **/etc/hadoop/conf/hdfs-site.xml** and check
 * Cluster name
 * Name nodes
 * Zookeeper

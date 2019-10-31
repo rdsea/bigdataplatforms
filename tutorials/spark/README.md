@@ -20,7 +20,7 @@ If you just want to do programming, you can use existing Spark deployment, e.g.,
 
 ### Setup local spark in your machines
 
-You can download Spark with Hadoop or if you already have Hadoop, then just install Spark. Follow the instruction here.
+You can download [Spark with Hadoop](https://spark.apache.org/downloads.html) or if you already have Hadoop, then just install Spark. Follow the [instruction here](https://spark.apache.org/downloads.html).
 >Note: you can setup one master and one slave node in the same machine. This could be enough to practice some basic tasks with Spark.
 
 Check if it works:

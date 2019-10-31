@@ -59,6 +59,8 @@ Assume that you have data in Hadoop or local file systems. You can write some pr
 
 We have some very simple programs for processing NY Taxi. These programs use the NYTaxi dataset which is in our test Hadoop.
 
+Take a look at [the PySpark cheatsheet for spark functions](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/PySpark_SQL_Cheat_Sheet_Python.pdf).
+
 * How would you manage input for Spark programs?
 ### Data for Spark programs
 In our exercises, data for Spark programs are in Hadoop Filesystem. Check Hadoop Filesystem to make sure that the files are available, e.g.

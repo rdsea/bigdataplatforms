@@ -49,7 +49,7 @@ Now you are in a private enviroment and you can see that you have a Spark cluste
 
 You  then you can test:
 ```
-bin/pyspak
+$pyspak
 ```
 
 ## 3. Exercises

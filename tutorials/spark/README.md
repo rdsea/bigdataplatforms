@@ -72,7 +72,7 @@ To speed up the exercises, you can also create small datasets of taxi data (or o
 
 ### Submit Job
 
-Using **spark-submit** to submit the job. Note that in Google test environment, the master job scheduler is **yarn** or **local[*]**. Example of counting the trips from the taxi file:
+Using **spark-submit** to submit the job. Note that in Google test environment, the master job scheduler is **yarn** or **local[*]**. Using **yarn** and avoid **local[]** as if we have many people running programs in the same machine (with **local**) then the server is overloading. Example of counting the trips from the taxi file:
 ```
 ssh mybdp@35.228.38.72
 spark-submit --master yarn --deploy-mode cluster simple_taxi_tripcount.py --input_file hdfs:///user/mybdp/nytaxi2019.csv --output_dir hdfs:///user/mybdp/taxiresult01

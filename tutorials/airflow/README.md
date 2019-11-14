@@ -7,7 +7,7 @@ We will practice [Apache Airflow](https://airflow.apache.org/) with simple activ
 * run the workflows
 * understand relationships between developers and platform providers through tools/supports
 
->Note: there are many tutorials about Apache Airflow that you can take a look in the Internet, e.g. [Airflow tutorial](https://github.com/tuanavu/airflow-tutorial) or [Apache Flink with in AWS](https://www.youtube.com/watch?v=4FIPt87A_qM). There are also advanced tutorials/discussions to use Airflow in other contexts like [Tensorflow and Airflow](https://www.tensorflow.org/tfx/tutorials/tfx/airflow_workshop), [Airflow in Twitter](https://blog.twitter.com/engineering/en_us/topics/insights/2018/ml-workflows.html) and [Airflow in Lyft](https://eng.lyft.com/running-apache-airflow-at-lyft-6e53bb8fccff).
+>Note: there are many tutorials about Apache Airflow that you can take a look in the Internet, e.g. [Airflow tutorial](https://github.com/tuanavu/airflow-tutorial). There are also advanced tutorials/discussions to use Airflow in other contexts like [Tensorflow and Airflow](https://www.tensorflow.org/tfx/tutorials/tfx/airflow_workshop), [Airflow in Twitter](https://blog.twitter.com/engineering/en_us/topics/insights/2018/ml-workflows.html) and [Airflow in Lyft](https://eng.lyft.com/running-apache-airflow-at-lyft-6e53bb8fccff).
 
 
 ## 2. Setup Apache Airflow for Practices

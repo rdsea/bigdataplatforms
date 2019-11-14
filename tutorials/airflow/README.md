@@ -35,7 +35,7 @@ then check the [Airflow UI](http://localhost:8080)
 CameraStateUploadFile is a simple airflow workflow. It is an (simplified) example of a workflow running within a company that takes logs from different servers and put the log files into Google Storage. Furthermore, when a log file is stored, we send a notification to a service which keeps track and inform people about the uploading.
 
 #### Check the source code and compile it
-Check [the source of BTS in our Git](camerastateuploadfile/). It is a simple example for illustrating purposes. You can test if there is any error by
+Check [the source of CameraStateUploadFile in our Git](camerastateuploadfile/). It is a simple example for illustrating purposes. You can test if there is any error by
 ```
 $python3 camera_state_upload.py
 ```

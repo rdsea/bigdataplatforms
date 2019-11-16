@@ -3,7 +3,7 @@
 This GIT hosts material for the course Big Data Platforms within Aalto University. The intended users are Aalto students participating in the Big Data Platforms.
 
  ## Contents
-
+ * [Course FAQ](faq.md)
  * [Samples of data and recommended data for studies](data/)
  * [Some homeworks](homeworks/)
  * [Hands-on tutorials](tutorials/)

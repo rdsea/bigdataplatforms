@@ -13,7 +13,7 @@ This GIT hosts material for the course Big Data Platforms within Aalto Universit
  * Assignment 2:
    - [Assignment 2 FAQ](assignment2-faq.md)
  * Assignment 3:
-   - [Assignment 3 FAQ](assigments/assignment3/assignment3-faq.md)
+   - [Assignment 3 FAQ](assignments/assignment3/assignment3-faq.md)
 
 
 ## Code and hands-on examples

@@ -4,16 +4,16 @@ This GIT hosts material for the course Big Data Platforms within Aalto Universit
 
  ## Contents
 
- * [Samples of data and recommended data for studies](data/.)
- * [Some homeworks](homeworks/.)
- * [Hands-on tutorials](tutorials/.)
+ * [Samples of data and recommended data for studies](data/)
+ * [Some homeworks](homeworks/)
+ * [Hands-on tutorials](tutorials/)
  * Assignment 1:
    - [Assignment 1 FAQ](assignment1-faq.md)
-   - [Assignment 1 statistics](assignment1/)
+   - [Assignment 1 statistics](assignments/assignment1/)
  * Assignment 2:
    - [Assignment 2 FAQ](assignment2-faq.md)
  * Assignment 3:
-   - [Assignment 3 FAQ](assignment3/assignment3-faq.md)
+   - [Assignment 3 FAQ](assigments/assignment3/assignment3-faq.md)
 
 
 ## Code and hands-on examples

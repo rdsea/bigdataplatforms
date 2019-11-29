@@ -1,5 +1,11 @@
 # Course FAQ
 
+### What kind of jobs requires me to learn this course?
+We can talk a lot during the course but here some facts:
+
+* [Examples of job description](https://careers.nokia.com/jobs/thesis-workers-iot-originated-big-data-streaming-and-analysis-34238): you will see that what you learn from this course  would help you to get such a job.
+* [People pay quite some money to learn the subjects we have in our course](https://www.ri.se/en/education/data-engineering-how-build-industry-strength-data-lakes-and-processing-platforms)
+
 ### Is lecture/tutorial participation mandatory?
 
 No. We do not impose any lecture/tutorial participation rules. In principle, you can complete the course without lecture/tutorial participation. It is however important that you should join lectures and tutorials where we can have face-to-face discussions. At the moment, we do not plan to record lectures and tutorials. Note that you may be required to be in person to explain your assignments.
@@ -11,6 +17,7 @@ Assignment/project work is independent at the moment. Thus you can complete the 
 ### Can I complete the course successful without lecture/tutorial participation?
 
 No one knows except you. The course requires both theoretical and engineering understandings of big data platforms but also requires a lot of effort on design, implementation and testing of some key concepts in big data platforms. Lectures/tutorials guide your way but at the end you need to touch a lot of hands-on of real world systems. Having good exchanges and discussions with others can help you to speed up your study.
+
 
 ### I am a student from the business school, do I need to spend a lot of time to design and implement stuffs in big data platforms?
 

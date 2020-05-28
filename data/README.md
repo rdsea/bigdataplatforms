@@ -12,6 +12,7 @@ There are many open datasets that you can download for practicing activities in 
 * [Reddit comments](https://www.kaggle.com/reddit/reddit-comments-may-2015)
 * [Airbnb Dataset](http://insideairbnb.com/get-the-data.html)
 * [Google Play Store Apps](https://www.kaggle.com/lava18/google-play-store-apps)
+* [COVID-19 dataset from Google](https://console.cloud.google.com/marketplace/details/bigquery-public-datasets/covid19-public-data-program)
 
 When using these datasets, you need to comply with their corresponding licenses.
 

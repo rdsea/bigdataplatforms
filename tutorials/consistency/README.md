@@ -1,4 +1,4 @@
---u mybdp# Tutorial on Consistency and Performance on Thu 3.10.2019
+# Tutorial on Consistency and Performance
 By Linh Truong
 Last modified: 02.10.2019
 

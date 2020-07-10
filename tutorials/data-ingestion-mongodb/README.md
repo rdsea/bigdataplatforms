@@ -3,6 +3,7 @@
 This tutorial deals with performing ingestion of streaming data into the MongoDB database.
 
 * [An accompanying video is also available](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=040abd7d-e500-456c-b05b-abe600b9ff70)
+* [Slides](slide/cs-e4640-hands-on-ingestion-into-mongodb.pptx)
 
 ### Prerequisite knowledge:
 - docker and docker-compose

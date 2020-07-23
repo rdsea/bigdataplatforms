@@ -2,8 +2,8 @@
 
 This tutorial deals with performing streaming analytics using Apache spark. We attempt to model a real-world workflow where streaming data is coming from message broker and the stream processing engine ingests the messages. The result is then feedback on the same message broker.
 
-*[An acommpanying hands-on video is available](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=ab115ae1-0d37-435e-8587-abe600d04d6a)
-*[Slides](slide/cs-e4640-hands-on-sparks-streaming.pptx)
+* [An acommpanying hands-on video is available](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=ab115ae1-0d37-435e-8587-abe600d04d6a)
+* [Slides](slide/cs-e4640-hands-on-sparks-streaming.pptx)
 
 ### Prerequisite knowledge:
 - docker and docker-compose
@@ -154,6 +154,3 @@ $ python3 client-report.py "192.168.0.1:38282" report
 
 ---
 This tutorial is meant to serve as a definitive guide and not a step-by-step walkthrough and hence, the steps might slightly differ depending on the system and development environment.
-
-## Note
-Some code for the tutorial are still hosted in another GIT. We will move them into this space later on.

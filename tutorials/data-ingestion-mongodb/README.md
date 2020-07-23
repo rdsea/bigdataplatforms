@@ -132,6 +132,3 @@ https://github.com/rohitshubham/Cloud-pipeline/blob/master/DatabaseIngestor/Mong
 
 ---
 This tutorial is meant to serve as a definitive guide and not a step-by-step walkthrough and hence, the steps might slightly differ depending on the system and development environment.
-
-## Note
-The code is current hosted in a separate git. We will move it into this space later on.

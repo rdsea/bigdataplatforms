@@ -12,11 +12,16 @@ We will practice Apache Flink with simple activities:
 
 ## 2. Setup Apache Flink for Practices
 
-Download [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the installation guide for a local machine](https://ci.apache.org/projects/flink/flink-docs-release-1.9/getting-started/tutorials/local_setup.html). In this simple tutorial, we use Apache Flink 1.9.1 for Scala 2.11
+Download [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the installation guide for a local machine](https://ci.apache.org/projects/flink/flink-docs-release-1.9/getting-started/tutorials/local_setup.html). In this simple tutorial, we use Apache Flink 1.11.0 for Scala 2.11. 
 
 The example we use to run is for [the BTS data](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640-2019/tree/master/data/bts) and we will use [RabbitMQ](http://www.rabbitmq.com) as the message broker through the streaming analytics application obtains data.
 
-You can setup your own RabbitMQ or use a test RabbitMQ during the tutorial.
+You can setup your own RabbitMQ or use a test RabbitMQ during the tutorial. A very simple way of starting a test RabbitMQ is via docker. Use the command:
+
+```bash
+$ docker run -d -p 5672:5672 --hostname my-rabbit --name rabbitMQ rabbitmq
+```
+It will start a container of rabbitMQ with both username and password as `guest`.
 
 ## 3. Exercises
 ### Check if the installation is OK
@@ -26,14 +31,24 @@ Following Flink guide to see if the installation is ok. Move into the directory 
 ```
 then check the [UI](http://localhost:8081)
 
+Alternatively, you can also use `docker-compose` to start a cluster. The relevant compose configuration file is in `code/docker-compose.yml`.  You can start the cluster using :
+```bash
+$ docker-compose up -d
+```
+and then check the [UI](http://localhost:8081)
+
+
 ### Practices with Flink  SocketWindowWordCount example
 
 You can check [the Flink example](https://ci.apache.org/projects/flink/flink-docs-release-1.9/getting-started/tutorials/local_setup.html) and test it to see how it works.
 
-### BTS example
+>Hint: You can also use the web UI to submit a job to a Session cluster. Or use Flink CLI on the host if it is installed: flink run -d -c ${JOB_CLASS_NAME} /job.jar
+
+ 
+## BTS example
 
 #### Check the source code and compile it
-Check [the source of BTS in our Git](simplebts/). It is a simple example for illustrating purposes. The program is built with maven.
+Check [the source of BTS in our Git](code/simplebts/). It is a simple example for illustrating purposes. The program is built with maven.
 ```
 $mvn install
 $ls target/simplebts-0.1-SNAPSHOT.jar

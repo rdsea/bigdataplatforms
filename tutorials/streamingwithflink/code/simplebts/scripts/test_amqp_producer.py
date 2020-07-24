@@ -12,7 +12,7 @@ parser.add_argument('--queue_name', help='queue name', required=True)
 parser.add_argument('--input_file',help='csv data file', required=True)
 args = parser.parse_args()
 
-amqpLink=os.environ.get('AMQPURL', 'amqp://guest:guest@127.0.0.1:5672')
+amqpLink=os.environ.get('AMQPURL', 'amqp://guest:guest@195.148.20.12:5672')
 params = pika.URLParameters(amqpLink)
 params.socket_timeout = 5
 connection = pika.BlockingConnection(params) # Connect to RabbitMQ

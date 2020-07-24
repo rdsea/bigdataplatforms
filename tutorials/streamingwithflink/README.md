@@ -42,16 +42,17 @@ and then check the [UI](http://localhost:8081)
 
 You can check [the Flink example](https://ci.apache.org/projects/flink/flink-docs-release-1.9/getting-started/tutorials/local_setup.html) and test it to see how it works.
 
->Hint: You can also use the web UI to submit a job to a Session cluster. Or use Flink CLI on the host if it is installed: flink run -d -c ${JOB_CLASS_NAME} /job.jar
+>Hint: You can also use the web UI to submit a job to a Session cluster. Alternatively, use Flink CLI on the host if it is installed: flink run -d -c ${JOB_CLASS_NAME} /job.jar
 
  
 ## BTS example
 
 #### Check the source code and compile it
 Check [the source of BTS in our Git](code/simplebts/). It is a simple example for illustrating purposes. The program is built with maven.
-```
-$mvn install
-$ls target/simplebts-0.1-SNAPSHOT.jar
+
+```bash
+$ mvn install
+$ ls target/simplebts-0.1-SNAPSHOT.jar
 ```
 the file **target/simplebts-0.1-SNAPSHOT.jar* is the one that will be submitted to Flink.
 
@@ -61,7 +62,7 @@ Before running BTS Flink, check if we can send and receive data to/from RabbitMQ
 Start a BTS test producer:
 ```
 export AMQPURL=**get from the tutorial or your own **
-python3 test_amqp_producer.py --queue_name [your_selected_queue_name] --input_file  [cs-e4640-2019/data/bts/bts-data-alarm-2017.csv]
+python3 test_amqp_producer.py --queue_name [your_selected_queue_name] --input_file  [cs-e4640/data/bts/bts-data-alarm-2017.csv]
 ```
 Then start a BTS test receiver:
 ```

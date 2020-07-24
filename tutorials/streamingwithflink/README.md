@@ -42,7 +42,7 @@ and then check the [UI](http://localhost:8081)
 
 You can check [the Flink example](https://ci.apache.org/projects/flink/flink-docs-release-1.9/getting-started/tutorials/local_setup.html) and test it to see how it works.
 
->Hint: You can also use the web UI to submit a job to a Session cluster. Alternatively, use Flink CLI on the host if it is installed: flink run -d -c ${JOB_CLASS_NAME} /job.jar
+>Hint: You can also use the web UI to submit a job to a Session cluster. Alternatively, use Flink CLI on the host if it is installed: flink run -d -m ${FLINK_JOBMANAGER_URL} /job.jar [jar_arguments]
 
  
 ## BTS example
@@ -85,7 +85,7 @@ bin/flink run simplebts-0.1-SNAPSHOT.jar --amqpurl  [AMQPURL] --iqueue [iqueue12
 Now start our test producer again with the queue name as **iqueue123**:
 ```
 export AMQPURL=**get from the tutorial or your own **
-python3 test_amqp_producer.py --queue_name iqueue123 --input_file  [cs-e4640-2019/data/bts/bts-data-alarm-2017.csv]
+python3 test_amqp_producer.py --queue_name iqueue123 --input_file  [cs-e4640/data/bts/bts-data-alarm-2017.csv]
 ```
 and then start a BTS test receiver with queue name as **oqueue123**:
 ```
@@ -100,3 +100,4 @@ Check the logs under **flink/log**:
 * flink * taskexecutor *.stdout
 
 to see errors, printout.
+ Alternatively, you can also see the logs on the flink UI.

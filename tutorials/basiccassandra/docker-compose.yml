@@ -1,0 +1,53 @@
+version: '3.4'
+x-cassandra: &cassandras
+  CASSANDRA_CLUSTER_NAME: tutorials
+  CASSANDRA_SEEDS: cassandra1
+  HEAP_NEWSIZE: 1M
+  MAX_HEAP_SIZE: 512M
+  CASSANDRA_ENDPOINT_SNITCH: GossipingPropertyFileSnitch
+    
+x-expose: &exposes
+    - "7000" # intra-node communication
+    - "7001" # TLS intra node communication
+    - "7199" # JMX
+    - "9042" # CQL
+    - "9142" # CQL TLS
+    - "9160" # Thrift
+services: 
+  cassandra1:
+    image: cassandra
+    hostname: cassandra1
+    environment: 
+      <<: *cassandras
+      CASSANDRA_DC: DC1   
+    expose: *exposes
+    ports: 
+      - "9042:9042"
+
+  cassandra2:
+    image: cassandra
+    hostname: cassandra2
+    environment: 
+      <<: *cassandras
+      CASSANDRA_DC: DC1   
+    expose: *exposes      
+    ports: 
+      - "9043:9042"
+    restart: always
+    depends_on: 
+      - cassandra1
+    
+
+  cassandra3:
+    image: cassandra
+    hostname: cassandra3
+    environment: 
+      <<: *cassandras
+      CASSANDRA_DC: DC2 
+    expose: *exposes
+    restart: always
+  
+    depends_on: 
+      - cassandra1    
+    ports: 
+      - "9044:9042"

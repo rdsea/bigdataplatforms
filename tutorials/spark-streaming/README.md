@@ -79,7 +79,7 @@ the relevant docker-compose service looks like:
 The kafka port number can be checked using `docker-compose ps` command.
 
 #### 2. Kafka Producer
-Next, start the Kafka producer. A sample Kafka producer can be found here: https://github.com/rohitshubham/edge_simulator/blob/master/mini-batch-converter/cloud_publisher.py
+Next, start the Kafka producer. A sample Kafka producer can be found here: [cloud_publisher.py](code/cloud_publisher.py)
 
 The publisher should start producing messages at certain intervals.
 
@@ -128,7 +128,7 @@ The spark worker service looks like :
 
 #### 5. Start client ingestion application
 
-Finally, start the client ingestion application. This ingestion application can be either dockerized or standalone. Our example uses a custom dockerized spark streaming application from here: https://github.com/rohitshubham/Cloud-pipeline/tree/master/SparkProcessor
+Finally, start the client ingestion application. This ingestion application can be either dockerized or standalone. Our example uses a custom dockerized spark streaming application from here: [SparkProcessor](code/SparkProcessor)
 
 The entry point is `start-spark.sh` that submits the job as:
 
@@ -138,8 +138,7 @@ $ spark-submit --master "spark://spark:7077" --packages  org.apache.spark:spark-
 
 #### 6. Consumer dashboard
 
-To listen on the results, start the application to connect to the Kafka broker on the topic `report`. Asn example is at
-https://github.com/rohitshubham/Cloud-pipeline/blob/master/Util/client-report.py
+To listen on the results, start the application to connect to the Kafka broker on the topic `report`. Asn example is [client-report.py](code/client-report.py)
 
 It can be launched as :
 ```bash

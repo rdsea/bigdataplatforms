@@ -21,8 +21,8 @@ The following two were the python dependencies:
 ### Code and deployment files:
 All the relevant code used in the tutorial can be found here at:
 
-- [Cloud-pipeline Subsystem](https://github.com/rohitshubham/Cloud-pipeline)
-- Sample Kafka Producer code is at: https://github.com/rohitshubham/edge_simulator/tree/master/mini-batch-converter
+- [Cloud-pipeline Subsystem](../cloud-data-pipeline)
+- Sample Kafka Producer code is in: [Spark Streaming tutorial](../spark-streaming/code)
 
 
 ### Workflow and Architecture
@@ -72,7 +72,7 @@ the relevant docker-compose service looks like:
       - /var/run/docker.sock:/var/run/docker.sock
 ```
 #### 2. Kafka Producer
-Next, start the Kafka producer. A sample Kafka producer can be found here: https://github.com/rohitshubham/edge_simulator/blob/master/mini-batch-converter/cloud_publisher.py
+Next, start the Kafka producer. A sample Kafka producer can be found here:[cloud_publisher.py](spark-streaming/code/cloud_publisher.py)
 
 The publisher should start producing messages at certain intervals.
 
@@ -119,8 +119,7 @@ Finally, start the ingestion application that
 2. Adds metadata and does some data formatting
 3. Pushes the data into the database i.e. the mongodb service.
 
-A sample MongoDb Ingestion application for reference  can be found here:
-https://github.com/rohitshubham/Cloud-pipeline/blob/master/DatabaseIngestor/MongoIngestor.py
+A sample MongoDb Ingestion application for reference  can be found in: [cloud-data-pipeline](../cloud-data-pipeline/DatabaseIngestor/MongoIngestor.py)
 
 ---
 

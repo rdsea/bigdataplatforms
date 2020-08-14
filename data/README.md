@@ -13,6 +13,7 @@ There are many open datasets that you can download for practicing activities in 
 * [Airbnb Dataset](http://insideairbnb.com/get-the-data.html)
 * [Google Play Store Apps](https://www.kaggle.com/lava18/google-play-store-apps)
 * [COVID-19 dataset from Google](https://console.cloud.google.com/marketplace/details/bigquery-public-datasets/covid19-public-data-program)
+  - Also check [the code for this open data set](https://github.com/GoogleCloudPlatform/covid-19-open-data)
 * [COVID-19 dataset from EU](https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data)
 
 When using these datasets, you need to comply with their corresponding licenses.

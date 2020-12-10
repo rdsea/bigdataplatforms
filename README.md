@@ -1,1 +1,1 @@
-See (https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640)
+See https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640

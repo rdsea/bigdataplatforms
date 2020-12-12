@@ -8,6 +8,7 @@ This GIT hosts material for [the course Big Data Platforms](https://mycourses.aa
  * [Samples of data and recommended data for studies](data/)
  * [Some homeworks](homeworks/)
  * [Hands-on tutorials](tutorials/)
+ * [Computing Infrastructures](computinginfrastructures.md)
 
 
  Note that: *Examples and hands-on codes are written in the most simple way for educational purposes.*

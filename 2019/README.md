@@ -32,6 +32,18 @@ This GIT hosts material for the course Big Data Platforms within Aalto Universit
 * [Some homeworks](../homeworks/)
 * [Hands-on tutorials](../tutorials/)
 
+## Final outcome
+
+In total, 73 students passed the course
+
+Grades| number
+----|-----
+5 | 22
+4 | 20
+3 | 10
+2 | 5
+1 | 16
+
 ## Notes on code and hands-on examples
 
 Examples and hands-on codes are written in the most simple way for educational purposes. Code and examples are licensed under [Apache License 2.0](APACHE-LICENSE-2.0.txt), unless otherwise stated.

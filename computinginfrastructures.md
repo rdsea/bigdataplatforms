@@ -30,7 +30,7 @@ Here are best practices that we have learned from dealing with this issue many y
 * [CloudMQTT](http://cloudmqtt.com)
 * [Free RabbitMQ from CloudAMQP](https://www.cloudamqp.com/plans.html)
 * [Apache Kafka](https://kafka.apache.org/)
-* [MongoDB Atlast](https://www.mongodb.com/cloud/atlas)
+* [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 * [Databricks Community Edition for Apache Spark](https://databricks.com/try-databricks)
 * [ElasticSearch](https://www.elastic.co/)
 * [Apache Hadoop](https://hadoop.apache.org)

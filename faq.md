@@ -17,6 +17,8 @@ No. We do not impose any lecture/tutorial participation rules. In principle, you
 
 Assignment/project work is independent at the moment. Thus you can complete the course without teamwork as long as you obtain enough marks from your assignments. Note that you may be required to be in person to explain your assignments.
 
+Also pay attention of [the severity of academic violations](violations.md)
+
 ### Can I complete the course successful without lecture/tutorial participation?
 
 No one knows except you. The course requires both theoretical and engineering understandings of big data platforms but also requires a lot of effort on design, implementation and testing of some key concepts in big data platforms. Lectures/tutorials guide your way but at the end you need to touch a lot of hands-on of real world systems. Having good exchanges and discussions with others can help you to speed up your study.

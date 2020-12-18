@@ -9,6 +9,7 @@ This GIT hosts material for [the course Big Data Platforms](https://mycourses.aa
  * [Some homeworks](homeworks/)
  * [Hands-on tutorials](tutorials/) and [some videos of tutorials](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?pid=abe8790b-7477-458f-88db-abf400b2264d)
  * [Computing Infrastructures](computinginfrastructures.md)
+ * [Academic Violations](violations.md)
 
 
  Note that: *Examples and hands-on codes are written in the most simple way for educational purposes.*

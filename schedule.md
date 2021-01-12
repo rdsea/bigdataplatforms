@@ -10,7 +10,7 @@ Notes:
 
 Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 --------|--------------|-------|---------
-13.01   |Lecture 1  | Introduction to Big Data Platforms | **Linh Truong**
+13.01   |Lecture 1  | [Introduction to Big Data Platforms](lecturenotes/pdfs/module0-lecture1-0-intro-v0.2.pdf) | **Linh Truong**
 14.01   |Tutorial 1 | [Some industrial and open source big data platforms for Your tech radar](lecturenotes/pdfs/tutorial-walkaround-techradar-v0.2.pdf)| **Linh Truong**
 20.01   |Lecture 2|Architecting Big Data Platforms| **Linh Truong**
 21.01   |Meetup 1 | A taste of Big Data Platforms | **Rohit Raj**, Amanda Chen, Eljon Harlicaj (from the student view)

@@ -1,4 +1,4 @@
-# Free Dataset for Practices
+# Free Datasets for Practices
 
 ## Open Datasets
 There are many open datasets that you can download for practicing activities in big data platforms. It is suggested that you focus on a single domain and use the data to perform the work in the course
@@ -7,6 +7,7 @@ There are many open datasets that you can download for practicing activities in 
   - [COVID-19 dataset from Google](https://console.cloud.google.com/marketplace/details/bigquery-public-datasets/covid19-public-data-program)
     - Also check [the code for this open data set](https://github.com/GoogleCloudPlatform/covid-19-open-data)
   - [COVID-19 dataset from EU](https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data)
+    - Also [Various links to COVID-19 data](https://www.ecdc.europa.eu/en/covid-19/data)
 
 * Mobility/Transportation
   - Telecom Italia, Telecommunications - SMS, Call, Internet - TN: [Source 1](https://dandelion.eu/datamine/open-big-data/) and [Source 2](http://aris.me/contents/teaching/data-mining-2015/project/BigDataChallengeData.html), also [check the paper](https://www.nature.com/articles/sdata201555.pdf)

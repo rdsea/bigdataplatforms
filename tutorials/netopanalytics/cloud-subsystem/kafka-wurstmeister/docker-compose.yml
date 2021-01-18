@@ -1,0 +1,15 @@
+zookeeper_1:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    build: kafka-jmx-enabled/.
+    ports:
+      - "9092"
+      - "7071"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 195.148.20.12
+      KAFKA_ZOOKEEPER_CONNECT: 195.148.20.12:2181
+      KAFKA_OPTS: -javaagent:/usr/app/jmx_prometheus_javaagent.jar=7071:/usr/app/prom-jmx-agent-config.yml
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock

@@ -1,0 +1,31 @@
+# @framework: SEAFramework
+# @sub-system: cloud
+# @type: database
+version: '2'
+services:
+  cassandra-seed:
+    container_name: cassandra-seed-node
+    build: build/.
+    environment: 
+      - LOCAL_JMX=no
+      - JVM_EXTRA_OPTS=-Djava.rmi.server.hostname=127.0.0.1
+    ports:
+      - "9042:9042"   # Native transport
+      - "7199:7070"   # JMX
+      - "9160:9160"   # Thrift clients
+
+  cassandra-node-1:
+    image: cassandra:3.11.0
+    command: /bin/bash -c "echo 'Waiting for seed node' && sleep 30 && /docker-entrypoint.sh cassandra -f"
+    environment:
+      - "CASSANDRA_SEEDS=cassandra-seed-node"
+    depends_on:
+      - "cassandra-seed"
+
+  cassandra-node-2:
+    image: cassandra:3.11.0
+    command: /bin/bash -c "echo 'Waiting for seed node' && sleep 80 && /docker-entrypoint.sh cassandra -f"
+    environment:
+      - "CASSANDRA_SEEDS=cassandra-seed-node"
+    depends_on:
+      - "cassandra-seed"

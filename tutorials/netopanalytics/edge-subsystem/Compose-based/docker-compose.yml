@@ -1,0 +1,28 @@
+version: "3.0"
+services:
+  vmq-main:
+      image: vernemq/vernemq
+      ports:
+        - 1883:1883
+        - 8888:8888
+      environment:
+        - "DOCKER_VERNEMQ_ACCEPT_EULA=yes"
+        - "DOCKER_VERNEMQ_ALLOW_ANONYMOUS=on"
+    vmq-secondary:
+      image: vernemq/vernemq
+      environment:
+        - "DOCKER_VERNEMQ_ACCEPT_EULA=yes"
+        - "DOCKER_VERNEMQ_DISCOVERY_NODE=vmq-main"
+    broker_log_writer:
+        build: "broker_logger/."
+        depends_on: 
+          - broker
+        volumes:
+          - "./logs/subscription logs/:/logger/log"
+        entrypoint: ["python3", "mqtt_client.py", "broker", "1883"]
+    mini-batch-converter:
+        build: "mini-batch-converter/."
+        depends_on:
+          - broker
+        # converter.py params: broker address, broker_port, broker_name, batch_intervals, kafka_brokers_address
+        entrypoint: ["python3", "converter.py", "broker", "1883", "4", "10", "192.168.1.12:32812,192.168.1.12:32814"]        

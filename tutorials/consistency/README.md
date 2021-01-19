@@ -5,8 +5,11 @@ Last modified: 02.10.2019
 The goal of this tutorial is to study consistency support in big databases through the case of Cassandra. The focus is on understanding the consistency features provided by the systems and programmed by the developer and how they influence performance and data accuracy.
 >We can only play with simple examples during the tutorial and you should conduct further hands-on to understand this subject.
 
-Try to read this one in advance:
-*  [Cassandra consistency](https://docs.datastax.com/en/ddac/doc/datastax_enterprise/dbInternals/dbIntConfigConsistency.html)
+Try to practice and read the following works in advance:
+* [Basic Cassandra tutorial](../basiccassandra/README.md)
+* [Cassandra consistency](https://docs.datastax.com/en/ddac/doc/datastax_enterprise/dbInternals/dbIntConfigConsistency.html)
+
+The consistency level is associated with an operation (e.g. a query). It is based on *the replication_factor configured*(the number of replicas per data items) and *the available nodes* at runtime.
 
 ## 1. Setup Cassandra
 The Cassandra under test is setup in Google Cloud Platform with 5 nodes, using [Bitnami Cassandra images](https://docs.bitnami.com/google/infrastructure/cassandra/). In this tutorial we have three nodes for accessing from outside the cluster:
@@ -78,7 +81,7 @@ Using **cqlsh**
 mybdp@cqlsh>SELECT * from tutorial12345.bird1234;
 ```
 
-#### Access data from another Aassandra node
+#### Access data from another Cassandra node
 Assume that you open a new terminal and connect to the cluster using **Node2** or **Node3**:
 
 ```

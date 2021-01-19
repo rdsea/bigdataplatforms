@@ -71,6 +71,7 @@ Use nodetool to check Cassandra nodes in different data centers.
        'replication_factor' : 3
       };
     ```
+>Here you should see the replication_factor set to **3**. It means that given a data item, a row in a table, the data item will be replicated into **3** nodes. Consider our test with a system of three nodes, it means a data item will be available at all nodes.
 5. Let's create a table named _bird1234_ inside this keyspace
     ```
     $CREATE TABLE tutorial12345.bird1234 (
@@ -105,7 +106,7 @@ Use nodetool to check Cassandra nodes in different data centers.
     ```
 11. Repeat steps 1, 3 and 7 for this container. You should get the same data
 
->This shows that the data was correctly replicated across all our nodes and configuration was correct. Apache Cassandra has a lot of different configurations that were not covered in this tutorial and these can be found in cassandra's [documentation](https://cassandra.apache.org/doc/latest/configuration/index.html).
+>Remember that we have **replication_factor==3** so a data item is replicated in 3 nodes. This shows that the data was correctly replicated across all our nodes and configuration was correct. Apache Cassandra has a lot of different configurations that were not covered in this tutorial and these can be found in cassandra's [documentation](https://cassandra.apache.org/doc/latest/configuration/index.html).
 
 ## Practices
 

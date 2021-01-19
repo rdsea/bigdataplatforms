@@ -2,7 +2,7 @@
 Last modified: 18.09.2019
 By Linh Truong(linh.truong@aalto.fi)
 
->This homework is not graded. We encourage you to participate in [the answer survey for cloud infrastructures and architectures for big data platforms](https://mycourses.aalto.fi/mod/questionnaire/view.php?id=486304).
+>This homework is not graded. 
 
 ## 1 - Using Docker to deploy multiple nodes of MongoDB
 

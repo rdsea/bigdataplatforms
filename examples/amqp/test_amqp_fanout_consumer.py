@@ -5,7 +5,6 @@ Here the data delivery model is fanout
 (many customers can receive the same data)
 see sample code from https://www.rabbitmq.com/getstarted.html
 '''
-import random
 import time
 import pika, os
 import argparse
@@ -19,7 +18,7 @@ amqpLink=os.environ.get('AMQPURL', 'amqp://test:test@localhost')
 params = pika.URLParameters(amqpLink)
 params.socket_timeout = 5
 connection = pika.BlockingConnection(params)
-channel = connection.channel() # start a channel
+channel = connection.channel()
 #for fanout consumer, just get an exclusive queue,
 #the queue name is not important
 result_queue=channel.queue_declare(queue="",exclusive=True)

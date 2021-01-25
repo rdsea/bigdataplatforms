@@ -26,11 +26,13 @@ The exchange type should be "topic"
 '''
 channel.exchange_declare(exchange=args.exchange, exchange_type=args.exchange_type,durable=False)
 #simple load of all data entries
+#try to modify the code to have a better way to read data
+#you can also change the code to handle CSV
 upload_data_records = json.load(open(args.input_data))
 for req_id in range(len(upload_data_records)):
     message = json.dumps(upload_data_records[req_id])
     #asssume a random topic with the default routing + subtopic
-    #e.g., test.json.sub1
+    #e.g., test.json.sub1-test.json.sub5
     random_key =args.routingkey+".sub"+str(random.randint(1,5))
     print(f'Send data with the routing key as  {random_key}')
     print (message)

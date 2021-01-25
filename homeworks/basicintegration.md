@@ -46,7 +46,7 @@ When using MQTT and AMQP as a protocol for transferring data, we will need MQTT/
   - [Tortoise monitoring in Korkeasaari ZOO](https://iot.fvh.fi/downloads/tortoise/)
   - [NYC Taxi Dataset](https://data.cityofnewyork.us/Transportation/2018-Yellow-Taxi-Trip-Data/t29m-gskq)
 * Perform the data transfer, using code examples from
-  - Use the code in [examples](../examples/)
+  - Use the code in [examples](../examples/amqp)
   - Use the code in [Network Operations Analytics tutorial](../tutorials/netopanalytics/sensor-subsystem)
   - Use some MQTT/AMQP code samples in [IoTCloudSamples](https://github.com/rdsea/IoTCloudSamples/tree/master/utils)
 

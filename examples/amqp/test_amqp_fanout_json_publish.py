@@ -4,7 +4,7 @@ Simple data publisher using fanout.
 see sample code from https://www.rabbitmq.com/getstarted.html
 '''
 
-import pika, os, logging, sys, time
+import pika, os, sys, time
 import json
 import argparse
 parser = argparse.ArgumentParser()
@@ -23,12 +23,14 @@ The exchange type should be "fanout"
 '''
 channel.exchange_declare(exchange=args.exchange, exchange_type=args.exchange_type,durable=False)
 #simple load of all data entries
+#try to modify the code to have a better way to read data 
+#you can also change the code to handle CSV
 upload_data_records = json.load(open(args.input_data))
 for req_id in range(len(upload_data_records)):
     message = json.dumps(upload_data_records[req_id])
     print ("Send a data element:")
     print (message)
-    #we use the exchange 
+    #we use the exchange
     channel.basic_publish(exchange=args.exchange,routing_key='',
                       body=message)
     '''

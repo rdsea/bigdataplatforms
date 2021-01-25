@@ -5,7 +5,6 @@ Here the data delivery model is fanout
 (many customers can receive the same data)
 see sample code from https://www.rabbitmq.com/getstarted.html
 '''
-import random
 import time
 import pika, os
 import argparse

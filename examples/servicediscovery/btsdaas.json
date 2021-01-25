@@ -1,7 +1,14 @@
 {
   "name":"btssensor",
   "tags":["bts","sensor"],
-   "port": 8080,
-   "address":"123.123.123.123"
+   "port": 3000,
+   "address":"192.168.2.106",
+   "check": {
+    "id": "api",
+    "name": "HTTP API on port 3000",
+    "http": "http://192.168.2.106:3000/health",
+    "method": "GET",
+    "interval": "10s",
+    "timeout": "1s"
+  }
 }
-

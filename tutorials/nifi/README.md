@@ -31,7 +31,7 @@ cs-e4640-2019/examples/test_amqp_fanout_consumer.py
 
 Google Storage is used as data sink. You can use your own google storage bucket or a common bucket available. You will need a service account credential for configuring Nifi and Google Storage.
 
->for the bucket available during the exercise, you will get a service account credential file from  [the tutorial page of MyCourses](https://mycourses.aalto.fi/mod/page/view.php?id=468357).
+>for the bucket available during the exercise, you will get a service account credential file from  [the tutorial page of MyCourses](https://mycourses.aalto.fi/mod/page/view.php?id=595256).
 >if you use your own storage bucket then create a service account for Nifi
 
 ## Exercises
@@ -42,7 +42,7 @@ Include:
 
 * **ListFile**: is used to list files in a directory. The property **Input Directory** is where input files will be scanned for ingestion
 * **FetchFile**: used to fetch files from **ListFile**
-* **PutGCSObject**: this task is used to store files into Google Storage. To use it, you need to define **GCPCredentialsControllerService**. When you define **GCPCredentialsControllerService** you can use the Google credential accessing to a Google Storage. If you use the predefined Google Storage setup for you, then obtain the information from [the tutorial page of MyCourses](https://mycourses.aalto.fi/mod/page/view.php?id=468357).
+* **PutGCSObject**: this task is used to store files into Google Storage. To use it, you need to define **GCPCredentialsControllerService**. When you define **GCPCredentialsControllerService** you can use the Google credential accessing to a Google Storage. If you use the predefined Google Storage setup for you, then obtain the information from [the tutorial page of MyCourses](https://mycourses.aalto.fi/mod/page/view.php?id=595256).
 
 The following configuration is used with the Google Storage setup for you:
 * **bucket** = **mybdpnifi** (or your own bucket)
@@ -59,7 +59,7 @@ We should test it only with CSVor JSON files of small data. We use the following
 
 * **ListFile**: is used to list files in a directory. The property **Input Directory** is where input files will be scanned for ingestion
 * **FetchFile**: used to fetch files from **ListFile**
-* **PublishAMQP**: used to read content of a file and send the whole content to RabbitMQ. For this component, the configuration is based on an existing RabbitMQ. If you use the pre-defined RabbitMQ, then read the configuration file in [the tutorial page in MyCourses](https://mycourses.aalto.fi/mod/page/view.php?id=468357).
+* **PublishAMQP**: used to read content of a file and send the whole content to RabbitMQ. For this component, the configuration is based on an existing RabbitMQ. If you use the pre-defined RabbitMQ, then read the configuration file in [the tutorial page in MyCourses](https://mycourses.aalto.fi/mod/page/view.php?id=595256).
 
 
 Using the following program to check if the data has been sent to the message broker:

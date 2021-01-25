@@ -2,11 +2,11 @@
   "name":"mongodb",
   "tags":["bdp","sensordata","aalto"],
    "port": 27017,
-   "address":"192.168.2.135",
+   "address":"192.168.2.106",
    "check": {
        "id": "checkmongdo",
        "name": "Mongodb Status",
-       "args": ["/home/truong/myprojects/mygit/cs-e4640-2019/examples/servicediscovery/mongocheck.py"],
+       "args": ["/home/truong/myprojects/mygit/cs-e4640/examples/servicediscovery/mongocheck.py","mongodb://192.168.2.106:27017"],
        "interval": "20s",
        "timeout": "5s"
    }

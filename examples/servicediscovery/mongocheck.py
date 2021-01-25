@@ -2,7 +2,7 @@
 from pymongo import MongoClient
 import sys
 ## Just hardcode
-client = MongoClient("mongodb://localhost:27017/")
+client = MongoClient(sys.argv[1])
 result=client.db_name.command('ping')
 if result is None:
     print("Problem")

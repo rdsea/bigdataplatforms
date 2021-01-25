@@ -4,7 +4,7 @@ The goal is to design simple flows that can be used to ingest data from files by
 
 ## Setup
 ### Apache Nifi
-You can download [Apache Nifi](https://nifi.apache.org/download.html) and install it into your machine. Note that the current Apache Nifi needs Java 8. Check the document to see if a minimum configuration should be made for your installation.
+You can download [Apache Nifi](https://nifi.apache.org/download.html) and install it into your machine. Note that the current Apache Nifi needs Java 8 or 11. Check the document to see if a minimum configuration should be made for your installation.
 
 Start Nifi server
 ```
@@ -18,7 +18,7 @@ http://localhost:8080/nifi
 ### AMQP Broker
 When ingesting data through message brokers, you can use your own RabbitMQ in your local machine or a free instance created from [CloudAMQP.com](https://cloudamqp.com)
 
-We have an instance available for you during the practice.
+>We have an instance available for you during the practice.
 >AMQPURL: 'copy it from mycourses during the practice'
 
 ### Simple program for receiving notification
@@ -29,9 +29,10 @@ cs-e4640-2019/examples/test_amqp_fanout_consumer.py
 
 ### Google Storage
 
-You can use your own google storage bucket or a common bucket available during the exercise:
-* for the bucket available during the exercise, you will get a service account credential file from  [the tutorial page of MyCourses](https://mycourses.aalto.fi/mod/page/view.php?id=468357).
-* if you use your own storage bucket then create a service account for Nifi
+Google Storage is used as data sink. You can use your own google storage bucket or a common bucket available. You will need a service account credential for configuring Nifi and Google Storage.
+
+>for the bucket available during the exercise, you will get a service account credential file from  [the tutorial page of MyCourses](https://mycourses.aalto.fi/mod/page/view.php?id=468357).
+>if you use your own storage bucket then create a service account for Nifi
 
 ## Exercises
 
@@ -67,3 +68,9 @@ $export AMQPURL='the url you have'
 $python3 cs-e4640-2019/examples/test_amqp_fanout_consumer.py --exchange amq.fanout --exchange_type fanout
 ```
 >Note that the AMQP configuration for the python program must match the AMQP broker set in Nifi
+
+## Other practices
+
+* Capture changes in legacy databases and do ingestion to a big data platform
+
+* Transform data with differnt formats.

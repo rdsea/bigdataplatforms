@@ -1,10 +1,10 @@
 # AMQP Samples
 
-Some simple AMQP test programs. There are many examples available in [RabbitMQ website](https://www.rabbitmq.com/getstarted.html).
+This direcoty includes some simple AMQP test programs. There are many examples available in [RabbitMQ website](https://www.rabbitmq.com/getstarted.html).
 
 ## Direct exchange
 
-test_amqp_direct_json_publish.py: publishes json entries in a file to a direct exchange through which  test_amqp_direct_consumer.py can consume the data. Multiple consumers can be used to consume messages from a queue and each message in a queue can only be consumed by a consumer
+A publisher (test_amqp_direct_json_publish.py) publishes json entries in a file to a direct exchange through which  test_amqp_direct_consumer.py can consume the data. Multiple consumers can be used to consume messages from a queue and each message in a queue can only be consumed by a consumer
 ```
 $python test_amqp_direct_json_publish.py --exchange cse4640direct --queuename testdata  --input_data ../../data/companies/test.json
 

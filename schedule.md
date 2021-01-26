@@ -14,8 +14,8 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 14.01   |Tutorial 1 | [Some industrial and open source big data platforms for Your tech radar](lecturenotes/pdfs/tutorial-walkaround-techradar-v0.2.pdf)| **Linh Truong**
 20.01   |Lecture 2|[Architecting Big Data Platforms](lecturenotes/pdfs/module1-lecture2-0-architectingbigplatforms-v0.2.pdf). Additional slides: *[Cloud Infrastructures for Big Data Platforms](lecturenotes/pdfs/module1-lecture2-1-cloudinfrastructuresandservices-v0.2.pdf) and [a Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems](lecturenotes/pdfs/performance-dependability-refresh_Truong.pdf)* | **Linh Truong**
 21.01   |Meetup 1 | [A taste of Big Data Platforms](lecturenotes/pdfs/cs-e4640-meetup-the-tasteofbdp-rohit-raj.pdf) | **Rohit Raj**, Amanda Chen, Eljon Harlicaj (from the student view)
-27.01  |Lecture 3  | Service and Integration Models in Big Data Platforms| **Linh Truong**
-28.01  |Meetup 2   | How to succeed on assignments in Big Data Platforms?| **Amanda Chen**, Rohit Raj, Eljon Harlicaj (from the student experience)
+27.01  |Lecture 3  | [Service and Integration Models in Big Data Platforms](lecturenotes/pdfs/module1-lecture3-0-integrationbdp-v0.2.pdf)| **Linh Truong**
+28.01  |Meetup 2   | [How to succeed on assignments in Big Data Platforms?](lecturenotes/pdfs/BDP_how_to_succeed_assignments.pdf)| **Amanda Chen**, Rohit Raj, Eljon Harlicaj (from the student experience)
 03.02  |Lecture 4  | Big Data Storage and Database Services
 03.02  |   | **Release the first assignment**
 04.02  |Tutorial 2 | Hands-on examples with big database services| **Rohit Raj**, Linh Truong

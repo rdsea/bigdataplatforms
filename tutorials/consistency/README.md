@@ -1,6 +1,5 @@
 # Tutorial on Consistency and Performance
 By Linh Truong
-Last modified: 02.10.2019
 
 The goal of this tutorial is to study consistency support in big databases through the case of Cassandra. The focus is on understanding the consistency features provided by the systems and programmed by the developer and how they influence performance and data accuracy.
 >We can only play with simple examples during the tutorial and you should conduct further hands-on to understand this subject.

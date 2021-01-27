@@ -3,8 +3,9 @@
 The goal of this tutorial is to examine some features of the Hadoop software system, mainly with HDFS, YARN and Hive.
 
 ## 1. The Hadoop system for the tutorial
-We have already setup a hadoop system for testing using [Google DataProc](https://cloud.google.com/dataproc/).
-
+You can setup a Hadoop system by yourself or use our setup for practices.
+> Check [the document of Hadoop](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html)
+We have  setup a hadoop system for testing using [Google DataProc](https://cloud.google.com/dataproc/).
 In order to access the the system for the tutorial, we have open ssh connections for you. You will need:
 
 * **USER_NAME**: *will let you know*

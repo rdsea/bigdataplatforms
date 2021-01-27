@@ -24,7 +24,7 @@ When ingesting data through message brokers, you can use your own RabbitMQ in yo
 ### Simple program for receiving notification
 We have a simple python code that can be used for receiving messages sent to AMQP (using fanout), e.g.,
 ```
-cs-e4640-2019/examples/test_amqp_fanout_consumer.py
+cs-e4640-2019/examples/amqp/test_amqp_fanout_consumer.py
 ```
 
 ### Google Storage
@@ -65,7 +65,7 @@ We should test it only with CSVor JSON files of small data. We use the following
 Using the following program to check if the data has been sent to the message broker:
 ```
 $export AMQPURL='the url you have'
-$python3 cs-e4640-2019/examples/test_amqp_fanout_consumer.py --exchange amq.fanout --exchange_type fanout
+$python3 cs-e4640-2019/examples/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout --exchange_type fanout
 ```
 >Note that the AMQP configuration for the python program must match the AMQP broker set in Nifi
 

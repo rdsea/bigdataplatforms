@@ -12,6 +12,7 @@ There are many open datasets that you can download for practicing activities in 
 * Mobility/Transportation
   - Telecom Italia, Telecommunications - SMS, Call, Internet - TN: [Source 1](https://dandelion.eu/datamine/open-big-data/) and [Source 2](http://aris.me/contents/teaching/data-mining-2015/project/BigDataChallengeData.html), also [check the paper](https://www.nature.com/articles/sdata201555.pdf)
   - [NYC Taxi Dataset](https://data.cityofnewyork.us/Transportation/2018-Yellow-Taxi-Trip-Data/t29m-gskq)
+    - Also: https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page
   - [Chicago Taxi Dataset](https://data.cityofchicago.org/Transportation/Taxi-Trips/wrvz-psew)
 * Animals and Wildlife monitoring
   - [Tortoise monitoring in Korkeasaari ZOO](https://iot.fvh.fi/downloads/tortoise/)
@@ -21,6 +22,7 @@ There are many open datasets that you can download for practicing activities in 
 * Marketplace
   - [Airbnb Dataset](http://insideairbnb.com/get-the-data.html)
 * Environment Monitoring/Smart City
+  - [Open data about air quality monitoring from Germany](https://github.com/opendata-stuttgart/meta/wiki/EN-APIs)
   - [UK Open Government Water Quality](https://environment.data.gov.uk/water-quality/view/landing)
 
 

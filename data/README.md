@@ -32,7 +32,8 @@ When using these datasets, you need to comply with their corresponding licenses.
 
 The datasets are stored within this directory and provided by [Linh Truong](https://users.aalto.fi/~truongh4/) for the course. Keep in mind the license of the data.
 
-* bts data: in *bts*, samples of sensor data monitored within base transceiver stations
+* bts data: in [bts](bts/README.md), samples of sensor data monitored within base transceiver stations
+* network operation monitoring: in [onudata](onudata/README.md), a small dataset about network monitoring
 
 ## Your own datasets
 

@@ -18,7 +18,7 @@ The Cassandra under test is setup in Google Cloud Platform with 5 nodes, using [
 * **Node3**: IP address to be obtained during the tutorial
 
 You need a username and password to access Cassandra:
-* username: **mybdp**
+* username: *will let you know*
 * password: *will let you know*
 
 You need to make sure that **cqlsh** and Cassandra Python Driver (as we use some python code examples) are installed in your machine:
@@ -37,6 +37,8 @@ We use the data set [Avian Vocalizations from CA & NV, USA](https://www.kaggle.c
 >If you dont use the python sample programs, you can also use other datasets, as long as you follow *CQL* samples by adapting them for your data.
 
 ## 3. Exercise Steps
+
+In the following steps, we assume that the user name is **mybdp**.
 
 ### 3.1 Create a keyspace
 Login into Cassandra using *cqlsh*:
@@ -128,7 +130,7 @@ mybdp@cqlsh>SELECT * from tutorial12345.bird1234;
 The analyzing the trace to understand how Cassandra handles queries
 
 Note:
-> You can capture log of the trace for later study by using CAPUTE:
+> You can capture log of the trace for later study by using CAPTURE:
 > cqlsh> CAPTURE
 > cqlsh> CAPTURE '/home/yourhome/cse4640-trace.csv';
 
@@ -149,9 +151,19 @@ What do you see, compared with a similar query from other nodes.
 
 Change the level of consistency in the code and see if it affects the performance.
 ```
-python3 test_consistency_write.py --host [node1|2|3] --u mybdp --p [password]
+python3 test_consistency_write.py --hosts "node1,node2,node3" --u mybdp --p [password]
 ```
 Check if you program works.
+
+>Note: you can also modify the code:
+
+```
+cluster = Cluster(hosts,port=9042,auth_provider=auth_provider)
+```
+by replacing **host** with
+```
+[node1,node2,node3]
+```
 
 #### At the same time, read data with ONE, QUORUM, or ALL consistency level
 
@@ -196,16 +208,9 @@ If you repeat the above-mentioned examples with **CONSISTENCY TWO**, what do you
 
 ## 3.5 Test if nodes in the cluster fail
 
-Assume that the node you connect fails, now modify the code:
+Assume that the node you connect fails, try to connect to different hosts. What do you get?
 
-```
-cluster = Cluster([args.host],port=9042,auth_provider=auth_provider)
-```
-by replacing **[args.host]** with
-```
-[node1,node2,node3]
-```
-What do you get?
+
 
 ## 4. Some References
 

@@ -25,7 +25,7 @@ if __name__ == "__main__":
     #input 1
     '''
     input= """
-    INSERT INTO tutorial02149.bird1234 (country, duration_seconds, english_cname, id,  species, latitude, longitude)
+    INSERT INTO tutorial3.bird1234 (country, duration_seconds, english_cname, id,  species, latitude, longitude)
     VALUES
     ('Mexico',29,'Black-tailed Gnatcatcher',71907,'melanura',32.156,-115.79299999999999)
     ;
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     '''
     #input 2
     input2 = """
-    INSERT INTO tutorial02149.bird1234 (country, duration_seconds, english_cname, id,species)
+    INSERT INTO tutorial3.bird1234 (country, duration_seconds, english_cname, id,species)
     VALUES
     ('United States',6,'Black-tailed Gnatcatcher',361929,'melanura')
     ;

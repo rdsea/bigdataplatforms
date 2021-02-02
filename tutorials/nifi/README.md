@@ -73,4 +73,4 @@ $python3 cs-e4640-2019/examples/amqp/test_amqp_fanout_consumer.py --exchange amq
 
 * Capture changes in legacy databases and do ingestion to a big data platform
 
-* Transform data with differnt formats.
+* Transform data with different formats.

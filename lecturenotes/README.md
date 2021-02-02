@@ -9,3 +9,6 @@
 * A taste of Big Data Platforms:[Slides](pdfs/cs-e4640-meetup-the-tasteofbdp-rohit-raj.pdf)
 * Service and Integration Models in Big Data Platforms:[Slides](pdfs/module1-lecture3-0-integrationbdp-v0.2.pdf)
 * How to succeed on assignments in Big Data Platforms?:[Slides](pdfs/BDP_how_to_succeed_assignments.pdf)
+* Big Data Storage and Database Services: [Slides](pdfs/module2-lecture4-bigdatastoragedatabase-v0.2.pdf).
+* Addition for Big Data Storage and Database Services: common systems & integration problems: [Slides](pdfs/module2-lecture4-bigdatastoragedatabase-addition-v0.2.pdf).
+* A short example of metadata: [Video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)

@@ -16,7 +16,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 21.01   |Meetup 1 | [A taste of Big Data Platforms](lecturenotes/pdfs/cs-e4640-meetup-the-tasteofbdp-rohit-raj.pdf) | **Rohit Raj**, Amanda Chen, Eljon Harlicaj (from the student view)
 27.01  |Lecture 3  | [Service and Integration Models in Big Data Platforms](lecturenotes/pdfs/module1-lecture3-0-integrationbdp-v0.2.pdf)| **Linh Truong**
 28.01  |Meetup 2   | [How to succeed on assignments in Big Data Platforms?](lecturenotes/pdfs/BDP_how_to_succeed_assignments.pdf)| **Amanda Chen**, Rohit Raj, Eljon Harlicaj (from the student experience)
-03.02  |Lecture 4  | Big Data Storage and Database Services
+03.02  |Lecture 4  | [Big Data Storage and Database Services](lecturenotes/pdfs/module2-lecture4-bigdatastoragedatabase-v0.2.pdf). Additional slides: [common systems & integration problems](lecturenotes/pdfs/module2-lecture4-bigdatastoragedatabase-addition-v0.2.pdf). and [A short example of metadata](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)
 03.02  |   | **Release the first assignment**
 04.02  |Tutorial 2 | Hands-on examples with big database services| **Rohit Raj**, Linh Truong
 10.02  |Lecture 5 | Big Data Ingestion | **Linh Truong**

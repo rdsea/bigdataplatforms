@@ -18,7 +18,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 28.01  |Meetup 2   | [How to succeed on assignments in Big Data Platforms?](lecturenotes/pdfs/BDP_how_to_succeed_assignments.pdf)| **Amanda Chen**, Rohit Raj, Eljon Harlicaj (from the student experience)
 03.02  |Lecture 4  | [Big Data Storage and Database Services](lecturenotes/pdfs/module2-lecture4-bigdatastoragedatabase-v0.2.pdf). Additional slides: [common systems & integration problems](lecturenotes/pdfs/module2-lecture4-bigdatastoragedatabase-addition-v0.2.pdf). and [A short example of metadata](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)
 03.02  |   | **Release the first assignment**
-04.02  |Tutorial 2 | Hands-on examples with big database services| **Rohit Raj**, Linh Truong
+04.02  |Tutorial 2 | [Hands-on examples with big database services](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/consistency)| **Rohit Raj**, Linh Truong
 10.02  |Lecture 5 | Big Data Ingestion | **Linh Truong**
 11.02  |Tutorial 3 | Data Ingestion with Apache Nifi| **Eljon Harlicaj**, Linh Truong
 08-12.02  |Meetup 3 |Issues in timeseries data ingestion| **Tri Nguyen**, Rohit Raj, Linh Truong

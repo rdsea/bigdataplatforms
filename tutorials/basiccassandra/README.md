@@ -6,6 +6,7 @@
 This instructions assume that you have [docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/) installed in your machine. You should also have at least 2GB of available RAM.
 
 We use the data set [Avian Vocalizations from CA & NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa). However, we only use the metadata from the CSV file. Furthermore, we extract only a few fields.[A sample of extracted data is here](../consistency/sampledata.csv).
+> There is a very good set of [exercises for basic data tasks](https://gist.github.com/jeffreyscarpenter/761ddcd1c125dfb194dc02d753d31733). You can use it to practice your work. We use the Avian example due to its large-scale nature.
 
 ## Configuring Cassandra cluster in a container
 

@@ -24,6 +24,7 @@ You need a username and password to access Cassandra:
 You need to make sure that **cqlsh** and Cassandra Python Driver (as we use some python code examples) are installed in your machine:
 
 * Download [Cassandra](http://cassandra.apache.org/) and install it. The **cqlsh** is in the **bin** directory.
+>You can also use the cqlsh provided by **cassandra** container by running ```$docker run -it cassandra cqlsh [host] -u [username] -p [password]```
 * Check Cassandra [Python Driver installation](https://github.com/datastax/python-driver):
 
 ```

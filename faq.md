@@ -13,7 +13,7 @@ We can talk a lot during the course but here some facts:
 
 No. We do not impose any lecture/tutorial participation rules. In principle, you can complete the course without lecture/tutorial participation. It is however important that you should join lectures and tutorials where we can have face-to-face discussions. At the moment, we do not plan to record lectures and tutorials. Note that you may be required to be in person to explain your assignments.
 
-### Is assignment/project independent work so that I dont have to team up with other students?
+### Is the assignment/project independent work so that I dont have to team up with other students?
 
 Assignment/project work is independent at the moment. Thus you can complete the course without teamwork as long as you obtain enough marks from your assignments. Note that you may be required to be in person to explain your assignments.
 
@@ -26,10 +26,17 @@ No one knows except you. The course requires both theoretical and engineering un
 
 ### I am a student from the business school, do I need to spend a lot of time to design and implement stuffs in big data platforms?
 
-Unfortunately, to understand big data platforms, we need to work on design, development, testing and operation aspects. While, business school students can focus more on utilizing big data platforms for running analytics, we require all students to understand big data platforms from a holistic view.
+Unfortunately, to understand big data platforms, we need to work on design, development, testing and operation aspects. While, business school students can focus more on utilizing big data platforms for running analytics, we require all students to understand big data platforms from a holistic view in this course.
 
-### Can I learn the course without knowning cloud computing?
-Cloud computing is an important background as our big data platforms rely on cloud technologies (not necessarily requires specific cloud providers). If you dont know cloud computing, you should learn cloud computing at the same time, e.g. from Mobile & Cloud Computing course.
+### Can I learn the course without knowing cloud computing?
+Cloud computing is an important background as our big data platforms rely on cloud technologies (not necessarily requires specific cloud providers). If you dont know cloud computing, you should learn cloud computing at the same time, e.g. from Cloud Computing course.
+
+### Which are the key backgrounds for being successful in this course?
+
+This course is an advanced one in the core computer science study thus key backgrounds from computer science are
+* Distributed systems, especially consistency, replication, and distributed computing infrastructures (with cloud computing models)
+* Basic databases and data modeling
+* Programming in distributed systems (e.g., develop web services, concurrent programs)
 
 ### Can I use my own dataset (e.g. from my company) for exercises/assignments?
 

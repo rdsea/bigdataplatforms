@@ -72,7 +72,7 @@ We should test it only with CSVor JSON files of small data. We use the following
 	virtual host: mpbhjjsn
 	username: <see below>
 	password: <see below>
-	
+
 	```
 	(AMQP user/psw) []
 * If you are using your own RabbitMQ, then you have to create a queue and set the binding from routing key to queue. Check [this] (https://www.tutlane.com/tutorial/rabbitmq/rabbitmq-bindings) for help.
@@ -86,7 +86,7 @@ $python3 cs-e4640/examples/amqp/test_amqp_fanout_consumer.py --exchange amq.fano
 >Note that the AMQP configuration for the python program must match the AMQP broker set in Nifi
 
 
-## Capture changes in legacy databases and do ingestion to a big data platform
+### Capture changes in legacy databases and do ingestion to a big data platform
 
 Now we will read data from a SQL database (assume this is a legacy database). First step in to collect the relavant connector that Nifi uses to comunicate with SQL instances:
 
@@ -114,11 +114,11 @@ Now we will read data from a SQL database (assume this is a legacy database). Fi
 	Database password: <see below>
 	```
 	[DBCPConnectionPool credentials] ()
-	
-	
+
+
 3. **QueryDatabaseTable processor** use a Avro data format, we need to define a **SplitAvro** processor in order to get single row entries
 4. After splitting, we nee to convert each entry into JSON with **ConvertAvroToJSON**
-5. Now we need to split the JSON, we want single row entries **SplitJSON** 
+5. Now we need to split the JSON, we want single row entries **SplitJSON**
 6. In order to get out key-value pairs, we can use **EvaluateJsonPath**
 
 	```console
@@ -145,8 +145,8 @@ Now we will read data from a SQL database (assume this is a legacy database). Fi
 
 	```console
 	Script Engine: python
-	Script body: <see below> 
-	``` 
+	Script body: <see below>
+	```
 Python script:
 
 	```console
@@ -157,12 +157,12 @@ Python script:
 	from org.apache.commons.io import IOUtils
 	from org.apache.nifi.processor.io import StreamCallback
 	from org.python.core.util import StringUtil
-	
-	
+
+
 	class TransformCallback(StreamCallback):
 	    def __init__(self):
 	        pass
-	
+
 	    def process(self, inputStream, outputStream):
 	        try:
 	            # Read input FlowFile content
@@ -176,29 +176,29 @@ Python script:
 	        except:
 	            traceback.print_exc(file=sys.stdout)
 	            raise
-	
-	
+
+
 	flowFile = session.get()
 	if flowFile != None:
 	    flowFile = session.write(flowFile, TransformCallback())
-	
+
 	    # Finish by transferring the FlowFile to an output relationship
 	session.transfer(flowFile, REL_SUCCESS)
 	```
-	
-10. Now, as in the first example, we can define **ListFile**, **FetchFile** and **PutCSObject** to automatically store all the updates to a legacy database in a Google storage in csv format. 
+
+10. Now, as in the first example, we can define **ListFile**, **FetchFile** and **PutCSObject** to automatically store all the updates to a legacy database in a Google storage in csv format.
 
 
-## Conclusios
+## Conclusions
 
 Now you have an overview on the vast capabilities of Apache Nifi. We suggest you try to define simple data-flow in order to make some practice.
 
-### Challenge:
+## Challenge:
 
 Write a flow that:
 
 1. Collect malware sample from git or vendors ftp servers
-	* Less funny, change malware with images 
+	* Less funny, change malware with images
 2. Process the sampes:
 	* Get MD5 hash
 	* Get binary name
@@ -206,3 +206,7 @@ Write a flow that:
 3. Create a csv entry containing hash,name,size
 4. Merge all entries in a single file
 5. Store the file to your own Google storage
+
+## Authors
+Eljon Harlicaj
+Linh Truong

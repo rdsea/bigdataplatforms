@@ -21,7 +21,7 @@ channel = connection.channel()
 '''
 The exchange type should be "fanout"
 '''
-channel.exchange_declare(exchange=args.exchange, exchange_type=args.exchange_type,durable=False)
+channel.exchange_declare(exchange=args.exchange, exchange_type=args.exchange_type,durable=True)
 #simple load of all data entries
 #try to modify the code to have a better way to read data 
 #you can also change the code to handle CSV

@@ -12,3 +12,6 @@
 * Big Data Storage and Database Services: [Slides](pdfs/module2-lecture4-bigdatastoragedatabase-v0.2.pdf).
 * Addition for Big Data Storage and Database Services: common systems & integration problems: [Slides](pdfs/module2-lecture4-bigdatastoragedatabase-addition-v0.2.pdf).
 * A short example of metadata: [Video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)
+* Issues in timeseries data: [Slides](pdfs/cs-e4640-tringuyen-timeserie-data-ingestion.pdf)
+* Big data ingestion: [Slides](pdfs/module2-lecture5-ingestionandtransformation-v0.2.pdf)
+* Streaming Data Ingestion with Apache Kafka: [Slides](pdfs/module2-lecture5-apachekafka.pdf), [basic Kafka setup](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/basickafka) and [examples of data ingestion with Kafka](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/cloud-data-pipeline)

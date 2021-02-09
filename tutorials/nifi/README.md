@@ -48,8 +48,8 @@ The following configuration is used with the Google Storage setup for you:
 * Then enable **GCPCredentialsControllerService**
 
 
-Gcloud service account:
-[Google cloud service account] ()
+>Gcloud service account for practice:
+[Google cloud service account](https://mycourses.aalto.fi/mod/page/view.php?id=595256)
 
 Testing:
 
@@ -58,7 +58,7 @@ Testing:
 
 #### Define a flow for ingesting data via AMQP
 
-We should test it only with CSVor JSON files of small data. We use the following components:
+We should test it only with CSV or JSON files of small data. We use the following components:
 
 * **ListFile**: is used to list files in a directory. The property **Input Directory** is where input files will be scanned for ingestion
 * **FetchFile**: used to fetch files from **ListFile**
@@ -74,8 +74,9 @@ We should test it only with CSVor JSON files of small data. We use the following
 	password: <see below>
 
 	```
-	(AMQP user/psw) []
-* If you are using your own RabbitMQ, then you have to create a queue and set the binding from routing key to queue. Check [this] (https://www.tutlane.com/tutorial/rabbitmq/rabbitmq-bindings) for help.
+	> [Get AMQP username/password for practice](https://mycourses.aalto.fi/mod/page/view.php?id=595256)
+
+  > If you are using your own RabbitMQ, then you have to create a queue and set the binding from routing key to queue. Check [this](https://www.tutlane.com/tutorial/rabbitmq/rabbitmq-bindings) for help.
 
 Using the following program to check if the data has been sent to the message broker:
 
@@ -113,7 +114,7 @@ Now we will read data from a SQL database (assume this is a legacy database). Fi
 	Database user: <see below>
 	Database password: <see below>
 	```
-	[DBCPConnectionPool credentials] ()
+>[DBCPConnectionPool credentials](https://mycourses.aalto.fi/mod/page/view.php?id=595256)
 
 
 3. **QueryDatabaseTable processor** use a Avro data format, we need to define a **SplitAvro** processor in order to get single row entries

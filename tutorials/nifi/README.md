@@ -80,7 +80,7 @@ We should test it only with CSVor JSON files of small data. We use the following
 Using the following program to check if the data has been sent to the message broker:
 
 ```console
-$export AMQPURL=amqps://mpbhjjsn:CjZiBfQq_D-K1rKQQZMOt9ChHBTjtqKd@hawk.rmq.cloudamqp.com/mpbhjjsn
+$export AMQPURL=**Get the link from Mycourses**
 $python3 cs-e4640/examples/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
 ```
 >Note that the AMQP configuration for the python program must match the AMQP broker set in Nifi

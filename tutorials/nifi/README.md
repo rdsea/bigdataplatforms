@@ -126,8 +126,8 @@ Now we will read data from a SQL database (assume this is a legacy database). Fi
 
 3. **QueryDatabaseTable processor** use a Avro data format, we need to define a **SplitAvro** processor in order to get single row entries
 4. After splitting, we nee to convert each entry into JSON with **ConvertAvroToJSON**
-5. Now we need to split the JSON, we want single row entries **SplitJSON**
-6. In order to get out key-value pairs, we can use **EvaluateJsonPath**
+
+5. In order to get out key-value pairs, we can use **EvaluateJsonPath**
 
 	```console
 	Destination: flowfile-attribute
@@ -139,17 +139,17 @@ Now we will read data from a SQL database (assume this is a legacy database). Fi
 	Name: $.Name
 	Surname: $.Surname
 	```
-7. Now we want to change the file name (i.e: we want all entries in the same output file) **UpdateAttribute**:
+6. Now we want to change the file name (i.e: we want all entries in the same output file) **UpdateAttribute**:
 
 	```console
 	filename: UpdateFiles.csv
 	```
-8. Now, we want to change the format of the file to comma separated stirng **ReplaceText**:
+7. Now, we want to change the format of the file to comma separated stirng **ReplaceText**:
 
 	```console
 	Replacement Value: ${'id'},${'Name'},${'Surname'},${'Company'}
 	```
-9. In this step we are going to use a new processor **ExecuteScript**. The script will create (or append to) a file where we will put all csv rows. Unfortunately, Nifi doesn't have a simple option for appending to file.
+8. In this step we are going to use a new processor **ExecuteScript**. The script will create (or append to) a file where we will put all csv rows. Unfortunately, Nifi doesn't have a simple option for appending to file.
 
 	```console
 	Script Engine: python
@@ -194,7 +194,7 @@ Python script:
 	session.transfer(flowFile, REL_SUCCESS)
 	```
 
-10. Now, as in the first example, we can define **ListFile**, **FetchFile** and **PutCSObject** to automatically store all the updates to a legacy database in a Google storage in csv format.
+9. Now, as in the first example, we can define **ListFile**, **FetchFile** and **PutCSObject** to automatically store all the updates to a legacy database in a Google storage in csv format.
 
 
 ## Conclusions

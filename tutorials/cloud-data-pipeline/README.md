@@ -54,6 +54,22 @@ In addition, we also have Kafka message consumer code for debugging purposes in 
 * Figure 1: Workflow and architecture of cloud pipeline sub-systems
 
 ---
+### Create the secret.env file
+The sensitive parameters (such as password) are passed through `secrets.env` file. Create a `secrets.env` file in the base directory. The secrets.env file for this project looks like:
+```
+# MongoDB init creds
+MONGO_INITDB_ROOT_USERNAME=root
+MONGO_INITDB_ROOT_PASSWORD=password
+
+# Mongo express creds
+ME_CONFIG_MONGODB_ADMINUSERNAME=root
+ME_CONFIG_MONGODB_ADMINPASSWORD=password
+
+# ingestor creds
+MONGO_USERNAME=root
+MONGO_PASSWORD=password
+```
+
 ### Running the Kafka
 To run the cloud pipeline service, we need to perform the following:
 

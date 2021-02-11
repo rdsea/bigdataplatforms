@@ -1,6 +1,7 @@
 # Data Ingestion with Apache Nifi
 
-The goal is to design simple flows that can be used to ingest data from files by copying and moving files as well as using brokers to send file contents.
+The goal is to design simple flows with basic tasks of data ingestion to understand the concepts/techniques of big data ingestions and how they are implemented in Apache Nifi. A second goal is to see if you can use Apache Nifi for your work in big data and data science.
+
 
 ## Setup
 ### Apache Nifi
@@ -48,13 +49,19 @@ The following configuration is used with the Google Storage setup for you:
 * Then enable **GCPCredentialsControllerService**
 
 
->Gcloud service account for practice:
+>Gcloud service account for practice in CS-E4640 2021:
 [Google cloud service account](https://mycourses.aalto.fi/mod/page/view.php?id=595256)
 
 Testing:
 
 * Copy some files into the directory specified in **Input Directory** prototype of **ListFile**
 
+>If you use a shared bucket with a service account, you can also use some programs to list contents of the bucket. For example, first download https://github.com/GoogleCloudPlatform/python-docs-samples/blob/master/storage/cloud-client/storage_list_files.py and  store the google service json to a file: e.g., google.json
+```
+$export GOOGLE_APPLICATION_CREDENTIALS=google.json
+$python3 storage_list_files.py bdplabnifi
+```
+> see sample code in https://cloud.google.com/storage/docs/reference/libraries#client-libraries-install-python
 
 #### Define a flow for ingesting data via AMQP
 

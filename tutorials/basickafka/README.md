@@ -84,6 +84,7 @@ Topic: my-replicated-topic	Partition: 0	Leader: 2	Replicas: 2,1,0	Isr: 0,2,1
 ### Step4: Writing kafka producer and consumer
 A simple script on how to start Kafka producers and consumers from the terminal is given in Step 4 and Step 5 in the [Quickstart guide](https://kafka.apache.org/quickstart).
 
+---
 # Running Kafka from container
 There are two ways to run Kafka from a container. One is to get the image from [docker hub](https://hub.docker.com/) and then
 on the terminal write (in this case I'm using bitnami/kafka image):
@@ -114,9 +115,18 @@ we will assume that the file is saved as docker-compose.yml in a folder named ka
     ```
 If all went well, you should see the text *Created topic test* on your terminal.
 
+---
+
 # Configuring Kafka cluster in a container
 ## Starting and inspecting the containers
-Running a Kafka cluster in a container is different from running a single instance as many environment variables have to be configured. The deocker-compose file for the services is *docker-compose3.yml*. On the terminal
+We will be using a docker-compose file for for setting up a multi-broker cluster.
+
+Running a Kafka cluster in a container is different from running a single instance as many environment variables have to be configured. The docker-compose file for the services is *docker-compose3.yml*. The configuration in the file allows us to use a global Kafka Broker. 
+
+_Note: In the `KAFKA_CFG_ADVERTISED_LISTENERS` setting, be sure to update the `EXTERNAL`  setting for hostname/external ip of the machine instance. Otherwise, this won't be accessible from any system outside the `localhost`_
+
+> Example: KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-1:19092,PLAINTEXT_HOST://195.148.21.10:9093
+
 1. Start the containers by running
     ```
     $ docker-compose -f docker-compose3.yml up
@@ -130,36 +140,81 @@ Running a Kafka cluster in a container is different from running a single instan
     $ docker inspect <container_name>
     ```
 
-## Testing the installation
-Having obtained the network name from step 3 of the previous section, we can use it to start other containers joining the same network for testing purposes.
-1. Let's fire up a new container, run
+## Playing with the installation
+
+1. Create a topic with 3 replications and a single partition
     ```
-    $ docker run --rm -it --network <network_name> bitnami/kafka bash
+    $ docker-compose exec kafka-1 /opt/bitnami/kafka/bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 3 --topic locations
     ```
-2. Create a topic with 3 replications and a single partition
+2. Let's inpect our newly created topic
     ```
-    $ kafka-topic.sh --create --bootstrap-server kafka-1:19092 --replication-factor 3 --partitions 1 --topic locations
-    ```
-3. Let's inpect our newly created topic
-    ```
-     $ kafka-topic.sh --describe --bootstrap-server kafka-1:19092  --topic locations
+     $ docker-compose exec kafka-1 /opt/bitnami/kafka/bin/kafka-topics.sh --describe --zookeeper zookeeper:2181 --topic locations
     ```
     You should see something like this:
     ```
     Topic: locations	PartitionCount: 1	ReplicationFactor: 3	Configs: segment.bytes=1073741824
 	Topic: locations	Partition: 0	Leader: 2	Replicas: 2,3,1	Isr: 2,3,1
     ```
-4. Let's start a producer and produce some few messages to our topic
+3. Let's start a producer and produce some few messages to our topic
     ```
-    $ kafka-console-producer.sh --bootstrap-server kafka-1:19092 --topic locations
+    $ docker-compose exec kafka-1 /opt/bitnami/kafka/bin/kafka-console-producer.sh --bootstrap-server kafka-1:19092 --topic locations
     Hki long 24.94, lat 60.17
     ```
-5. Start a new terminal and repeat step 1 to create a new container connecting to the same network as the kafka nodes
-6. Start a kafka consumer and subscribe to the same topic (locations in our case)
+4. Start a new terminal and repeat step 1 to create a new container connecting to the same network as the kafka nodes
+5. Start a kafka consumer and subscribe to the same topic (locations in our case)
     ```
-    $ kafka-console-consumer.sh --bootstrap-server kafka-2:19092 --topic locations --from-beginning
-7. Open a new terminal and repeat steps 5 & 6 to set up a second consumer, remember to change the server name to kafka-3 in step 6
-8. If all went well, you should be able to see the message published in step 4 appear on both terminals, in our example you should see
+    $ kafka-console-consumer.sh --bootstrap-server kafka-2:29092 --topic locations --from-beginning
+6. Open a new terminal and repeat steps 5 & 6 to set up a second consumer, remember to change the server name and ports to kafka-3 in step 6
+7. If all went well, you should be able to see the message published in step 4 appear on both terminals, in our example you should see
     ```
     Hki long 24.94, lat 60.17
     ```
+--- 
+
+## Playing around with Kafkacat
+Working with kafka-shell is quite cumbersome. So, we can instead use Kafkacat to work with Kafka. Kafkacat [^kafkacat] is extremely popular non JVM utility that allows producing, consuming and listening to Kafka. Instead of writing long commands and code, we can use it to learn kafka very quickly.
+
+* Install it by simply running:
+    ```
+    $ apt-get install kafkacat
+    ```
+on debian systems. Check out the official git for other Linux flavours. 
+
+
+* See brokers, partitions and topics:
+    ```
+    $ kafkacat -b mybroker:9093 -L
+    ```
+
+
+* Produce on a new topic:
+    ```
+    $ kafkacat -b mybroker:9094 -t test_topic -P
+    ```
+
+* Consume from a topic:
+    ```
+    $ kafkacat -b mybroker:9092 -t test_topic -C
+    ```
+
+* Consume from a specific offset:
+    ```
+    $ kafkacat -b mybroker:9092 -t test_topic -o 2 -C
+    ```
+
+* Produce to a specific topic+partition:
+    ```
+    kafkacat -b mybroker:9093 -t test_topic_2  -p 3 -P
+    ```
+
+* Consume from a specific topic which we didn't produce on:
+    ```
+    kafkacat -b mybroker:9094 -t test_topic_2  -p 1 -C
+    ```
+
+* Consume from a specific topic which we produced on:
+    ```
+    kafkacat -b mybroker:9094 -t test_topic_2  -p 3 -C
+    ```
+---
+[^kafkacat]: https://github.com/edenhill/kafkacat

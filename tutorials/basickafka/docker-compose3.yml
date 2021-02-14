@@ -1,83 +1,61 @@
 version: '3.5'
 
-x-zookeeper: &zookeepers
-  ALLOW_ANONYMOUS_LOGIN: 'yes'
-  ZOO_SERVERS: zookeeper-1:2888:3888 zookeeper-2:2888:3888 zookeeper-3:2888:3888
-
-x-kafka-env: &kafka-env
-  ALLOW_PLAINTEXT_LISTENER: 'yes'
-  KAFKA_CFG_LISTENERS: CLIENT://:19092,EXTERNAL://:19093
-  KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
-  KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper-1:2181,zookeeper-2:2181,zookeeper-3:2181
-  KAFKA_INTER_BROKER_LISTENER_NAME: CLIENT
-
 x-kafka: &kafka
   image: 'bitnami/kafka'
   restart: always
-  entrypoint:
-  - /bin/sh
-  - '-c'
-  - >
-    until perl -e '
-      use strict; use IO::Socket;
-      close (IO::Socket::INET->new(
-        PeerAddr=>"zookeeper-1",
-        PeerPort=>2181,
-        Proto=>"tcp") or die "wait"
-      )';
-    do sleep 3; done;
-    exec "$$@";
-  - ''
-  - /opt/bitnami/scripts/kafka/entrypoint.sh
-  command:
-  - /opt/bitnami/scripts/kafka/run.sh
 
 services:
-  zookeeper-1:
+  zookeeper:
     image: 'bitnami/zookeeper:latest'
     restart: always
+    ports:
+      - '2181:2181'
     environment:
-      <<: *zookeepers
-      ZOO_SERVER_ID: 1
-  zookeeper-2:
-    image: 'bitnami/zookeeper:latest'
-    restart: always
-    environment:
-      <<: *zookeepers
-      ZOO_SERVER_ID: 2
-  zookeeper-3:
-    image: 'bitnami/zookeeper:latest'
-    restart: always
-    environment:
-      <<: *zookeepers
-      ZOO_SERVER_ID: 3
+      - ALLOW_ANONYMOUS_LOGIN=yes
 
   kafka-1:
     <<: *kafka
     ports:
-      - "19093:19093"
+      - "9092:9092"
+    depends_on:
+      - zookeeper
     environment:
-      <<: *kafka-env
-      KAFKA_CFG_BROKER_ID: 1
-      KAFKA_CFG_ADVERTISED_LISTENERS: CLIENT://kafka-1:19092,EXTERNAL://localhost:19093
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:19092,PLAINTEXT_HOST://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-1:19092,PLAINTEXT_HOST://localhost:9092
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+
 
   kafka-2:
     <<: *kafka
     ports:
-      - "29093:19093"
+      - "9093:9092"
+    depends_on:
+      - zookeeper
     environment:
-      <<: *kafka-env
-      KAFKA_CFG_BROKER_ID: 2
-      KAFKA_CFG_ADVERTISED_LISTENERS: CLIENT://kafka-2:19092,EXTERNAL://localhost:29093
+      - KAFKA_BROKER_ID=2
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:29092,PLAINTEXT_HOST://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-2:29092,PLAINTEXT_HOST://localhost:9093
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
 
   kafka-3:
     <<: *kafka
     ports:
-      - "39093:19093"
+      - "9094:9092"
+    depends_on:
+      - zookeeper
     environment:
-      <<: *kafka-env
-      KAFKA_CFG_BROKER_ID: 3
-      KAFKA_CFG_ADVERTISED_LISTENERS: CLIENT://kafka-3:19092,EXTERNAL://localhost:39093
-networks: 
+      - KAFKA_BROKER_ID=3
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:39092,PLAINTEXT_HOST://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-3:39092,PLAINTEXT_HOST://localhost:9094
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+
+networks:
   default:
     name: kafka-tutorials

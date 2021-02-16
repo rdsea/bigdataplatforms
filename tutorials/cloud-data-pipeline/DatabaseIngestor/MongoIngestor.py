@@ -17,8 +17,8 @@ rootLogger.addHandler(consoleHandler)
 
 
 class MongoIngestor:
-    def __init__(self):
-        db_client = pymongo.MongoClient("mongodb://root:password@database:27017/")
+    def __init__(self, userid, password):
+        db_client = pymongo.MongoClient(f"mongodb://{userid}:{password}@database:27017/")
         mydb = db_client["ingestionDB"]
         self.col_1 = mydb["temperature"]
         self.col_2 = mydb["temperature_metadata"]
@@ -60,13 +60,19 @@ class KafkaMessageConsumer:
                 }
             db_client.insert_data(data)
             rootLogger.info(f"Saved data from edge device")
-            
+
+username = os.environ.get('MONGO_USERNAME')
+password = os.environ.get('MONGO_PASSWORD')
+
+if not username or password:
+    raise Exception("MongoDB credentials not supplied")
+
 kafka_brokers=sys.argv[1].split(',')
 group_name = sys.argv[2]
 running = True
 
 kafka_consumer = KafkaMessageConsumer(kafka_brokers, group_name)
-db_object = MongoIngestor()
+db_object = MongoIngestor(username, password)
 
 
 kafka_consumer.consume(db_object)

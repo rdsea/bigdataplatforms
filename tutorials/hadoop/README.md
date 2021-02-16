@@ -114,3 +114,12 @@ CREATE TABLE taxiinfo12345 (VendorID int,
 more /etc/hive/conf/hive-site.xml
 ```
 * Which execution engine is used for processing queries?
+
+## Integration with other storages
+
+Try to configure your Hadoop system to connect to other storages:
+* [Azure Blob Storage/Data Lake](https://aajisaka.github.io/hadoop-document/hadoop-project/hadoop-azure/abfs.html)
+* [Amazon S3](https://hadoop.apache.org/docs/stable/hadoop-aws/tools/hadoop-aws/index.html)
+* [Google Storage Connector](https://cloud.google.com/dataproc/docs/concepts/connectors/cloud-storage)
+
+Then practice storing data into these storages via HDFS.

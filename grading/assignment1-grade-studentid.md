@@ -1,6 +1,7 @@
----------IMPORTANT NOTE --------
-This grade is provisional.
-Why: we need to cross-check all assignments and maybe a face-to-face question to finalize the grade. We also do check the assignments w.r.t. the rule after releasing this grade. In principle, the final grade will be fixed at the end of the course. If you have any feedback, you can send it.
+# IMPORTANT NOTE
+
+This grade is provisional. Why: we need to cross-check all assignments and maybe a face-to-face question to finalize the grade. We also do check the assignments w.r.t. the rule after releasing this grade. In principle, the final grade will be fixed at the end of the course. If you have any feedback, you can send it.
+
 ----------------
 
 Overall Grade:
@@ -43,4 +44,3 @@ Part 3 (max 5 points):
 3.4	data ingestion and daas:
 
 3.5	service access control:
- 

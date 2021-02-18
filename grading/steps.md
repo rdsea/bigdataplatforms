@@ -1,8 +1,13 @@
 # Grading
 
-An overall sheet of student id, basic information of datasets and technologies and the assignment file is given.
+An overall sheet of student id, basic information of datasets and technologies and the assignment file is given, e.g.:
 
-1. claim an open assignment by putting your name into the overall sheet.
+
+|studentid|infrastructures|programming languages|data|messaging systems|databases|evaluators|
+---|----|----|----|----|-----|---|
+|1234   |container   | Python   |NY Taxi|Kafka  | Cassandra  | ABC  |
+
+1. claim an open assignment by putting your name into "evaluators" in the overall sheet.
 2. download a zipfile to the machine used to evaluate the assignment
 2. unzip the file
 3. copy the template assignment[1,2,3]-grade-studentid.md into the assignment directory and modify the student id

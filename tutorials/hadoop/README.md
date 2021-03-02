@@ -82,6 +82,7 @@ yarn application --list
 ### Hive
 
 In the same cluster, you can also access to Hive and play some examples
+> Or you can practice with your Hive installation
 
 #### Connect
 ```
@@ -94,32 +95,104 @@ jdbc:hive2://localhost:10000> show tables;
 ```
 
 #### Create a table
+Create a normal table:
 ```
 jdbc:hive2://localhost:10000>
 CREATE TABLE taxiinfo12345 (VendorID int,
  tpep_pickup_datetime string,tpep_dropoff_datetime string,passenger_count int ,trip_distance float ,RatecodeID int ,store_and_fwd_flag string ,PULocationID int,DOLocationID int,payment_type int ,fare_amount float,extra float,mta_tax float,tip_amount float,tolls_amount float,improvement_surcharge float,total_amount float)
  ROW FORMAT DELIMITED FIELDS TERMINATED  BY ',';
 ```
+
 #### Load a simple data file into table
 ```
  jdbc:hive2://localhost:10000>LOAD DATA LOCAL INPATH '/home/mybdp/old/simple.csv' OVERWRITE INTO TABLE taxiinfo12345;
-```
+ ```
  #### Make a simple query:
  ```
  jdbc:hive2://localhost:10000>select * from taxiinfo12345;
-```
+ ```
 
+#### Test with table with partitions
+We can test tables created with partions. For example, create a table with two new columns for partition -  *year and month*:
+
+```
+jdbc:hive2://> CREATE TABLE taxiinfo1 (VendorID int,
+ tpep_pickup_datetime string,tpep_dropoff_datetime string,
+ passenger_count int ,trip_distance float ,RatecodeID int ,
+ store_and_fwd_flag string ,PULocationID int,DOLocationID int,
+ payment_type int ,fare_amount float,extra float,mta_tax float,
+ tip_amount float,tolls_amount float,improvement_surcharge float,
+ total_amount float)
+ PARTITIONED BY  (year int, month int)
+ ROW FORMAT DELIMITED FIELDS TERMINATED  BY ',';
+ ```
+where **PARTITIONED BY  (year int, month int)** indicates the partitions.
+
+Assume that we have */opt/data/rawdata/nytaxi2019-1000.csv* as the data in the year 2019, month=11, we can load the data into the right partition (year=2019,month=11)
+
+```
+jdbc:hive2://> LOAD DATA LOCAL INPATH '/opt/data/rawdata/nytaxi2019-1000.csv' OVERWRITE INTO TABLE taxiinfo1 PARTITION (year=2019, month=11);
+```
+Assume that:
+> */user/hive/warehouse/* is the place where Hive stores data.
+
+We can check the data in HDFS, e.g.,
+```
+$bin/hdfs dfs -ls /user/hive/warehouse/taxiinfo1
+
+```
+#### Test with table with buckets
+
+With a partition:
+```
+jdbc:hive2://> CREATE TABLE taxiinfo2 (VendorID int,
+ tpep_pickup_datetime string,tpep_dropoff_datetime string,passenger_count int ,trip_distance float ,RatecodeID int ,store_and_fwd_flag string ,PULocationID int,DOLocationID int,payment_type int ,fare_amount float,extra float,mta_tax float,tip_amount float,tolls_amount float,improvement_surcharge float,total_amount float)
+  CLUSTERED BY (VendorID) INTO 2 BUCKETS
+ ROW FORMAT DELIMITED FIELDS TERMINATED  BY ',';
+ ```
+
+Assume that we have */opt/data/rawdata/nytaxi2019-1000.csv* as the data, we can load the data into the table
+
+```
+jdbc:hive2://> LOAD DATA LOCAL INPATH '/opt/data/rawdata/nytaxi2019-1000.csv' OVERWRITE INTO TABLE taxiinfo2;
+
+ ```
+We can check the data in Hadoop, e.g.,
+```
+$bin/hdfs dfs -ls /user/hive/warehouse/taxiinfo2
+ ```
+#### Test tables with partitions and buckets
+
+With a partition:
+```
+jdbc:hive2://> CREATE TABLE taxiinfo3 (VendorID int,
+ tpep_pickup_datetime string,tpep_dropoff_datetime string,passenger_count int ,trip_distance float ,RatecodeID int ,store_and_fwd_flag string ,PULocationID int,DOLocationID int,payment_type int ,fare_amount float,extra float,mta_tax float,tip_amount float,tolls_amount float,improvement_surcharge float,total_amount float)
+ PARTITIONED BY  (year int, month int)
+ CLUSTERED BY (VendorID) INTO 2 BUCKETS
+ ROW FORMAT DELIMITED FIELDS TERMINATED  BY ',';
+ ```
+
+Assume that we have */opt/data/rawdata/nytaxi2019-1000.csv* as the data, we can load the data into the table
+
+```
+jdbc:hive2://> LOAD DATA LOCAL INPATH '/opt/data/rawdata/nytaxi2019-1000.csv' OVERWRITE INTO TABLE taxiinfo3 PARTITION (year=2019, month=11);
+```
+We can check the data in Hadoop, e.g.,
+```
+$bin/hdfs dfs -ls /user/hive/warehouse/taxiinfo3
+
+```
 #### Check configuration file
 ```
-more /etc/hive/conf/hive-site.xml
+$more /etc/hive/conf/hive-site.xml
 ```
 * Which execution engine is used for processing queries?
 
-## Integration with other storages
+## Integration with other storage services
 
 Try to configure your Hadoop system to connect to other storages:
 * [Azure Blob Storage/Data Lake](https://aajisaka.github.io/hadoop-document/hadoop-project/hadoop-azure/abfs.html)
 * [Amazon S3](https://hadoop.apache.org/docs/stable/hadoop-aws/tools/hadoop-aws/index.html)
 * [Google Storage Connector](https://cloud.google.com/dataproc/docs/concepts/connectors/cloud-storage)
 
-Then practice storing data into these storages via HDFS.
+Then practice storing data into these storage services via HDFS.

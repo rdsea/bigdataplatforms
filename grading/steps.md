@@ -11,9 +11,9 @@ An overall sheet of student id, basic information of datasets and technologies a
 2. download a zipfile to the machine used to evaluate the assignment
 2. unzip the file
 3. copy the template assignment[1,2,3]-grade-studentid.md into the assignment directory and modify the student id
-    -the student id can bee seen in the zip file: "assignment[1,2,3]-studentid"
-    -if we cannot see the studentid, then pls. check the source of the zipfile to see studentid in submitter.csv
-    -if not, then pls assign a number and keep the name of the zip file clearly so we can trace
+    - the student id can bee seen in the zip file: "assignment[1,2,3]-studentid"
+    - if we cannot see the studentid, then pls. check the source of the zipfile to see studentid in submitter.csv
+    - if not, then pls assign a number and keep the name of the zip file clearly so we can trace
 4. grade and update the assignment[1,2,3]-grade-studentid.md
    - follow the protocol of grading for individual assignment (within a grading team and cross grading teams)
    - check also selfgrading.csv to see selfgrading from students

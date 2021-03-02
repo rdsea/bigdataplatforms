@@ -15,3 +15,4 @@
 * Issues in timeseries data: [Slides](pdfs/cs-e4640-tringuyen-timeserie-data-ingestion.pdf)
 * Big data ingestion: [Slides](pdfs/module2-lecture5-ingestionandtransformation-v0.2.pdf)
 * Streaming Data Ingestion with Apache Kafka: [Slides](pdfs/module2-lecture5-apachekafka.pdf), [basic Kafka setup](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/basickafka) and [examples of data ingestion with Kafka](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/cloud-data-pipeline)
+* Some case studies for Hadoop and data ingestion: [slides](pdfs/module3-lecture6-hadoop-ingestion-casestudies-v0.2.pdf)

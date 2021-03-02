@@ -25,7 +25,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 17.02  | No lecture | Backup date, assignment support| **All**
 19.02  |   |  **due of the first assignment -13.00**
 22-26.02  |  No lecture week | Assignment grading| **All**
-03.03  |Lecture 6  | Hadoop and its Big Data Ecosystems| **Linh Truong**
+03.03  |Lecture 6  | Hadoop and its Big Data Ecosystems. Study some [real cases of Hadoop and data ingestion](Some case studies for Hadoop and data ingestion: [slides](lecturenotes/pdfs/module3-lecture6-hadoop-ingestion-casestudies-v0.2.pdf)| **Linh Truong**
 03.03  |   | **Release the 2nd assignment**
 04.03  | Tutorial 4 |Hadoop | **Pham Phuong**
 01-05.03  |Meetup  4 | Big Data Platforms and Microservices | **Eljon Harlicaj**, Linh Truong
@@ -38,7 +38,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 24.03  |   | **Release the third assignment**
 25.03  |Tutorial 6| Stream Processing with Apache Flink | **Tri Nguyen**, Linh Truong
 31.03  |Lecture 9 | Workflows for Big Data Platforms | **Linh Truong**
-01.04  |Tutorial 7| Data processing examples with Airflow| **Amanda Chen**,Pham Phuong, Linh Truong
+01.04  |Tutorial 7| Data processing examples with Airflow| **Amanda Chen**, Linh Truong
 07.04  |No lecture| Backup date, assignment support | **All**
 09.04  | | **Due of the third assignment**
 12-16.04  |   | Assignment grading| **All**

@@ -23,8 +23,7 @@ spark = SparkSession.builder.appName("cse4640-nytaxicount").getOrCreate()
 #NOTE: using hdfs:///..... for HDFS file or file:///
 # To test the program you can prepare a small data file
 inputFile =args.input_file
-## hadoop
-#inputFile="hdfs://"
+## hadoop inputFile="hdfs://"
 df =spark.read.csv(inputFile,header=True,inferSchema=True)
 #df.show()
 print("Number of trips", df.count())

@@ -18,7 +18,6 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 //PROVINCECODE,DEVICEID,IFINDEX,FRAME,SLOT,PORT,ONUINDEX,ONUID,TIME,SPEEDIN,SPEEDOUT
-//PYN,10056053023,268502528,1,2,7,39,1005605302310207039,01/08/2019 00:04:07,148163,49018
 
 public class SimpleAverage {
 

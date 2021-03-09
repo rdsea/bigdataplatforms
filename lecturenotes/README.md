@@ -17,3 +17,4 @@
 * Streaming Data Ingestion with Apache Kafka: [Slides](pdfs/module2-lecture5-apachekafka.pdf), [basic Kafka setup](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/basickafka) and [examples of data ingestion with Kafka](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/cloud-data-pipeline)
 * Hadoop and its Big Data Ecosystems: [slides](pdfs/module3-lecture6-hadoop-v0.2.pdf)
 * Some case studies for Hadoop and data ingestion: [slides](pdfs/module3-lecture6-hadoop-ingestion-casestudies-v0.2.pdf)
+* Big Data Processing with MapReduce/Spark Programming Models: [Slides](pdfs/module3-lecture7-dataprocessing-mapreducespark-v0.2.pdf)

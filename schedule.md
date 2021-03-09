@@ -29,7 +29,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 03.03  |   | **Release the 2nd assignment**
 04.03  | Tutorial 4 |Hadoop | **Pham Phuong**
 01-05.03  |Meetup  4 | Big Data Platforms and Microservices | **Eljon Harlicaj**, Linh Truong
-10.03  |Lecture 7 | Big Data Processing with MapReduce/Spark Programming Models | **Linh Truong**
+10.03  |Lecture 7 | [Big Data Processing with MapReduce/Spark Programming Models](lecturenotes/pdfs/module3-lecture7-dataprocessing-mapreducespark-v0.2.pdf) | **Linh Truong**
 11.03  |Tutorial 5 | Data Processing with Apache Spark  | **Pham Phuong**, Linh Truong
 17.03  |No lecture | Backup date, assignment support| **All**
 19.03  |   | **Due the 2nd assignment**  |   |

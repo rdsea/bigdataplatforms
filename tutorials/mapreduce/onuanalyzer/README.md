@@ -21,8 +21,8 @@ Run the command:
 $hadoop jar target/onu.cse4640-0.0.1-SNAPSHOT.jar io.rdsea.onu.cse4640.SimpleAverage hdfs:///INPUT_FILE hdfs:///OUTPUT_DIR
 ```
 * INPUT_FILE is the input CSV data file
-** OUTPUT_DIR is the directory of the output
->Check [how to run Hadoop Mapreduce guideline](https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html)
+* OUTPUT_DIR is the directory of the output
+>Check [how to run Hadoop MapReduce guideline](https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html)
 
 For example, assume that the CSV input data is available in HDFS, e.g.,
 ```

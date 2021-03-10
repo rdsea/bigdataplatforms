@@ -19,7 +19,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 03.02  |Lecture 4  | [Big Data Storage and Database Services](lecturenotes/pdfs/module2-lecture4-bigdatastoragedatabase-v0.2.pdf). Additional slides: [common systems & integration problems](lecturenotes/pdfs/module2-lecture4-bigdatastoragedatabase-addition-v0.2.pdf). and [A short example of metadata](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)
 03.02  |   | **Release the first assignment**
 04.02  |Tutorial 2 | [Hands-on examples with big database services](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/consistency)| **Rohit Raj**, Linh Truong
-10.02  |Lecture 5 | [Big Data Ingestion](lecturenotes/pdfs/module2-lecture5-apachekafka.pdf). Additional slides about [Streaming Data Ingestion with Apache Kafka](lecturenotes/pdfs/module2-lecture5-apachekafka.pdf)  | **Linh Truong**
+10.02  |Lecture 5 | [Big Data Ingestion](lecturenotes/module2-lecture5-ingestionandtransformation-v0.2.pdf). Additional slides about [Streaming Data Ingestion with Apache Kafka](lecturenotes/pdfs/module2-lecture5-apachekafka.pdf)  | **Linh Truong**
 11.02  |Tutorial 3 | [Data Ingestion with Apache Nifi](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/nifi)| **Eljon Harlicaj**, Linh Truong
 08-12.02  |Meetup 3 |[Issues in timeseries data](lecturenotes/pdfs/cs-e4640-tringuyen-timeserie-data-ingestion.pdf)| **Tri Nguyen**, Rohit Raj, Linh Truong
 17.02  | No lecture | Backup date, assignment support| **All**

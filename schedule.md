@@ -25,7 +25,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 17.02  | No lecture | Backup date, assignment support| **All**
 19.02  |   |  **due of the first assignment -13.00**
 22-26.02  |  No lecture week | Assignment grading| **All**
-03.03  |Lecture 6  | [Hadoop and its Big Data Ecosystems](lecturenotes/pdfs/module3-lecture6-hadoop-v0.2.pdf). Study some [real cases of Hadoop and data ingestion](Some case studies for Hadoop and data ingestion: [slides](lecturenotes/pdfs/module3-lecture6-hadoop-ingestion-casestudies-v0.2.pdf)| **Linh Truong**
+03.03  |Lecture 6  | [Hadoop and its Big Data Ecosystems](lecturenotes/pdfs/module3-lecture6-hadoop-v0.2.pdf). Study some [real cases of Hadoop and data ingestion](lecturenotes/pdfs/module3-lecture6-hadoop-ingestion-casestudies-v0.2.pdf)| **Linh Truong**
 03.03  |   | **Release the 2nd assignment**
 04.03  | Tutorial 4 |Hadoop | **Pham Phuong**
 01-05.03  |Meetup  4 | Big Data Platforms and Microservices | **Eljon Harlicaj**, Linh Truong

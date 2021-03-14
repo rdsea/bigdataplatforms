@@ -58,7 +58,7 @@ under the License.
 			<groupId>org.apache.flink</groupId>
 			<artifactId>flink-java</artifactId>
 			<version>${flink.version}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.flink</groupId>
@@ -69,7 +69,7 @@ under the License.
 			<groupId>org.apache.flink</groupId>
 			<artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
 			<version>${flink.version}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.flink</groupId>
@@ -80,6 +80,11 @@ under the License.
 			<groupId>org.apache.flink</groupId>
 			<artifactId>flink-connector-rabbitmq_${scala.binary.version}</artifactId>
 			<version>${flink.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.7</version>
 		</dependency>
 
 
@@ -97,8 +102,13 @@ under the License.
 			<groupId>org.apache.flink</groupId>
 			<artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
 			<version>${flink.version}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 			</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.7</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.flink</groupId>
 			<artifactId>flink-connector-rabbitmq_${scala.binary.version}</artifactId>
@@ -125,14 +135,14 @@ under the License.
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.7</version>
-			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
-			<scope>runtime</scope>
+			<scope>compile</scope>
 		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -148,6 +158,21 @@ under the License.
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
+
+			<!-- Package Jar file-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>fi.aalto.cs.cse4640.SimpleAlarmAnalysis</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
 
 			<!-- We use the maven-shade plugin to create a fat jar that contains all necessary dependencies. -->
 			<!-- Change the value of <mainClass>...</mainClass> if your program entry point changes. -->
@@ -167,8 +192,6 @@ under the License.
 								<excludes>
 									<exclude>org.apache.flink:force-shading</exclude>
 									<exclude>com.google.code.findbugs:jsr305</exclude>
-									<exclude>org.slf4j:*</exclude>
-									<exclude>log4j:*</exclude>
 								</excludes>
 							</artifactSet>
 							<filters>
@@ -283,6 +306,11 @@ under the License.
 					<groupId>org.apache.flink</groupId>
 					<artifactId>flink-clients_${scala.binary.version}</artifactId>
 					<version>${flink.version}</version>
+				</dependency>
+				<dependency>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+					<version>1.7.7</version>
 				</dependency>
 			</dependencies>
 		</profile>

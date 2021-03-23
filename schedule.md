@@ -30,13 +30,13 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 04.03  | Tutorial 4 |Hadoop | **Pham Phuong**
 01-05.03  |Meetup  4 | Big Data Platforms and Microservices | **Eljon Harlicaj**, Linh Truong
 10.03  |Lecture 7 | [Big Data Processing with MapReduce/Spark Programming Models](lecturenotes/pdfs/module3-lecture7-dataprocessing-mapreducespark-v0.2.pdf) | **Linh Truong**
-11.03  |Tutorial 5 | Data Processing with Apache Spark  | **Pham Phuong**, Linh Truong
+11.03  |Tutorial 5 | [Data Processing with Apache Spark](tutorials/spark/README.md)  | **Pham Phuong**, Linh Truong
 17.03  |No lecture | Backup date, assignment support| **All**
 19.03  |   | **Due the 2nd assignment**  |   |
 |21-26-03   |   | Assignment grading  | **All**  |
-24.03  |Lecture 8 | Stream Processing and Big Data Platforms| **Linh Truong**,
+24.03  |Lecture 8 | [Stream Processing and Big Data Platforms](lecturenotes/pdfs/module3-lecture8-dataprocessing-streaming-v0.2.pdf)| **Linh Truong**,
 24.03  |   | **Release the third assignment**
-25.03  |Tutorial 6| Stream Processing with Apache Flink | **Tri Nguyen**, Linh Truong
+25.03  |Tutorial 6| [Stream Processing with Apache Flink](tutorials/streamingwithflink/README.md) | **Tri Nguyen**, Linh Truong
 31.03  |Lecture 9 | Workflows for Big Data Platforms | **Linh Truong**
 01.04  |Tutorial 7| Data processing examples with Airflow| **Amanda Chen**, Linh Truong
 07.04  |No lecture| Backup date, assignment support | **All**

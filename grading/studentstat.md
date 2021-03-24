@@ -4,7 +4,8 @@
 * Total number involved students: 143
   - **45 suspended students** (from the system - do not know the reason)
   - **1 student allowed to audit** (late registration)
-  - **97 active registered students**: not sure how many wants to audit the course.
+  - **97 active registered students**
+  - **82 student reponses from our first survey** in which **14 students**  want to audit the course.
 
 * Student schools:
   - SCI:78
@@ -19,6 +20,7 @@
 
 ## First assignment:
   - Submitted: **38 (39.17% of active registered students)**
+    - Note based on survey and other info we have **15** students for audit
   - BIZ: 1 (25% of BIZ students)
   - ENG: 0 (0% of ENG students)
   - ELEC:3 (25% of ELEC students)

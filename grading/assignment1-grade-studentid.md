@@ -32,7 +32,7 @@ Part 2 (max 10 points):
 
 2.4	performance test/discussion:
 
-2.4	changes for solving performance/failure problems:
+2.5	changes for solving performance/failure problems:
 
 Part 3 (max 5 points):
 3.1	metadata about databases/datasets:

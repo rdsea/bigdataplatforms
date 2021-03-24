@@ -1,7 +1,7 @@
 # Simple Tutorial for Stream Data Processing with Apache Flink.
 
 * [An acommpanying hands-on video is available - Update the link later](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=35976699-d98c-4dee-bbe4-ac0500ab604d)
-* [Slides](slide/cs-e4640-hands-on-flink-streaming.pptx)
+* [Slides](slides/cs-e4640-hands-on-flink-streaming.pptx)
 
 ## 1. Introduction
 We will practice Apache Flink with simple activities:
@@ -17,7 +17,7 @@ We will practice Apache Flink with simple activities:
 
 ## 2. Setup Apache Flink for Practices
 
-Download [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the installation guide for a local machine](https://ci.apache.org/projects/flink/flink-docs-release-1.9/getting-started/tutorials/local_setup.html). In this simple tutorial, we use Apache Flink 1.12.0 for Scala 2.11. 
+Download [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the installation guide for a local machine](https://ci.apache.org/projects/flink/flink-docs-release-1.9/getting-started/tutorials/local_setup.html). In this simple tutorial, we use Apache Flink 1.12.0 for Scala 2.11.
 
 The example we use to run is for [the BTS data](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640-2019/tree/master/data/bts) and we will use [Kafka](https://kafka.apache.org/) and [RabbitMQ](http://www.rabbitmq.com) as the message broker through the streaming analytics application obtains data.
 
@@ -55,7 +55,7 @@ You can check [the Flink example](https://ci.apache.org/projects/flink/flink-doc
 
 >Hint: You can also use the web UI to submit a job to a Session cluster. Alternatively, use Flink CLI on the host if it is installed: flink run -d -m ${FLINK_JOBMANAGER_URL} /job.jar [jar_arguments]
 
- 
+
 ## BTS example
 
 #### Check the source code and compile it
@@ -97,12 +97,12 @@ bin/flink run simplebts-0.1-SNAPSHOT.jar --amqpurl  amqp://guest:guest@localhost
 ```
 Now start our test producer again with the queue name as **iqueue123**:
 ```
-python3 test_kafka_producer.py --queue_name iqueue123 --input_file  cs-e4640/data/bts/bts-data-alarm-2017.csv --kafka localhost:9092 
+python3 test_kafka_producer.py --queue_name iqueue123 --input_file  cs-e4640/data/bts/bts-data-alarm-2017.csv --kafka localhost:9092
 ```
 and then start a BTS test receivers with queue name as **oqueue123**:
 ```
-$ python3 test_amqp_consumer.py --queue_name oqueue123 --kafka localhost:9092 
-$ python3 test_amqp_consumer.py --queue_name oqueue123 --rabbit  amqp://guest:guest@localhost:5672 
+$ python3 test_amqp_consumer.py --queue_name oqueue123 --kafka localhost:9092
+$ python3 test_amqp_consumer.py --queue_name oqueue123 --rabbit  amqp://guest:guest@localhost:5672
 ```
 to see if you can receive any alerts.
 

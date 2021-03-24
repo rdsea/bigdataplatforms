@@ -41,11 +41,11 @@ public class SimpleAlarmAnalysis {
 		int parallelismDegree;
 //		try {
 		final ParameterTool params = ParameterTool.fromArgs(args);
-		input_rabbitMQ= params.get("amqpurl", "amqp://guest:guest@127.0.0.1:5672");
-		inputQueue = params.get("iqueue", "bts_input");
-		outputQueue =params.get("oqueue", "bts_output") ;
-		input_kafka_host =params.get("kafkaurl", "localhost:9092");
-		parallelismDegree =params.getInt("parallelism", 1);
+		input_rabbitMQ= params.get("amqpurl", "amqp://guest:guest@localhost:5672"); // set the uri of AMQP
+		inputQueue = params.get("iqueue", "bts_input");  // name of the input queue of the input stream
+		outputQueue =params.get("oqueue", "bts_output") ;  // name of the output queue to return the results
+		input_kafka_host =params.get("kafkaurl", "localhost:9092");  // set the kafka host
+		parallelismDegree =params.getInt("parallelism", 5);  // set the level of Parallelism
 //		} catch (Exception e) {
 //			System.err.println("'flink run <path>/simplebts-0.1-SNAPSHOT.jar --kafkaurl <kafka host> --amqpurl <rabbitmq url>  --iqueue <input data queue> --oqueue <output data queue> --parallelism <degree of parallelism>'");
 //			input_rabbitMQ = "amqp://guest:guest@127.0.0.1:5672";
@@ -56,16 +56,19 @@ public class SimpleAlarmAnalysis {
 //		}
 
 
-
-
 		// the following is for setting up the execution getExecutionEnvironment
 		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+		// final StreamExecutionEnvironment env = StreamExecutionEnvironment.createRemoteEnvironment(
+		// 		"<flink host>",
+		// 		8081,
+		// 		"<file_path>simplebts/target/simplebts-0.1-SNAPSHOT.jar");
+
 
 		//checkpoint can be used for  different levels of message guarantees
 		// select one of the following modes
 		final CheckpointingMode checkpointingMode = CheckpointingMode.EXACTLY_ONCE ;
 		//final checkpointMode = CheckpointingMode.AT_LEAST_ONCE;
-		env.enableCheckpointing(1000*60, checkpointingMode);
+		env.enableCheckpointing(1000*60, checkpointingMode);  // set checkpoint every minute to recover from last checkpoint if failures occur
 		// define the event time
 		env.setStreamTimeCharacteristic(TimeCharacteristic.ProcessingTime);
 		//env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
@@ -87,7 +90,7 @@ public class SimpleAlarmAnalysis {
 
 		final DataStream<String> btsdatastream = env
 				.addSource(btsConsumer)
-				.setParallelism(parallelismDegree);
+				.setParallelism(parallelismDegree); // scale the input stream
 
 		//Store RMQ config to an object
 		final RMQConnectionConfig connectionConfig = new RMQConnectionConfig.Builder()
@@ -123,6 +126,7 @@ public class SimpleAlarmAnalysis {
 		         })
 				*/
 				 )
+				//.setParallelism(5)    // uncomment this line to scale the Parser stream and set the value for it
 				 .keyBy(new AlarmKeySelector()
 					 /* another way is to have:
 					 new KeySelector<BTSAlarmEvent, String>() {
@@ -130,8 +134,9 @@ public class SimpleAlarmAnalysis {
    					}
 				*/
 				)
-		         .window(SlidingProcessingTimeWindows.of(Time.minutes(1), Time.seconds(5)))
+		         .window(SlidingProcessingTimeWindows.of(Time.seconds(60), Time.milliseconds(25))) // set the window size and the window slide for processing streaming data
 		         .process(new MyProcessWindowFunction());
+				 //.setParallelism(5);  // uncomment this line to scale the stream processing and set the value for it
 
 		//init an RMQ channel to forward the alert
 		RMQSink<String> sink =new RMQSink<String>(
@@ -150,12 +155,12 @@ public class SimpleAlarmAnalysis {
 		FlinkKafkaProducer<String> btsProducer = new FlinkKafkaProducer<>(outputQueue,outputSchema,producer_properties,FlinkKafkaProducer.Semantic.AT_LEAST_ONCE); // fault-tolerance
 
 		//send the alerts to RMQ channel
-		alerts.addSink(sink);
+		alerts.addSink(sink).setParallelism(1); // set the value to scale the output stream
 		//send the alerts to Kafka topic
-		alerts.addSink(btsProducer);
+		alerts.addSink(btsProducer).setParallelism(1); // set the value to scale the output stream
 
 		//use 1 thread to print out the result
-		alerts.print().setParallelism(1);
+		alerts.print().setParallelism(1); // set the value to scale the output stream
 
 		env.execute("Simple CS-E4640 BTS Flink Application");
 	}
@@ -164,7 +169,7 @@ public class SimpleAlarmAnalysis {
 
 			@Override
 			public String getKey(BTSAlarmEvent value) throws Exception {
-					return value.station_id;
+					return value.station_id; // set the key value to partition stream data
 			}
 	}
 

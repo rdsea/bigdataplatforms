@@ -3,9 +3,9 @@
 An overall sheet of student id, basic information of datasets and technologies and the assignment file is given, e.g.:
 
 
-|studentid|infrastructures|programming languages|data|messaging systems|databases|evaluators|
----|----|----|----|----|-----|---|
-|1234   |container   | Python   |NY Taxi|Kafka  | Cassandra  | ABC  |
+|studentid|infrastructures|programming languages|data|messaging systems|databases|1st evaluation|2nd evaluation| lead teacher review
+---|----|----|----|----|-----|---|--|--|
+|1234   |container   | Python   |NY Taxi|Kafka  | Cassandra  | ABC  | ABC |ABC
 
 Generally, the evaluator only knows the student id.
 > Evaluators are TA and teachers.

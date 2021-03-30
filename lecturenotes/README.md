@@ -19,3 +19,4 @@
 * Some case studies for Hadoop and data ingestion: [slides](pdfs/module3-lecture6-hadoop-ingestion-casestudies-v0.2.pdf)
 * Big Data Processing with MapReduce/Spark Programming Models: [Slides](pdfs/module3-lecture7-dataprocessing-mapreducespark-v0.2.pdf)
 * Stream Processing and Big Data Platforms: [Slides](pdfs/module3-lecture8-dataprocessing-streaming-v0.2.pdf)
+* Workflows for Big Data Platforms: [Slides](pdfs/module3-lecture9-workflows-v0.2.pdf)

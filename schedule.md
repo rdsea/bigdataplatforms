@@ -36,8 +36,8 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 24.03  |Lecture 8 | [Stream Processing and Big Data Platforms](lecturenotes/pdfs/module3-lecture8-dataprocessing-streaming-v0.2.pdf)| **Linh Truong**
 24.03  |   | **Release the third assignment**
 25.03  |Tutorial 6| [Stream Processing with Apache Flink](tutorials/streamingwithflink/README.md) | **Tri Nguyen**, Linh Truong
-31.03  |Lecture 9 | Workflows for Big Data Platforms | **Linh Truong**
-01.04  |Tutorial 7| Data processing examples with Airflow| **Amanda Chen**, Linh Truong
+31.03  |Lecture 9 | [Workflows for Big Data Platforms](lecturenotes/pdfs/module3-lecture9-workflows-v0.2.pdf) | **Linh Truong**
+01.04  |Tutorial 7| [Data processing examples with Airflow](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/airflow/alarmanalytics)| **Amanda Chen**, Linh Truong
 07.04  |Meetup  4 | Security and Big Data Platforms | **Eljon Harlicaj**, Linh Truong
 09.04  | | **Due of the third assignment**
 12-16.04  |   | Assignment grading| **All**

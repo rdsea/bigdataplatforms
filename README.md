@@ -13,10 +13,10 @@ This GIT hosts material for [the course Big Data Platforms](https://mycourses.aa
  * [Computing Infrastructures](computinginfrastructures.md)
  * [Academic Violations](violations.md)
 
-
  Note that: *Examples and hands-on codes are written in the most simple way for educational purposes.*
+> For programming in clouds you might be interested in our [IoTCloudSamples](https://github.com/rdsea/IoTCloudSamples/)
 
-## Previous editions
+## Previous course editions
 * [Big Data Platforms 2019](2019/README.md)
 
 ## Licenses and citation

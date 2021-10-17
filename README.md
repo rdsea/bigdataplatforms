@@ -1,5 +1,6 @@
 # CS-E4640 Big Data Platforms
-
+from assignements how do student get "competence"
+"Since academic progress is often tracked and reported by learning standard in competency-based courses and schools, educators and parents often know more precisely what specific knowledge and skills students have acquired or may be struggling with. For example, instead of receiving a letter grade on an assignment or test, each of which may address a variety of standards, students are graded on specific learning standards, each of which describes the knowledge and skills students are expected to acquire."
 
 This GIT hosts material for [the course Big Data Platforms](https://mycourses.aalto.fi/course/view.php?id=28200) within Aalto University. The intended users are Aalto students participating in the Big Data Platforms.
 

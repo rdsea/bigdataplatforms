@@ -218,3 +218,10 @@ on debian systems. Check out the official git for other Linux flavours.
     ```
 ---
 [^kafkacat]: https://github.com/edenhill/kafkacat
+
+## Authors
+
+- Tutorial author: Strasdosky Otewa and Rohit Raj
+
+- Editor: Linh Truong
+

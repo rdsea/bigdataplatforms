@@ -1,7 +1,7 @@
 # Free Datasets for Practices
 
 ## Open Datasets
-There are many open datasets that you can download for practicing activities in big data platforms. It is suggested that you focus on a single domain and use the data to perform the work in the course
+There are many open datasets that you can download for practicing activities in big data platforms. It is suggested that **you focus on a single domain and use the data to perform the work in the course**. The following datasets can be used for both batch and streaming analytics and used in different tasks (ingestion, processing, etc.)
 
 * Healthcare/Pandemic
   - [COVID-19 dataset from Google](https://console.cloud.google.com/marketplace/details/bigquery-public-datasets/covid19-public-data-program)
@@ -24,6 +24,9 @@ There are many open datasets that you can download for practicing activities in 
 * Environment Monitoring/Smart City
   - [Open data about air quality monitoring from Germany](https://github.com/opendata-stuttgart/meta/wiki/EN-APIs)
   - [UK Open Government Water Quality](https://environment.data.gov.uk/water-quality/view/landing)
+* System/Datacenter operation traces/logs:
+  - [Microsoft Azure traces dataset](https://github.com/Azure/AzurePublicDataset)
+  - [Alibaba Cluster Traces](https://github.com/alibaba/clusterdata)
 
 * [Open data sets in Google Big Query](https://cloud.google.com/bigquery/public-data)
 

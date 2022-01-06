@@ -10,4 +10,10 @@ You can find the instruction for this example in [camerastateuploadfile](cameras
 
 ### Using Google Cloud Composer
 
-You can also use Google Cloud Composer to setup your Apache Airflow environment. See our [short video here](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=d0136cb0-c5fe-41e5-bfea-acfb0144dace). 
+You can also use Google Cloud Composer to setup your Apache Airflow environment. See our [short video here](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=d0136cb0-c5fe-41e5-bfea-acfb0144dace).
+
+### Other workflow systems
+There are several workflow systems with similar concepts that you can practice:
+* [Flyte](https://github.com/flyteorg/flyte)
+* [Luigi](https://github.com/spotify/luigi)
+* [Agro](https://github.com/argoproj/argo-workflows)

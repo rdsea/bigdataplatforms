@@ -1,7 +1,7 @@
 # Course FAQ
 ### COVID-19: will the course be carried in online?
 
-Yes. due to the COVID-19 situation, the course will be run online in Spring, 2021. Note that the online mode means that lectures and hands-on will be done through online sessions with no pre-recorded videos. Due to the complexity of privacy and GDRP issues, it is likely that we will not record the sessions for post studies.
+Yes. due to the COVID-19 situation, the course will be run online in Spring, 2022. Note that the online mode means that lectures and hands-on will be done through online sessions with no pre-recorded videos. Due to the complexity of privacy and GDRP issues, it is likely that we will not record the sessions for post studies.
 
 ### What kind of jobs requires me to learn this course?
 We can talk a lot during the course but here some facts:

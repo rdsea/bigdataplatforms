@@ -21,6 +21,7 @@ There are many open datasets that you can download for practicing activities in 
   - [Reddit comments](https://www.kaggle.com/reddit/reddit-comments-may-2015)
 * Marketplace
   - [Airbnb Dataset](http://insideairbnb.com/get-the-data.html)
+  - [Amazon Customer Review Dataset](https://www.kaggle.com/cynthiarempel/amazon-us-customer-reviews-dataset)
 * Environment Monitoring/Smart City
   - [Open data about air quality monitoring from Germany](https://github.com/opendata-stuttgart/meta/wiki/EN-APIs)
   - [UK Open Government Water Quality](https://environment.data.gov.uk/water-quality/view/landing)

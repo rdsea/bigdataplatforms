@@ -1,11 +1,11 @@
 # Academic Violations
 
-**All assginments are individual work. You can discuss with your peer about possible technologies and solutions but the assignment result (the submission) is your sole work**. The following things would be considered violations:
+**All assignments are individual work. You can discuss with your peer about possible technologies and solutions but the assignment result (the submission) is your sole work**. The following things would be considered violations:
 * Reuse existing work without clear clarification of the reuse and what is the new work
   - it is always safe to write clearly how you reuse the code/material and provide a reference
 * Copy any part of existing solutions (code, design, document, etc.) from others
 
-We do not have automatical assignment evaluation and we read, check and run the assignment so the chance we detect a violation is **high**
+We do not have automatic assignment evaluation and we read, check and run the assignment so the chance we detect a violation is **high**
 >Besides tools are also used for code and text similarity analysis
 
 The violation handing procedure (based on Aalto):

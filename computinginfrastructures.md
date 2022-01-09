@@ -1,6 +1,6 @@
 # Computing Infrastructures for Studying Big Data Platforms
 
-## Working under limted resources
+## Working under limited resources
 To really practice works in big data platforms, we must have enough computing resources and access to platform services. Having enough computing resources for hands-on is tricky because you might need several machines to setup different services and you can also scale big platforms to a large number of machines. Given that we will have limited resources, we will have to learn big data platforms but we will understand practice issues of big data platforms using limited resources.
 
 Here are best practices that we have learned from dealing with this issue many years:

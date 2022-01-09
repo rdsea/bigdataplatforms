@@ -22,7 +22,7 @@ Here are best practices that we have learned from dealing with this issue many y
 
 * CSC Computing Resources: [Pouta services for VMs](https://research.csc.fi/-/cpouta)
 * CSC Computing Resources: [Rahti container cloud](https://docs.csc.fi/cloud/rahti/rahti-what-is/)
-* Free credits for Google Cloud Platforms: *we are granted with 250 coupons of GCP credits, each coupon is equivalent to 50 USD.* (during the course)
+* Free credits for Google Cloud Platforms: *we are granted with 80 coupons of GCP credits, each coupon is equivalent to 50 USD.* (during the course)
 
  ### Other external services
 

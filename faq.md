@@ -3,6 +3,21 @@
 
 Yes. due to the COVID-19 situation, the course will be run online in Spring, 2022. Note that the online mode means that lectures and hands-on will be done through online sessions with no pre-recorded videos. Due to the complexity of privacy and GDRP issues, it is likely that we will not record the sessions for post studies.
 
+### I have registered the course but my registration was rejected, why?
+The course has a limited number of slots (currently set 80). Furthermore, each year, during the selection, the course may reduce/increase the number of slots due to the availability of hired TAs (the hiring is difficult due to the lack of qualified TAs and the situation is known only before starting the course). The main reasons for rejection are to maintain the prerequisites and to maintain the quality of the course, **which is strongly dependent on the resources we have for the course**.  Therefore, we put some key requirements for registration acceptance. Rejection reasons could be:
+- Your study programme is not suitable and/or in the target  study programme of the course. Examples are: (i) not in CCIS master study, (ii) still in the BSc study phase, (iii) from adult/continuous learning programme (FITech), (iv) exchange study programme with unclear prerequisites
+- Your prerequisites are not fulfilled: lack of background in cloud computing, data management, data mining, etc.
+- Your study programme is not in the priority of the course, e.g., not in the big data track and/or the course is not in the recommended target  study programme of the course.
+
+Examples of conditions for selected over others:
+- In the CCIS big data track with  the prerequisites fulfilled.
+- Not in the big data track but the course is in the list of optional ones (in appropriate study programmes) and with fulfilled prerequisites.
+- In an appropriate exchange study with fulfilled prerequisites or in the big data track
+- In a doctoral programme with appropriate prerequisites.
+
+It is unfortunately that we have to reject our registration when our resource is not enough. In this case, you might be interested in free auditing (follow the course without assignment submission/access).
+
+
 ### What kind of jobs requires me to learn this course?
 We can talk a lot during the course but here some facts:
 
@@ -40,4 +55,4 @@ This course is an advanced one in the core computer science study thus key backg
 
 ### Can I use my own dataset (e.g. from my company) for exercises/assignments?
 
-Yes you can but you need to discuss with the lecturer first.
+Yes you can but you need to discuss with the teacher in charge  first.

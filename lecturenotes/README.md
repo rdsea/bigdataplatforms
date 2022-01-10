@@ -2,7 +2,7 @@
 
 >To be updated in 2022
 
-* Course Management: [Slides]()
+* Course Management: [Slides](pdfs/module0-lecture0-coursemanagement.pdf)
 * Introduction to Big Data Platforms:[Slides]()
 * Some industrial and open source big data platforms for Your tech radar: [Slides]()
 * Architecting Big Data Platforms: [Slides]())

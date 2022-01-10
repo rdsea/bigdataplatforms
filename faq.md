@@ -19,7 +19,7 @@ It is unfortunately that we have to reject our registration when our resource is
 
 ### I have registered the course long before the registration deadline and before many others, is it unfair to reject my registration
 
-The registration time has no effect to the acceptance/rejection. See also [the official document here](https://wiki.aalto.fi/display/SISEN/Registration+for+courses#Registrationforcourses-Differenttypesofregistration).
+The registration time has no effect on the acceptance/rejection. See also [the official document here](https://wiki.aalto.fi/display/SISEN/Registration+for+courses#Registrationforcourses-Differenttypesofregistration).
 
 ### I forgot to register and the deadline has passed just an hour ago, can I register?
 
@@ -27,7 +27,7 @@ Unfortunately: **No**. The deadline has set and there is a reason for that: we n
 
 ### I am a bachelor student, I have fulfilled all prerequisites, why my registration is still rejected?
 
-The course is for advanced master students: from the 2nd semester of the first year master study. In principle, it does not accept bachelor students(unlike some other master courses which accept bachelor students).    
+The course is for advanced master students: from the 2nd semester of the first year master study. In principle, it does not accept bachelor students(unlike some other master courses which accept bachelor students).
 
 ### What kind of jobs requires me to learn this course?
 We can talk a lot during the course but here some facts:

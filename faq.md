@@ -15,7 +15,7 @@ Examples of conditions for selected over others:
 - In an appropriate exchange study with fulfilled prerequisites or in the big data track
 - In a doctoral programme with appropriate prerequisites.
 
-It is unfortunately that we have to reject our registration when our resource is not enough. In this case, you might be interested in free auditing (follow the course without assignment submission/access).
+It is unfortunate that we have to reject your registration when our resource is not enough. In this case, you might be interested in the course audit (follow the course without assignment submission/access).
 
 ### I have registered the course long before the registration deadline and before many others, is it unfair to reject my registration
 

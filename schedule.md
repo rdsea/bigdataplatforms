@@ -11,7 +11,7 @@ Notes:
 Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 --------|--------------|-------|---------
 12.01   |Lecture 1  | [Introduction to Big Data Platforms](lecturenotes/pdfs/module1-lecture1-1-intro-v0.3.1.pdf) and [Architecting Big Data Platforms](lecturenotes/pdfs/module1-lecture1-2-architectingbigplatforms-v0.3.pdf) | **Linh Truong**
-13.01   |Tutorial 1 | [Some industrial and open source big data platforms for Your tech radar]()| **Linh Truong**
+13.01   |Tutorial 1 | [Some industrial and open source big data platforms for Your tech radar](lecturenotes/pdfs/tutorial-walkaround-techradar-v0.3.pdf)| **Linh Truong**
 19.01  |Lecture 2  | [Service and Integration Models in Big Data Platforms](), Additional slides: *[Cloud Infrastructures for Big Data Platforms]() and [a Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems](l)*| **Linh Truong**
 26.01  |Lecture 3  | [Big Data Storage and Database Services](). Additional slides: [common systems & integration problems](). and [A short example of metadata](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)
 27.01  |Tutorial 2 | [Hands-on examples with big database services](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/consistency)| **Linh Nguyen**, Linh Truong

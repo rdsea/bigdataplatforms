@@ -10,7 +10,7 @@
   - Chapter 1: Martin Kleppmann, [Designing Data-Intensive Applications](http://dataintensive.net/), O'Reilly Media,1 edition (April 11, 2017)
   - Pulkit Agrawal, Rajat Arya, Aanchal Bindal, Sandeep Bhatia, Anupriya Gagneja, Joseph Godlewski, Yucheng Low, Timothy Muss, Mudit Manu Paliwal, Sethu Raman, Vishrut Shah, Bochao Shen, Laura Sugden, Kaiyu Zhao, and Ming-Chuan Wu. 2019. Data Platform for Machine Learning. In Proceedings of the 2019 International Conference on Management of Data (SIGMOD '19). ACM, New York, NY, USA, 1803-1816. DOI: https://doi.org/10.1145/3299869.3314050
 
-* Some industrial and open source big data platforms for Your tech radar: [Slides]()
+* Some industrial and open source big data platforms for Your tech radar: [Slides](pdfs/tutorial-walkaround-techradar-v0.3.pdf)
 * Service and Integration Models in Big Data Platforms:[Slides]()
 * Cloud Infrastructures for Big Data Platforms: [Slides]()
 * A Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems: [Slides]()

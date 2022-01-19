@@ -11,14 +11,16 @@
   - Pulkit Agrawal, Rajat Arya, Aanchal Bindal, Sandeep Bhatia, Anupriya Gagneja, Joseph Godlewski, Yucheng Low, Timothy Muss, Mudit Manu Paliwal, Sethu Raman, Vishrut Shah, Bochao Shen, Laura Sugden, Kaiyu Zhao, and Ming-Chuan Wu. 2019. Data Platform for Machine Learning. In Proceedings of the 2019 International Conference on Management of Data (SIGMOD '19). ACM, New York, NY, USA, 1803-1816. DOI: https://doi.org/10.1145/3299869.3314050
 
 * Some industrial and open source big data platforms for Your tech radar: [Slides](pdfs/tutorial-walkaround-techradar-v0.3.pdf)
-* Service and Integration Models in Big Data Platforms:[Slides]()
-* Cloud Infrastructures for Big Data Platforms: [Slides]()
-* A Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems: [Slides]()
+* Service and Integration Models in Big Data Platforms:[Slides](pdfs/module1-lecture2-0-integrationbdp-v0.3.pdf)
+  - Adam Jacobs. 2009. The pathologies of big data. Commun. ACM 52, 8 (August 2009), 36-44. DOI: https://doi.org/10.1145/1536616.1536632
+  - Patrick Hunt, Mahadev Konar, Flavio P. Junqueira, and Benjamin Reed. 2010. ZooKeeper: wait-free coordination for internet-scale systems. In Proceedings of the 2010 USENIX conference on USENIX annual technical conference (USENIXATC'10). USENIX Association, Berkeley, CA, USA, 11-11. (https://www.usenix.org/legacy/events/atc10/tech/full_papers/Hunt.pdf)
+
+* Cloud Infrastructures for Big Data Platforms: [Slides](pdfs/module1-cloudinfrastructuresandservices-v0.3.pdf)
+* A Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems: [Slides](pdfs/performance-dependability-refresh_Truong.pdf)
 * How to succeed on assignments in Big Data Platforms?:[Slides]()
 * Big Data Storage and Database Services: [Slides]().
 * Addition for Big Data Storage and Database Services: common systems & integration problems: [Slides]().
 * A short example of metadata: [Video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)
-* Issues in timeseries data: [Slides]()
 * Big data ingestion: [Slides]()
 * Streaming Data Ingestion with Apache Kafka: [Slides](), [basic Kafka setup](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/basickafka) and [examples of data ingestion with Kafka](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/cloud-data-pipeline)
 * Hadoop and its Big Data Ecosystems: [slides]()

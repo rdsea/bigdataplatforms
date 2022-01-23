@@ -13,7 +13,7 @@ This GIT hosts material for [the course Big Data Platforms](https://mycourses.aa
  * [Academic Violations](violations.md)
 
  Note that: *Examples and hands-on codes are written in the most simple way for educational purposes.*
-> For programming in clouds you might be interested in our [IoTCloudSamples](https://github.com/rdsea/IoTCloudSamples/)
+> For programming in clouds you might be interested in our [IoTCloudSamples](https://github.com/rdsea/IoTCloudSamples/). There are also some notes about [basics in big data analytics and platforms](https://github.com/linhsolar/basicbigdata).
 
 ## Previous course editions
 * [Big Data Platforms 2021](2019/README.md)

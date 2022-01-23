@@ -27,7 +27,6 @@ services:
 
   roach3:
     image: "cockroachdb/cockroach:v21.2.3"
-    #name: "roach3"
     restart: always
     hostname: "roach3"
     depends_on:
@@ -36,12 +35,8 @@ services:
       - cse4640roachnet
     volumes:
       - "/tmp/cse4640/roach3:/cockroach/cockroach-data"
-    #ports:
-    #  - "26257:26257"
-    #  - "8080:8080"
     command: ["start", "--insecure", "--join=roach1,roach2,roach3"]
-#this network is created by
-#
+#this network is created using bridge driver
 networks:
   cse4640roachnet:
     #external: true

@@ -42,7 +42,7 @@ with
 Another way is with a docker. The instance will listen the queue and when it is available it can run.
 
 ```
-$docker run  -e "REDIS_URL=$REDIS_URL" cse4640/ingestionworker
+$docker run -e "QUEUE_NAME=$QUEUE_NAME"  -e "REDIS_URL=$REDIS_URL" cse4640/ingestionworker
 ```
 to scale the ingestion, you can run many more dockers in different machines.
 

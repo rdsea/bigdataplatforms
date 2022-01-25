@@ -11,15 +11,22 @@ Try to practice and read the following works in advance:
 The consistency level is associated with an operation (e.g. a query). It is based on *the replication_factor configured*(the number of replicas per data items) and *the available nodes* at runtime.
 
 ## 1. Setup Cassandra
-The Cassandra under test is setup in Google Cloud Platform with 5 nodes, using [Bitnami Cassandra images](https://docs.bitnami.com/google/infrastructure/cassandra/). In this tutorial we have three nodes for accessing from outside the cluster:
+The Cassandra under test is setup in Google Cloud Platform with 2 clusters, each has 3 nodes, using [Bitnami Cassandra images](https://docs.bitnami.com/google/infrastructure/cassandra/). In this tutorial we have four nodes for accessing from outside the cluster:
 
-* **Node1**: IP address to be obtained during the tutorial
-* **Node2**: IP address to be obtained during the tutorial
-* **Node3**: IP address to be obtained during the tutorial
+* **Node1Cluster1**: IP address to be obtained during the tutorial
+* **Node2Cluster1**: IP address to be obtained during the tutorial
+* **Node1Cluster2**: IP address to be obtained during the tutorial
+* **Node2Cluster2**: IP address to be obtained during the tutorial
 
 You need a username and password to access Cassandra:
 * username: *will let you know*
 * password: *will let you know*
+
+Once, you get into one of the node, you have to change directory:
+
+```
+$cd /cassandra
+```
 
 You need to make sure that **cqlsh** and Cassandra Python Driver (as we use some python code examples) are installed in your machine:
 
@@ -28,7 +35,12 @@ You need to make sure that **cqlsh** and Cassandra Python Driver (as we use some
 * Check Cassandra [Python Driver installation](https://github.com/datastax/python-driver):
 
 ```
-pip[3] install cassandra-python
+pip[3] install cassandra-driver
+```
+
+If you use one of our node, Cassandra Python Driver has already been installed in the python virtual environment. To activate the python virtual environment, run:
+```
+$source virtualenv/bin/activate
 ```
 ## 2. Sample data
 
@@ -39,14 +51,19 @@ We use the data set [Avian Vocalizations from CA & NV, USA](https://www.kaggle.c
 
 ## 3. Exercise Steps
 
-In the following steps, we assume that the user name is **mybdp**.
+In the following steps, we assume that username is *mybdp*.
+
 
 ### 3.1 Create a keyspace
+Check the node address using nodetool:
+```
+$nodetool status
+```
 Login into Cassandra using *cqlsh*:
 ```
 $cqlsh [Node1|2|3] -u mybdp
 ```
-
+The password will be provided in the tutorial session.
 Choose your keyspace name, e.g. **tutorial-studentid**. Pls. keep the *replication factor* as in the following example.
 
 ```
@@ -95,7 +112,7 @@ what do you see?
 #### Test if you can connect to Cassandra using a Python program
 
 ```
-$python3 test_connection.py --host [Node1|2|3] --u mybdp --p [Password] --q "SELECT * FROM tutorial12345.bird1234;"
+$python3 consistency/test_connection.py --host [Node1|2|3] --u mybdp --p [Password] --q "SELECT * FROM tutorial12345.bird1234;"
 ```
 
 ### 3.4 Programming consistency levels
@@ -140,7 +157,7 @@ Note:
 Using different nodes, you can try to run a read test using Python to see the performance and data accuracy:
 
 ```
-python3 test_consistency_read.py --host [node] --u mybdp --p [password] --q "SELECT * FROM tutorial12345.bird1234"
+python3 consistency/test_consistency_read.py --host [node] --u mybdp --p [password] --q "SELECT * FROM tutorial12345.bird1234"
 ```
 What do you see, compared with a similar query from other nodes.
 

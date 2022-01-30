@@ -1,9 +1,9 @@
-# Intalling and running Apache Kafka
+# Installing and running Apache Kafka
 ## Introduction
 Apache Kafka is a distributed streaming platform used for building real-time data pipelines and streaming apps [Kafka documentation](http://kafka.apache.org/documentation.html).
 In this manual, all the commands and  are written in bold-italic. The commands to be typed on the terminal window are preceded by a dollar ($) sign.
 
-* [Accompanying hands-on video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=33ee67f3-f018-45b2-b6d5-abea00dbbb2a) 
+* [Accompanying hands-on video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=33ee67f3-f018-45b2-b6d5-abea00dbbb2a)
 
 ## Prerequisite
 This instructions are for linux ubuntu system but similar steps could be used on any operating system though with different commands. Since Apache Kafka uses JVM, the following should be done before running the steps:
@@ -48,50 +48,54 @@ _config/server-1.properties:_
 
  ```
 _config/server-2.properties:_
-```
+
+ ```
     broker.id=2
     listeners=PLAINTEXT://:9094
     log.dirs=/tmp/kafka-logs-2
-```
+ ```
 
 
 ### Step3: start kafka server
 Since kafka uses Zookeeper, we need to start the it first before we fire up kafka.
 
-```
-$ bin/zookeeper-server-start.sh config/zookeeper.properties
-$ bin/kafka-server-start.sh config/server.properties &&     bin/kafka-server-start.sh config/server_1.properties &&
-bin/kafka-server-start.sh config/server_2.properties
-```
+ ```
+	$ bin/zookeeper-server-start.sh config/zookeeper.properties
+	$ bin/kafka-server-start.sh config/server.properties &&     bin/kafka-server-start.sh config/server_1.properties &&
+	bin/kafka-server-start.sh config/server_2.properties
+
+ ```
 
 ### Step4: Testing the installation
-Now that we have our server up and runnig, let's create a topic to test our installation.
-```
-$ bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 3 --partitions 1 --topic my-replicated-topic
-```
+Now that we have our server up and running, let's create a topic to test our installation.
+ ```
+	$ bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 3 --partitions 1 --topic my-replicated-topic
 
+ ```
 Then use _describe topics_ to see the partitions and the replicas.
 
-```
-$ bin/kafka-topics.sh --describe --bootstrap-server localhost:9092 --topic my-replicated-topic
-```
+ ```
+	$ bin/kafka-topics.sh --describe --bootstrap-server localhost:9092 --topic my-replicated-topic
+ ```
 If all worked well, then the outcome should be:
 
-```
-Topic: my-replicated-topic	PartitionCount: 1	ReplicationFactor: 3	Configs: segment.bytes=1073741824
-Topic: my-replicated-topic	Partition: 0	Leader: 2	Replicas: 2,1,0	Isr: 0,2,1
-```
+ ```
+	Topic: my-replicated-topic	PartitionCount: 1	ReplicationFactor: 3	Configs: segment.bytes=1073741824
+	Topic: my-replicated-topic	Partition: 0	Leader: 2	Replicas: 2,1,0	Isr: 0,2,1
+ ```
+
 ### Step4: Writing kafka producer and consumer
 A simple script on how to start Kafka producers and consumers from the terminal is given in Step 4 and Step 5 in the [Quickstart guide](https://kafka.apache.org/quickstart).
 
 ---
-# Running Kafka from container
+
+## Running Kafka from container
 There are two ways to run Kafka from a container. One is to get the image from [docker hub](https://hub.docker.com/) and then
 on the terminal write (in this case I'm using bitnami/kafka image):
 
-```
-$ docker run bitnami/kafka
-```
+ ```
+	$ docker run bitnami/kafka
+ ```
 
 Second alternative is to get the docker compose file of the Kafka image [bitnami/kafka](https://github.com/bitnami/bitnami-docker-kafka/blob/master/docker-compose.yml). Save it in the your editor and then do the following. In this example,
 we will assume that the file is saved as docker-compose.yml in a folder named kafka.
@@ -117,11 +121,11 @@ If all went well, you should see the text *Created topic test* on your terminal.
 
 ---
 
-# Configuring Kafka cluster in a container
-## Starting and inspecting the containers
+## Configuring Kafka cluster in a container
+### Starting and inspecting the containers
 We will be using a docker-compose file for for setting up a multi-broker cluster.
 
-Running a Kafka cluster in a container is different from running a single instance as many environment variables have to be configured. The docker-compose file for the services is *docker-compose3.yml*. The configuration in the file allows us to use a global Kafka Broker. 
+Running a Kafka cluster in a container is different from running a single instance as many environment variables have to be configured. The docker-compose file for the services is *docker-compose3.yml*. The configuration in the file allows us to use a global Kafka Broker.
 
 _Note: In the `KAFKA_CFG_ADVERTISED_LISTENERS` setting, be sure to update the `EXTERNAL`  setting for hostname/external ip of the machine instance. Otherwise, this won't be accessible from any system outside the `localhost`_
 
@@ -140,7 +144,7 @@ _Note: In the `KAFKA_CFG_ADVERTISED_LISTENERS` setting, be sure to update the `E
     $ docker inspect <container_name>
     ```
 
-## Playing with the installation
+### Playing with the installation
 
 1. Create a topic with 3 replications and a single partition
     ```
@@ -169,7 +173,7 @@ _Note: In the `KAFKA_CFG_ADVERTISED_LISTENERS` setting, be sure to update the `E
     ```
     Hki long 24.94, lat 60.17
     ```
---- 
+---
 
 ## Playing around with Kafkacat
 Working with kafka-shell is quite cumbersome. So, we can instead use Kafkacat to work with Kafka. Kafkacat [^kafkacat] is extremely popular non JVM utility that allows producing, consuming and listening to Kafka. Instead of writing long commands and code, we can use it to learn kafka very quickly.
@@ -178,7 +182,7 @@ Working with kafka-shell is quite cumbersome. So, we can instead use Kafkacat to
     ```
     $ apt-get install kafkacat
     ```
-on debian systems. Check out the official git for other Linux flavours. 
+on debian systems. Check out the official git for other Linux flavours.
 
 
 * See brokers, partitions and topics:
@@ -219,9 +223,30 @@ on debian systems. Check out the official git for other Linux flavours.
 ---
 [^kafkacat]: https://github.com/edenhill/kafkacat
 
+## Play with simple code
+
+We have two simple programs: [a simple producer](code/simple_kafka_producer.py) and [a simple consumer](code/simple_kafka_consumer.py) that you can play with by using the [ONU data](../../../data/onudata).
+
+After having your Kafka system running. Start the producer:
+
+ ```
+	$python simple_kafka_producer.py  -i ONUData-sample.csv -c 10 -s 30 -t cse4640simplekafka
+
+ ```
+and another terminal for the consumer:
+
+ ```
+	$python simple_kafka_consumer.py -t cse4640simplekafka -g cse4640
+ ```
+
+you can run another consumer but different **consumer group** to see
+
+ ```
+	$python simple_kafka_consumer.py -t cse4640simplekafka -g cse4640_group_2
+ ```
+
 ## Authors
 
-- Tutorial author: Strasdosky Otewa and Rohit Raj
+- Tutorial author: Strasdosky Otewa, Rohit Raj and Linh Truong
 
 - Editor: Linh Truong
-

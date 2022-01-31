@@ -28,7 +28,7 @@
 * Addition for Big Data Storage and Database Services: common systems & integration problems: [Slides](pdfs/module2-lecture3-bigdatastoragedatabase-addition-v0.3.pdf).
 * A short example of metadata: [Video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)
 * Big data ingestion: [Slides]()
-* Streaming Data Ingestion with Apache Kafka: [Slides](), [basic Kafka setup](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/basickafka) and [examples of data ingestion with Kafka](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/cloud-data-pipeline)
+* Streaming Data Ingestion with Apache Kafka: [Slides](pdfs/module2-lecture4-apachekafka.pdf), [basic Kafka setup](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/basickafka) and [examples of data ingestion with Kafka](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/cloud-data-pipeline)
 * Hadoop and its Big Data Ecosystems: [slides]()
 * Some case studies for Hadoop and data ingestion: [slides]()
 * Big Data Processing with MapReduce/Spark Programming Models: [Slides]()

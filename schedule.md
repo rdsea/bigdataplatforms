@@ -17,9 +17,9 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 19.01  |Lecture 2  | [Service and Integration Models in Big Data Platforms](lecturenotes/pdfs/module1-lecture2-0-integrationbdp-v0.3.pdf), Additional slides: *[Cloud Infrastructures for Big Data Platforms](lecturenotes/pdfs/module1-cloudinfrastructuresandservices-v0.3.pdf) and [a Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems](lecturenotes/pdfs/performance-dependability-refresh_Truong.pdf)*| **Linh Truong**
 26.01  |Lecture 3  | [Big Data Storage and Database Services](lecturenotes/pdfs/module2-lecture3-bigdatastoragedatabase-v0.3.pdf). Additional slides: [common systems & integration problems](lecturenotes/pdfs/module2-lecture3-bigdatastoragedatabase-addition-v0.3.pdf). and [A short example of metadata](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)
 27.01  |Tutorial 2 | [Hands-on examples with big database services](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/consistency)| **Linh Nguyen**, Linh Truong
-02.02   |Lecture 4 | [Big Data Ingestion](). Additional slides about [Streaming Data Ingestion with Apache Kafka]()  | **Linh Truong**
+02.02   |Lecture 4 | [Big Data Ingestion](). Additional slides about [Streaming Data Ingestion with Apache Kafka](lecturenotes/pdfs/module2-lecture4-apachekafka.pdf)  | **Linh Truong**
 02.02  |   | **Release the first assignment**
-03.02   |Meetup 1, Tentative| [How to succeed on assignments in Big Data]() | (from the student view)
+03.02   |Meetup 1| How to succeed on Big Data: experiences from the course and the real job | Rishabh Kapoor, Data Engineer, Fortum and CS-E4640 2021 Alumnus
 09.02  |Lecture 5 | [Hadoop and its Big Data Ecosystems](). Study some [real cases of Hadoop and data ingestion]()| **Linh Truong**
 10.02  |Tutorial 3 | [Data Ingestion with Apache Nifi](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/nifi)| Linh Truong
 16.02  | Invited Talk (tentative) | Backup date, assignment support, possible invited talk| **All**

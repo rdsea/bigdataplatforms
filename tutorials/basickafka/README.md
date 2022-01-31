@@ -1,4 +1,6 @@
 # Installing and running Apache Kafka
+>Note: Apache Kafka is in the plan to remove the Zookepper dependency but we still illustrate Apache Kafka versions with Zookepper. Furthermore, the illustration is not with the most up-to-date Kafka version. You may use the container version for your study.
+
 ## Introduction
 Apache Kafka is a distributed streaming platform used for building real-time data pipelines and streaming apps [Kafka documentation](http://kafka.apache.org/documentation.html).
 In this manual, all the commands and  are written in bold-italic. The commands to be typed on the terminal window are preceded by a dollar ($) sign.

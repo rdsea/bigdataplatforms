@@ -32,7 +32,7 @@ default_args = {
 dag = DAG(DAG_NAME, default_args=default_args)
 
 '''
-for simplicity we just show here one source to be downloaded. E.g., in principle, 
+for simplicity we just show here one source to be downloaded. E.g., in principle,
 one should look for the source from a database and create a suitable list of source
 '''
 
@@ -42,7 +42,7 @@ stamp = str(date.today())
 report_destination = "report/analytic_{}.csv".format(stamp)
 
 # Copy your own webhook here, follow https://code.mendhak.com/Airflow-MS-Teams-Operator/, prepare MS Teams and prepare Airflow steps.
-teams_webhook = "https://aaltofi.webhook.office.com/webhookb2/7d344f65-cd8c-425b-aee3-ee4f19446a77@ae1a7724-4041-4462-a6dc-538cb199707e/IncomingWebhook/4a468e0d2d694fdb8b8ada4d70ea62c3/4193db67-98f0-42ff-9141-ee59d41a2cf9"
+teams_webhook = ""
 
 downloadBTS = "wget -O " + destination_file + " " + source
 removeFile = "rm {}".format(destination_file)

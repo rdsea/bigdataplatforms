@@ -5,22 +5,26 @@ The goal is to design simple flows with basic tasks of data ingestion to underst
 
 ## Setup
 ### Apache Nifi
-You can download [Apache Nifi](https://nifi.apache.org/download.html) and install it into your machine. Note that the current Apache Nifi needs Java 8 or 11. Check the document to see if a minimum configuration should be made for your installation.
+You can download [Apache Nifi](https://nifi.apache.org/download.html) and install it into your machine. Check the document to see if a minimum configuration should be made for your installation.
+
+>Note: the following information is with **nifi-1.15.3**
 
 Start Nifi server
 ```
 $bin/nifi.sh run
 ```
-Then access Nifi from the Webbrower:
+Then access Nifi from the Web browser:
 ```
-http://localhost:8080/nifi
+https://127.0.0.1:8443/nifi
 ```
+>Note about the username/password by reading Nifi guide.
 
 ### AMQP Broker
-When ingesting data through message brokers, you can use your own RabbitMQ in your local machine or a free instance created from [CloudAMQP.com](https://cloudamqp.com)
+When ingesting data through message brokers, you can use your own RabbitMQ in your local machine or a free instance created from [CloudAMQP.com](https://cloudamqp.com).
 
 
-### Simple program for receiving notification
+### Simple program for receiving data from message brokers.
+
 We have a simple python code that can be used for receiving messages sent to AMQP (using fanout), e.g.,
 
 ```
@@ -31,11 +35,13 @@ We have a simple python code that can be used for receiving messages sent to AMQ
 
 Google Storage is used as data sink. You can use your own google storage bucket or a common bucket available. You will need a service account credential for configuring Nifi and Google Storage.
 
->if you use your own storage bucket then create a service account for Nifi
+>if you use your own storage bucket then create a service account which can be used for Nifi
 
 ## Exercises
 
 ### Define a flow for ingesting data into Google Storage
+
+This example illustrates a scenario where you setup Nifi as a service which continuously check file-based data sources (e.g., directories in file systems, sftp, http, ..) and ingest the new files into a cloud storage.
 
 Include:
 
@@ -49,14 +55,14 @@ The following configuration is used with the Google Storage setup for you:
 * Then enable **GCPCredentialsControllerService**
 
 
->Gcloud service account for practice in CS-E4640 2021:
-[Google cloud service account](https://mycourses.aalto.fi/mod/page/view.php?id=595256)
+>Gcloud service account for the practice will be shared. You can also use your Google Storage and set service account with your Google Storage.
 
 Testing:
 
-* Copy some files into the directory specified in **Input Directory** prototype of **ListFile**
+* Copy some files into the directory specified in **Input Directory** prototype of **ListFile** and see if the new copied files will be ingested into the Google Storage.
+>Be careful with the files you put into the directory to avoid make wrong files to the Google Storage
 
->If you use a shared bucket with a service account, you can also use some programs to list contents of the bucket. For example, first download https://github.com/GoogleCloudPlatform/python-docs-samples/blob/master/storage/cloud-client/storage_list_files.py and  store the google service json to a file: e.g., google.json
+>If you use a shared bucket with a service account, you can use **gcloud/gsutil** or some programs to list contents of the bucket. For example, first download [the code for listing objects](https://cloud.google.com/storage/docs/listing-objects#storage-list-objects-python) into **storage_list_files.py** and  store the google service json to a file: e.g., google.json
 ```
 $export GOOGLE_APPLICATION_CREDENTIALS=google.json
 $python3 storage_list_files.py bdplabnifi
@@ -74,134 +80,102 @@ We should test it only with CSV or JSON files of small data. We use the followin
 	```
 	exchange name: amq.fanout
 	routing key: mybdpnifi
-	hostname: hawk-01.rmq.cloudamqp.com
+	hostname: hawk.rmq.cloudamqp.com
 	port: 5672
-	virtual host: mpbhjjsn
+	virtual host: fyjgrlhi
 	username: <see below>
 	password: <see below>
 
 	```
-	> [Get AMQP username/password for practice](https://mycourses.aalto.fi/mod/page/view.php?id=595256)
+	> AMQP username/password for practice will be shared
 
   > If you are using your own RabbitMQ, then you have to create a queue and set the binding from routing key to queue. Check [this](https://www.tutlane.com/tutorial/rabbitmq/rabbitmq-bindings) for help.
 
 Using the following program to check if the data has been sent to the message broker:
 
 ```console
-$export AMQPURL=**Get the link from Mycourses**
+$export AMQPURL=**Get the link during the practice**
 $python3 cs-e4640/examples/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
 ```
 >Note that the AMQP configuration for the python program must match the AMQP broker set in Nifi
 
+**Next step**: practice with Apache Kafka as messaging system.
 
 ### Capture changes in legacy databases and do ingestion to a big data platform
 
-Now we will read data from a SQL database (assume this is a legacy database). First step in to collect the relavant connector that Nifi uses to comunicate with SQL instances:
+This exercise illustrates how to take only changes from databases and ingest the changes into big data storage/databases.
 
-```console
-~$ mkdir ./nifi-1.12.1/drivers
-~$ cd ./nifi-1.12.1/drivers
-~$ cp wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.19/mysql-connector-java-8.0.19.jar
-```
+Assume that you have a relational database, say MySQL in the following example. You can setup it to have the following configuration:
+- Enable binary logging feature in MySQL (see https://dev.mysql.com/doc/refman/5.7/en/replication-howto-masterbaseconfig.html and https://snapshooter.com/learn/mysql/enable-and-use-binary-log-mysql). For example,
 
-1. Use a **QueryDatabaseTable processor** with the following configuration:
-
-	```console
-	Database connection pooling Service: DBCPConnectionPool
-	Database Type: MySQL
-	Table Name: myTable
-	Columns to Return: id,Name,Surname,Company
 	```
-2. Configure **DBCPConnectionPool** service:
-
-	```console
-	Database Connecion URL: jdbc:mysql://35.228.68.209:3306/mybdplab_nifi_sql
-	Database Driver Cass Name: com.mysql.jdbc.Driver
-	Database Driver Location(s): <abspath>/nifi-1.12.1/drivers/nifi-1.12.1/drivers/mysql-connector-java-8.0.19.jar
-	Database user: <see below>
-	Database password: <see below>
+	server-id =1
+	log_bin                = /var/log/mysql/mysql-bin.log
+	binlog_format = row
 	```
->[DBCPConnectionPool credentials](https://mycourses.aalto.fi/mod/page/view.php?id=595256)
+	>Make sure you setup it right, otherwise binary logging feature might not work. In the practice, we can give you the access to a remote MySQL server, make sure you have "mysql" installed in your machine.
 
-
-3. **QueryDatabaseTable processor** use a Avro data format, we need to define a **SplitAvro** processor in order to get single row entries
-4. After splitting, we nee to convert each entry into JSON with **ConvertAvroToJSON**
-
-5. In order to get out key-value pairs, we can use **EvaluateJsonPath**
-
-	```console
-	Destination: flowfile-attribute
-	Return Type: auto-detect
-	Path Not Found Behavior: ignore
-	Null Value Representation: empty string
-	Company: $.Company
-	id: $.id
-	Name: $.Name
-	Surname: $.Surname
+- Define a database user name for test: such as **cse4640** with password ="bigdataplatforms"
+- Create a database under the selected username. E.g., create a database **bdpdb**
 	```
-6. Now we want to change the file name (i.e: we want all entries in the same output file) **UpdateAttribute**:
-
-	```console
-	filename: UpdateFiles.csv
+	mysql> create database bdpdb;
+	mysql> use bdpdb;
 	```
-7. Now, we want to change the format of the file to comma separated stirng **ReplaceText**:
-
-	```console
-	Replacement Value: ${'id'},${'Name'},${'Surname'},${'Company'}
+- Then create a table like:
 	```
-8. In this step we are going to use a new processor **ExecuteScript**. The script will create (or append to) a file where we will put all csv rows. Unfortunately, Nifi doesn't have a simple option for appending to file.
-
-	```console
-	Script Engine: python
-	Script body: <see below>
-	```
-Python script:
-
-	```console
-	import json
-	import sys
-	import traceback
-	from java.nio.charset import StandardCharsets
-	from org.apache.commons.io import IOUtils
-	from org.apache.nifi.processor.io import StreamCallback
-	from org.python.core.util import StringUtil
-
-
-	class TransformCallback(StreamCallback):
-	    def __init__(self):
-	        pass
-
-	    def process(self, inputStream, outputStream):
-	        try:
-	            # Read input FlowFile content
-	            input_text = IOUtils.toString(inputStream, StandardCharsets.UTF_8)
-	            filename = flowFile.getAttribute('filename')
-	            fd = open('<path/to/the/file','a+')
-	            if (',,,' not in input_text):
-	                fd.write(input_text)
-	                fd.write('\r')
-	                fd.close()
-	        except:
-	            traceback.print_exc(file=sys.stdout)
-	            raise
-
-
-	flowFile = session.get()
-	if flowFile != None:
-	    flowFile = session.write(flowFile, TransformCallback())
-
-	    # Finish by transferring the FlowFile to an output relationship
-	session.transfer(flowFile, REL_SUCCESS)
+	CREATE TABLE myTable (
+		id INTEGER PRIMARY KEY,
+		country text,
+		duration_seconds INTEGER,
+		english_cname text ,
+		latitude float,
+		longitude float,
+		species text
+	);
 	```
 
-9. Now, as in the first example, we can define **ListFile**, **FetchFile** and **PutCSObject** to automatically store all the updates to a legacy database in a Google storage in csv format.
+>Note the information about username, table, MySQL hostname, etc.
+
+Now we will capture changes from a SQL database (assume this is a legacy database). First step in to define  relevant connectors that Nifi uses to communicate with SQL instances:
+
+1. Use a **CaptureChangeMySQL processor** with the following configuration based on the username, MySQL host, database, etc.
+
+	```console
+	MySQL Hosts:
+	Username: "cse4640"
+	Password: "bigdataplatforms"
+	Database/Schema: bdpdb
+	Table Name Pattern: myTable*
+
+	```
+
+2. **PublishAMQP processor**: similar to the previous exercise, we just publish the whole change captured to an AMQP message broker.
+
+3. Start an AMQP consumer client to receive the change
+	```console
+	$export AMQPURL=**Get the link during the practice**
+	$python3 cs-e4640/examples/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
+	```
+4. Start to insert the data by inserting some data into the selected table. For example,
+
+	```
+	INSERT INTO myTable (country, duration_seconds, english_cname, id,  species, latitude, longitude) values ('United States',42,'Yellow-breasted Chat',408123,'virens',33.6651,-117.8434);
+	```
+	>*For simple tests, just change the value of the INSERT to add new data into the database to see.*
+
+After successful with the above steps, now you can try different situations:
+ - Now, as in the first example, we can define **ListFile**, **FetchFile** and **PutCSObject** to automatically store all the updates to a legacy database in a Google storage in csv format.
+ - Add other processors to handle the change nicely
+ - Using Kafka for messaging systems
+ - Ingest the change into the right sink (database, storage)
+ - Do it with a large scale settting
 
 
 ## Conclusions
 
 Now you have an overview on the vast capabilities of Apache Nifi. We suggest you try to define simple data-flow in order to make some practice.
 
-## Challenge:
+## Challenge
 
 Write a flow that:
 

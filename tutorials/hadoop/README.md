@@ -1,198 +1,99 @@
-# Basic Hadoop Tutorial
+# Hadoop and Hadoop Ecosystems
 
-The goal of this tutorial is to examine some features of the Hadoop software system, mainly with HDFS, YARN and Hive.
+## Tutorials and Examples
+* [Basic Hadoop tutorials](hadoop-hive.md)
+* [HBase examples in the lecture](hbase.md)
+* [Apache Accumulo example](accumulo.md)
 
-## 1. The Hadoop system for the tutorial
-You can setup a Hadoop system by yourself or use our setup for practices.
-> Check [the document of Hadoop](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html)
-We have  setup a hadoop system for testing using [Google DataProc](https://cloud.google.com/dataproc/).
-In order to access the the system for the tutorial, we have open ssh connections for you. You will need:
+## Some notes on local Hadoop setup
 
-* **USER_NAME**: *will let you know*
-* **PASSWORD** : *will let you know*
-* **MASTER_IP**: *will let you know*
+If you have credits or an appropriate subscription, you can use Hadoop and its ecosystems from various cloud providers, such as [HDInsight](https://azure.microsoft.com/en-us/services/hdinsight/), [Google Dataproc](https://cloud.google.com/dataproc), or [Amazon EMR](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-overview-arch.html). However, for practices, you can setup Hadoop in your own machines. There are many guides available. Here we just put some notes for quick problems you may face.
 
-Make sure that you have **ssh** installed in your machine.
->We will have only 1 account for all participants so DO NOT change the system configuration and account information.
+### Java version and Memory
+It is often that we have both Oracle Java and OpenJDK, thus make sure you use the Java setting correct. Pay attention to JAVA_HOME.
+  
+The system might need a lot of memory so pay attention about errors due to memory and number of tasks (e.g., heap configuration, maximum memory for MapReduce tasks)
 
-## 2. Exercises
-### Access the system
+### Check XML configuration file
+There are a lot of configuration files and parameters. Many are in XML, as such frameworks have been started long time ago. Make sure you check them correct. E.g.,
 ```
-ssh [USER_NAME]@[MASTER_IP]
+$ xmllint hive-default.xml
+hive-default.xml:3216: parser error : xmlParseCharRef: invalid xmlChar value 8
+mmands with OVERWRITE (such as INSERT OVERWRITE) acquire Exclusive locks for&#8;
+                                                                               ^
 ```
->Note: for practices, we allow to access using username and password but this should not be done in a production environment
+### Hadoop NameNode and DataNode
 
-Check if you can use hadoop
-```
-hdfs dfs -ls  /user/mybdp
-```
-### Perform basic tasks on HDFS
-You can create directories, files, etc. in HDFS:
-```
-hdfs dfs -mkdir /user/mybdp/dir12345
-hdfs dfs -put somefile /user/mybdp/dir12345
-```
->Check [the HDFS cheatsheet here](http://images.linoxide.com/hadoop-hdfs-commands-cheatsheet.pdf).
-
-We already have a big file into HDFS. The file is in HDFS
-```
-/user/mybdp/nytaxi2019.csv
-```
-use this file to practice some simple checks:
-```
-hdfs dfs -ls
-hdfs dfs -cat /user/mybdp/nytaxi2019.csv
-hdfs dfs -tail /user/mybdp/nytaxi2019.csv
-hdfs fsck /user/mybdp/nytaxi2019.csv -files -blocks -locations
-```
-* What is an example of a record in the file?
-* How many blocks do we have for this file?
-* Do you know which blocks are stored in which data nodes?
-### Understanding NameNode and Data Node
-
-You can use hdfs dfsadmin to check some information:
+Remember that Hadoop File System (HDFS) has NodeName and DataNode which have different configurations, e.g.:
 
 ```
-hdfs dfsadmin -report
-hdfs getconf -confKey dfs.blocksize
-```
-* How many data nodes do we have? How many are live?
-* What are the internal addresses of these nodes?
-* What is the block size configured?
-
-### Copy data to HDFS
-Perform some tasks to upload data into HDFS. What would be steps for moving data into the Hadoo system?
-### Understanding Configuration of HDFS
-
-Look at **/etc/hadoop/conf/hdfs-site.xml** and check
-* Cluster name
-* Name nodes
-* Zookeeper
-
-### YARN
-#### Check YARN information
-```
-yarn node -list
-yarn application --list
-```
-* How many nodes you see?
-* Which applications are running?
-
-
-### Hive
-
-In the same cluster, you can also access to Hive and play some examples
-> Or you can practice with your Hive installation
-
-#### Connect
-```
- $beeline -u "jdbc:hive2://localhost:10000"
-```
-#### list databases and tables
-```
-jdbc:hive2://localhost:10000> show databases;
-jdbc:hive2://localhost:10000> show tables;
-```
-
-#### Create a table
-Create a normal table:
-```
-jdbc:hive2://localhost:10000>
-CREATE TABLE taxiinfo12345 (VendorID int,
- tpep_pickup_datetime string,tpep_dropoff_datetime string,passenger_count int ,trip_distance float ,RatecodeID int ,store_and_fwd_flag string ,PULocationID int,DOLocationID int,payment_type int ,fare_amount float,extra float,mta_tax float,tip_amount float,tolls_amount float,improvement_surcharge float,total_amount float)
- ROW FORMAT DELIMITED FIELDS TERMINATED  BY ',';
-```
-
-#### Load a simple data file into table
-```
- jdbc:hive2://localhost:10000>LOAD DATA LOCAL INPATH '/home/mybdp/old/simple.csv' OVERWRITE INTO TABLE taxiinfo12345;
- ```
- #### Make a simple query:
- ```
- jdbc:hive2://localhost:10000>select * from taxiinfo12345;
- ```
-
-#### Test with table with partitions
-We can test tables created with partions. For example, create a table with two new columns for partition -  *year and month*:
+hdfs-site.xml
+<property>
+      <name>dfs.namenode.name.dir</name>
+      <value>/var/hadoop/data/namenode</value>
+  </property>
+  <property>
+      <name>dfs.datanode.name.dir</name>
+      <value>/var/hadoop/data/datanode</value>
+  </property>
 
 ```
-jdbc:hive2://> CREATE TABLE taxiinfo1 (VendorID int,
- tpep_pickup_datetime string,tpep_dropoff_datetime string,
- passenger_count int ,trip_distance float ,RatecodeID int ,
- store_and_fwd_flag string ,PULocationID int,DOLocationID int,
- payment_type int ,fare_amount float,extra float,mta_tax float,
- tip_amount float,tolls_amount float,improvement_surcharge float,
- total_amount float)
- PARTITIONED BY  (year int, month int)
- ROW FORMAT DELIMITED FIELDS TERMINATED  BY ',';
- ```
-where **PARTITIONED BY  (year int, month int)** indicates the partitions.
+### External Zookeeper
 
-Assume that we have */opt/data/rawdata/nytaxi2019-1000.csv* as the data in the year 2019, month=11, we can load the data into the right partition (year=2019,month=11)
+You can use a single Zookeeper for Hadoop and HBase, etc. Make sure you do the right configuration. For example, for HBase you can have the following configuration in  **hbase-site.xml**, where **"localhost"** should be the machine running Zookeeper.
 
 ```
-jdbc:hive2://> LOAD DATA LOCAL INPATH '/opt/data/rawdata/nytaxi2019-1000.csv' OVERWRITE INTO TABLE taxiinfo1 PARTITION (year=2019, month=11);
-```
-Assume that:
-> */user/hive/warehouse/* is the place where Hive stores data.
-
-We can check the data in HDFS, e.g.,
-```
-$bin/hdfs dfs -ls /user/hive/warehouse/taxiinfo1
-
-```
-#### Test with table with buckets
-
-With a partition:
-```
-jdbc:hive2://> CREATE TABLE taxiinfo2 (VendorID int,
- tpep_pickup_datetime string,tpep_dropoff_datetime string,passenger_count int ,trip_distance float ,RatecodeID int ,store_and_fwd_flag string ,PULocationID int,DOLocationID int,payment_type int ,fare_amount float,extra float,mta_tax float,tip_amount float,tolls_amount float,improvement_surcharge float,total_amount float)
-  CLUSTERED BY (VendorID) INTO 2 BUCKETS
- ROW FORMAT DELIMITED FIELDS TERMINATED  BY ',';
- ```
-
-Assume that we have */opt/data/rawdata/nytaxi2019-1000.csv* as the data, we can load the data into the table
+<property>
+   <name>hbase.zookeeper.quorum</name>
+   <value>localhost</value>
+</property>
+<property>
+   <name>hbase.zookeeper.property.clientPort</name>
+   <value>2181</value>
+</property>
 
 ```
-jdbc:hive2://> LOAD DATA LOCAL INPATH '/opt/data/rawdata/nytaxi2019-1000.csv' OVERWRITE INTO TABLE taxiinfo2;
+### Hive/Hadoop access denied/impersonation issues
+You might get errors when running beeline to call hiveserver2 which in turn calls Hadoop to execute requests. You can check [a simple but easy to understand explanation here](https://www.stefaanlippens.net/hiveserver2-impersonation-issues.html).
 
- ```
-We can check the data in Hadoop, e.g.,
-```
-$bin/hdfs dfs -ls /user/hive/warehouse/taxiinfo2
- ```
-#### Test tables with partitions and buckets
-
-With a partition:
-```
-jdbc:hive2://> CREATE TABLE taxiinfo3 (VendorID int,
- tpep_pickup_datetime string,tpep_dropoff_datetime string,passenger_count int ,trip_distance float ,RatecodeID int ,store_and_fwd_flag string ,PULocationID int,DOLocationID int,payment_type int ,fare_amount float,extra float,mta_tax float,tip_amount float,tolls_amount float,improvement_surcharge float,total_amount float)
- PARTITIONED BY  (year int, month int)
- CLUSTERED BY (VendorID) INTO 2 BUCKETS
- ROW FORMAT DELIMITED FIELDS TERMINATED  BY ',';
- ```
-
-Assume that we have */opt/data/rawdata/nytaxi2019-1000.csv* as the data, we can load the data into the table
+For example, in **hive-default.xml**, you may need to look at
 
 ```
-jdbc:hive2://> LOAD DATA LOCAL INPATH '/opt/data/rawdata/nytaxi2019-1000.csv' OVERWRITE INTO TABLE taxiinfo3 PARTITION (year=2019, month=11);
-```
-We can check the data in Hadoop, e.g.,
-```
-$bin/hdfs dfs -ls /user/hive/warehouse/taxiinfo3
+<property>
+   <name>hive.server2.enable.doAs</name>
+   <value>false</value>
+   <description>
+     Setting this property to true will have HiveServer2 execute
+     Hive operations as the user making the calls to it.
+   </description>
+ </property>
+ <property>
+     <name>hive.conf.restricted.list</name>
+     <value>....</value>
+     <description>Comma separated list of configuration options which are immutable at runtime</description>
+   </property>
 
 ```
-#### Check configuration file
+In Hadoop configuration, for example, if "truong" is [used for a proxy user](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/Superusers.html), we have the following configuration in **core-site.xml**
+
 ```
-$more /etc/hive/conf/hive-site.xml
+<configuration>
+
+<property>
+<name>hadoop.proxyuser.truong.hosts</name>
+<value>*</value>
+</property>
+
+<property>
+  <name>hadoop.proxyuser.truong.groups</name>
+  <value>*</value>
+</property>
+</configuration>
 ```
-* Which execution engine is used for processing queries?
+#### Seeing logs of hiveserver2
+Instead of running "hiveserver2", you can run
 
-## Integration with other storage services
+```
+$hive --service hiveserver2 --hiveconf hive.root.logger=INFO,console
 
-Try to configure your Hadoop system to connect to other storages:
-* [Azure Blob Storage/Data Lake](https://aajisaka.github.io/hadoop-document/hadoop-project/hadoop-azure/abfs.html)
-* [Amazon S3](https://hadoop.apache.org/docs/stable/hadoop-aws/tools/hadoop-aws/index.html)
-* [Google Storage Connector](https://cloud.google.com/dataproc/docs/concepts/connectors/cloud-storage)
-
-Then practice storing data into these storage services via HDFS.
+```

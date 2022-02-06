@@ -163,17 +163,20 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
 	```
 	>*For simple tests, just change the value of the INSERT to add new data into the database to see.*
 
-After successful with the above steps, now you can try different situations:
- - Now, as in the first example, we can define **ListFile**, **FetchFile** and **PutCSObject** to automatically store all the updates to a legacy database in a Google storage in csv format.
- - Add other processors to handle the change nicely
- - Using Kafka for messaging systems
- - Ingest the change into the right sink (database, storage)
- - Do it with a large scale settting
+>You might get a problem reported elsewhere: https://issues.apache.org/jira/browse/NIFI-9323. In this case, maybe you should disable the flow, clear states and then restart Nifi. 
 
 
 ## Conclusions
 
 Now you have an overview on the vast capabilities of Apache Nifi. We suggest you try to define simple data-flow in order to make some practice.
+
+After successful with the above steps, now you can try different situations:
+ - Now, as in the first example, we can define **ListFile**, **FetchFile** and **PutCSObject** to automatically store all the updates to a legacy database in a Google storage in csv format.
+ - Add other processors to handle the change nicely
+ - Using Kafka for messaging systems
+ - Ingest the change into the right sink (database, storage)
+ - Do it with a large scale setting
+
 
 ## Challenge
 

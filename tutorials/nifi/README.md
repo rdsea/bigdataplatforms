@@ -17,7 +17,7 @@ Then access Nifi from the Web browser:
 ```
 https://127.0.0.1:8443/nifi
 ```
->Note about the username/password by reading Nifi guide.
+>Note about the username/password by reading Nifi guide. Replace "127.0.0.1" with your nifi host IP/name.
 
 ### AMQP Broker
 When ingesting data through message brokers, you can use your own RabbitMQ in your local machine or a free instance created from [CloudAMQP.com](https://cloudamqp.com).
@@ -163,7 +163,7 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
 	```
 	>*For simple tests, just change the value of the INSERT to add new data into the database to see.*
 
->You might get a problem reported elsewhere: https://issues.apache.org/jira/browse/NIFI-9323. In this case, maybe you should disable the flow, clear states and then restart Nifi. 
+>You might get a problem reported elsewhere: https://issues.apache.org/jira/browse/NIFI-9323. In this case, maybe you should disable the flow, clear states and then restart Nifi.
 
 
 ## Conclusions
@@ -177,7 +177,9 @@ After successful with the above steps, now you can try different situations:
  - Ingest the change into the right sink (database, storage)
  - Do it with a large scale setting
 
-
+Furthermore, you can examine other tools to understand the **underlying models and techniques** for ingestion, like:
+- [Airbyte](https://airbyte.com/)
+- [Logstash](https://www.elastic.co/logstash/)
 ## Challenge
 
 Write a flow that:
@@ -193,5 +195,5 @@ Write a flow that:
 5. Store the file to your own Google storage
 
 ## Authors
-Eljon Harlicaj
-Linh Truong
+- Eljon Harlicaj
+- Linh Truong

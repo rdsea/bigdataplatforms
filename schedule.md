@@ -22,7 +22,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 03.02   |Meetup 1| How to succeed on Big Data: experiences from the course and the real job | Rishabh Kapoor, Data Engineer, Fortum and CS-E4640 2021 Alumnus
 09.02  |Lecture 5 | [Hadoop and its Big Data Ecosystems](). Study some [real cases of Hadoop and data ingestion]()| **Linh Truong**
 10.02  |Tutorial 3 | [Data Ingestion with Apache Nifi](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/nifi)| Linh Truong
-16.02  | Invited Talk (tentative) | Backup date, assignment support, possible invited talk| **All**
+16.02  | No lecture) | Backup date| **All**
 18.02  |   |  **due of the first assignment -13.00**
 21-25.02  |  No lecture week | Assignment grading| **All**
 02.03  |Lecture 6  | [Big Data Processing with MapReduce/Spark Programming Models]() | **Linh Truong**

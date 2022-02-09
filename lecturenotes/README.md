@@ -29,8 +29,12 @@
 * A short example of metadata: [Video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)
 * Big data ingestion: [Slides](pdfs/module2-lecture4-ingestionandtransformation-v0.3.pdf)
 * Streaming Data Ingestion with Apache Kafka: [Slides](pdfs/module2-lecture4-apachekafka.pdf), [basic Kafka setup](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/basickafka) and [examples of data ingestion with Kafka](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/cloud-data-pipeline)
-* Hadoop and its Big Data Ecosystems: [slides]()
-* Some case studies for Hadoop and data ingestion: [slides]()
+* Hadoop and its Big Data Ecosystems: [slides](pdfs/module3-lecture5-hadoop-v0.3.pdf)
+* Some case studies for Hadoop and data ingestion: [slides](pdfs/module3-hadoop-ingestion-casestudies-v0.3.pdf)
+  - K. Shvachko, H. Kuang, S. Radia and R. Chansler, "The Hadoop Distributed File System," 2010 IEEE 26th Symposium on Mass Storage Systems and Technologies (MSST), Incline Village, NV, 2010, pp. 1-10.doi: 10.1109/MSST.2010.5496972
+  - Vinod Kumar Vavilapalli, Arun C. Murthy, Chris Douglas, Sharad Agarwal, Mahadev Konar, Robert Evans, Thomas Graves, Jason Lowe, Hitesh Shah, Siddharth Seth, Bikas Saha, Carlo Curino, Owen O'Malley, Sanjay Radia, Benjamin Reed, and Eric Baldeschwieler. 2013. Apache Hadoop YARN: yet another resource negotiator. In Proceedings of the 4th annual Symposium on Cloud Computing (SOCC '13). ACM, New York, NY, USA, Article 5, 16 pages. DOI:https://doi.org/10.1145/2523616.2523633
+  - Ashish Thusoo, Joydeep Sen Sarma, Namit Jain, Zheng Shao, Prasad Chakka, Suresh Anthony, Hao Liu, Pete Wyckoff, and Raghotham Murthy. 2009. Hive: a warehousing solution over a map-reduce framework. Proc. VLDB Endow. 2, 2 (August 2009), 1626-1629. DOI: https://doi.org/10.14778/1687553.1687609
+  - Roshan Sumbaly, Jay Kreps, and Sam Shah. 2013. The big data ecosystem at LinkedIn. In Proceedings of the 2013 ACM SIGMOD International Conference on Management of Data (SIGMOD '13). ACM, New York, NY, USA, 1125-1134. DOI: http://dx.doi.org/10.1145/2463676.2463707
 * Big Data Processing with MapReduce/Spark Programming Models: [Slides]()
 * Stream Processing and Big Data Platforms: [Slides]()
 * Workflows for Big Data Platforms: [Slides]()

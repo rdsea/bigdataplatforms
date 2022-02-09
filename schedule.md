@@ -20,7 +20,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 02.02   |Lecture 4 | [Big Data Ingestion](lecturenotes/pdfs/module2-lecture4-ingestionandtransformation-v0.3.pdf). Additional slides about [Streaming Data Ingestion with Apache Kafka](lecturenotes/pdfs/module2-lecture4-apachekafka.pdf)  | **Linh Truong**
 02.02  |   | **Release the first assignment**
 03.02   |Meetup 1| How to succeed on Big Data: experiences from the course and the real job | Rishabh Kapoor, Data Engineer, Fortum and CS-E4640 2021 Alumnus
-09.02  |Lecture 5 | [Hadoop and its Big Data Ecosystems](). Study some [real cases of Hadoop and data ingestion]()| **Linh Truong**
+09.02  |Lecture 5 | [Hadoop and its Big Data Ecosystems](lecturenotes/pdfs/module3-lecture5-hadoop-v0.3.pdf). Study some [real cases of Hadoop and data ingestion](lecturenotes/pdfs/module3-hadoop-ingestion-casestudies-v0.3.pdf)| **Linh Truong**
 10.02  |Tutorial 3 | [Data Ingestion with Apache Nifi](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/nifi)| Linh Truong
 16.02  | No lecture) | Backup date| **All**
 18.02  |   |  **due of the first assignment -13.00**

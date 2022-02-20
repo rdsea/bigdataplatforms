@@ -36,5 +36,5 @@ for req_id in range(len(upload_data_records)):
     '''
     just a sleep a bit
     '''
-    time.sleep(args.interval)
+    time.sleep(int(args.interval))
 connection.close()

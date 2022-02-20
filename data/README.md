@@ -28,6 +28,8 @@ There are many open datasets that you can download for practicing activities in 
 * System/Datacenter operation traces/logs:
   - [Microsoft Azure traces dataset](https://github.com/Azure/AzurePublicDataset)
   - [Alibaba Cluster Traces](https://github.com/alibaba/clusterdata)
+* Civil engineering/architect/construction data:
+  - [2015 LiDAR Flight 150326_131440 for Dublin City](https://archive.nyu.edu/handle/2451/38660)
 
 * [Open data sets in Google Big Query](https://cloud.google.com/bigquery/public-data)
 

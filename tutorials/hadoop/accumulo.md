@@ -15,11 +15,6 @@ We use the bird data from: [Avian Vocalizations from CA & NV, USA](https://www.k
 The list of commands can be executed via HBase shell, e.g.,
 ```
 $ /opt/accumulo/bin/accumulo shell -u root
-...
-hbase:001:0> create  'hbird0', 'birdinfo', 'songinfo', 'location', 'record'
-Created table hbird0
-Took 2.5814 seconds
-=> Hbase::Table - hbird0
 
 ```
 ### Create a table

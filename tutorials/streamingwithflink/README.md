@@ -102,7 +102,7 @@ python3 test_kafka_producer.py --queue_name iqueue123 --input_file  cs-e4640/dat
 ```
 and then start a BTS test receivers with queue name as **oqueue123**:
 ```
-$ python3 test_amqp_consumer.py --queue_name oqueue123 --kafka localhost:9092
+$ python3 test_kafka_consumer.py --queue_name oqueue123 --kafka localhost:9092
 $ python3 test_amqp_consumer.py --queue_name oqueue123 --rabbit  amqp://guest:guest@localhost:5672
 ```
 to see if you can receive any alerts.

@@ -3,9 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>cs-e4640</groupId>
   <artifactId>simpleonu</artifactId>
-  <name>Flink Quickstart Job</name>
+  <name>Flink CS-E4640 SimpleONU Simple Job</name>
   <version>0.1-SNAPSHOT</version>
-  <url>http://www.myorganization.org</url>
+  <url>https://github.com/rdsea/bigdataplatforms</url>
   <build>
     <pluginManagement>
       <plugins>
@@ -59,6 +59,17 @@
         </configuration>
       </plugin>
       <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>fi.aalto.cs.cse4640.LowSpeedDetection</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-shade-plugin</artifactId>
         <version>3.0.0</version>
         <executions>
@@ -70,10 +81,10 @@
             <configuration>
               <artifactSet>
                 <excludes>
-                  <exclude>org.apache.flink:force-shading</exclude>
+                  <exclude>org.apache.flink:flink-shaded-force-shading</exclude>
                   <exclude>com.google.code.findbugs:jsr305</exclude>
                   <exclude>org.slf4j:*</exclude>
-                  <exclude>log4j:*</exclude>
+                  <exclude>org.apache.logging.log4j:*</exclude>
                 </excludes>
               </artifactSet>
               <filters>
@@ -88,7 +99,7 @@
               </filters>
               <transformers>
                 <transformer>
-                  <mainClass>fi.aalto.cse4640.StreamingJob</mainClass>
+                  <mainClass>fi.aalto.cse4640.LowSpeedDetection</mainClass>
                 </transformer>
               </transformers>
             </configuration>
@@ -189,22 +200,28 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>2.0.0-alpha6</version>
-      <scope>compile</scope>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>2.17.1</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>2.17.2</version>
-      <type>pom</type>
-      <scope>compile</scope>
+      <artifactId>log4j-api</artifactId>
+      <version>2.17.1</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.17.1</version>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
   <properties>
     <java.version>1.8</java.version>
     <scala.binary.version>2.11</scala.binary.version>
+    <log4j.version>2.17.1</log4j.version>
     <flink.version>1.9.0</flink.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

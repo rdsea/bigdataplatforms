@@ -1,3 +1,6 @@
+'''
+You need : pip install kafka-python
+'''
 from kafka import KafkaProducer
 import os, logging, sys, time
 import argparse

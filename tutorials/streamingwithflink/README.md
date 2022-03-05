@@ -17,9 +17,9 @@ We will practice Apache Flink with simple activities:
 
 ## 2. Setup Apache Flink for Practices
 
-Download [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the installation guide for a local machine](https://ci.apache.org/projects/flink/flink-docs-release-1.9/getting-started/tutorials/local_setup.html). In this simple tutorial, we use Apache Flink 1.12.0 for Scala 2.11.
+Download [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the installation guide for a local machine](https://ci.apache.org/projects/flink/flink-docs-release-1.9/getting-started/tutorials/local_setup.html). In this simple tutorial, we use Apache Flink 1.14.3 for Scala 2.11.
 
-The example we use to run is for [the BTS data](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640-2019/tree/master/data/bts) and we will use [Kafka](https://kafka.apache.org/) and [RabbitMQ](http://www.rabbitmq.com) as the message broker through the streaming analytics application obtains data.
+The example we use to run is for [the BTS data](../../../../data/bts) and we will use [Kafka](https://kafka.apache.org/) and [RabbitMQ](http://www.rabbitmq.com) as the message broker through the streaming analytics application obtains data.
 
 You can setup your own RabbitMQ or use a test RabbitMQ during the tutorial. A very simple way of starting a test RabbitMQ is via docker. Use the command:
 
@@ -28,7 +28,8 @@ $ docker run -d -p 5672:5672 --hostname my-rabbit --name rabbitMQ rabbitmq
 ```
 It will start a container of rabbitMQ with both username and password as `guest`.
 
-You can also follow the instructions [here](https://kafka.apache.org/quickstart) to start a Kafka cluster. Then you have to create a few topics before running the experiment and test if your Kafka server works correctely
+You can also follow [the Kafka instructions](https://kafka.apache.org/quickstart) to start a Kafka cluster or use [our simple Kafka tutorial](../../../basickafka/README.md). Then you have to create a few topics before running the experiment and test if your Kafka server works
+
 ```bash
 $ bin/kafka-topics.sh --create --topic <your topic name> --bootstrap-server <your Kafka host ip>:<Kafka port>
 $ bin/kafka-topics.sh --list --zookeeper <zookeeper host>:<zookeeper port>

@@ -1,6 +1,3 @@
-#!/usr/bin/env python2
-#encoding: UTF-8
-
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
@@ -29,6 +26,9 @@ for line in f:
     print ("Sending line {}".format(count))
     channel.basic_publish(exchange='',routing_key=args.queue_name,
                       body=line)
+    '''
+    Turn the sleeping time or implement an input parameter
+    '''
     time.sleep(1)
 
 connection.close()

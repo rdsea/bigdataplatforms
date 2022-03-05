@@ -12,6 +12,7 @@ import org.apache.flink.types.Row;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.streaming.connectors.rabbitmq.common.RMQConnectionConfig;
 import org.apache.flink.streaming.connectors.rabbitmq.RMQSource;
+import org.apache.flink.streaming.connectors.rabbitmq.RMQSink;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.streaming.api.windowing.windows.Window;
@@ -20,29 +21,28 @@ import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.streaming.api.windowing.assigners.SlidingTimeWindows;
 import org.apache.flink.streaming.api.windowing.assigners.SlidingEventTimeWindows;
+import org.apache.flink.streaming.api.windowing.assigners.SlidingProcessingTimeWindows;
 import org.apache.flink.streaming.api.functions.windowing.WindowFunction;
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.util.Collector;
 import org.apache.flink.streaming.api.functions.windowing.ProcessWindowFunction;
 import org.apache.flink.api.java.functions.KeySelector;
 public class LowSpeedDetection {
-
+  public static float PRE_DEFINED_THRESHOLD=10000;
 	public static void main(String[] args) throws Exception {
 		//using flink ParameterTool to parse input
-		final String rabbitMQHost;
-		final int    rabbitMQPort;
+		final String rabbitMQURL;
 		final String inputQueue;
 		final String outputQueue;
 		final int parallelismDegree;
 		try {
 				 final ParameterTool params = ParameterTool.fromArgs(args);
-				 rabbitMQHost = params.get("host");
-				 rabbitMQPort = params.getInt("port");
+				 rabbitMQURL= params.get("amqpurl", "amqp://guest:guest@localhost:5672");
 				 inputQueue = params.get("iqueue");
 				 outputQueue =params.get("oqueue");
 				 parallelismDegree =params.getInt("parallelism");
 		} catch (Exception e) {
-				 System.err.println("'LowSpeedDetection --host <host> --port <port> --iqueue <input data queue> --oqueue <output data queue>'");
+				 System.err.println("'LowSpeedDetection --amqpurl --iqueue <input data queue> --oqueue <output data queue>'");
 					return;
 		}
 
@@ -56,8 +56,7 @@ public class LowSpeedDetection {
 		//env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
 		//now start with the source of data
 		final RMQConnectionConfig connectionConfig = new 	RMQConnectionConfig.Builder()
-    	.setHost(rabbitMQHost)
-    	.setPort(rabbitMQPort)
+    	.setUri(rabbitMQURL)
     	.build();
 
 		//build schema for the input DataStream
@@ -77,13 +76,13 @@ public class LowSpeedDetection {
     .addSource(new RMQSource<String>(
         connectionConfig,            // config for the RabbitMQ connection
         inputQueue,                 // name of the RabbitMQ queue to consume
-        true,                        // use correlation ids; can be false if only at-least-once is required
+        false,                        // use correlation ids; can be false if only at-least-once is required
         inputSchema))   // deserialization schema for input data as csv
     .setParallelism(parallelismDegree);
 		//we will read data from RabbitMQ
 
 		// parse the data, group it, window it, and aggregate the counts
-		 DataStream<SpeedWarning> windowSpeed = onustream
+		 DataStream<String> windowSpeed = onustream
 		             .flatMap(new FlatMapFunction<String, OnuSpeed>() {
 		                 @Override
 		                 public void flatMap(String valueString, Collector<OnuSpeed> out) {
@@ -96,22 +95,30 @@ public class LowSpeedDetection {
 		             .keyBy(new KeySelector<OnuSpeed, String>() {
      				 					public String getKey(OnuSpeed onuspeed) { return onuspeed.onuid; }
    								})
-		             .window(SlidingEventTimeWindows.of(Time.seconds(10), Time.seconds(5)))
+		             .window(SlidingProcessingTimeWindows.of(Time.seconds(10), Time.seconds(5)))
 		             .process(new MyProcessWindowFunction());
 
-		         // print the results with a single thread, rather than in parallel
-		         windowSpeed.print().setParallelism(1);
+			RMQSink<String> sink =new RMQSink<String>(
+					 					connectionConfig,
+					 					outputQueue,
+					 					new SimpleStringSchema());
+
+			//send the alerts to RMQ channel
+			windowSpeed.addSink(sink).setParallelism(1);
+			//use 1 thread to print out the result
+			//windowSpeed.print().setParallelism(1);
+
 		// execute program
-		env.execute("Flink Streaming Java API Skeleton");
+		env.execute("SimpleONU");
 	}
 
 	private static class MyProcessWindowFunction
-    extends ProcessWindowFunction<OnuSpeed, SpeedWarning, String, TimeWindow> {
+    extends ProcessWindowFunction<OnuSpeed, String, String, TimeWindow> {
 			@Override
   	public void process(String onuid,
                     Context context,
                     Iterable<OnuSpeed> values,
-                    Collector<SpeedWarning> out) {
+                    Collector<String> out) {
 											float sum = 0;
 											int count = 0;
 											for (OnuSpeed entry: values) {
@@ -119,8 +126,9 @@ public class LowSpeedDetection {
 												count++;
 										}
 										float average = sum/count ;
-										if (average <100000) {
-											out.collect (new SpeedWarning(onuid,true));
+										System.out.println("Average speed is "+average);
+										if (average <PRE_DEFINED_THRESHOLD) {
+											out.collect (new SpeedWarning(onuid,true).toString());
 										}
 		}
 	}

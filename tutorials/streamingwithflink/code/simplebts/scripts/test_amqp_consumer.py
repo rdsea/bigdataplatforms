@@ -15,7 +15,7 @@ params.socket_timeout = 5
 connection = pika.BlockingConnection(params) # Connect to CloudAMQP
 channel = connection.channel() # start a channel
 
-channel.queue_declare(queue=args.queue_name,durable=True) # Declare a queue
+channel.queue_declare(queue=args.queue_name,durable=False) # Declare a queue
 global count
 count = 0
 # create a function which is called on incoming messages

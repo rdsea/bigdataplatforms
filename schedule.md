@@ -25,10 +25,10 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 16.02  | No lecture) | Backup date| **All**
 18.02  |   |  **due of the first assignment -13.00**
 21-25.02  |  No lecture week | Assignment grading| **All**
-02.03  |Lecture 6  | [Big Data Processing with MapReduce/Spark Programming Models]((lecturenotes/pdfs/module3-lecture6-dataprocessing-mapreducespark-v0.3.pdf)) | **Linh Truong**
+02.03  |Lecture 6  | [Big Data Processing with MapReduce/Spark Programming Models](lecturenotes/pdfs/module3-lecture6-dataprocessing-mapreducespark-v0.3.pdf) | **Linh Truong**
 02.03  |   | **Release the 2nd assignment**
 03.03  | Tutorial 4 |Hadoop | **Minh-Tri Nguyen**
-09.03  |Lecture 7 | [Stream Processing and Big Data Platforms]()| **Linh Truong**
+09.03  |Lecture 7 | [Stream Processing and Big Data Platforms](lecturenotes/pdfs/module3-lecture7-dataprocessing-streaming-v0.3.pdf)| **Linh Truong**
 10.03  |Tutorial 5 | [Data Processing with Apache Spark](tutorials/spark/README.md)  | **Minh-Tri Nguyen**, Linh Truong
 16.03  |Invited Talk| Modern Data Analytics on Azure | [Dr. Aitor Murguzur](https://www.linkedin.com/in/murggu), Microsoft
 18.03  |   | **Due the 2nd assignment**  |   |

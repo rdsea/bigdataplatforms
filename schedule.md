@@ -30,7 +30,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 03.03  | Tutorial 4 |Hadoop | **Minh-Tri Nguyen**
 09.03  |Lecture 7 | [Stream Processing and Big Data Platforms](lecturenotes/pdfs/module3-lecture7-dataprocessing-streaming-v0.3.pdf)| **Linh Truong**
 10.03  |Tutorial 5 | [Data Processing with Apache Spark](tutorials/spark/README.md)  | **Minh-Tri Nguyen**, Linh Truong
-16.03  |Invited Talk| Modern Data Analytics on Azure | [Dr. Aitor Murguzur](https://www.linkedin.com/in/murggu), Microsoft
+16.03  |Invited Talk| [Modern Data Analytics on Azure](lecturenotes/pdfs/aalto_cs-e4640_aitor_03162022.pdf) | [Dr. Aitor Murguzur](https://www.linkedin.com/in/murggu), Microsoft
 18.03  |   | **Due the 2nd assignment**  |   |
 |21-26-03   |   | Assignment grading  | **All**  |
 23.03  |Lecture 8 | [Workflows for Big Data Platforms]() | **Linh Truong**

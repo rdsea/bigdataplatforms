@@ -4,10 +4,10 @@ Simple example for teaching purpose
 '''
 import airflow
 from airflow.models import DAG
-from airflow.operators.bash_operator import BashOperator
-from airflow.operators.http_operator import SimpleHttpOperator
-from airflow.contrib.operators.file_to_gcs import FileToGoogleCloudStorageOperator
-from airflow.operators.dummy_operator import DummyOperator
+from airflow.operators.bash import BashOperator
+from airflow.providers.http.operators.http import SimpleHttpOperator
+from airflow.providers.google.cloud.transfers.local_to_gcs import LocalFilesystemToGCSOperator
+from airflow.operators.dummy import DummyOperator
 import json
 import hashlib
 
@@ -21,28 +21,24 @@ default_args = {
     'depends_on_past': False,
     'start_date': airflow.utils.dates.days_ago(5),
 }
+GCS_BUCKET='mybdpairflow'
+GCS_CONN_ID='gcsmybdp'
 
 dag = DAG(DAG_NAME, schedule_interval=None, default_args=default_args)
 '''
-for simplicity we just show here one source to be downloaded. E.g., in principle, 
+for simplicity we just show here one source to be downloaded. E.g., in principle,
 one should look for the source from a database and create a suitable list of source
 '''
-source ="http://4co2.vp9.tv/chn/DNG38/"
-#server_sources =["http://4co2.vp9.tv/chn/DNG38/"]
-#,"http://4co2.vp9.tv/chn/DNG54/","http://4co2.vp9.tv/chn/DNG39/","http://4co2.vp9.tv/chn/DNG35/"]
+source ="https://www.portofhelsinki.fi/webcams/Makasiiniterminaali.jpg?1647855365239"
 download_command="/usr/bin/curl"
 stamp=str(int(time.time()))
 
-'''
-the state information is in the receiver-state-txt.
-we prepare some simple steps for downloading files.
-'''
-source_file=source+"receiver-state.txt"
+source_file=source
 dir = hashlib.md5(source.encode('utf-8')).hexdigest()
 #temporary file - change it if you have different operating systems
-destination_file="/tmp/receiver-state_"+dir+".txt"
+destination_file="/tmp/"+dir+".jpg"
 # directory in google storage
-gcsdir=stamp+"/receiver-state_"+dir+".txt"
+gcsdir=stamp+"/"+dir+".jpg"
 downloadlogscript=download_command+" "+source_file+" -o " +destination_file
 removetempfile="rm "+destination_file
 
@@ -70,12 +66,12 @@ t_removefile =  BashOperator(
     dag=dag,
     )
 ## change it suitable to your setting
-t_analytics=  FileToGoogleCloudStorageOperator(
+t_analytics=  LocalFilesystemToGCSOperator(
     task_id="uploadtostorage",
     src=destination_file,
     dst=gcsdir,
-    bucket='mybdpairflow',
-    google_cloud_storage_conn_id='gcsmybdp',
+    bucket=GCS_BUCKET,
+    gcp_conn_id=GCS_CONN_ID,
     dag = dag
     )
 ## change it suitable for your setting

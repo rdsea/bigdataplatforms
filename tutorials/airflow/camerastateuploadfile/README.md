@@ -37,27 +37,28 @@ CameraStateUploadFile is a simple airflow workflow. It is an (simplified) exampl
 #### Check the source code and compile it
 Check [the source of CameraStateUploadFile in our Git](camerastateuploadfile/). It is a simple example for illustrating purposes. You can test if there is any error by
 ```
-$python3 camera_state_upload.py
+$python camera_state_upload.py
 ```
 This workflow will need to be run in Linux machines (assume that the Airflow is running in the Linux machine). If you use your Airflow in other operating system, you can modify the source code w.r.t. the path of directory and command lines:
 ```
 download_command="/usr/bin/curl"
 ....
-destination_file="/tmp/receiver-state_"+dir+".txt"
+destination_file="/tmp/"+dir+".jpg"
 ```
 
 #### Setup connections and test services
 ##### Google Storage setup
 The CameraStateUploadFile workflow will need to upload data into Google Storage. For this you need to have a Google Storage bucket available and service account to access the bucket. Look at the following task:
 ```
-t_analytics=  FileToGoogleCloudStorageOperator(
+t_analytics=  LocalFilesystemToGCSOperator(
     task_id="uploadtostorage",
     src=destination_file,
     dst=gcsdir,
-    bucket='mybdpairflow',
-    google_cloud_storage_conn_id='gcsmybdp',
+    bucket=GCS_BUCKET,
+    gcp_conn_id=GCS_CONN_ID,
     dag = dag
     )
+
 ```
 you can change the **bucket** and **google_cloud_storage_conn_id** to suitable values in your GoogleCloudStorage and [connection information in Airflow admin](https://airflow.apache.org/concepts.html#connections).
 The connection named **gcsmybdp** is setup by using the feature **Admin->Connections**; it is used to describe information for connecting to Google Storage. You create a new type of connection for Google Cloud Storage and provide service account.

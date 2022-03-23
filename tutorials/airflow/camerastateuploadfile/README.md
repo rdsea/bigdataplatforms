@@ -63,7 +63,7 @@ t_analytics=  LocalFilesystemToGCSOperator(
 you can change the **bucket** and **google_cloud_storage_conn_id** to suitable values in your GoogleCloudStorage and [connection information in Airflow admin](https://airflow.apache.org/concepts.html#connections).
 The connection named **gcsmybdp** is setup by using the feature **Admin->Connections**; it is used to describe information for connecting to Google Storage. You create a new type of connection for Google Cloud Storage and provide service account.
 
->For testing purpose: a [service account]() will be given in Mycourses and the bucket is **mybdpairflow**
+>For testing purpose: a service account will be used and the bucket is **mybdpairflow**
 
 ##### Setting up a notification server
 

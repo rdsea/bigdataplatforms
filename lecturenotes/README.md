@@ -1,6 +1,6 @@
 # Lecture/Tutorial Notes
 
->To be updated in 2022
+>Being updated continuously
 
 * Course Management: [Slides](pdfs/module0-lecture0-coursemanagement.pdf)
 * Introduction to Big Data Platforms:[Slides](pdfs/module1-lecture1-1-intro-v0.3.1.pdf)
@@ -46,4 +46,10 @@
   -  Tyler Akidau, Robert Bradshaw, Craig Chambers, Slava Chernyak, Rafael Fernández-Moctezuma, Reuven Lax, Sam McVeety, Daniel Mills, Frances Perry, Eric Schmidt, Sam Whittle: The Dataflow Model: A Practical Approach to Balancing Correctness, Latency, and Cost in Massive-Scale, Unbounded, Out-of-Order Data Processing. Proc. VLDB Endow. 8(12): 1792-1803 (2015), http://www.vldb.org/pvldb/vol8/p1792-Akidau.pdf
   -  Ellen Friedman and Kostas Tzoumas, Introduction to Apache Flink, [Link](https://mapr.com/introduction-to-apache-flink/assets/introduction-to-apache-flink.pdf)
   -   Matei Zaharia, Tathagata Das, Haoyuan Li, Scott Shenker, and Ion Stoica. 2012. Discretized streams: an efficient and fault-tolerant model for stream processing on large clusters. In Proceedings of the 4th USENIX conference on Hot Topics in Cloud Ccomputing (HotCloud'12). USENIX Association, Berkeley, CA, USA, 10-10. [Link](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2012/EECS-2012-259.pdf)
-* Workflows for Big Data Platforms: [Slides]()
+* Workflows for Big Data Platforms: [Slides](pdfs/module3-lecture8-workflows-v0.3.pdf)
+  - [Running Apache Airflow at Lyft](https://eng.lyft.com/running-apache-airflow-at-lyft-6e53bb8fccff)
+  -  Mutaz Barika, Saurabh Garg, Albert Y. Zomaya, Lizhe Wang, Aad Van Moorsel, and Rajiv Ranjan. 2019. Orchestrating Big Data Analysis Workflows in the Cloud: Research Challenges, Survey, and Future Directions. ACM Comput. Surv. 52, 5, Article 95 (September 2019), 41 pages. DOI: https://doi.org/10.1145/3332301
+  - [How Agari Uses Airbnb's Airflow as a Smarter Cron](http://highscalability.com/blog/2015/9/3/how-agari-uses-airbnbs-airflow-as-a-smarter-cron.html)
+  -  Ewa Deelman, Karan Vahi, Mats Rynge, Rajiv Mayani, Rafael Ferreira da Silva, George Papadimitriou, Miron Livny: The Evolution of the Pegasus Workflow Management Software. Computing in Science and Engineering 21(4): 22-36 (2019)
+  - Mohammad Islam, Angelo K. Huang, Mohamed Battisha, Michelle Chiang, Santhosh Srinivasan, Craig Peters, Andreas Neumann, and Alejandro Abdelnur. 2012. Oozie: towards a scalable workflow management system for Hadoop. In Proceedings of the 1st ACM SIGMOD Workshop on Scalable Workflow Execution Engines and Technologies (SWEET '12). ACM, New York, NY, USA, Article 4, 10 pages. DOI: https://doi.org/10.1145/2443416.2443420
+  - Zijun Li, Yushi Liu, Linsong Guo, Quan Chen, Jiagan Cheng, Wenli Zheng, and Minyi Guo. 2022. FaaSFlow: enable efficient workflow execution for function-as-a-service. In Proceedings of the 27th ACM International Conference on Architectural Support for Programming Languages and Operating Systems (ASPLOS 2022). Association for Computing Machinery, New York, NY, USA, 782–796. DOI:https://doi.org/10.1145/3503222.3507717

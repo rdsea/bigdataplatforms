@@ -4,11 +4,11 @@ Simple example for teaching purpose
 '''
 import airflow
 from airflow.models import DAG
-from airflow.operators.bash_operator import BashOperator
-from airflow.operators.http_operator import SimpleHttpOperator
-from airflow.operators.python_operator import PythonOperator
-from airflow.contrib.operators.file_to_gcs import FileToGoogleCloudStorageOperator
-from airflow.operators.dummy_operator import DummyOperator
+from airflow.operators.bash import BashOperator
+from airflow.providers.http.operators.http import SimpleHttpOperator
+from airflow.operators.python import PythonOperator
+from airflow.providers.google.cloud.transfers.local_to_gcs import LocalFilesystemToGCSOperator
+from airflow.operators.dummy import DummyOperator
 from analytics import analyze
 from notification import post_notification
 
@@ -17,10 +17,10 @@ import hashlib
 
 from datetime import datetime,date
 import time
-
+import os
 
 DAG_NAME = 'bts_analytics'
-owner = 'hsin-yi-chen'
+owner = 'ownername'
 
 default_args = {
     'owner': owner,
@@ -35,19 +35,20 @@ dag = DAG(DAG_NAME, default_args=default_args)
 for simplicity we just show here one source to be downloaded. E.g., in principle, 
 one should look for the source from a database and create a suitable list of source
 '''
-
 source ="https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/raw/master/data/bts/bts-data-alarm-2017.csv"
-destination_file = "~/airflow/data/bts.csv"
+destination_file = os.path.expanduser("~/airflow/data/bts.csv")
 stamp = str(date.today())
-report_destination = "report/analytic_{}.csv".format(stamp)
+report_destination = os.path.expanduser("~/airflow/report/analytic_{}.csv".format(stamp))
 
 # Copy your own webhook here, follow https://code.mendhak.com/Airflow-MS-Teams-Operator/, prepare MS Teams and prepare Airflow steps.
-teams_webhook = "https://aaltofi.webhook.office.com/webhookb2/7d344f65-cd8c-425b-aee3-ee4f19446a77@ae1a7724-4041-4462-a6dc-538cb199707e/IncomingWebhook/4a468e0d2d694fdb8b8ada4d70ea62c3/4193db67-98f0-42ff-9141-ee59d41a2cf9"
+teams_webhook = ""
 
-downloadBTS = "wget -O " + destination_file + " " + source
+downloadBTS = "curl -o " + destination_file + " " + source
 removeFile = "rm {}".format(destination_file)
 gcsdir = "{}_analytic_{}.csv".format(owner,stamp)
-
+bucket = "bts_analytics_report"
+# shortcut for url so that we dont have to install gcpclient 
+gcs_file_url = "https://storage.cloud.google.com/{}/{}".format(bucket, gcsdir)
 t_downloadBTS =  BashOperator(
     task_id="download_bts",
     bash_command=downloadBTS,
@@ -60,20 +61,20 @@ t_analytics = PythonOperator(
     op_kwargs={'destination_file':destination_file,'report_destination':report_destination},
     dag=dag,
     )
-
-t_uploadgcs =  FileToGoogleCloudStorageOperator(
-    task_id="uploadtostorage",
+print("report_destination", report_destination)
+t_uploadgcs =  LocalFilesystemToGCSOperator(
+    task_id="upload_file",
     src=report_destination,
     dst=gcsdir,
-    bucket='airflow_report',
-    google_cloud_storage_conn_id='gcloud_storage',
+    bucket='bts_analytics_report',
+    gcp_conn_id='bdp_gcloud_storage',
     dag = dag
     )
 
 t_msnotification = PythonOperator(
     task_id='teams_notification',
     python_callable=post_notification,
-    op_kwargs={'gcsdir':gcsdir,'teams_webhook':teams_webhook},
+    op_kwargs={'gcsdir':gcs_file_url,'teams_webhook':teams_webhook},
     dag=dag)
 
 

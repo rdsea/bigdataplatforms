@@ -17,3 +17,6 @@ There are several workflow systems with similar concepts that you can practice:
 * [Flyte](https://github.com/flyteorg/flyte)
 * [Luigi](https://github.com/spotify/luigi)
 * [Agro](https://github.com/argoproj/argo-workflows)
+
+Also some practical readings:
+* Spotify engineering: [Why We Switched Our Data Orchestration Service￼](https://engineering.atspotify.com/2022/03/why-we-switched-our-data-orchestration-service/)

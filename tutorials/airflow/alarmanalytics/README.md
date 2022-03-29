@@ -64,21 +64,23 @@ owner = 'hsin-yi-chen'
 ....
 destination_file = "~/airflow/data/bts.csv"
 ....
-downloadBTS = "wget -O " + destination_file + " " + source
+downloadBTS = "curl -o " + destination_file + " " + source
 removeFile = "rm {}".format(destination_file)
 ```
+
+In case, you cannot see `bts_analytics` DAG in the DAGs list from the UI, please make sure that the you DAGs folder is referenced correctly in `airflow.cfg`.
 
 ## Step3: Set up Google Cloud Storage Connections
 
 The workflow includes uploading file to google cloud storage. For this you need to have a Google Storage bucket available and service account to access the bucket. Look at the following task:
 
 ```
-t_uploadgcs =  FileToGoogleCloudStorageOperator(
+t_uploadgcs =  LocalFilesystemToGCSOperator(
     task_id="uploadtostorage",
     src=report_destination,
     dst=gcsdir,
     bucket='airflow_report',
-    google_cloud_storage_conn_id='gcloud_storage',
+    gcp_conn_id='bdp_gcloud_storage',
     dag = dag
     )
 ```
@@ -87,7 +89,7 @@ t_uploadgcs =  FileToGoogleCloudStorageOperator(
 ### Setup Google Cloud Storage
 
 Normally for your own use, you will have to set up the google cloud storage and create service account yourselves.
-For testing purpose, we have create a service account for you and will be given in Mycourses, and the bucket is **airflow_report**. You can view the bucket [here](https://console.cloud.google.com/storage/browser/airflow_report). 
+For testing purpose, we have create a service account for you and will be given in Mycourses, and the bucket is **bts_analytics_report**. You can view the bucket [here](https://console.cloud.google.com/storage/browser/airflow_report). 
 
 
 ### Setup Connection in Airflow
@@ -95,8 +97,7 @@ For testing purpose, we have create a service account for you and will be given 
 Follow the instruction [Managing Airflow connections](https://cloud.google.com/composer/docs/how-to/managing/connections) to set up connection in **Admin->Connections**.
 
 
->You can change the **bucket** and **google\_cloud\_storage\_conn\_id** to suitable values in your GoogleCloudStorage. Read more about how does a connection works  [connection information in Airflow admin](https://airflow.apache.org/concepts.html#connections).
-The connection named **gcloud_storage** is setup by using the feature ; it is used to describe information for connecting to Google Storage. You create a new type of connection for Google Cloud Storage and provide service account.
+>You can change the **bucket** and **gcp\_conn\_id** to suitable values in your GoogleCloudStorage. Read more about how does a connection works  [connection information in Airflow admin](https://airflow.apache.org/concepts.html#connections).
 
 ## Step4: Set up Microsoft Teams Notification Connection
 
@@ -108,6 +109,10 @@ Run First copy your BTSAnalyitcs workflow into the dags directory of Airflow ins
 
 ```
 $cp bts_analytics.py ~/airflow/dags/
+```
+or
+```
+$python3 /path_to_directory/bts_analytics.py
 ```
 
 Now if you look at the [Airflow UI](http://localhost:8080), you would see the **bts_analytics** (and other example workflows).

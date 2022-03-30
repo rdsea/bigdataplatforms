@@ -36,7 +36,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 23.03  |Lecture 8 | [Workflows for Big Data Platforms](lecturenotes/pdfs/module3-lecture8-workflows-v0.3.pdf) | **Linh Truong**
 23.03  |   | **Release the third assignment**
 24.03  |Tutorial 6| [Stream Processing with Apache Flink](tutorials/streamingwithflink/README.md) | **Tri Nguyen**, Linh Truong
-30.03  |Lecture 9 | [New Trends in Big Data Platforms]() | **Linh Truong**
+30.03  |Lecture 9 | [Selected Trends/Issues for Big Data Platforms](lecturenotes/pdfs/module4-lecture9-trend2022-v0.1.pdf) | **Linh Truong**
 31.03  |Tutorial 7| [Data processing examples with Airflow](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/airflow/)| **Linh Nguyen**, Linh Truong
 06.04  |  No lecture/meetup | Backup  |   |   |
 08.04  | | **Due of the third assignment**

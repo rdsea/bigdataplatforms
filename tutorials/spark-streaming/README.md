@@ -1,4 +1,6 @@
 # Tutorial: Streaming Analytics with Apache Spark
+>**Note - 2022**:
+> While the story is still very fine, the [main code for streaming processing](code/SparkProcessor/spark_processor.py) is based on Spark Streaming APIs (DStreams). However, with Spark we should move to [Structured Streaming APIs](https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html). It is quit straightforward to rewrite the code with Structured Streaming APIs. However, at the moment we have not done it yet. **We suggest you to read the code but write structured streaming version for practices**.
 
 This tutorial deals with performing streaming analytics using Apache spark. We attempt to model a real-world workflow where streaming data is coming from message broker and the stream processing engine ingests the messages. The result is then feedback on the same message broker.
 

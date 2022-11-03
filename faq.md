@@ -1,10 +1,17 @@
 # Course FAQ
 ### COVID-19: will the course be carried in online?
 
-Yes. due to the COVID-19 situation, the course will be run online in Spring, 2022. Note that the online mode means that lectures and hands-on will be done through online sessions with no pre-recorded videos. Due to the complexity of privacy and GDRP issues, it is likely that we will not record the sessions for post studies.
+No. the course will be in contact teaching in the campus again. There will be no video record. 
+
+### Number of accepted students
+The number of open slots for registration will be from **40-80**, dependent on how many teaching assistants (TA) we can have:
+
+* Unfortunately, hiring TAs is very difficult and out of the control of the responsible teacher. Therefore, the best way to ensure the quality is to limit the number of slots.
+
+So pls. watch out the registration and do the registration as early as possible. 
 
 ### I have registered the course but my registration was rejected, why?
-The course has a limited number of slots (currently set 80). Furthermore, each year, during the selection, the course may reduce/increase the number of slots due to the availability of hired TAs (the hiring is difficult due to the lack of qualified TAs and the situation is known only before starting the course). The main reasons for rejection are to maintain the prerequisites and to maintain the quality of the course, **which is strongly dependent on the resources we have for the course**.  Therefore, we put some key requirements for registration acceptance. Rejection reasons could be:
+The course has a limited number of slots (see above). Furthermore, each year, during the selection, the course may reduce/increase the number of slots due to the availability of hired TAs (the hiring is difficult due to the lack of qualified TAs and the situation is known only before starting the course). The main reasons for rejection are to maintain the prerequisites and to maintain the quality of the course, **which is strongly dependent on the resources we have for the course**.  Therefore, we put some key requirements for registration acceptance. Rejection reasons could be:
 - Your study programme is not suitable and/or in the target  study programme of the course. Examples are: (i) not in CCIS master study, (ii) still in the BSc study phase, (iii) from adult/continuous learning programme (FITech), (iv) exchange study programme with unclear prerequisites
 - Your prerequisites are not fulfilled: lack of background in cloud computing, data management, data mining, etc.
 - Your study programme is not in the priority of the course, e.g., not in the big data track and/or the course is not in the recommended target  study programme of the course.

@@ -5,8 +5,12 @@
   - it is always safe to write clearly how you reuse the code/material and provide a reference
 * Copy any part of existing solutions (code, design, document, etc.) from others
 
-We do not have automatic assignment evaluation and we read, check and run the assignment so the chance we detect a violation is **high**
+We do not have automatic assignment evaluation and we read, check and run the assignment so the chance we detect a violation is **high**. 
 >Besides tools are also used for code and text similarity analysis
+
+For code, students should make clearly:
+* Reuse code from where by given the source and license.
+* Automatic generated code by tools, e.g. [Github Copilot](https://github.com/features/copilot)
 
 The violation handing procedure (based on Aalto):
 * [The Aalto detailed procedure](https://into.aalto.fi/display/ensaannot/Aalto+University+Code+of+Academic+Integrity+and+Handling+Violations+Thereof#AaltoUniversityCodeofAcademicIntegrityandHandlingViolationsThereof-4.4Procedure)

@@ -23,7 +23,7 @@ This GIT hosts material for [the course Big Data Platforms](https://mycourses.aa
 ## Licenses and citation
 
 Citation (if you use the material):
-Hong-Linh Truong, *Big Data Platforms*, https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640, 2019
+Hong-Linh Truong, *Big Data Platforms*, https://github.com/rdsea/bigdataplatforms, 2019
 
 **Copyrights/Licences: the lecture slides and course structure/info use [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Individual tutorials, code and examples have their own licenses ([Apache Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0))**
 

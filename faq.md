@@ -15,6 +15,7 @@ The course has a limited number of slots (see above). Furthermore, each year, du
 - Your study programme is not suitable and/or in the target  study programme of the course. Examples are: (i) not in CCIS master study, (ii) still in the BSc study phase, (iii) from adult/continuous learning programme (FITech), (iv) exchange study programme with unclear prerequisites
 - Your prerequisites are not fulfilled: lack of background in cloud computing, data management, data mining, etc.
 - Your study programme is not in the priority of the course, e.g., not in the big data track and/or the course is not in the recommended target  study programme of the course.
+- You have a chance to study in previous years (e.g., registered but dropped or not registered for a couple of years, although your study right allows you to study the course years)
 
 Examples of conditions for selected over others:
 - In the CCIS big data track with  the prerequisites fulfilled.
@@ -32,7 +33,7 @@ The registration time has no effect on the acceptance/rejection. See also [the o
 
 Unfortunately: **No**. The deadline has set and there is a reason for that: we need it to determine the acceptances and planning due to our limited resource. The registration period is very long, giving enough time for people to decide. Furthermore, it is a manual selection so all the registrations can be confirmed only after the deadline has passed. If you are interested in the course, you can always register in advance.
 
-### I am a bachelor student, I have fulfilled all prerequisites, why my registration is still rejected?
+### I am a bachelor student, I have fulfilled course prerequisites, why my registration is still rejected?
 
 The course is for advanced master students: from the 2nd semester of the first year master study. In principle, it does not accept bachelor students(unlike some other master courses which accept bachelor students).
 

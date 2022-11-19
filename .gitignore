@@ -1,6 +1,8 @@
 non-git
 tmp
+#Java 
 .class
+target/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

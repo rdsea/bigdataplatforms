@@ -7,9 +7,10 @@ see sample code from https://www.rabbitmq.com/getstarted.html
 import pika, os, sys, time
 import json
 import argparse
-parser = argparse.ArgumentParser()
+
 if __name__ == '__main__':
     #parsing command lines 
+    parser = argparse.ArgumentParser()
     parser.add_argument('--exchange', help='exchange name')
     parser.add_argument('--exchange_type', default='fanout', help='exchange type[fanout,direct,topic]')
     parser.add_argument('--input_data',help='input file name')

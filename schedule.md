@@ -39,7 +39,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 29.03  |   | **Release the third assignment**
 30.03  |Tutorial 6| [Stream Processing with Apache Flink](tutorials/streamingwithflink/README.md) | **Tri Nguyen**, TBD
 05.04  |  No lecture/meetup | Backup  |   |   |
-06.03  |Tutorial 7| [Data processing examples with Airflow](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/airflow/)| **TBD**
+06.04  |Tutorial 7| [Data processing examples with Airflow](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/airflow/)| **TBD**
 12.04  |Lecture 9 | [Selected Trends/Issues for Big Data Platforms](lecturenotes/pdfs/module4-lecture9-trend2022-v0.1.pdf) | **Linh Truong**
 14.04  | | **Due of the third assignment**
 17-21.04  |   | Assignment grading| **All**

@@ -7,7 +7,7 @@ Notes:
 - meetups:
   - the schedule could be flexible but we try to use the common slots
 
-**Remember to read [Course Management](lecturenotes/pdfs/module0-lecture0-coursemanagement.pdf)**
+**Remember to read [Course Management](https://bit.ly/cse4640management)** ([Download PDF]())
 
 
 >**The Schedule is currently revised for Spring 2023**

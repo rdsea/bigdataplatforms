@@ -7,7 +7,7 @@ Notes:
 - meetups:
   - the schedule could be flexible but we try to use the common slots
 
-**Remember to read [oneline Course Management slides](https://bit.ly/cse4640management)** ( download [PDF]())
+**Remember to read [online Course Management slides](https://bit.ly/cse4640management)** ( download [PDF]())
 
 
 >**The Schedule is currently revised for Spring 2023**
@@ -16,7 +16,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 --------|--------------|-------|---------
 11.01   |Lecture 1  | [Introduction to Big Data Platforms](lecturenotes/pdfs/) and [Architecting Big Data Platforms](lecturenotes/pdfs/) | **Linh Truong**
 12.01  |Meetup 1 | How to prepare and succeed on Big Data assignments: experiences and expectation| **Zixuan Liu, Guangkai Jiang, Minh-Tri Nguyen**, Linh Truong
-18.01  |Lecture 2  | [Service and Integration Models in Big Data Platforms](lecturenotes/pdfs/), Additional slides: *[Cloud Infrastructures for Big Data Platforms](lecturenotes/pdfs/) and [a Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems](lecturenotes/pdfs/)*| **Linh Truong**
+18.01  |Lecture 2  | [Service and Integration Models in Big Data Platforms](lecturenotes/pdfs/), Additional slides: [Cloud Infrastructures for Big Data Platforms](https://bit.ly/3jLwb99) (download [PDF](lecturenotes/pdfs/)) and [a Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems](https://bit.ly/3id1F7B) (download [PDF](lecturenotes/pdfs/))| **Linh Truong**
 25.01  |Lecture 3  | [Big Data Storage and Database Services](lecturenotes/pdfs/). Additional slides: [common systems & integration problems](lecturenotes/pdfs/). and [A short example of metadata](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)| Linh Truong
 26.01  |Tutorial 1 | [Hands-on examples with big database services](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/consistency)|  **Zixuan Liu**
 01.02   |Lecture 4 | [Big Data Ingestion](lecturenotes/pdfs/). Additional slides about [Streaming Data Ingestion with Apache Kafka](lecturenotes/pdfs/)  | **Linh Truong**

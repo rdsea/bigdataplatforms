@@ -1,5 +1,6 @@
-var consul = require('consul')();
-var fs = require('fs');
+import Consul from "consul";
+const consul = new Consul();
+import fs from 'fs'
 var inputfile= process.argv[2];
 var newservice = JSON.parse(fs.readFileSync(inputfile, 'utf8'));
 console.log(newservice);

@@ -2,7 +2,7 @@
   "name":"simplerest",
   "tags":["bdp","nothing","aalto"],
    "port": 3000,
-   "address":"192.168.2.106",
+   "address":"192.168.2.14",
    "check": {
        "id": "checksimplerest",
        "name": "Simple Status",

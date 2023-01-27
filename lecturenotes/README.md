@@ -16,7 +16,7 @@
   - Patrick Hunt, Mahadev Konar, Flavio P. Junqueira, and Benjamin Reed. 2010. ZooKeeper: wait-free coordination for internet-scale systems. In Proceedings of the 2010 USENIX conference on USENIX annual technical conference (USENIXATC'10). USENIX Association, Berkeley, CA, USA, 11-11. (https://www.usenix.org/legacy/events/atc10/tech/full_papers/Hunt.pdf)
 
 * **Cloud Infrastructures for Big Data Platforms**: [Online slides](https://bit.ly/3jLwb99)
-* **A Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems**: [Online Slides](https://bit.ly/3id1F7B)
+* **A Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems**: [Online Slides](https://bit.ly/3id1F7B) (download [PDF](pdfs/module2-lecture3-bigdatastoragedatabase-v0.4.pdf))
 * **How to succeed on assignments in Big Data Platforms?** [Slides from Zixuan Liu & Guangkai Jiang](pdfs/LiuJiang_howtosucceed.pdf) and [Slides from Tri Nguyen](pdfs/TriNguyen_howtosucceed.pdf):
 * **Big Data Storage and Database Services**: Slides 
   - Chapters 5 & 9: Martin Kleppmann, Designing Data-Intensive Applications, O'Reilly Media,1 edition (April 11, 2017)

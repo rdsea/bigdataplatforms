@@ -18,14 +18,14 @@
 * **Cloud Infrastructures for Big Data Platforms**: [Online slides](https://bit.ly/3jLwb99)
 * **A Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems**: [Online Slides](https://bit.ly/3id1F7B) (download [PDF](pdfs/module2-lecture3-bigdatastoragedatabase-v0.4.pdf))
 * **How to succeed on assignments in Big Data Platforms?** [Slides from Zixuan Liu & Guangkai Jiang](pdfs/LiuJiang_howtosucceed.pdf) and [Slides from Tri Nguyen](pdfs/TriNguyen_howtosucceed.pdf):
-* **Big Data Storage and Database Services**: Slides 
+* **Big Data Storage and Database Services**: [Online Slides](https://bit.ly/bdp23-L3) 
   - Chapters 5 & 9: Martin Kleppmann, Designing Data-Intensive Applications, O'Reilly Media,1 edition (April 11, 2017)
   -  http://cacm.acm.org/news/200095-the-data-lake-concept-is-maturing/fulltext
   -  Fay Chang, Jeffrey Dean, Sanjay Ghemawat, Wilson C. Hsieh, Deborah A. Wallach, Mike Burrows, Tushar Chandra, Andrew Fikes, and Robert E. Gruber. 2006. [Bigtable: a distributed storage system for structured data](https://static.googleusercontent.com/media/research.google.com/en//archive/bigtable-osdi06.pdf). In Proceedings of the 7th USENIX Symposium on Operating Systems Design and Implementation - Volume 7 (OSDI '06), Vol. 7.
   -  Alexandre Verbitski, Anurag Gupta, Debanjan Saha, Murali Brahmadesam, Kamal Gupta, Raman Mittal, Sailesh Krishnamurthy, Sandor Maurice, Tengiz Kharatishvili, and Xiaofeng Bao. 2017. [Amazon Aurora: Design Considerations for High Throughput Cloud-Native Relational Databases](https://dl.acm.org/doi/10.1145/3035918.3056101). In Proceedings of the 2017 ACM International Conference on Management of Data (SIGMOD '17).
   - CAP:  http://www.julianbrowne.com/article/viewer/brewers-cap-theorem
   - [Eventual consistency](https://dl.acm.org/ft_gateway.cfm?id=1466448&ftid=577532&dwn=1)
-* Addition for Big Data Storage and Database Services: common systems & integration problems: Slides.
+* **Addition for Big Data Storage and Database Services: common systems & integration problems**: [Online Slides](https://bit.ly/3R0Bga4).
 * A short example of metadata: [Video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)
 * **Big data ingestion**: Slides
 * **Streaming Data Ingestion with Apache Kafka**: Slides, [basic Kafka setup](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/basickafka) and [examples of data ingestion with Kafka](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/cloud-data-pipeline)

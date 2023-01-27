@@ -18,7 +18,7 @@
 * **Cloud Infrastructures for Big Data Platforms**: [Online slides](https://bit.ly/3jLwb99)
 * **A Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems**: [Online Slides](https://bit.ly/3id1F7B) (download [PDF](pdfs/module2-lecture3-bigdatastoragedatabase-v0.4.pdf))
 * **How to succeed on assignments in Big Data Platforms?** [Slides from Zixuan Liu & Guangkai Jiang](pdfs/LiuJiang_howtosucceed.pdf) and [Slides from Tri Nguyen](pdfs/TriNguyen_howtosucceed.pdf):
-* **Big Data Storage and Database Services**: [Online Slides](https://bit.ly/bdp23-L3) 
+* **Big Data Storage and Database Services**: [Online Slides](https://bit.ly/bdp23-L3) (download [PDF](pdfs/module2-lecture3-bigdatastoragedatabase-v0.4.pdf))
   - Chapters 5 & 9: Martin Kleppmann, Designing Data-Intensive Applications, O'Reilly Media,1 edition (April 11, 2017)
   -  http://cacm.acm.org/news/200095-the-data-lake-concept-is-maturing/fulltext
   -  Fay Chang, Jeffrey Dean, Sanjay Ghemawat, Wilson C. Hsieh, Deborah A. Wallach, Mike Burrows, Tushar Chandra, Andrew Fikes, and Robert E. Gruber. 2006. [Bigtable: a distributed storage system for structured data](https://static.googleusercontent.com/media/research.google.com/en//archive/bigtable-osdi06.pdf). In Proceedings of the 7th USENIX Symposium on Operating Systems Design and Implementation - Volume 7 (OSDI '06), Vol. 7.

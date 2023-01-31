@@ -19,7 +19,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 18.01  |Lecture 2  | [Service and Integration Models in Big Data Platforms](https://bit.ly/bdp23-L2), (download [PDF](lecturenotes/pdfs/module1-lecture2-0-integrationbdp-v0.4.pdf)). Additional slides: [Cloud Infrastructures for Big Data Platforms](https://bit.ly/3jLwb99) (download PDF) and [a Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems](https://bit.ly/3id1F7B) (download PDF)| **Linh Truong**
 25.01  |Lecture 3  | [Big Data Storage and Database Services](https://bit.ly/bdp23-L3) (download [PDF](lecturenotes/pdfs/module2-lecture3-bigdatastoragedatabase-v0.4.pdf)). Additional slides: [common systems & integration problems](https://bit.ly/3R0Bga4). and [A short example of metadata](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)| Linh Truong
 26.01  |Tutorial 1 | [Hands-on examples with big database services](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/consistency)|  **Zixuan Liu**
-01.02   |Lecture 4 | Big Data Ingestion. Additional slides about Streaming Data Ingestion with Apache Kafka | **Linh Truong**
+01.02   |Lecture 4 | [Big Data Ingestion, Transformation and Orchestration](https://bit.ly/bdp23-L4). Additional slides about [Streaming Data Ingestion with Apache Kafka](https://bit.ly/3RgKajT) | **Linh Truong**
 01.02  |   | **Release the first assignment**
 02.02  | Tutorial 2  | [Data Ingestion with Apache Nifi](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/nifi)| **Guangkai Jiang**
 08.02  |Lecture 5 | Hadoop and its Big Data Ecosystems. Study some real cases of Hadoop and data ingestion| **Linh Truong**

@@ -28,7 +28,7 @@ When ingesting data through message brokers, you can use your own RabbitMQ in yo
 We have a simple python code that can be used for receiving messages sent to AMQP (using fanout), e.g.,
 
 ```
-~$ python3 cs-e4640/examples/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
+~$ python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
 ```
 
 ### Google Storage
@@ -95,7 +95,7 @@ Using the following program to check if the data has been sent to the message br
 
 ```console
 $export AMQPURL=**Get the link during the practice**
-$python3 cs-e4640/examples/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
+$python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
 ```
 >Note that the AMQP configuration for the python program must match the AMQP broker set in Nifi
 
@@ -154,7 +154,7 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
 3. Start an AMQP consumer client to receive the change
 	```console
 	$export AMQPURL=**Get the link during the practice**
-	$python3 cs-e4640/examples/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
+	$python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
 	```
 4. Start to insert the data by inserting some data into the selected table. For example,
 
@@ -180,6 +180,9 @@ After successful with the above steps, now you can try different situations:
 Furthermore, you can examine other tools to understand the **underlying models and techniques** for ingestion, like:
 - [Airbyte](https://airbyte.com/)
 - [Logstash](https://www.elastic.co/logstash/)
+- [Dbt](https://www.getdbt.com/)
+- [Data form](https://dataform.co/)
+
 ## Challenge
 
 Write a flow that:

@@ -27,7 +27,7 @@
   - [Eventual consistency](https://dl.acm.org/ft_gateway.cfm?id=1466448&ftid=577532&dwn=1)
 * **Addition for Big Data Storage and Database Services: common systems & integration problems**: [Online Slides](https://bit.ly/3R0Bga4) (download [PDF](pdfs/module2-lecture3-bigdatastoragedatabase-addition-v0.4.pdf)).
 * A short example of metadata: [Video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)
-* **Big Data Ingestion, Transformation and Orchestration**: [Online slides](https://bit.ly/bdp23-L4)
+* **Big Data Ingestion, Transformation and Orchestration**: [Online slides](https://bit.ly/bdp23-L4) (download [PDF](pdfs/module2-lecture4-ingestionandtransformation-v0.4.pdf))
 * **Apache Kafka for Streaming Data Ingestion - The Core**: [Online slides](https://bit.ly/3RgKajT), [basic Kafka setup](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/basickafka) and [examples of data ingestion with Kafka](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/cloud-data-pipeline)
 * **Hadoop and its Big Data Ecosystems**: Slides 
 * **Some case studies for Hadoop and data ingestion**: Slides 

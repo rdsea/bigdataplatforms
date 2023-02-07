@@ -14,13 +14,12 @@ This instructions are for linux ubuntu system but similar steps could be used on
 
 
 ### Step1: Download and extract Kafka binaries
-Download the Kafka from this link [Kafka download](https://downloads.apache.org/kafka/2.4.0/kafka_2.11-2.4.0.tgz). For this project we are using Kafka version 2.4.0 for Scala version 2.11. After downloading, follow the following steps:
+Download the Kafka from this link [Kafka download](https://downloads.apache.org/kafka/3.4.0/kafka_2.13-3.4.0.tgz). For this project we are using Kafka version 3.4.0 for Scala version 2.13. After downloading, follow the following steps:
 ```
  $ mkdir kafka && cd kafka
- $ tar -xzf kafka_2.11-2.4.0.tgz --strip 1
+ $ tar -xzf kafka_2.13-3.4.0.tgz 
 ```
 
-The strip 1 option is given so that the downloaded zip file is extracted to the kafka folder itself and not another folder for example *kafka_2.11-2.4.0* inside the kafka folder.
 ### Step2: Configure the kafka server
 Since Kafka by default does not allow us to delete a topic, category, group or feed name to which messages can be published, we need to alter the settings the in order to be able to do deletions. The configurations are stored in _kafka/config/server.properties_. Assuming that you are still inside the kafka folder, type on the terminal.
 ```

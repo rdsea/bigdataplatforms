@@ -29,7 +29,7 @@
 * A short example of metadata: [Video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)
 * **Big Data Ingestion, Transformation and Orchestration**: [Online slides](https://bit.ly/bdp23-L4) (download [PDF](pdfs/module2-lecture4-ingestionandtransformation-v0.4.pdf))
 * **Apache Kafka for Streaming Data Ingestion - The Core**: [Online slides](https://bit.ly/3RgKajT), [basic Kafka setup](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/basickafka) and [examples of data ingestion with Kafka](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/cloud-data-pipeline)
-* **Hadoop and its Big Data Ecosystems**: Slides 
+* **Hadoop and its Big Data Ecosystems**: [Online slides](https://bit.ly/bpd23-L5) 
 * **Some case studies for Hadoop and data ingestion**: Slides 
   - K. Shvachko, H. Kuang, S. Radia and R. Chansler, "The Hadoop Distributed File System," 2010 IEEE 26th Symposium on Mass Storage Systems and Technologies (MSST), Incline Village, NV, 2010, pp. 1-10.doi: 10.1109/MSST.2010.5496972
   - Vinod Kumar Vavilapalli, Arun C. Murthy, Chris Douglas, Sharad Agarwal, Mahadev Konar, Robert Evans, Thomas Graves, Jason Lowe, Hitesh Shah, Siddharth Seth, Bikas Saha, Carlo Curino, Owen O'Malley, Sanjay Radia, Benjamin Reed, and Eric Baldeschwieler. 2013. Apache Hadoop YARN: yet another resource negotiator. In Proceedings of the 4th annual Symposium on Cloud Computing (SOCC '13). ACM, New York, NY, USA, Article 5, 16 pages. DOI:https://doi.org/10.1145/2523616.2523633

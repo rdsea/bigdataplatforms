@@ -1,9 +1,9 @@
 # saved from https://github.com/bitnami/containers/blob/main/bitnami/kafka/docker-compose.yml
-version: '2'
+version: '3.5'
 
 services:
   zookeeper:
-    image: 'bitnami/zookeeper:3'
+    image: 'bitnami/zookeeper:latest'
     ports:
       - '2181:2181'
     volumes:
@@ -11,7 +11,7 @@ services:
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
   kafka:
-    image: 'bitnami/kafka:2'
+    image: 'bitnami/kafka:latest'
     restart: always
     ports:
       - '9092'

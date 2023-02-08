@@ -108,7 +108,7 @@ we will assume that the file is saved as docker-compose1.yml in a folder named k
     ```
 2. Open a new terminal and get the name of the kafka container by typing
     ```
-    $ docker-compose ps
+    $ docker-compose -f docker-compose1.yml ps
     ```
 3. Run a terminal inside the container by using the command
     ```

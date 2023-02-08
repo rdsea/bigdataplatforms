@@ -33,7 +33,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 08.03  |Lecture 7 | Stream Processing and Big Data Platforms| **Linh Truong**
 9.03  |Tutorial 5 | [Data Processing with Apache Spark](tutorials/spark/README.md)  | **Minh-Tri Nguyen**
 15.03  |No lecture/Meetup|Backup | 
-16.03  |Industry tutorial| Azure DataLake | TBD 
+16.03  |Industry tutorial| **Azure DataLake** | TBD 
 17.03  |   | **Due the 2nd assignment**  |   |
 |20-24.03   | **No lecture week**  | Assignment grading  | **All**  |
 29.03  |Lecture 8 | Workflows for Big Data Platforms | **Linh Truong**

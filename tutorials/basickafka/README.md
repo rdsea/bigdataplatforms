@@ -100,7 +100,7 @@ on the terminal write (in this case I'm using bitnami/kafka image):
  ```
 
 Second alternative is to get the docker compose file of the Kafka image [bitnami/kafka](https://github.com/bitnami/containers/blob/main/bitnami/kafka/docker-compose.yml). Save it in the your editor and then do the following. In this example,
-we will assume that the file is saved as docker-compose.yml in a folder named kafka.
+we will assume that the file is saved as docker-compose1.yml in a folder named kafka.
 
 1. To start the zookeeper and kafka servers type:
     ```
@@ -129,7 +129,7 @@ We will be using a docker-compose file for for setting up a multi-broker cluster
 
 Running a Kafka cluster in a container is different from running a single instance as many environment variables have to be configured. The docker-compose file for the services is *docker-compose3.yml*. The configuration in the file allows us to use a global Kafka Broker.
 
-_Note: In the `KAFKA_CFG_ADVERTISED_LISTENERS` setting, be sure to update the `EXTERNAL`  setting for hostname/external ip of the machine instance. Otherwise, this won't be accessible from any system outside the `localhost`_
+_Note: In the `KAFKA_CFG_ADVERTISED_LISTENERS` setting, be sure to update the `EXTERNAL`  setting for hostname/external ip of the machine instance. Otherwise, this won't be accessible from any system outside the `localhost`_(check https://github.com/bitnami/containers/tree/main/bitnami/kafka for seeing configuration paramters with bitnami kafka containers)
 
 > Example: KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-1:19092,PLAINTEXT_HOST://195.148.21.10:9093
 
@@ -139,7 +139,7 @@ _Note: In the `KAFKA_CFG_ADVERTISED_LISTENERS` setting, be sure to update the `E
     ```
 2. To see the containers running and get their names, open another terminal and run
     ```
-    $ docker-compose ps
+    $ docker-compose -f docker-compose3.yml ps
     ```
 3. If network is not explicitly set in the docker compose file, run the following command to get the name of the network the containers are in. THe name of the network is under networks
     ```
@@ -150,11 +150,11 @@ _Note: In the `KAFKA_CFG_ADVERTISED_LISTENERS` setting, be sure to update the `E
 
 1. Create a topic with 3 replications and a single partition
     ```
-    $ docker-compose exec kafka-1 /opt/bitnami/kafka/bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 3 --topic locations
+    $ docker-compose -f docker-compose3.yml  exec kafka-1 /opt/bitnami/kafka/bin/kafka-topics.sh --create --bootstrap-server kafka-1:9092 --replication-factor 3 --topic locations
     ```
 2. Let's inpect our newly created topic
     ```
-     $ docker-compose exec kafka-1 /opt/bitnami/kafka/bin/kafka-topics.sh --describe --zookeeper zookeeper:2181 --topic locations
+     $ docker-compose -f docker-compose3.yml exec kafka-1 /opt/bitnami/kafka/bin/kafka-topics.sh --describe --bootstrap-server kafka-1:9092 --topic locations
     ```
     You should see something like this:
     ```
@@ -163,13 +163,13 @@ _Note: In the `KAFKA_CFG_ADVERTISED_LISTENERS` setting, be sure to update the `E
     ```
 3. Let's start a producer and produce some few messages to our topic
     ```
-    $ docker-compose exec kafka-1 /opt/bitnami/kafka/bin/kafka-console-producer.sh --bootstrap-server kafka-1:19092 --topic locations
+    $ docker-compose -f docker-compose3.yml exec kafka-1 /opt/bitnami/kafka/bin/kafka-console-producer.sh --bootstrap-server kafka-1:19092 --topic locations
     Hki long 24.94, lat 60.17
     ```
 4. Start a new terminal and repeat step 1 to create a new container connecting to the same network as the kafka nodes
 5. Start a kafka consumer and subscribe to the same topic (locations in our case)
     ```
-    $ kafka-console-consumer.sh --bootstrap-server kafka-2:29092 --topic locations --from-beginning
+    $ docker-compose -f docker-compose3.yml exec kafka-1 kafka-console-consumer.sh --bootstrap-server kafka-2:29092 --topic locations --from-beginning
 6. Open a new terminal and repeat steps 5 & 6 to set up a second consumer, remember to change the server name and ports to kafka-3 in step 6
 7. If all went well, you should be able to see the message published in step 4 appear on both terminals, in our example you should see
     ```
@@ -247,6 +247,10 @@ you can run another consumer but different **consumer group** to see
 	$python simple_kafka_consumer.py -t cse4640simplekafka -g cse4640_group_2
  ```
 
+## References
+
+- Bitnami Kafka docker image guide: https://github.com/bitnami/containers/tree/main/bitnami/kafka 
+ 
 ## Authors
 
 - Tutorial author: Strasdosky Otewa, Rohit Raj and Linh Truong

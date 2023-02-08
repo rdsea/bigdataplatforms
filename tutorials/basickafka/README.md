@@ -99,7 +99,7 @@ on the terminal write (in this case I'm using bitnami/kafka image):
 	$ docker run bitnami/kafka
  ```
 
-Second alternative is to get the docker compose file of the Kafka image [bitnami/kafka](https://github.com/bitnami/bitnami-docker-kafka/blob/master/docker-compose.yml). Save it in the your editor and then do the following. In this example,
+Second alternative is to get the docker compose file of the Kafka image [bitnami/kafka](https://github.com/bitnami/containers/blob/main/bitnami/kafka/docker-compose.yml). Save it in the your editor and then do the following. In this example,
 we will assume that the file is saved as docker-compose.yml in a folder named kafka.
 
 1. To start the zookeeper and kafka servers type:

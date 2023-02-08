@@ -1,3 +1,4 @@
+# saved from https://github.com/bitnami/containers/blob/main/bitnami/kafka/docker-compose.yml
 version: '2'
 
 services:

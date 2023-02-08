@@ -22,7 +22,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 01.02   |Lecture 4 | [Big Data Ingestion, Transformation and Orchestration](https://bit.ly/bdp23-L4) (download [PDF](lecturenotes/pdfs/module2-lecture4-ingestionandtransformation-v0.4.pdf)). Additional slides about [Streaming Data Ingestion with Apache Kafka](https://bit.ly/3RgKajT) | **Linh Truong**
 01.02  |   | **Release the first assignment**
 02.02  | Tutorial 2  | [Data Ingestion with Apache Nifi](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/nifi)| **Guangkai Jiang**
-08.02  |Lecture 5 | [Hadoop and its Big Data Ecosystems](https://bit.ly/bpd23-L5) . Study some real cases of Hadoop and data ingestion| **Linh Truong**
+08.02  |Lecture 5 | [Hadoop and its Big Data Ecosystems](https://bit.ly/bpd23-L5) (download [PDF](lecturenotes/pdfs/module3-lecture5-hadoop-v0.4.pdf)) . Study some real cases of Hadoop and data ingestion| **Linh Truong**
 09.02  |Tutorial 3 | Kafka for Big Data| **Guangkai Jiang**
 15.02  | No lecture/Meetup | Backup| **All**
 17.02  |   |  **due of the first assignment -13.00**
@@ -33,6 +33,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 08.03  |Lecture 7 | Stream Processing and Big Data Platforms| **Linh Truong**
 9.03  |Tutorial 5 | [Data Processing with Apache Spark](tutorials/spark/README.md)  | **Minh-Tri Nguyen**
 15.03  |No lecture/Meetup|Backup | 
+16.03  |Industry tutorial| Azure DataLake | TBD 
 17.03  |   | **Due the 2nd assignment**  |   |
 |20-24.03   | **No lecture week**  | Assignment grading  | **All**  |
 29.03  |Lecture 8 | Workflows for Big Data Platforms | **Linh Truong**

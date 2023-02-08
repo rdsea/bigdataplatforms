@@ -56,8 +56,22 @@ _config/server-2.properties:_
     log.dirs=/tmp/kafka-logs-2
  ```
 
+## [Alternative] Running Kafka nodes accross differnt machines
 
-### Step3: start kafka server
+Create 4 VMs, 3 for Kafka and 1 for Zookeeper. On all VMs for Kafka, edit Kafka server.properties
+
+```
+ $ nano ./config/server.properties
+```
+
+Inside the file, modifiy the IP of zookeeper.connect to the IP which Zookeeper is running on:
+
+```
+zookeeper.connect=[IP_OF_ZOOKEEPER]:2180
+```
+
+
+### Step3: Start kafka server
 Since kafka uses Zookeeper, we need to start the it first before we fire up kafka.
 
  ```
@@ -66,6 +80,18 @@ Since kafka uses Zookeeper, we need to start the it first before we fire up kafk
 	bin/kafka-server-start.sh config/server_2.properties
 
  ```
+
+## [Alternative] Start kafka servers accross differnt machines
+
+On Zookeepr server, do
+ ```
+	$ bin/zookeeper-server-start.sh config/zookeeper.properties
+ ```
+On all Kafka servers, do
+```
+	$ bin/kafka-server-start.sh config/server.properties
+```
+ 
 
 ### Step4: Testing the installation
 Now that we have our server up and running, let's create a topic to test our installation.

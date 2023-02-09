@@ -1,11 +1,12 @@
 # Installing and running Apache Kafka
->Note: Apache Kafka is in the plan to remove the Zookepper dependency but we still illustrate Apache Kafka versions with Zookepper. Furthermore, the illustration is not with the most up-to-date Kafka version. You may use the container version for your study.
+>Note: Currently, Apache Kafka has a version without the Zookepper dependency but we still illustrate Apache Kafka versions with Zookepper. Furthermore, the illustration may not be worked  with the most up-to-date Kafka version. You may also use the container version for your study. 
 
 ## Introduction
 Apache Kafka is a distributed streaming platform used for building real-time data pipelines and streaming apps [Kafka documentation](http://kafka.apache.org/documentation.html).
 In this manual, all the commands and  are written in bold-italic. The commands to be typed on the terminal window are preceded by a dollar ($) sign.
 
 * [Accompanying hands-on video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=33ee67f3-f018-45b2-b6d5-abea00dbbb2a)
+
 
 ## Prerequisite
 This instructions are for linux ubuntu system but similar steps could be used on any operating system though with different commands. Since Apache Kafka uses JVM, the following should be done before running the steps:
@@ -81,7 +82,7 @@ Since kafka uses Zookeeper, we need to start the it first before we fire up kafk
 
  ```
 
-## [Alternative] Start kafka servers accross differnt machines
+## [Alternative] Start kafka servers accross different machines
 
 On Zookeepr server, do
  ```
@@ -272,12 +273,19 @@ you can run another consumer but different **consumer group** to see
 	$python simple_kafka_consumer.py -t cse4640simplekafka -g cse4640_group_2
  ```
 
+## Main scenarios for practices
+
+- Fast producers with some slow consumers for a topic
+- Parallel processing of messages using multiple consumers
+- Obtaining old data vs obtain newest data
+- Multiple consumer groups 
+
 ## References
 
 - Bitnami Kafka docker image guide: https://github.com/bitnami/containers/tree/main/bitnami/kafka 
  
 ## Authors
 
-- Tutorial author: Strasdosky Otewa, Rohit Raj and Linh Truong
+- Tutorial author: Strasdosky Otewa, Rohit Raj, Guangkai Jiang and Linh Truong
 
 - Editor: Linh Truong

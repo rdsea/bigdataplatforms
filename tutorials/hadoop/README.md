@@ -97,3 +97,5 @@ Instead of running "hiveserver2", you can run
 $hive --service hiveserver2 --hiveconf hive.root.logger=INFO,console
 
 ```
+## Some readings
+- [Containerizing Apache Hadoop Infrastructure at Uber](https://www.uber.com/en-FI/blog/hadoop-container-blog/)

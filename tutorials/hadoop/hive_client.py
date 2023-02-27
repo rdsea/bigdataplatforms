@@ -15,5 +15,5 @@ execute_hive("CREATE TABLE IF NOT EXISTS <database_name>.<table_name> (trip_id s
 execute_hive("LOAD DATA INPATH '/student_dir/taxi_100m.csv' INTO TABLE <database_name>.<table_name>")
 execute_hive("SELECT * FROM <database_name>.<table_name> LIMIT 5")
 execute_hive("SELECT payment_type, SUM(fare) AS sum_fare FROM <database_name>.<table_name> GROUP BY payment_type LIMIT 100")
-execute_hive("SELECT taxi_id, SUM(fare) as sum_fare, sum(tips) FROM bdp2023_taxi.trips GROUP BY taxi_id having sum(tips)>500 LIMIT 100")
-execute_hive("SELECT taxi_id,payment_type, SUM(fare) OVER(PARTITION BY payment_type) FROM bdp2023_taxi.trips GROUP BY taxi_id,payment_type,fare LIMIT 100")
+execute_hive("SELECT taxi_id, SUM(fare) as sum_fare, sum(tips) FROM <database_name>.<table_name> GROUP BY taxi_id having sum(tips)>500 LIMIT 100")
+execute_hive("SELECT taxi_id,payment_type, SUM(fare) OVER(PARTITION BY payment_type) FROM <database_name>.<table_name> GROUP BY taxi_id,payment_type,fare LIMIT 100")

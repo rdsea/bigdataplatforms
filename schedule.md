@@ -27,7 +27,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 15.02  | No lecture/Meetup | Backup| **All**
 17.02  |   |  **due of the first assignment -13.00**
 20-24.02  |  **No lecture week** | Assignment grading| **All**
-01.03  |Lecture 6  | [Big Data Processing with MapReduce/Spark Programming Models](https://bit.ly/bdp23-L6)| **Linh Truong**
+01.03  |Lecture 6  | [Big Data Processing with MapReduce/Spark Programming Models](https://bit.ly/bdp23-L6) (download [PDF](lecturenotes/pdfs/module3-lecture6-dataprocessing-mapreducespark-v0.4.pdf))| **Linh Truong**
 01.03  |   | **Release the 2nd assignment**
 02.03  | Tutorial 4 |Hadoop | **Minh-Tri Nguyen**
 08.03  |Lecture 7 | Stream Processing and Big Data Platforms| **Linh Truong**

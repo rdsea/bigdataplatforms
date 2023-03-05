@@ -28,11 +28,16 @@ vecAssembler = VectorAssembler(inputCols=["Trip Seconds", "Fare", "Tips"], outpu
 # Transform and Select Feature Vector
 selected_df = vecAssembler.transform(df).select('features')
 
-
+# Define Kmeans model
 kmeans = KMeans() \
           .setK(3) \
           .setFeaturesCol("features")\
           .setPredictionCol("cluster")
+
+# Fit model
 model = kmeans.fit(selected_df)
+
+# Transform
 cluster = model.transform(selected_df)
+
 cluster.show(20, False)

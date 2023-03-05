@@ -21,10 +21,6 @@ output_dir = args.output_dir
 spark = SparkSession.builder.appName("cse4640-taxi-ml").getOrCreate()
 
 df =spark.read.csv(inputFile,header=True,inferSchema=True).na.drop()
-# print("Number of trips", df.count())
-# passenser_exprs = {"Tips":"sum","Fare":"avg"}
-# df2 = df.groupBy('Taxi ID').agg(passenser_exprs)
-# df2.repartition(20).write.csv(output_dir,header=True)
 
 # Create Feature Vector
 vecAssembler = VectorAssembler(inputCols=["Trip Seconds", "Fare", "Tips"], outputCol="features", handleInvalid="skip")

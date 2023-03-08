@@ -30,7 +30,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 01.03  |Lecture 6  | [Big Data Processing with MapReduce/Spark Programming Models](https://bit.ly/bdp23-L6) (download [PDF](lecturenotes/pdfs/module3-lecture6-dataprocessing-mapreducespark-v0.4.pdf))| **Linh Truong**
 01.03  |   | **Release the 2nd assignment**
 02.03  | Tutorial 4 |Hadoop | **Minh-Tri Nguyen**
-08.03  |Lecture 7 | Stream Processing and Big Data Platforms| **Linh Truong**
+08.03  |Lecture 7 | [Stream Processing and Big Data Platforms](https://bit.ly/bdp23-L7) | **Linh Truong**
 9.03  |Tutorial 5 | [Data Processing with Apache Spark](tutorials/spark/README.md)  | **Minh-Tri Nguyen**
 15.03  |No lecture/Meetup|Backup | 
 16.03  |Industry tutorial| **Azure DataLake** | TBD 

@@ -11,7 +11,7 @@ We will practice Apache Spark with simple activities:
 
 ## 2. Setup Spark for Practices
 
-It is important to learn how to setup and operator a Spark deployment (from the platform viewpoint) so three different suggested ways:
+It is important to learn how to setup and operate a Spark deployment (from the platform viewpoint) so three different suggested ways:
 
 * Use Google (or other providers) which provides a feature for creating a Spark deployment for you. In this tutorial we can use "dataproc"
 * Use a small setup of Spark in your local machines. We recommend you to have it because it is not easy (and expensive) to get access to a real, production Hadoop/Spark system. With your own system, you can combine Spark and Hadoop in one system for learning both Hadoop and Spark.
@@ -49,7 +49,7 @@ Now you are in a private enviroment and you can see that you have a Spark cluste
 
 You  then you can test:
 ```
-$pyspak
+$pyspark
 ```
 
 ## 3. Exercises

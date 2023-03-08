@@ -40,7 +40,7 @@
   - Matei Zaharia, Bill Chambers , Spark: The Definitive Guide, [Book](https://learning.oreilly.com/library/view/spark-the-definitive/9781491912201/), [Code](https://github.com/databricks/Spark-The-Definitive-Guide)
   -   Matei Zaharia, Reynold S. Xin, Patrick Wendell, Tathagata Das, Michael Armbrust, Ankur Dave, Xiangrui Meng, Josh Rosen, Shivaram Venkataraman, Michael J. Franklin, Ali Ghodsi, Joseph Gonzalez, Scott Shenker, and Ion Stoica. 2016. Apache Spark: a unified engine for big data processing. Commun. ACM 59, 11 (October 2016), 56-65. DOI: https://doi.org/10.1145/2934664
   -  Jeffrey Dean and Sanjay Ghemawat. 2008. MapReduce: simplified data processing on large clusters. Commun. ACM 51, 1 (January 2008), 107-113. DOI: https://doi.org/10.1145/1327452.1327492
-* **Stream Processing and Big Data Platforms**: [Online slides](https://bit.ly/bdp23-L7) 
+* **Stream Processing and Big Data Platforms**: [Online slides](https://bit.ly/bdp23-L7) (download [PDF](pdfs/module3-lecture7-dataprocessing-streaming-v0.4.pdf))
   - Gianpaolo Cugola and Alessandro Margara, [Processing flows of information: From data stream to complex event processing](https://dl.acm.org/doi/pdf/10.1145/2187671.2187677)
   - Martin Hirzel, Guillaume Baudart, Angela Bonifati, Emanuele Della Valle, Sherif Sakr, and Akrivi Akrivi Vlachou. 2018. Stream Processing Languages in the Big Data Era. SIGMOD Rec. 47, 2 (December 2018), 29-40. DOI: https://doi.org/10.1145/3299887.3299892
   -  Tyler Akidau, Streaming 101: The world beyond batch A high-level tour of modern data-processing concepts. August 5, 2015. [Link](https://www.oreilly.com/ideas/the-world-beyond-batch-streaming-101)

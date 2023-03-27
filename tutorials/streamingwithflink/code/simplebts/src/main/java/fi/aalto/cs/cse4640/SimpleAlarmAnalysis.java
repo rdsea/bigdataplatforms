@@ -26,12 +26,14 @@ import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer;
 import org.apache.flink.streaming.connectors.rabbitmq.RMQSink;
 import org.apache.flink.streaming.connectors.rabbitmq.common.RMQConnectionConfig;
 import org.apache.flink.util.Collector;
+import org.python.core.PyInstance;
+import org.python.core.PyObject;
+import org.python.util.PythonInterpreter;
 
 import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.Date;
-import java.util.Properties;
+import java.util.*;
 
 public class SimpleAlarmAnalysis {
 
@@ -46,29 +48,27 @@ public class SimpleAlarmAnalysis {
 		int parallelismDegree;
 		final ParameterTool params = ParameterTool.fromArgs(args);
 
-		inputQueue = params.get("iqueue", "bts_input");  // name of the input queue of the input stream
-		outputQueue =params.get("oqueue", "bts_output") ;  // name of the output queue to return the results
+		inputQueue = params.get("iqueue", "bts_in");  // name of the input queue of the input stream
+		outputQueue =params.get("oqueue", "bts_out") ;  // name of the output queue to return the results
 		input_kafka_host =params.get("kafkaurl", "localhost:9092");  // set the kafka host
-		parallelismDegree =params.getInt("parallelism", 2);  // set the level of Parallelism
-//		input_rabbitMQ= params.get("amqpurl", "amqp://guest:guest@localhost:5672"); // set the uri of AMQP
-
+		parallelismDegree =params.getInt("parallelism", 1);  // set the level of Parallelism
+//		input_rabbitMQ = params.get("amqpurl", "amqp://guest:guest@195.148.22.62:5672"); // set the uri of AMQP
 
 
 		// the following is for setting up the execution getExecutionEnvironment
 		final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
 		// Init remote environment
-		// final StreamExecutionEnvironment env = StreamExecutionEnvironment.createRemoteEnvironment(
-		// 		"<flink host>",
-		// 		8081,
-		// 		"<file_path>simplebts/target/simplebts-0.1-SNAPSHOT.jar");
+//		 final StreamExecutionEnvironment env = StreamExecutionEnvironment.createRemoteEnvironment(
+//		 		"<flink host>",
+//		 		8081,
+//		 		"<file_path>simplebts/target/simplebts-0.1-SNAPSHOT.jar");
 
 
 		//checkpoint can be used for  different levels of message guarantees
 		// select one of the following modes
 		final CheckpointingMode checkpointingMode = CheckpointingMode.EXACTLY_ONCE ;
 		//final checkpointMode = CheckpointingMode.AT_LEAST_ONCE;
-
 
 		env.enableCheckpointing(1000*60, checkpointingMode);  // set checkpoint every minute to recover from last checkpoint if failures occur
 
@@ -87,6 +87,7 @@ public class SimpleAlarmAnalysis {
 		Properties consumer_properties = new Properties();
 		consumer_properties.setProperty("bootstrap.servers", input_kafka_host);
 		consumer_properties.setProperty("group.id", "bts_flink");
+
 		//Build a KafkaConsumer object
 		FlinkKafkaConsumer<String> btsConsumer = new FlinkKafkaConsumer<>(inputQueue, inputSchema, consumer_properties);
 		btsConsumer.setStartFromEarliest();     // start from the earliest record possible
@@ -100,7 +101,7 @@ public class SimpleAlarmAnalysis {
 
 // 		Store RMQ config to an object
 //		final RMQConnectionConfig connectionConfig = new RMQConnectionConfig.Builder()
-//    			.setUri("amqp://guest:guest@195.148.22.62:5672")
+//    			.setUri(input_rabbitMQ)
 //    			.build();
 
 //		//declare rabbit mq as a source of data and set parallelism degree
@@ -119,6 +120,7 @@ public class SimpleAlarmAnalysis {
 // 		Apply function on data stream
 		DataStream<String> alerts = btsdatastream
 				.flatMap(new BTSParser()
+//				.flatMap(new BTS_Trend_Parser()
 				 /*
 					 Another example is to have:
 					 new FlatMapFunction<String, BTSAlarmEvent>() {
@@ -139,8 +141,10 @@ public class SimpleAlarmAnalysis {
    					}
 				*/
 				)
-				.window(SlidingEventTimeWindows.of(Time.hours(24), Time.hours(1))) // set the window size and the window slide for processing streaming data
-				.process(new MyProcessWindowFunction());
+				.window(SlidingProcessingTimeWindows.of(Time.seconds(10), Time.seconds(10)))
+//				.window(SlidingEventTimeWindows.of(Time.minutes(5), Time.seconds(5))) // set the window size and the window slide for processing streaming data
+				.process(new MyProcessWindowFunction()).setParallelism(1);
+//				.process(new TrendDetection()).setParallelism(1);
 		//.setParallelism(5);  // uncomment this line to scale the stream processing and set the value for it
 
 
@@ -161,9 +165,9 @@ public class SimpleAlarmAnalysis {
 // 		Init an RMQ channel to forward the alert
 //		RMQSink<String> sink =new RMQSink<String>(
 //				connectionConfig,
-//				outputQueue,
+//				"bts_out2",
 //				new SimpleStringSchema());
-//		alerts.addSink(sink).setParallelism(1); // set the value to scale the output stream
+//		alerts.addSink(sink).setParallelism(6); // set the value to scale the output stream
 
 
 		//use 1 thread to print out the result
@@ -198,6 +202,20 @@ public class SimpleAlarmAnalysis {
 			}
 		}
 	}
+
+	public static class BTS_Trend_Parser implements FlatMapFunction<String, BTSAlarmEvent> {
+
+		@Override
+		public void flatMap(String line, Collector<BTSAlarmEvent> out) throws Exception {
+			CSVRecord record = CSVFormat.RFC4180.withIgnoreHeaderCase().parse(new StringReader(line)).getRecords().get(0);
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+			Date date = format.parse(record.get(3));
+			BTSAlarmEvent alarm = new BTSAlarmEvent(record.get(0), record.get(1), record.get(2), date, Float.valueOf(record.get(4)), Float.valueOf(record.get(5)));
+			out.collect(alarm);
+		}
+	}
+
+
 	//a simple function to detect a sequence of alarms in a round
 	private static class MyProcessWindowFunction
 			extends ProcessWindowFunction<BTSAlarmEvent, String, String, TimeWindow> {
@@ -218,5 +236,40 @@ public class SimpleAlarmAnalysis {
 			}
 		}
 	}
-
+	//a simple function to detect a sequence of alarms in a round
+	private static class TrendDetection
+			extends ProcessWindowFunction<BTSAlarmEvent, String, String, TimeWindow> {
+		@Override
+		public void process(String station_id,
+							Context context,
+							Iterable<BTSAlarmEvent> records,
+							Collector<String> out) {
+			List<Float> val_list = new ArrayList<Float>();
+			for (BTSAlarmEvent btsrecord: records) {
+				val_list.add((float)btsrecord.value);
+			}
+			int halfSize = val_list.size() / 2;
+			int sum = 0;
+			for (int i = 0; i < halfSize; i++) {
+				sum += val_list.get(i);
+			}
+			double first_mean = (double) sum / halfSize;
+			sum = 0;
+			for (int i = halfSize; i < val_list.size(); i++) {
+				sum += val_list.get(i);
+			}
+			double second_mean = (double) sum / (val_list.size()-halfSize);
+			if (first_mean > second_mean){
+				System.out.println("Station ID:" + station_id + " having down trend");
+			}
+			else if (first_mean < second_mean){
+				System.out.println("Station ID:" + station_id + " having up trend");
+			}
+			else if (first_mean == second_mean){
+				System.out.println("Station ID:" + station_id + " having stable trend");
+			}
+//			out.collect (new BTSAlarmAlert(station_id,true).toJSON());
+		}
+	}
 }
+

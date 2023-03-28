@@ -50,7 +50,7 @@ public class SimpleAlarmAnalysis {
 
 		inputQueue = params.get("iqueue", "bts_in");  // name of the input queue of the input stream
 		outputQueue =params.get("oqueue", "bts_out") ;  // name of the output queue to return the results
-		input_kafka_host =params.get("kafkaurl", "34.88.207.204:9092");  // set the kafka host
+		input_kafka_host =params.get("kafkaurl", "localhost:9092");  // set the kafka host
 		parallelismDegree =params.getInt("parallelism", 1);  // set the level of Parallelism
 //		input_rabbitMQ = params.get("amqpurl", "amqp://guest:guest@195.148.22.62:5672"); // set the uri of AMQP
 
@@ -60,9 +60,9 @@ public class SimpleAlarmAnalysis {
 
 		// Init remote environment
 //		 final StreamExecutionEnvironment env = StreamExecutionEnvironment.createRemoteEnvironment(
-//		 		"34.88.207.204",
+//		 		"<host_ip>",
 //		 		8081,
-//		 		"/Users/tringuyen/workplace/Study/PhD/Teaching/Big_data/Flink_tutorial/source_code/flink_tutorial/code/simplebts/target/simplebts-0.1-SNAPSHOT.jar");
+//		 		"<path>/target/simplebts-0.1-SNAPSHOT.jar");
 
 
 		//checkpoint can be used for  different levels of message guarantees

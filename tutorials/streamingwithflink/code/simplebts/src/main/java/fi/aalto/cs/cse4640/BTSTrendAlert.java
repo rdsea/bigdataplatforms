@@ -1,6 +1,6 @@
 /*
  * CS-E4640
- * Linh Truong
+ * Tri Nguyen
  */
 package fi.aalto.cs.cse4640;
 public class BTSTrendAlert {

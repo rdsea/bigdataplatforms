@@ -50,7 +50,7 @@ public class SimpleAlarmAnalysis {
 
 		inputQueue = params.get("iqueue", "bts_in");  // name of the input queue of the input stream
 		outputQueue =params.get("oqueue", "bts_out") ;  // name of the output queue to return the results
-		input_kafka_host =params.get("kafkaurl", "localhost:9092");  // set the kafka host
+		input_kafka_host =params.get("kafkaurl", "34.88.207.204:9092");  // set the kafka host
 		parallelismDegree =params.getInt("parallelism", 1);  // set the level of Parallelism
 //		input_rabbitMQ = params.get("amqpurl", "amqp://guest:guest@195.148.22.62:5672"); // set the uri of AMQP
 
@@ -60,9 +60,9 @@ public class SimpleAlarmAnalysis {
 
 		// Init remote environment
 //		 final StreamExecutionEnvironment env = StreamExecutionEnvironment.createRemoteEnvironment(
-//		 		"<flink host>",
+//		 		"34.88.207.204",
 //		 		8081,
-//		 		"<file_path>simplebts/target/simplebts-0.1-SNAPSHOT.jar");
+//		 		"/Users/tringuyen/workplace/Study/PhD/Teaching/Big_data/Flink_tutorial/source_code/flink_tutorial/code/simplebts/target/simplebts-0.1-SNAPSHOT.jar");
 
 
 		//checkpoint can be used for  different levels of message guarantees
@@ -119,8 +119,8 @@ public class SimpleAlarmAnalysis {
 //		parse the data, determine alert and return the alert in a json string
 // 		Apply function on data stream
 		DataStream<String> alerts = btsdatastream
-				.flatMap(new BTSParser()
-//				.flatMap(new BTS_Trend_Parser()
+//				.flatMap(new BTSParser()
+				.flatMap(new BTS_Trend_Parser()
 				 /*
 					 Another example is to have:
 					 new FlatMapFunction<String, BTSAlarmEvent>() {
@@ -141,10 +141,10 @@ public class SimpleAlarmAnalysis {
    					}
 				*/
 				)
-				.window(SlidingProcessingTimeWindows.of(Time.seconds(10), Time.seconds(10)))
+				.window(SlidingProcessingTimeWindows.of(Time.seconds(60), Time.seconds(5)))
 //				.window(SlidingEventTimeWindows.of(Time.minutes(5), Time.seconds(5))) // set the window size and the window slide for processing streaming data
-				.process(new MyProcessWindowFunction()).setParallelism(1);
-//				.process(new TrendDetection()).setParallelism(1);
+//				.process(new MyProcessWindowFunction()).setParallelism(1);
+				.process(new TrendDetection()).setParallelism(1);
 		//.setParallelism(5);  // uncomment this line to scale the stream processing and set the value for it
 
 
@@ -261,14 +261,17 @@ public class SimpleAlarmAnalysis {
 			double second_mean = (double) sum / (val_list.size()-halfSize);
 			if (first_mean > second_mean){
 				System.out.println("Station ID:" + station_id + " having down trend");
+				out.collect (new BTSTrendAlert(station_id,"down").toJSON());
 			}
 			else if (first_mean < second_mean){
 				System.out.println("Station ID:" + station_id + " having up trend");
+				out.collect (new BTSTrendAlert(station_id,"up").toJSON());
 			}
 			else if (first_mean == second_mean){
 				System.out.println("Station ID:" + station_id + " having stable trend");
+				out.collect (new BTSTrendAlert(station_id,"stable").toJSON());
 			}
-//			out.collect (new BTSAlarmAlert(station_id,true).toJSON());
+
 		}
 	}
 }

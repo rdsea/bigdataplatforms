@@ -36,7 +36,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 16.03  |Industry tutorial|  [Data Lakehouse on Azure using Synapse Analytics and HDInsight](https://github.com/murggu/azure-data-samples/tree/main/aalto-cs-e4640) | Aitor Murguzur, PhD  
 17.03  |   | **Due the 2nd assignment**  |   |
 |20-24.03   | **No lecture week**  | Assignment grading  | **All**  |
-29.03  |Lecture 8 | [Workflows for Big Data Platforms](https://bit.ly/bdp23-L8) | **Linh Truong**
+29.03  |Lecture 8 | [Workflows for Big Data Platforms](https://bit.ly/bdp23-L8) (download [PDF](lecturenotes/pdfs/module3-lecture8-workflows-v0.4.pdf))| **Linh Truong**
 29.03  |   | **Release the third assignment**
 30.03  |Tutorial 6| [Stream Processing with Apache Flink](tutorials/streamingwithflink/README.md) | **Tri Nguyen**
 05.04  |  No lecture/meetup | Backup  |   |   |

@@ -15,7 +15,7 @@ x-expose: &exposes
     - "9160" # Thrift
 services: 
   cassandra1:
-    image: cassandra
+    image: cassandra:latest
     hostname: cassandra1
     environment: 
       <<: *cassandras
@@ -25,7 +25,7 @@ services:
       - "9042:9042"
 
   cassandra2:
-    image: cassandra
+    image: cassandra:latest
     hostname: cassandra2
     environment: 
       <<: *cassandras
@@ -39,7 +39,7 @@ services:
     
 
   cassandra3:
-    image: cassandra
+    image: cassandra:latest
     hostname: cassandra3
     environment: 
       <<: *cassandras

@@ -283,6 +283,8 @@ you can run another consumer but different **consumer group** to see
 ## References
 
 - Bitnami Kafka docker image guide: https://github.com/bitnami/containers/tree/main/bitnami/kafka 
+- https://medium.com/paypal-tech/scaling-kafka-to-support-paypals-data-growth-a0b4da420fab
+- https://blog.cloudflare.com/using-apache-kafka-to-process-1-trillion-messages/
  
 ## Authors
 

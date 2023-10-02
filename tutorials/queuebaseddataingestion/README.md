@@ -10,6 +10,9 @@ To illustrate the example, we assume that:
 * The data producer tells the ingestion workers that the data files are available
 * The workers will perform the ingestion
 
+There are different ways to implement the workers. For the learning purpose, we implement it as a python function or  a program deployed in a container
+
+
 ## Message Broker/Queue for Notification
 In this example, we use Redis. Make sure you have .env to store environment variables about Redis or using environment variable:
 
@@ -47,12 +50,19 @@ $docker run -e "QUEUE_NAME=$QUEUE_NAME"  -e "REDIS_URL=$REDIS_URL" cse4640/inges
 to scale the ingestion, you can run many more dockers in different machines.
 
 ## Points for study
-* Implementation:
+**For the implementation:**
+  - think about the data to be ingested: it can be raw log, images or web page (crawling)
   - you can use different queues, e.g. RabbitMQ with Celery, Amazon SNS
-  - ingestion task can just store data temporary and let other tasks to perfor the ingestion
-* Storage for data ingestion and data quality control
-* Real-world production needs security, etc.
-* Support multi-tenant models.
+  - an ingestion task can store (raw) data into a big data store, such as [Minio](https://min.io/), [AWS S3](https://aws.amazon.com/s3/), or [MongoDb Atlas](https://www.mongodb.com/atlas/database)
+  - an ingestion task can just store data temporary and let other tasks to perform the ingestion: you can develop a simple pipeline to process the data and send the result to storage or database. 
+    - simple data analysis, using  [Pandas]() or [Dask](https://www.dask.org/)
+    - complex analysis using [Apache Spark](../spark/README.md)
+    - feature engineering for ML, such as using feature engineering pipelines (e.g., [Towhee Pipeline with Pytorch model](https://towhee.io/image-embedding/timm) or [Ultralytics Yolo](https://docs.ultralytics.com/tasks/detect/)) and storing results to vector databases (e.g., [Milvus](https://milvus.io/))
+
+**Other aspects can be considered**: 
+  * Storage for data ingestion and data quality control
+  * Real-world production needs security, etc.
+  * Support multi-tenant models.
 
 Furthermore, try to learn some real tools that use and schedule containers for data ingestion:
 

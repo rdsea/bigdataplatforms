@@ -8,7 +8,7 @@ This tutorial deals with performing ingestion of streaming data into the MongoDB
 ### Prerequisite knowledge:
 - docker and docker-compose
 - Basic idea about message brokers and Apache Kafka
-- MoSQL database such as mongodb
+- NoSQL database such as mongodb
 
 The tutorial uses python for writing custom components.
 

@@ -2,8 +2,9 @@
 
 [![Build Status](https://travis-ci.com/rohitshubham/Cloud-pipeline.svg?branch=master)](https://travis-ci.com/rohitshubham/Cloud-pipeline) 
 
-### About the tool
-This tool creates  a simple cloud system component of a big data processing architectecture. The repository includes basic code and tools required for readily setup a cloud component of a big data pipeline to enable developers and researchers perform additional testing of the code. 
+### About the pipeline 
+
+The repository includes basic code and tools required for readily setup a cloud component of a big data pipeline to enable developers and researchers perform additional testing of the code. 
 
 ### About the data
 The data used for ingestion was a time-series temperature sensor data. The format was a serialized json array. 
@@ -153,3 +154,5 @@ The recommended application for monitoring is [netdata](https://github.com/netda
 ![architecture](images/monitoring.png)
 * Figure 2: Sample application monitoring (Notice the containers at the bottom right)
 ---
+## Some other interesting cases:
+* [One example of an architecture from Uber](https://www.uber.com/en-FI/blog/real-time-exactly-once-ad-event-processing/)

@@ -203,9 +203,13 @@ $more /etc/hive/conf/hive-site.xml
 
 ## Integration with other storage services
 
+### Connecting to other storages 
 Try to configure your Hadoop system to connect to other storages:
 * [Azure Blob Storage/Data Lake](https://aajisaka.github.io/hadoop-document/hadoop-project/hadoop-azure/abfs.html)
 * [Amazon S3](https://hadoop.apache.org/docs/stable/hadoop-aws/tools/hadoop-aws/index.html)
 * [Google Storage Connector](https://cloud.google.com/dataproc/docs/concepts/connectors/cloud-storage)
 
 Then practice storing data into these storage services via HDFS.
+### Study and invest some cases
+- Should we backuo cold data in on-premise Hadoop to cloud storage?
+- [Why does Twitter copy its data into GCS?](https://blog.twitter.com/engineering/en_us/topics/infrastructure/2019/the-start-of-a-journey-into-the-cloud): to backup? leverage new services and analytics?

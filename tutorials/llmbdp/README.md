@@ -6,7 +6,8 @@ Possible tools:
 - [ChatGPT](https://chat.openai.com)
 - [Github Coplilot](https://github.com/features/copilot)
 - [StartCode](https://github.com/bigcode-project/starcoder) and [StartChat](https://huggingface.co/spaces/HuggingFaceH4/starchat-playground)
-
+- [Langchain](https://python.langchain.com/docs/get_started)
+- [AWS CodeWhisperer](https://aws.amazon.com/codewhisperer/)
 ---
 
 **Note**: in this course, you can use LLMs to assist your work. We shall consider that LLMs help to bring some knowledge you dont know (e.g., like searching for existing open source code and patterns for solving some problems) or give some hints for you to solve your solution (e.g., like from a teaching assistant). However, you have to provide a clear note what has been suggested or provided by LLMs (as well other reusable code) and your own work. Especially, you must be able to answer and clarify any code in your work. Getting the assistant from LLMs without understanding means that you have not achieved the learning objectives to understand and apply the knowledge.

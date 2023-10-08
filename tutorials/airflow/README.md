@@ -1,5 +1,7 @@
 # Simple tutorial for Running Apache Airflow.
 
+The goal of this tutorial is to practice using workflows/pipelines for big data ingestion and processing. We select Apache Airflow as a framework for practices.
+
 ### Example 1: BTS alarm data analytics and report notification
 
 You can find the instruction for this example in [alarmanalytics](alarmanalytics/README.md).
@@ -11,6 +13,10 @@ You can find the instruction for this example in [camerastateuploadfile](cameras
 ### Using Google Cloud Composer
 
 You can also use Google Cloud Composer to setup your Apache Airflow environment. See our [short video here](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=d0136cb0-c5fe-41e5-bfea-acfb0144dace).
+
+### Using Astronomer 
+
+[Astronomer](https://www.astronomer.io/) provides managed services for Airflow and various learning sources.
 
 ### Other workflow systems
 There are several workflow systems with similar concepts that you can practice:

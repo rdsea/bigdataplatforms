@@ -5,7 +5,7 @@ Using LLMs (Large Language Models) services is very common for the study and dev
 Possible tools:
 - [ChatGPT](https://chat.openai.com)
 - [Github Coplilot](https://github.com/features/copilot)
-- [StartCode](https://github.com/bigcode-project/starcoder) and [StartChat](https://huggingface.co/spaces/HuggingFaceH4/starchat-playground)
+- [StarCode](https://github.com/bigcode-project/starcoder) and [StarChat](https://huggingface.co/spaces/HuggingFaceH4/starchat-playground)
 - [Langchain](https://python.langchain.com/docs/get_started)
 - [AWS CodeWhisperer](https://aws.amazon.com/codewhisperer/)
 ---

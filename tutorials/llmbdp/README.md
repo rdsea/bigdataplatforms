@@ -2,6 +2,11 @@
 
 Using LLMs (Large Language Models) services is very common for the study and development of software and systems. In this trend, we examine and practice some situations when LLMs could help to assist your study in this course.
 
+Possible tools:
+- [ChatGPT](https://chat.openai.com)
+- [Github Coplilot](https://github.com/features/copilot)
+- [StartCode](https://github.com/bigcode-project/starcoder) and [StartChat](https://huggingface.co/spaces/HuggingFaceH4/starchat-playground)
+
 ---
 
 **Note**: in this course, you can use LLMs to assist your work. We shall consider that LLMs help to bring some knowledge you dont know (e.g., like searching for existing open source code and patterns for solving some problems) or give some hints for you to solve your solution (e.g., like from a teaching assistant). However, you have to provide a clear note what has been suggested or provided by LLMs (as well other reusable code) and your own work. Especially, you must be able to answer and clarify any code in your work. Getting the assistant from LLMs without understanding means that you have not achieved the learning objectives to understand and apply the knowledge.
@@ -45,6 +50,7 @@ but it may return some high level information. Then you can ask some specific th
 See if its answers include some tools and languages you need
 
 >Q: "I need a sample of REST for uploading a lot of big files. Any hints?"
+>Q: "how to write a python kafka client that sends json data?"
 
 See if it explains some reasonable logics for the implementation 
 

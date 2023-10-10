@@ -11,6 +11,8 @@ Possible tools:
 - [Replit](https://replit.com/)
 ---
 
+It is important to note that **the issues of performance, scalability and efficiency in big data platforms are of paramount importance**. Workable solutions in your laptop or with small settings suggested by AI/ML do not mean that the solutions are suitable for big data platforms. Therefore, you have to really test the suggested ones with big data assumptions.
+
 **Note**: in this course, you can use LLMs to assist your work. We shall consider that LLMs help to bring some knowledge you dont know (e.g., like searching for existing open source code and patterns for solving some problems) or give some hints for you to solve your solution (e.g., like from a teaching assistant). However, you have to provide a clear note what has been suggested or provided by LLMs (as well other reusable code) and your own work. Especially, you must be able to answer and clarify any code in your work. Getting the assistant from LLMs without understanding means that you have not achieved the learning objectives to understand and apply the knowledge.
 
 ---

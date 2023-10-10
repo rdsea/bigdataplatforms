@@ -75,6 +75,7 @@ See if LLMs return what you ask for or LLMs are confusing about the context of t
 
 See if the answer actually points to some right tools (or wrong ones that will cost you a lot of time)
 
+>**Snapshots**: some [snapshots are here](snapshots/)
 ### Experiments
 
 ## Related resources for using LLMs

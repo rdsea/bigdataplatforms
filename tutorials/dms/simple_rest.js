@@ -14,7 +14,10 @@ app.get('/', function(request, response) {
 * curl -X POST http://localhost:3000/testpost -H "Contt-Type: application/json" -d '{"station_id":"1","alarm":"fireaalarm"}'
 */
 app.post('/testpost', function (req, res) {
-    res.end(JSON.stringify(req.body));
+  var input_data={
+    "input_data":req.body
+  }
+  res.end(JSON.stringify(input_data));
 });
 app.get('/health', function(request, response) {
   response.send({"status":"OK"})

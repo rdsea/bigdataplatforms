@@ -38,10 +38,11 @@ Unfortunately: **No**. The deadline has set and there is a reason for that: we n
 The course is for advanced master students: from the 2nd semester of the first year master study. In principle, it does not accept bachelor students(unlike some other master courses which accept bachelor students).
 
 ### What kind of jobs requires me to learn this course?
+
 We can talk a lot during the course but here some facts:
 
 * [Examples of job description](https://jobs.booking.com/careers/?pid=562949958653616): you will see that what you learn from this course  would help you to get such a job.
-* [People pay quite some money to learn the subjects we have in our course](https://www.dataengineer.io/#pricing)
+* [People invest money to learn the subjects we have in our course](https://www.dataengineer.io/#pricing)
 
 ### Is lecture/tutorial participation mandatory?
 

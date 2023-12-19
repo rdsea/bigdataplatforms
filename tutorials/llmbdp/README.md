@@ -78,6 +78,11 @@ See if LLMs return what you ask for or LLMs are confusing about the context of t
 See if the answer actually points to some right tools (or wrong ones that will cost you a lot of time)
 
 >**Snapshots**: some [snapshots are here](snapshots/)
+
+### Using your own LLM
+
+You can try to select and deploy an LLM used by you. We have a [small example of provisinging Llama using AMQP](https://github.com/rdsea/IoTCloudSamples/tree/master/MLUnits/SimpleLlama2). 
+
 ### Experiments
 
 ## Related resources for using LLMs

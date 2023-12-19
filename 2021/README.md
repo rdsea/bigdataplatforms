@@ -5,7 +5,7 @@ This GIT hosts material for [the course Big Data Platforms](https://mycourses.aa
 ## Contents
  * [Lectures/Tutorials/Meetups Agenda](schedule.md)
    - [Notes/Slides](lecturenotes/README.md)
- * [Hands-on tutorials](tutorials/) and [some videos of tutorials](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?pid=abe8790b-7477-458f-88db-abf400b2264d)
+ * [Hands-on tutorials](../tutorials/) and [some videos of tutorials](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?pid=abe8790b-7477-458f-88db-abf400b2264d)
  * [Grading](grading/README.md)
 
 

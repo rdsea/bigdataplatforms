@@ -17,6 +17,14 @@ The violation handing procedure (based on Aalto):
 * Evidence (violated code, design, document, ...) will be sent to **the School LES Manager**
   - The LES Manager will contact the students and have a hearing
   - The (vice)dean will decide based on these, what will happen:
-     >In case of violation: assignment cannot be evaluated (not accepted).
+     >In case of violation: assignment cannot be evaluated (pending).
       **The school will record the student in the case** (more severe consequences if the student has already marking of violations)
     > If the case is not violated, we will continue the  evaluation
+
+## References
+
+- [Aalto University Code of Academic Integrity and Handling Violations Thereof](https://www.aalto.fi/en/applications-instructions-and-guidelines/aalto-university-code-of-academic-integrity-and-handling-violations-thereof)
+- [Instructions for investigating suspected cases of misconduct and disruptions of student learning](https://www.aalto.fi/en/applications-instructions-and-guidelines/instructions-for-investigating-suspected-cases-of-misconduct-and-disruptions-of-student-learning)
+- [Rules of Conduct - Students ́Rights and Responsibilities](https://www.aalto.fi/en/applications-instructions-and-guidelines/rules-of-conduct-students-rights-and-responsibilities-in-force-from-1-august-2020)
+- [Aalto Code of Conduct](https://www.aalto.fi/en/aalto-university/code-of-conduct-values-into-practice)
+- [Guidance for the use of artificial intelligence in teaching and learning at Aalto University](https://www.aalto.fi/en/services/guidance-for-the-use-of-artificial-intelligence-in-teaching-and-learning-at-aalto-university)

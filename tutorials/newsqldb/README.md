@@ -92,3 +92,7 @@ Or check: the UI at https://localhost:8080 to see something like
 - Create databases, e.g., using sql shell. The way is very much similar to other SQL databases.
 - Use available libraries and write code to ingest data.
 >Check: https://www.cockroachlabs.com/docs/v21.2/install-client-drivers.html for examples for libraries.
+
+## Using a free CockroachDB
+
+You can also try to use a free [CockroachDB Serverles](https://www.cockroachlabs.com/pricing/). In this case, you mainly play as a user to insert and query data.

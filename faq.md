@@ -1,5 +1,5 @@
 # Course FAQ
-### COVID-19: will the course be carried in online?
+### Will the course be carried in online?
 
 No. the course will be in contact teaching in the campus again. There will be no video record. 
 

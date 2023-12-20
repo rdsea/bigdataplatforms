@@ -6,20 +6,23 @@ We use [consul](https://www.consul.io/) for service discovery.
 >You can also use ZooKeeper and etcd to study. But then you need to adapt the code for them
 
 ## Practices
+
 > change the code to fix it into your setting, especially, we have some specific paths/urls in the code
 
 ### Running consul
+
 * Make sure that you have consul installed in your machine.
 * using consul-server.sh to run a consul server for testing
 ```
-$sh consul-server.sh aaltocs aaltosea /tmp/consul 0.0.0.0
+$bash consul-server.sh aaltocs aaltosea /tmp/consul 0.0.0.0
 ```
 Meaning that we run a consul server with:
 * -datacenter=aaltocs: to indicate the data center
 * -node=aaltosea: to indicate the name of the agent
 * -data-dir=/tmp/consul: to indicate the place where the data is stored
 * -bind=0.0.0.0: to indicate the network interface for the internal cluster communication
-You should see consul running
+  
+You should see consul running: for example check http://localhost:8500/ 
 
 ### Run some services
 
@@ -47,5 +50,11 @@ In principle, services will publish their information into consul. We just make 
   ```
   the simple_rest.json can be obtained by calling simple_rest **curl -X GET http://localhost:3000/self**.
 
-* check consul service using http://localhost:8500/ui to see if services are alive or not
+* check your consul service, e.g., using http://localhost:8500/ui to see if services are alive or not
+
+You should see consul running: for example check http://localhost:8500/
+![Consul UI: services are up](consului.png)
+
 * start and stop simple_rest.js and mongodb container and then go to the consul UI to see if the services are alive or not
+
+![Consul UI: simpleret is down](consuluidown.png)

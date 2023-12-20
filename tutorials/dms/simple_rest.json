@@ -1,13 +1,20 @@
 {
-  "name":"simplerest",
-  "tags":["bdp","nothing","aalto"],
-   "port": 3000,
-   "address":"192.168.2.14",
-   "check": {
-       "id": "checksimplerest",
-       "name": "Simple Status",
-       "args": ["curl","http://localhost:3000/health"],
-       "interval": "20s",
-       "timeout": "10s"
-   }
+  "name": "simplerest",
+  "tags": [
+    "bdp",
+    "nothing",
+    "aalto"
+  ],
+  "port": 3000,
+  "address": "192.168.8.106",
+  "check": {
+    "id": "checksimplerest",
+    "name": "Simple Status",
+    "args": [
+      "curl",
+      "http://192.168.8.106:3000/health"
+    ],
+    "interval": "20s",
+    "timeout": "10s"
+  }
 }

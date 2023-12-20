@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require('uuid');
 var localip = require('local-ip')();
 var express = require('express');
 var bodyParser = require("body-parser");
@@ -14,8 +15,11 @@ app.get('/', function(request, response) {
 * curl -X POST http://localhost:3000/testpost -H "Contt-Type: application/json" -d '{"station_id":"1","alarm":"fireaalarm"}'
 */
 app.post('/testpost', function (req, res) {
+  var user_input=req.body
+  var request_id=uuidv4()
   var input_data={
-    "input_data":req.body
+    "input_data":user_input,
+    "confirmation_id":request_id
   }
   res.end(JSON.stringify(input_data));
 });

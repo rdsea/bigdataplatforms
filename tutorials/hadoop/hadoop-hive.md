@@ -3,6 +3,7 @@
 The goal of this tutorial is to examine some features of the Hadoop software system, mainly with HDFS, YARN and Hive.
 
 ## 1. The Hadoop system for the tutorial
+
 You can setup a Hadoop system by yourself or use our setup for practices.
 > Check [the document of Hadoop](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCluster.html)
 We have  setup a hadoop system for testing using [Google DataProc](https://cloud.google.com/dataproc/).
@@ -15,8 +16,13 @@ In order to access the the system for the tutorial, we have open ssh connections
 Make sure that you have **ssh** installed in your machine.
 >We will have only 1 account for all participants so DO NOT change the system configuration and account information.
 
+Some important ports for check:
+- **9870**: for Hadoop NameNode management. For example, goto http://localhost:9870 to check NameNode
+- **8088**: for Resource Manager UI. For example, goto http://localhost:8088/to check the cluster
+- 
 ## 2. Exercises
 ### Access the system
+
 ```
 ssh [USER_NAME]@[MASTER_IP]
 ```

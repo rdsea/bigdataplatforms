@@ -1,5 +1,6 @@
 non-git
 tmp
+.env
 #Java 
 .class
 target/

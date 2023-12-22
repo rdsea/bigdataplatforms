@@ -1,6 +1,7 @@
 # Queue-based Data Ingestion
 
 ## Introduction
+
 This tutorial shows a simple, plain example of using queue-based jobs for data ingestion. Basically, data ingestion tasks will listen a queue and based on the received notification, the ingestion tasks will pull the data (from remote place) and perform the ingestion. Given the following model, the queue is used to store states whereas the uploader is a data ingestion task accessing files through REST API.
 
 ![A model of ingestion of files](filedataingestion.png)
@@ -14,6 +15,7 @@ There are different ways to implement the workers. For the learning purpose, we 
 
 
 ## Message Broker/Queue for Notification
+
 In this example, we use Redis. Make sure you have .env to store environment variables about Redis or using environment variable:
 
 ```
@@ -21,6 +23,7 @@ REDIS_HOST=
 REDIS_PORT=
 REDIS_PASSWORD=
 ```
+
 ## Distribute the ingestion requests
 
 A simple data producer, [data_producer.py](data_producer.py), just gets URI of a data file and make a request:
@@ -34,6 +37,7 @@ You can modify the data producer as you want for study, suggestion:
 
 
 ## Running the data ingestion job
+
 You can select a machine where you want to run ingestion workers. The use **rq** command to run:
 ```
 $rq worker [QUEUE_NAME] --url $REDIS_URL
@@ -50,6 +54,7 @@ $docker run -e "QUEUE_NAME=$QUEUE_NAME"  -e "REDIS_URL=$REDIS_URL" cse4640/inges
 to scale the ingestion, you can run many more dockers in different machines.
 
 ## Points for study
+
 **For the implementation:**
   - think about the data to be ingested: it can be raw log, images or web page (crawling)
   - you can use different queues, e.g. RabbitMQ with Celery, Amazon SNS
@@ -59,7 +64,8 @@ to scale the ingestion, you can run many more dockers in different machines.
     - complex analysis using [Apache Spark](../spark/README.md)
     - feature engineering for ML, such as using feature engineering pipelines (e.g., [Towhee Pipeline with Pytorch model](https://towhee.io/image-embedding/timm) or [Ultralytics Yolo](https://docs.ultralytics.com/tasks/detect/)) and storing results to vector databases (e.g., [Milvus](https://milvus.io/))
 
-**Other aspects can be considered**: 
+**Other aspects can be considered**:
+
   * Storage for data ingestion and data quality control
   * Real-world production needs security, etc.
   * Support multi-tenant models.

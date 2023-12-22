@@ -1,22 +1,23 @@
-'''
-this is a simple  mapreduce program for showing the structure of a mapreduce code. The program uses mrjob library (
+"""
+A simple  mapreduce program for showing the structure of a mapreduce code. 
+The program uses mrjob library (
 https://mrjob.readthedocs.io/en/latest/).
+pip install mrjob
 Make sure you have Hadoop installation and suitable data file.
 For sample data, see ../../data/onudata. However, this program uses a CVS data file without a header. To run it
 
 python3 onuaverage.py -r hadoop hdfs://INPUTFILE >OUTPUT_FILE
 
 where hdfs://INPUTFILE indicates the CSV input file.
+"""
 
-
-'''
 from mrjob.job import MRJob
 
-'''
+"""
 input data structure:
 PROVINCECODE,DEVICEID,IFINDEX,FRAME,SLOT,PORT,ONUINDEX,ONUID,TIME,SPEEDIN,SPEEDOUT
 see ../../data/onudata
-'''
+"""
 
 class ONUSpeedinAverage(MRJob):
     def mapper(self, _, entry):

@@ -1,7 +1,10 @@
 # Installing and running Apache Kafka
->Note: Currently, Apache Kafka has a version without the Zookepper dependency but we still illustrate Apache Kafka versions with Zookepper. Furthermore, the illustration may not be worked  with the most up-to-date Kafka version. You may also use the container version for your study. 
+
+>Note: In this tutorial, we use Apache Kafka without the Zookepper dependency.
+>For [setting up Kafka with Zookeeper you can use the old tutorial](https://github.com/rdsea/bigdataplatforms/tree/331ae2516d9accf32e9dbcbda1a7c94795d17e49/tutorials/basickafka) or check document from Kafka
 
 ## Introduction
+
 Apache Kafka is a distributed streaming platform used for building real-time data pipelines and streaming apps [Kafka documentation](http://kafka.apache.org/documentation.html).
 In this manual, all the commands and  are written in bold-italic. The commands to be typed on the terminal window are preceded by a dollar ($) sign.
 
@@ -9,95 +12,61 @@ In this manual, all the commands and  are written in bold-italic. The commands t
 
 
 ## Prerequisite
-This instructions are for linux ubuntu system but similar steps could be used on any operating system though with different commands. Since Apache Kafka uses JVM, the following should be done before running the steps:
-1. Install Java. This link is for installing Java in Ubuntu 18.04 LTS [Installation guide](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-on-ubuntu-18-04#installing-specific-versions-of-openjdk).
-2. Enough RAM in your machine
 
+>Java is needed for running Kafka. Java must be installed.
 
 ### Step1: Download and extract Kafka binaries
-Download the Kafka from this link [Kafka download](https://downloads.apache.org/kafka/3.4.0/kafka_2.13-3.4.0.tgz). For this project we are using Kafka version 3.4.0 for Scala version 2.13. After downloading, follow the following steps:
+
+Download the Kafka from this link [Kafka download](https://downloads.apache.org/kafka/3.6.1/kafka_2.13-3.6.1.tgz). For this project we are using Kafka version 3.6.1 for Scala version 2.13. After downloading, follow the following steps:
 ```
- $ mkdir kafka && cd kafka
- $ tar -xzf kafka_2.13-3.4.0.tgz 
+$mkdir kafka
+$kafka_2.13-3.6.1.tgz kafka
+$cd kafka/
+$tar -xzf kafka_2.13-3.6.1.tgz 
+$cd kafka_2.13-3.6.1
 ```
+Let us assume kafka is under $KAFKA
 
 ### Step2: Configure the kafka server
-Since Kafka by default does not allow us to delete a topic, category, group or feed name to which messages can be published, we need to alter the settings the in order to be able to do deletions. The configurations are stored in _kafka/config/server.properties_. Assuming that you are still inside the kafka folder, type on the terminal.
+
+Since we use Kafka without Zookeeper, we will use the configuration file under $KAFKA/conf/kraft. Edit the **server.properties" file and pay attention to:
 ```
- $ nano ./config/server.properties
+ The role of this server. Setting this puts us in KRaft mode
+process.roles=broker,controller
+# The node id associated with this instance's roles
+node.id=0
+# The connect string for the controller quorum
+controller.quorum.voters=0@localhost:9093
+``` 
+See [Kafka Kraft quickstart](https://kafka.apache.org/documentation/#quickstart) and [Kafka configuration](https://kafka.apache.org/documentation/#brokerconfigs)
+
+Get a uuid for Kafka cluster:
 ```
-
-Inside the file, scroll to the bottom and add:
-
+$bin/kafka-storage.sh random-uuid
 ```
-delete.topic.enable = true
-```
-
-In order to ensure availability and fault-tolerance, we need to set a multi-broker cluster.
-```
-$ cp config/server.properties config/server-1.properties
-
-$ cp config/server.properties config/server-2.properties
-```
-
-Now edit these new files and set the following properties:
-
-_config/server-1.properties:_
-```
-    broker.id=1
-    listeners=PLAINTEXT://:9093
-    log.dirs=/tmp/kafka-logs-1
-
- ```
-_config/server-2.properties:_
-
- ```
-    broker.id=2
-    listeners=PLAINTEXT://:9094
-    log.dirs=/tmp/kafka-logs-2
- ```
-
-## [Alternative] Running Kafka nodes accross differnt machines
-
-Create 4 VMs, 3 for Kafka and 1 for Zookeeper. On all VMs for Kafka, edit Kafka server.properties
+then use the output uuid for the cluster id, e.g., **GBq4dvG2QtacMXRDdpgbuQ**
 
 ```
- $ nano ./config/server.properties
+ $bin/kafka-storage.sh format --config config/kraft/server.properties --cluster-id GBq4dvG2QtacMXRDdpgbuQ
 ```
 
-Inside the file, modifiy the IP of zookeeper.connect to the IP which Zookeeper is running on:
-
-```
-zookeeper.connect=[IP_OF_ZOOKEEPER]:2180
-```
+To set up a cluster, you can prepare many machines in a similar way but pay attention that:
+- using the same cluster id
+- configuring different node ids and specific information about interfaces and ports
 
 
 ### Step3: Start kafka server
 Since kafka uses Zookeeper, we need to start the it first before we fire up kafka.
 
  ```
-	$ bin/zookeeper-server-start.sh config/zookeeper.properties
-	$ bin/kafka-server-start.sh config/server.properties &&     bin/kafka-server-start.sh config/server_1.properties &&
-	bin/kafka-server-start.sh config/server_2.properties
-
+	$ bin/kafka-server-start.sh config/kraft/server.properties
  ```
-
-## [Alternative] Start kafka servers accross different machines
-
-On Zookeepr server, do
- ```
-	$ bin/zookeeper-server-start.sh config/zookeeper.properties
- ```
-On all Kafka servers, do
-```
-	$ bin/kafka-server-start.sh config/server.properties
-```
- 
 
 ### Step4: Testing the installation
+
 Now that we have our server up and running, let's create a topic to test our installation.
  ```
-	$ bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 3 --partitions 1 --topic my-replicated-topic
+	$ bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic my-replicated-topic
 
  ```
 Then use _describe topics_ to see the partitions and the replicas.
@@ -108,19 +77,19 @@ Then use _describe topics_ to see the partitions and the replicas.
 If all worked well, then the outcome should be:
 
  ```
-	Topic: my-replicated-topic	PartitionCount: 1	ReplicationFactor: 3	Configs: segment.bytes=1073741824
-	Topic: my-replicated-topic	Partition: 0	Leader: 2	Replicas: 2,1,0	Isr: 0,2,1
+ Topic: my-replicated-topic	TopicId: niYf9sv6T9ajtANBzUUDAw	PartitionCount: 1	ReplicationFactor: 1	Configs: segment.bytes=1073741824
+	Topic: my-replicated-topic	Partition: 0	Leader: 0	Replicas: 0	Isr: 0
  ```
 
 ### Step4: Writing kafka producer and consumer
+
 A simple script on how to start Kafka producers and consumers from the terminal is given in Step 4 and Step 5 in the [Quickstart guide](https://kafka.apache.org/quickstart).
 
 ---
 
 ## Running Kafka from container
-There are two ways to run Kafka from a container. One is to get the image from [docker hub](https://hub.docker.com/) and then
-on the terminal write (in this case I'm using bitnami/kafka image):
 
+There are two ways to run Kafka from a container. One is to get the image from [docker hub](https://hub.docker.com/) and then run it by using docker, for example:
  ```
 	$ docker run bitnami/kafka
  ```
@@ -138,7 +107,7 @@ we will assume that the file is saved as docker-compose1.yml in a folder named k
     ```
 3. Run a terminal inside the container by using the command
     ```
-    $ docker exec -it <containerName> /bin/bash
+    $ docker exec -it <Container ID> /bin/bash
     ```
     Where the container name was obtained from step two
 4. Test if Kafka is running correctly in the container by creating a topic
@@ -149,15 +118,31 @@ If all went well, you should see the text *Created topic test* on your terminal.
 
 ---
 
-## Configuring Kafka cluster in a container
+## Configuring Kafka cluster with containers
+
 ### Starting and inspecting the containers
+
 We will be using a docker-compose file for for setting up a multi-broker cluster.
 
 Running a Kafka cluster in a container is different from running a single instance as many environment variables have to be configured. The docker-compose file for the services is *docker-compose3.yml*. The configuration in the file allows us to use a global Kafka Broker.
 
 _Note: In the `KAFKA_CFG_ADVERTISED_LISTENERS` setting, be sure to update the `EXTERNAL`  setting for hostname/external ip of the machine instance. Otherwise, this won't be accessible from any system outside the `localhost`_(check https://github.com/bitnami/containers/tree/main/bitnami/kafka for seeing configuration paramters with bitnami kafka containers)
 
-> Example: KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-1:19092,PLAINTEXT_HOST://195.148.21.10:9093
+> Example: KAFKA_CFG_ADVERTISED_LISTENERS=EXTERNAL://195.148.21.10:9093
+
+To set a cluster, we need a cluster id that you can generate by using kafka-storage.sh and use the returned uuid for the customer name
+
+```
+$docker run -it  bitnami/kafka:latest kafka-storage.sh random-uuid
+kafka 14:43:29.43 
+kafka 14:43:29.43 Welcome to the Bitnami kafka container
+kafka 14:43:29.43 Subscribe to project updates by watching https://github.com/bitnami/containers
+kafka 14:43:29.43 Submit issues and feature requests at https://github.com/bitnami/containers/issues
+kafka 14:43:29.43 
+
+pQooK8X-Q_2cDlViPWvpyg
+```
+**pQooK8X-Q_2cDlViPWvpyg** can be used as the cluster id that you can update the compose file.
 
 1. Start the containers by running
     ```
@@ -173,23 +158,24 @@ _Note: In the `KAFKA_CFG_ADVERTISED_LISTENERS` setting, be sure to update the `E
     ```
 
 ### Playing with the installation
+>Make sure you have the info of **kafka0, kafka1, kafka2** correct. For example, kafka0 is the ip address (e.g., 192.168.8.106 in the docker example for a private machine)
 
 1. Create a topic with 3 replications and a single partition
     ```
-    $ docker-compose -f docker-compose3.yml  exec kafka-1 /opt/bitnami/kafka/bin/kafka-topics.sh --create --bootstrap-server kafka-1:9092 --replication-factor 3 --topic locations
+    $docker exec basickafka-kafka0-1 /opt/bitnami/kafka/bin/kafka-topics.sh --create --bootstrap-server kafka0:9092  --replication-factor 3  --topic location
     ```
 2. Let's inpect our newly created topic
     ```
-     $ docker-compose -f docker-compose3.yml exec kafka-1 /opt/bitnami/kafka/bin/kafka-topics.sh --describe --bootstrap-server kafka-1:9092 --topic locations
+     $ docker exec basickafka-kafka1-1 /opt/bitnami/kafka/bin/kafka-topics.sh --describe --bootstrap-server kafka1:9093   --topic location
     ```
     You should see something like this:
     ```
-    Topic: locations	PartitionCount: 1	ReplicationFactor: 3	Configs: segment.bytes=1073741824
-	Topic: locations	Partition: 0	Leader: 2	Replicas: 2,3,1	Isr: 2,3,1
+    Topic: location	TopicId: QGkiNcx4Suy7tj9LoLNpJg	PartitionCount: 1	ReplicationFactor: 3	Configs: 
+	Topic: location	Partition: 0	Leader: 0	Replicas: 0,1,2	Isr: 0
     ```
 3. Let's start a producer and produce some few messages to our topic
     ```
-    $ docker-compose -f docker-compose3.yml exec kafka-1 /opt/bitnami/kafka/bin/kafka-console-producer.sh --bootstrap-server kafka-1:19092 --topic locations
+    $ docker exec basickafka-kafka1-1 /opt/bitnami/kafka/bin/kafka-console-producer.sh --bootstrap-server kafka0:19092 --topic locations
     Hki long 24.94, lat 60.17
     ```
 4. Start a new terminal and repeat step 1 to create a new container connecting to the same network as the kafka nodes
@@ -204,6 +190,7 @@ _Note: In the `KAFKA_CFG_ADVERTISED_LISTENERS` setting, be sure to update the `E
 ---
 
 ## Playing around with Kafkacat
+
 Working with kafka-shell is quite cumbersome. So, we can instead use Kafkacat to work with Kafka. Kafkacat [^kafkacat] is extremely popular non JVM utility that allows producing, consuming and listening to Kafka. Instead of writing long commands and code, we can use it to learn kafka very quickly.
 
 * Install it by simply running:

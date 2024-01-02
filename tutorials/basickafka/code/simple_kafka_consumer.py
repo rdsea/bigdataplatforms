@@ -4,7 +4,7 @@ This simple code illustrates a Kafka producer:
 - print out the data
 
 We test with a producer using the data at:
-https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/data/onudata
+https://github.com/rdsea/bigdataplatforms/tree/master/data/onudata
 
 However, it should work with any data as long as the data is in JSON (or you modify the code to handle other types of data)
 
@@ -17,26 +17,22 @@ import json
 
 '''
 Check other documents for starting Kafka, e.g.
-see https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/basickafka
+see https://github.com/rdsea/bigdataplatforms/tree/master/tutorials/basickafka
 $docker-compose -f docker-compose3.yml up
 '''
-
-'''
-Hard code for simple test
-'''
-KAFKA_BOOTSTRAP_SERVER="localhost:9092"
-
 
 if __name__ == '__main__':
 
     # Parse arguments
     parser = argparse.ArgumentParser()
+    parser.add_argument('-b', '--broker', default="localhost:9092", help='Broker as "server:port"')
     parser.add_argument('-t', '--topic', help='kafka topic')
     parser.add_argument('-g', '--consumer_group', help='kafka topic')
     args = parser.parse_args()
+    broker=args.broker
     # declare the topic and consumer group
     kafka_consumer = Consumer({
-        'bootstrap.servers': KAFKA_BOOTSTRAP_SERVER,
+        'bootstrap.servers': broker,
         'group.id': args.consumer_group,
         })
     kafka_consumer.subscribe([args.topic])
@@ -57,5 +53,3 @@ if __name__ == '__main__':
         #but you can change it to any format you want
         json_value =json.loads(msg.value().decode('utf-8'))
         print(f'Received message: {json_value}')
-
-    kafka_consumer.close()

@@ -1,7 +1,7 @@
 '''
 This simple code illustrates a Kafka producer:
 - read data from a CSV file. Use the data from
-    https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/data/onudata
+    https://github.com/rdsea/bigdataplatforms/tree/master/data/onudata
 - for each data record, produce a json record
 - send the json record to a Kafka messaging system
 
@@ -34,13 +34,10 @@ def kafka_delivery_error(err, msg):
 
 '''
 Check other documents for starting Kafka, e.g.
-see https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/basickafka
+see https://github.com/rdsea/bigdataplatforms/tree/master/tutorials/basickafka
 $docker-compose -f docker-compose3.yml up
 '''
 
-## Just hardcode for the example
-
-KAFKA_BOOTSTRAP_SERVER="localhost:9092"
 
 '''
 The following code emulates the situation that we have real time data to be sent to kafka
@@ -48,6 +45,7 @@ The following code emulates the situation that we have real time data to be sent
 if __name__ == '__main__':
     # Parse arguments
     parser = argparse.ArgumentParser()
+    parser.add_argument('-b', '--broker', default="localhost:9092", help='Broker as "server:port"')
     parser.add_argument('-i', '--input_file', help='Input file')
     parser.add_argument('-c', '--chunksize', help='chunk size for big file')
     parser.add_argument('-s', '--sleeptime', help='sleep time in second')
@@ -56,6 +54,7 @@ if __name__ == '__main__':
     '''
     Because the KPI file is big, we emulate by reading chunk, using iterator and chunksize
     '''
+    KAFKA_BROKER=args.broker
     INPUT_DATA_FILE=args.input_file
     chunksize=int(args.chunksize)
     sleeptime =int(args.sleeptime)
@@ -65,7 +64,7 @@ if __name__ == '__main__':
     we read data by chunk so we can handle a big sample data file
     '''
     input_data =pd.read_csv(INPUT_DATA_FILE,parse_dates=['TIME'],iterator=True,chunksize=chunksize)
-    kafka_producer = Producer({'bootstrap.servers': KAFKA_BOOTSTRAP_SERVER})
+    kafka_producer = Producer({'bootstrap.servers': KAFKA_BROKER})
     for chunk_data in input_data:
         '''
         now process each chunk

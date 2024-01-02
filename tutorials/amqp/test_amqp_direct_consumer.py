@@ -9,14 +9,12 @@ see sample code from https://www.rabbitmq.com/getstarted.html
 import pika, os
 import argparse
 if __name__ == '__main__':
-    #parsing command lines 
+    #parsing command lines
     parser = argparse.ArgumentParser()
     parser.add_argument('--exchange', help='exchange name')
     parser.add_argument('--queuename', help='the topic name, binding key used for matching messages')
     args = parser.parse_args()
-    '''
-    Make sure you set the AMQPURL using environment variable
-    '''
+    # Make sure you set the AMQPURL using environment variable
     amqpLink=os.environ.get('AMQPURL', 'amqp://test:test@localhost')
     params = pika.URLParameters(amqpLink)
     params.socket_timeout = 5
@@ -26,11 +24,8 @@ if __name__ == '__main__':
     channel.queue_bind(exchange=args.exchange,queue=args.queuename)
     # call back
     def callback(ch, method, properties, body):
-      '''
-      Just print out
-      '''
+      # Just print out
       print (f'Received: {body}')
-
     #call back
     channel.basic_consume(queue=args.queuename,on_message_callback=callback,auto_ack=True)
     channel.start_consuming()

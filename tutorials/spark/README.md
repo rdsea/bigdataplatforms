@@ -1,6 +1,7 @@
 # Simple tutorial for Apache Spark
 
 ## 1. Introduction
+
 We will practice Apache Spark with simple activities:
 * write Spark programs
 * submit Spark programs

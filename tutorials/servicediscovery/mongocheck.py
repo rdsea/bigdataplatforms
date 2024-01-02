@@ -3,7 +3,7 @@ import argparse
 from pymongo import MongoClient
 import sys
 
-if __name__ == "__main__":    
+if __name__ == "__main__":   
     parser = argparse.ArgumentParser()
     parser.add_argument('--service_url', default='mongodb://localhost:27017',help='URL of the server')
     args = parser.parse_args()

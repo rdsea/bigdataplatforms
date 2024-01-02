@@ -1,0 +1,10 @@
+#user defined configuration for connecting to database for the manager
+#make sure the hosts and the port are based on the docker compose setting
+##see the hosts and port are based on public info of scyllatest-managerdb
+# see https://manager.docs.scylladb.com/stable/install-scylla-manager.html#configure-storage
+http: ":5080"
+https: ":5443"
+database:
+  # connect to a single node of scylla for storing data
+  hosts:
+    - scyllatest-managerdb

@@ -130,7 +130,7 @@ Use nodetool to check Cassandra nodes in different data centers.
 
 ## Scylladb
 
-You can check [Scylla](https://www.scylladb.com/compare/scylladb-vs-apache-cassandra/) which is another system Cassandra implementation. 
+You can check [Scylla](https://www.scylladb.com/compare/scylladb-vs-apache-cassandra/) which is another Cassandra implementation.
 
 We have a [simple docker compose](scylladb-compose.yml) for exercises.
 

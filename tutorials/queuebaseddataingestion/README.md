@@ -13,7 +13,6 @@ To illustrate the example, we assume that:
 
 There are different ways to implement the workers. For the learning purpose, we implement it as a python function or  a program deployed in a container
 
-
 ## Message Broker/Queue for Notification
 
 In this example, we use Redis. Make sure you have .env to store environment variables about Redis or using environment variable:
@@ -59,9 +58,10 @@ to scale the ingestion, you can run many more dockers in different machines.
   - think about the data to be ingested: it can be raw log, images or web page (crawling)
   - you can use different queues, e.g. RabbitMQ with Celery, Amazon SNS
   - an ingestion task can store (raw) data into a big data store, such as [Minio](https://min.io/), [AWS S3](https://aws.amazon.com/s3/), or [MongoDb Atlas](https://www.mongodb.com/atlas/database)
-  - an ingestion task can just store data temporary and let other tasks to perform the ingestion: you can develop a simple pipeline to process the data and send the result to storage or database. 
+  - an ingestion task can just store data temporally and let other tasks to perform the ingestion: you can develop a simple pipeline to process the data and send the result to storage or database. 
     - simple data analysis, using  [Pandas]() or [Dask](https://www.dask.org/)
     - complex analysis using [Apache Spark](../spark/README.md)
+    - ingestion of data into real-world cloud data lakes/services, if you have access, e.g., using [AWS Wrangler](https://github.com/aws/aws-sdk-pandas) for AWS services.
     - feature engineering for ML, such as using feature engineering pipelines (e.g., [Towhee Pipeline with Pytorch model](https://towhee.io/image-embedding/timm) or [Ultralytics Yolo](https://docs.ultralytics.com/tasks/detect/)) and storing results to vector databases (e.g., [Milvus](https://milvus.io/))
 
 **Other aspects can be considered**:

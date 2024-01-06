@@ -115,9 +115,25 @@ To allow Airflow to send notifiaction to Teams, you need to set up incoming webh
 
 Instead of storing the webhook link into the code, we will store it into a Variable named **teams_webhook**. 
 
-## Setup BigQuery
+## (Optional)  Setup BigQuery
 
-It is also possible to setup BigQuery service account and a table in BigQuery so that the data can also be stored into BigQuery.
+It is also possible to setup BigQuery service account and a table in BigQuery so that the data can also be stored into BigQuery. In BigQuery, you create a dataset and a table. The schema of the table in our example is as:
+![bigquery schema](images/bigquerystationschema.png)
+
+A service account is created with a permission to update data. In the code, we use Airflow Variable to store the bigquery service account under **bigquery-{PROJECT_ID}**:
+```python
+#just for flexibility to switch from a project to another for testing
+PROJECT_ID="cs-e4640-bdp-339416" #aalto-t313-cs-e4640
+BIGQUERY_CONF={
+    "table_id":f'{PROJECT_ID}.btsanalytics.StationAnalytics',
+    "project_id": PROJECT_ID
+}
+
+#similar way we put service account json for bigquery into a variable
+#it is just one way, to refect different aspects of sharing secrets/common data
+service_account_json=Variable.get(f'bigquery-{PROJECT_ID}', deserialize_json=True)
+
+```
 
 ## Step5: Run the workflow
 

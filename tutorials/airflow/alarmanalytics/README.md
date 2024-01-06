@@ -1,7 +1,8 @@
 # Airflow Tutorial
 
+>To be updated: BigQuery tasks
+
 ## Use Case Introduction
-Apache 
 
 In this tutorial, we will practice [Apache Airflow](https://airflow.apache.org/) with simple activities:
 
@@ -46,11 +47,12 @@ then check the [Airflow UI](http://localhost:8080)
 
 ## Step2: Create Simple Workflows
 
-In this tutorial, we simulate a simple workflow for IoT alarm use case with the [BTS monitoring data](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/data%2Fbts).
+In this tutorial, we simulate a simple workflow for IoT alarm use case with the [BTS monitoring data](https://github.com/rdsea/bigdataplatforms/tree/master/data/bts).
 
 In this use case, we first collect data from a remote site. The collected alarm data will be analyzed, then a report will be generated and stored in Google Cloud Storage. After the report is successfully stored, we will send a notification on Microsoft Teams to notify the user, and remove the downloaded file at the same time.
 
 #### Check the source code and compile it
+
 Check [the source of BTS Analytics in our Git](camerastateuploadfile/). It is a simple example for illustrating purposes. You can test if there is any error by
 
 ```
@@ -62,7 +64,7 @@ $python3 bts_analytics.py
 ```
 owner = 'hsin-yi-chen'
 ....
-destination_file = "~/airflow/data/bts.csv"
+TMP_DIR="/tmp/bigdataplatforms"
 ....
 downloadBTS = "curl -o " + destination_file + " " + source
 removeFile = "rm {}".format(destination_file)
@@ -72,24 +74,32 @@ In case, you cannot see `bts_analytics` DAG in the DAGs list from the UI, please
 
 ## Step3: Set up Google Cloud Storage Connections
 
-The workflow includes uploading file to google cloud storage. For this you need to have a Google Storage bucket available and service account to access the bucket. Look at the following task:
+The workflow includes uploading file to google cloud storage. For this you need to have a Google Storage bucket available and service account to access the bucket:
+```
+GCS_CONF={
+    "bucket":"bts_analytics_report",
+    "gcp_conn_id":'bdp_gcloud_storage'
+}
+```
+So we expect to have the service account for accessing the bucket **airflowexamples** that is defined in Airflow with the connection id **bdp_gcloud_storage**. Look at the following task:
 
 ```
 t_uploadgcs =  LocalFilesystemToGCSOperator(
-    task_id="uploadtostorage",
+    task_id="upload_local_file_to_gcs",
     src=report_destination,
-    dst=gcsdir,
-    bucket='airflow_report',
-    gcp_conn_id='bdp_gcloud_storage',
+    dst=gcs_dest_file,
+    bucket=GCS_CONF["bucket"],
+    gcp_conn_id=GCS_CONF["gcp_conn_id"],
     dag = dag
     )
+
 ```
 
 
 ### Setup Google Cloud Storage
 
 Normally for your own use, you will have to set up the google cloud storage and create service account yourselves.
-For testing purpose, we have create a service account for you and will be given in Mycourses, and the bucket is **bts_analytics_report**. You can view the bucket [here](https://console.cloud.google.com/storage/browser/airflow_report). 
+For testing purpose, we have create a service account for you and will be given in Mycourses, and the bucket is **bts_analytics_report**. You can view the bucket [here](https://console.cloud.google.com/storage/browser/bts_analytics_report). 
 
 
 ### Setup Connection in Airflow
@@ -103,12 +113,19 @@ Follow the instruction [Managing Airflow connections](https://cloud.google.com/c
 
 To allow Airflow to send notifiaction to Teams, you need to set up incoming webhook on Teams and add the webhook url to Airflow using the connection as described above. Follow the instruction steps: **Prepare MS Teams** and **Prepare Airflow** from [here](https://code.mendhak.com/Airflow-MS-Teams-Operator/#prepare-ms-teams).
 
+Instead of storing the webhook link into the code, we will store it into a Variable named **teams_webhook**. 
+
+## Setup BigQuery
+
+It is also possible to setup BigQuery service account and a table in BigQuery so that the data can also be stored into BigQuery.
+
 ## Step5: Run the workflow
 
 Run First copy your BTSAnalyitcs workflow into the dags directory of Airflow installation (usually $HOME/airflow)/dags
 
 ```
 $cp bts_analytics.py ~/airflow/dags/
+$cp -r analytics ~/airflow/dags/
 ```
 or
 ```

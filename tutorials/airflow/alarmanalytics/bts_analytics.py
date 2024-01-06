@@ -2,30 +2,33 @@
 CS-E4640
 Simple example for teaching purpose
 '''
-import airflow
+from pathlib import Path
+import sys
+import os
 from airflow.models import DAG
-from airflow.operators.bash import BashOperator
-from airflow.providers.http.operators.http import SimpleHttpOperator
+from airflow.models import Variable
 from airflow.operators.python import PythonOperator
 from airflow.providers.google.cloud.transfers.local_to_gcs import LocalFilesystemToGCSOperator
-from airflow.operators.dummy import DummyOperator
-from analytics import analyze
-from notification import post_notification
+from google.oauth2 import service_account
+import pendulum
 
-import json
-import hashlib
 
-from datetime import datetime,date
-import time
-import os
+#include code in analytics
+sys.path.append(os.path.join(Path(__file__).resolve().parent,"."))
+from analytics.analytics_functions import basic_aggregation, clean_data, download_data
+from analytics.notification import post_notification
+from analytics.analytics_functions import data_to_bigquery
 
-DAG_NAME = 'bts_analytics'
-owner = 'ownername'
+from datetime import date
 
+
+DAG_NAME = 'main_analytics'
+owner = 'cse4640'
+TMP_DIR="/tmp/bigdataplatforms"
 default_args = {
     'owner': owner,
     'depends_on_past': False,
-    'start_date': airflow.utils.dates.days_ago(2),
+    'start_date': pendulum.today('UTC').add(days=-2),
     'schedule_interval': '@daily'
 }
 
@@ -33,60 +36,120 @@ dag = DAG(DAG_NAME, default_args=default_args)
 
 '''
 for simplicity we just show here one source to be downloaded. E.g., in principle,
-one should look for the source from a database and create a suitable list of source
+one should look for the source from a database and create a suitable list of sources
+or listen some queues to get the sources
 '''
-source ="https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/raw/master/data/bts/bts-data-alarm-2017.csv"
-destination_file = os.path.expanduser("~/airflow/data/bts.csv")
-stamp = str(date.today())
-report_destination = os.path.expanduser("~/airflow/report/analytic_{}.csv".format(stamp))
+# in this example, we do a single source
+source_file ="https://raw.githubusercontent.com/rdsea/bigdataplatforms/master/data/bts/bts-data-alarm-2017.csv"
+source_file_name_short=f'{Path(source_file).stem}_tmp'
+dest_file_short_name=f'{source_file_name_short}.csv'
+#a simple way to create temp file, assumption that it runs daily
+temp_dest_file = os.path.join(TMP_DIR,owner,dest_file_short_name)
+timestamp = str(date.today())
+report_file_short_name=f'{source_file_name_short}_analytic_{timestamp}.csv'
+report_destination = os.path.join(TMP_DIR,owner,report_file_short_name)
 
-# Copy your own webhook here, follow https://code.mendhak.com/Airflow-MS-Teams-Operator/, prepare MS Teams and prepare Airflow steps.
-teams_webhook = ""
+#this configuration can be loaded frome somewhere, e.g., variable
+GCS_CONF={
+    "bucket":"airflowexamples",
+    "subspace":"hotdata",
+    "gcp_conn_id":'bdp_gcloud_storage'
+}
+#just for flexibility to switch from a project to another for testing
+PROJECT_ID="cs-e4640-bdp-339416" #aalto-t313-cs-e4640
+BIGQUERY_CONF={
+    "table_id":f'{PROJECT_ID}.btsanalytics.StationAnalytics',
+    "project_id": PROJECT_ID
+}
+#webhook and service account json are stored in some kind of "vault"
+#using Variable
 
-downloadBTS = "curl -o " + destination_file + " " + source
-removeFile = "rm {}".format(destination_file)
-gcsdir = "{}_analytic_{}.csv".format(owner,stamp)
-bucket = "bts_analytics_report"
+#Create a webhook: follow https://code.mendhak.com/Airflow-MS-Teams-Operator/, prepare MS Teams and prepare Airflow steps.
+#Then make sure that you use airflow admin to put a variable "key=teams_webhook" 
+# and the value is the webhook link
+#See https://airflow.apache.org/docs/apache-airflow/stable/howto/variable.html
+teams_webhook = Variable.get("teams_webhook")
+#similar way we put service account json for bigquery into a variable
+#it is just one way, to refect different aspects of sharing secrets/common data
+service_account_json=Variable.get(f'bigquery-{PROJECT_ID}', deserialize_json=True)
+credentials = service_account.Credentials.from_service_account_info(service_account_json)
+
+# link for sharing results
 # shortcut for url so that we dont have to install gcpclient 
-gcs_file_url = "https://storage.cloud.google.com/{}/{}".format(bucket, gcsdir)
-t_downloadBTS =  BashOperator(
-    task_id="download_bts",
-    bash_command=downloadBTS,
-    dag = dag
-    )
+gcs_dest_file = "{}_analytic_{}.csv".format(owner,timestamp)
+gcs_file_url = "https://storage.cloud.google.com/{}/{}".format(GCS_CONF["bucket"], gcs_dest_file)
 
-t_analytics = PythonOperator(
-    task_id='alarm_analytic',
-    python_callable=analyze,
-    op_kwargs={'destination_file':destination_file,'report_destination':report_destination},
+"""
+we need to pass secret and token for running the task
+to download data. The destination file should be defined very clear so that 
+the destination can be shared for the next task.
+
+Under which situation, one should write one's own download vs 
+using existing one like: HTTPOperator, S3, ...
+==> think if you can reuse the code outside airflow? think about complex configuration
+"""
+
+t_download_data =  PythonOperator(
+    task_id="download_data",
+    python_callable=download_data,
+    op_kwargs={'source_file':source_file, 'dest_file':temp_dest_file},
     dag=dag,
     )
-print("report_destination", report_destination)
+#the dest file from the download task will be used for analytics
+t_basic_aggregration = PythonOperator(
+    task_id='alarm_analytic',
+    python_callable=basic_aggregation,
+    op_kwargs={'input_file':temp_dest_file,'report_destination':report_destination},
+    dag=dag,
+    )
 t_uploadgcs =  LocalFilesystemToGCSOperator(
-    task_id="upload_file",
+    task_id="upload_local_file_to_gcs",
     src=report_destination,
-    dst=gcsdir,
-    bucket='bts_analytics_report',
-    gcp_conn_id='bdp_gcloud_storage',
+    dst=gcs_dest_file,
+    bucket=GCS_CONF["bucket"],
+    gcp_conn_id=GCS_CONF["gcp_conn_id"],
     dag = dag
     )
+
+#here we assume the data_to_bigquery can handle different types of storage
+#although the implement just support local file, thus adding "file://" 
+# into data source
+t_insert_data_warehouse = PythonOperator(
+    task_id='insert_data_warehouse',
+    python_callable=data_to_bigquery,
+    op_kwargs={'input_data_src':f'file://{report_destination}',
+               'table_id':BIGQUERY_CONF["table_id"],
+               'project_id':BIGQUERY_CONF["project_id"],
+               'credentials':credentials},
+    dag=dag)
+
 
 t_msnotification = PythonOperator(
     task_id='teams_notification',
     python_callable=post_notification,
-    op_kwargs={'gcsdir':gcs_file_url,'teams_webhook':teams_webhook},
+    op_kwargs={'gcs_report':gcs_file_url,'teams_webhook':teams_webhook},
     dag=dag)
 
 
-t_removefile =  BashOperator(
-    task_id='remove_file',
-    bash_command=removeFile,
-    dag=dag,
-    )
+t_clean_data = PythonOperator( 
+    task_id='data_cleansing',
+    python_callable=clean_data,
+    op_kwargs={'dest_files':[temp_dest_file,report_destination]},
+    dag=dag)
 
-'''
+"""
 the dependencies among tasks
-'''
+but now you have to remember how different tasks exchange data:
+- they pass data via files but you use local file systems, but 
+task A and task B are not executed in the same machine
+- they pass data via global data storage, then some upload/download 
+must be implemented.
 
-t_downloadBTS >> t_analytics >> t_uploadgcs >> t_msnotification
-t_uploadgcs >> t_removefile
+thus, you have to see the task implementation in detail. this example, basically, 
+works only for local or file sharing systems as we implement download, check quality, 
+clean data, etc. using local file systems
+"""
+
+t_download_data >> t_basic_aggregration >> t_uploadgcs >> t_insert_data_warehouse >> t_msnotification  >> t_clean_data
+
+#t_download_data >> t_check_quality >> t_uploadgcs >> t_clean_data

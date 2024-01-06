@@ -51,12 +51,12 @@ report_destination = os.path.join(TMP_DIR,owner,report_file_short_name)
 
 #this configuration can be loaded frome somewhere, e.g., variable
 GCS_CONF={
-    "bucket":"airflowexamples",
+    "bucket":"bts_analytics_report" #"airflowexamples",
     "subspace":"hotdata",
     "gcp_conn_id":'bdp_gcloud_storage'
 }
 #just for flexibility to switch from a project to another for testing
-PROJECT_ID="cs-e4640-bdp-339416" #aalto-t313-cs-e4640
+PROJECT_ID="cs-e4640" #aalto
 BIGQUERY_CONF={
     "table_id":f'{PROJECT_ID}.btsanalytics.StationAnalytics',
     "project_id": PROJECT_ID

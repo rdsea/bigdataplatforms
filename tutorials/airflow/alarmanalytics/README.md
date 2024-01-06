@@ -123,7 +123,7 @@ It is also possible to setup BigQuery service account and a table in BigQuery so
 A service account is created with a permission to update data. In the code, we use Airflow Variable to store the bigquery service account under **bigquery-{PROJECT_ID}**:
 ```python
 #just for flexibility to switch from a project to another for testing
-PROJECT_ID="cs-e4640-bdp-339416" #aalto-t313-cs-e4640
+PROJECT_ID="cs-e4640" 
 BIGQUERY_CONF={
     "table_id":f'{PROJECT_ID}.btsanalytics.StationAnalytics',
     "project_id": PROJECT_ID

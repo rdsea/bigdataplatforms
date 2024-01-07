@@ -51,7 +51,7 @@ report_destination = os.path.join(TMP_DIR,owner,report_file_short_name)
 
 #this configuration can be loaded frome somewhere, e.g., variable
 GCS_CONF={
-    "bucket":"bts_analytics_report" #"airflowexamples",
+    "bucket":"bts_analytics_report", #"airflowexamples",
     "subspace":"hotdata",
     "gcp_conn_id":'bdp_gcloud_storage'
 }

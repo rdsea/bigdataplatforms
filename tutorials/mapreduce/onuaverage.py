@@ -6,7 +6,7 @@ pip install mrjob
 Make sure you have Hadoop installation and suitable data file.
 For sample data, see ../../data/onudata. However, this program uses a CVS data file without a header. To run it
 
-python3 onuaverage.py -r hadoop hdfs://INPUTFILE >OUTPUT_FILE
+python onuaverage.py -r hadoop hdfs://INPUTFILE >OUTPUT_FILE
 
 where hdfs://INPUTFILE indicates the CSV input file.
 """

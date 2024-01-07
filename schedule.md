@@ -16,8 +16,8 @@ Notes:
 Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 --------|--------------|-------|---------
 10.01   |Lecture 1  | [Introduction to Big Data Platforms]() (download [PDF](lecturenotes/)) and [Architecting Big Data Platforms]() (download [PDF](lecturenotes/pdfs/)) | **Linh Truong**
-11.01  |Meetup 1 | How to prepare and succeed on Big Data assignments: experiences and expectation| Linh Truong
 17.01  |Lecture 2  | [Service and Integration Models in Big Data Platforms](), (download [PDF]()). Additional slides: [Cloud Infrastructures for Big Data Platforms]() (download PDF) and [a Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems]() (download PDF)| **Linh Truong**
+18.01  |Meetup 1 | How to prepare and succeed on Big Data assignments: experiences and expectation| Linh Truong
 24.01  |Lecture 3  | [Big Data Storage and Database Services]() (download [PDF](lecturenotes/pdfs)). Additional slides: [common systems & integration problems](). and [A short example of metadata](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)| Linh Truong
 25.01  |Tutorial 1 | [Hands-on examples with big database services](tutorials/consistency)| Linh Truong
 31.01   |Lecture 4 | [Big Data Ingestion, Transformation and Orchestration]() (download [PDF](lecturenotes/pdfs/)). Additional slides about [Streaming Data Ingestion with Apache Kafka]() | **Linh Truong**

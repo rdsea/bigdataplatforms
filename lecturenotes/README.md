@@ -3,8 +3,8 @@
 >Being updated weekly, follow [the schedule of the course](../schedule.md) 
 
 * **Course Management**: [Online slides](https://bit.ly/cse4640management2024)
-* **Introduction to Big Data Platforms**: [Slides]() (download [PDF](pdfs/))
-* **Architecting Big Data Platforms**: [Slides]() (download [PDF](pdfs/))
+* **Introduction to Big Data Platforms**: [Slides](https://bit.ly/bdp24-L1) (download [PDF](pdfs/))
+* **Architecting Big Data Platforms**: [Slides](https://bit.ly/bdp24-L1-2) (download [PDF](pdfs/))
   - Shadi Khalifa, Yehia Elshater, Kiran Sundaravarathan, Aparna Bhat, Patrick Martin, Fahim Imam, Dan Rope, Mike Mcroberts, and Craig Statchuk. 2016. The Six Pillars for Building Big Data Analytics Ecosystems. ACM Comput. Surv. 49, 2, Article 33 (August 2016), 36 pages. DOI: https://doi.org/10.1145/2963143
   - NIST [Big Data interoperability Framework](https://www.nist.gov/itl/big-data-nist/big-data-nist-documents/nbdif-version-30-final): the [reference architecture](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.1500-6r2.pdf) 
   - Chapter 1: Martin Kleppmann, [Designing Data-Intensive Applications](http://dataintensive.net/), O'Reilly Media,1 edition (April 11, 2017)

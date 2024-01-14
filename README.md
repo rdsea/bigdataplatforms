@@ -1,6 +1,6 @@
 # CS-E4640 Big Data Platforms
 
-This GIT hosts material for [the course Big Data Platforms](https://mycourses.aalto.fi/course/view.php?id=36674) within Aalto University. The intended users are Aalto students participating in the Big Data Platforms.
+This GIT hosts material for [the course Big Data Platforms](https://mycourses.aalto.fi/course/view.php?id=41028) within Aalto University. The intended users are Aalto students participating in the Big Data Platforms.
 
 ## Contents
  * [Course FAQ](faq.md)

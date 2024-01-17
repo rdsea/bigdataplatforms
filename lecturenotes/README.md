@@ -10,7 +10,7 @@
   - Chapter 1: Martin Kleppmann, [Designing Data-Intensive Applications](http://dataintensive.net/), O'Reilly Media,1 edition (April 11, 2017)
   - Pulkit Agrawal, Rajat Arya, Aanchal Bindal, Sandeep Bhatia, Anupriya Gagneja, Joseph Godlewski, Yucheng Low, Timothy Muss, Mudit Manu Paliwal, Sethu Raman, Vishrut Shah, Bochao Shen, Laura Sugden, Kaiyu Zhao, and Ming-Chuan Wu. 2019. Data Platform for Machine Learning. In Proceedings of the 2019 International Conference on Management of Data (SIGMOD '19). ACM, New York, NY, USA, 1803-1816. DOI: https://doi.org/10.1145/3299869.3314050
 
-* **Service and Integration Models in Big Data Platforms**: [Slides](), (download [PDF](pdfs/))
+* **Service and Integration Models in Big Data Platforms**: [Slides](https://bit.ly/bdp24-L2), (download [PDF](pdfs/module1-lecture2-0-integrationbdp-v0.5.pdf))
   - Adam Jacobs. 2009. The pathologies of big data. Commun. ACM 52, 8 (August 2009), 36-44. DOI: https://doi.org/10.1145/1536616.1536632
   - Patrick Hunt, Mahadev Konar, Flavio P. Junqueira, and Benjamin Reed. 2010. ZooKeeper: wait-free coordination for internet-scale systems. In Proceedings of the 2010 USENIX conference on USENIX annual technical conference (USENIXATC'10). USENIX Association, Berkeley, CA, USA, 11-11. (https://www.usenix.org/legacy/events/atc10/tech/full_papers/Hunt.pdf)
 

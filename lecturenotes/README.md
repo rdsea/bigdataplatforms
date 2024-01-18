@@ -16,7 +16,7 @@
 
 * **Cloud Infrastructures for Big Data Platforms**: [Online slides](https://bit.ly/3O3PTsO), ([download PDF](pdfs/module1-cloudinfrastructuresandservices-v0.5.pdf))
 * **A Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems**: [download PDF](pdfs/performance-dependability.pdf)
-* **Some industrial and open source big data platforms for Your tech radar**: Slides 
+* **Some industrial and open source big data platforms for Your tech radar**: [Slides](pdfs/tutorial-walkaround-techradar-v0.5.pdf) 
   
 * **Big Data Storage and Database Services**: [Online Slides]() (download [PDF](pdfs/))
   - Chapters 5 & 9: Martin Kleppmann, Designing Data-Intensive Applications, O'Reilly Media,1 edition (April 11, 2017)

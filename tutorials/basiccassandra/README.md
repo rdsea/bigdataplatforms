@@ -13,7 +13,7 @@ We use the data set [Avian Vocalizations from CA & NV, USA](https://www.kaggle.c
 
 ## Configuring Cassandra cluster in a container
 
-We basically create a Cassandra system with three nodes (machines):
+We basically create a Cassandra system different nodes (machines):
 * cluster name: *tutorials*
 * Node 1: *cassandra1* in data center "DC1"
 * Node 2: *cassandra2* in data center "DC1"

@@ -7,8 +7,12 @@ The goal is to design simple flows with basic tasks of data ingestion to underst
 ### Apache Nifi
 You can download [Apache Nifi](https://nifi.apache.org/download.html) and install it into your machine. Check the document to see if a minimum configuration should be made for your installation.
 
->Note: the following information is with **nifi-1.15.3**
+>Note: the following information is with **nifi-1.24.0 and nifi-2.0.0-M1**
 
+Create a test user:
+```
+$bin/nifi.sh set-single-user-credentials student0 cse4640student0
+```
 Start Nifi server
 ```
 $bin/nifi.sh run

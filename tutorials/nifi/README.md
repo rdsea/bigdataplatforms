@@ -1,6 +1,6 @@
 # Data Ingestion with Apache Nifi
 
-The goal is to design simple flows with basic tasks of data ingestion to understand the concepts/techniques of big data ingestions and how they are implemented in Apache Nifi. A second goal is to see if you can use Apache Nifi for your work in big data and data science.
+The goal is to design simple flows with basic tasks of data ingestion to understand the concepts/techniques of big data ingestions and how they are implemented in Apache Nifi. It is important to examine the **model** and **configuration** of ingestion tasks to understand common concept. A second goal is to see if you can use Apache Nifi for your work in big data and data science.
 
 
 ## Setup
@@ -20,6 +20,7 @@ https://127.0.0.1:8443/nifi
 >Note about the username/password by reading Nifi guide. Replace "127.0.0.1" with your nifi host IP/name.
 
 ### AMQP Broker
+
 When ingesting data through message brokers, you can use your own RabbitMQ in your local machine or a free instance created from [CloudAMQP.com](https://cloudamqp.com).
 
 
@@ -82,14 +83,18 @@ We should test it only with CSV or JSON files of small data. We use the followin
 	routing key: mybdpnifi
 	hostname: hawk.rmq.cloudamqp.com
 	port: 5672
-	virtual host: fyjgrlhi
+	virtual host: frlocnsr
 	username: <see below>
 	password: <see below>
 
 	```
-	> AMQP username/password for practice will be shared
+AMQP username/password for practice will be shared.
 
-  > If you are using your own RabbitMQ, then you have to create a queue and set the binding from routing key to queue. Check [this](https://www.tutlane.com/tutorial/rabbitmq/rabbitmq-bindings) for help.
+*You can also deploy a fast docker RabbitMQ for testing*:
+> $docker run  -it  -p 5672:5672 rabbitmq:3
+> which will give a local rabbitmq with default username/password as "guest/guest"
+
+  > You may have to create a queue and set the binding from routing key to queue. Check [this](https://www.tutlane.com/tutorial/rabbitmq/rabbitmq-bindings) for help.
 
 Using the following program to check if the data has been sent to the message broker:
 
@@ -97,9 +102,8 @@ Using the following program to check if the data has been sent to the message br
 $export AMQPURL=**Get the link during the practice**
 $python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
 ```
->Note that the AMQP configuration for the python program must match the AMQP broker set in Nifi
+>Note that the AMQP configuration for the python program must match the AMQP broker set in Nifi. In case you use your fast RabbitMQ docker then, $export AMQPURL="amqp://guest:guest@localhost"
 
-**Next step**: practice with Apache Kafka as messaging system.
 
 ### Capture changes in legacy databases and do ingestion to a big data platform
 
@@ -173,7 +177,7 @@ Now you have an overview on the vast capabilities of Apache Nifi. We suggest you
 After successful with the above steps, now you can try different situations:
  - Now, as in the first example, we can define **ListFile**, **FetchFile** and **PutCSObject** to automatically store all the updates to a legacy database in a Google storage in csv format.
  - Add other processors to handle the change nicely
- - Using Kafka for messaging systems
+ - Using Apache Kafka as messaging system for ingestion
  - Ingest the change into the right sink (database, storage)
  - Do it with a large scale setting
 

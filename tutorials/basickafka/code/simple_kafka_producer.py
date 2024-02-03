@@ -50,6 +50,11 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--chunksize', help='chunk size for big file')
     parser.add_argument('-s', '--sleeptime', help='sleep time in second')
     parser.add_argument('-t', '--topic', help='kafka topic')
+    parser.add_argument('--security_protocol', default='SASL_PLAINTEXT', help='security protocol')
+    parser.add_argument('--sasl_mechanism', default='PLAIN', help='security protocol')
+    parser.add_argument('--sasl_username', help='sasl user name')
+    parser.add_argument('--sasl_password', help='sasl password')
+    
     args = parser.parse_args()
     '''
     Because the KPI file is big, we emulate by reading chunk, using iterator and chunksize
@@ -59,12 +64,25 @@ if __name__ == '__main__':
     chunksize=int(args.chunksize)
     sleeptime =int(args.sleeptime)
     KAFKA_TOPIC =args.topic
+    #create configuration file for kafka connection
+    if (args.sasl_username is None) and (args.sasl_password is None):
+        kafka_conf={
+            'bootstrap.servers': KAFKA_BROKER
+        } 
+    else:
+        kafka_conf={
+            'bootstrap.servers': KAFKA_BROKER,
+            'security.protocol': args.security_protocol,
+            'sasl.mechanism': args.sasl_mechanism,
+            'sasl.username': args.sasl_username,
+            'sasl.password': args.sasl_password
+        }
     '''
     the time record is "TIME"
     we read data by chunk so we can handle a big sample data file
     '''
     input_data =pd.read_csv(INPUT_DATA_FILE,parse_dates=['TIME'],iterator=True,chunksize=chunksize)
-    kafka_producer = Producer({'bootstrap.servers': KAFKA_BROKER})
+    kafka_producer = Producer(kafka_conf)
     for chunk_data in input_data:
         '''
         now process each chunk

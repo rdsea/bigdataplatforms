@@ -28,13 +28,30 @@ if __name__ == '__main__':
     parser.add_argument('-b', '--broker', default="localhost:9092", help='Broker as "server:port"')
     parser.add_argument('-t', '--topic', help='kafka topic')
     parser.add_argument('-g', '--consumer_group', help='kafka topic')
+    parser.add_argument('--security_protocol', default='SASL_PLAINTEXT', help='security protocol')
+    parser.add_argument('--sasl_mechanism', default='PLAIN', help='security protocol')
+    parser.add_argument('--sasl_username', help='sasl user name')
+    parser.add_argument('--sasl_password', help='sasl password')
     args = parser.parse_args()
     broker=args.broker
+    #create configuration file for kafka connection
+    if (args.sasl_username is None) and (args.sasl_password is None):
+        kafka_conf={
+            'bootstrap.servers': broker,
+            'group.id': args.consumer_group,
+        }
+    else:
+        kafka_conf={
+            'bootstrap.servers': broker,
+            'group.id': args.consumer_group,
+            'security.protocol': args.security_protocol,
+            'sasl.mechanism': args.sasl_mechanism,
+            'sasl.username': args.sasl_username,
+            'sasl.password': args.sasl_password
+        }
+        
     # declare the topic and consumer group
-    kafka_consumer = Consumer({
-        'bootstrap.servers': broker,
-        'group.id': args.consumer_group,
-        })
+    kafka_consumer = Consumer(kafka_conf)
     kafka_consumer.subscribe([args.topic])
 
     '''

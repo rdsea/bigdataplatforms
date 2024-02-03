@@ -1,7 +1,7 @@
 # Installing and running Apache Kafka
 
 >Note: In this tutorial, we use Apache Kafka without the Zookepper dependency.
->For [setting up Kafka with Zookeeper you can use the old tutorial](https://github.com/rdsea/bigdataplatforms/tree/331ae2516d9accf32e9dbcbda1a7c94795d17e49/tutorials/basickafka) or check document from Kafka
+>For [setting up Kafka with Zookeeper you can use the old tutorial](https://github.com/rdsea/bigdataplatforms/tree/331ae2516d9accf32e9dbcbda1a7c94795d17e49/tutorials/basickafka) or check the document from Kafka Website.
 
 ## Introduction
 
@@ -158,6 +158,7 @@ pQooK8X-Q_2cDlViPWvpyg
     ```
 
 ### Playing with the installation
+
 >Make sure you have the info of **kafka0, kafka1, kafka2** correct. For example, kafka0 is the ip address (e.g., 192.168.8.106 in the docker example for a private machine)
 
 1. Create a topic with 3 replications and a single partition
@@ -191,7 +192,8 @@ pQooK8X-Q_2cDlViPWvpyg
 
 ## Playing around with Kafkacat
 
-Working with kafka-shell is quite cumbersome. So, we can instead use Kafkacat to work with Kafka. Kafkacat [^kafkacat] is extremely popular non JVM utility that allows producing, consuming and listening to Kafka. Instead of writing long commands and code, we can use it to learn kafka very quickly.
+Working with kafka-shell is quite cumbersome. So, we can instead use Kafkacat to work with Kafka. [Kafkacat](https://github.com/edenhill/kafkacat
+) is a popular non JVM utility that allows producing, consuming and listening to Kafka. Instead of writing long commands and code, we can use it to learn kafka very quickly.
 
 * Install it by simply running:
     ```
@@ -203,9 +205,6 @@ on debian systems. Check out the official git for other Linux flavours.
 * See brokers, partitions and topics:
     ```
     $ kafkacat -b mybroker:9093 -L
-    ```
-
-
 * Produce on a new topic:
     ```
     $ kafkacat -b mybroker:9094 -t test_topic -P
@@ -236,7 +235,6 @@ on debian systems. Check out the official git for other Linux flavours.
     kafkacat -b mybroker:9094 -t test_topic_2  -p 3 -C
     ```
 ---
-[^kafkacat]: https://github.com/edenhill/kafkacat
 
 ## Play with simple code
 
@@ -244,21 +242,57 @@ We have two simple programs: [a simple producer](code/simple_kafka_producer.py) 
 
 After having your Kafka system running. Start the producer:
 
- ```
-	$python simple_kafka_producer.py  -i ONUData-sample.csv -c 10 -s 30 -t cse4640simplekafka
+```bash
+$python simple_kafka_producer.py  -i ONUData-sample.csv -c 10 -s 30 -t cse4640simplekafka
+```
 
- ```
 and another terminal for the consumer:
 
- ```
-	$python simple_kafka_consumer.py -t cse4640simplekafka -g cse4640
- ```
+```bash
+$python simple_kafka_consumer.py -t cse4640simplekafka -g cse4640
+```
 
 you can run another consumer but different **consumer group** to see
 
+ ```bash
+$python simple_kafka_consumer.py -t cse4640simplekafka -g cse4640_group_2
  ```
-	$python simple_kafka_consumer.py -t cse4640simplekafka -g cse4640_group_2
- ```
+
+## Play with a production deployment
+
+A production deployment has several configurations for production purposes. We have a simple production in Google Cloud for testing:
+- Broker IP: **to be confirmed**
+- Security setting: **to be confirmed**
+
+When playing with the production, you should use the real IP addresses (**BROKER_ID_ADDRESS**) and security setting (**security.properties**). For example:
+
+```
+$/opt/kafka/bin/kafka-topics.sh --describe --bootstrap-server BROKER_IP_ADDRESS:9092 --command-config tmp/security.properties --topic testbdp2024
+```
+> The file **tmp/security.properties** includes security option for the production Kafka
+
+With Kafkakat:
+
+Producer:
+```
+$kafkacat -b BROKER_IP_ADDRESS:9092 -t testbdp2024 -P -F tmp/kafkacat.properties
+```
+Consumer:
+```
+kafkacat -b BROKER_IP_ADDRESS:9092 -t testbdp2024 -C -F tmp/kafkacat.properties
+```
+>the file **tmp/kafkacat.properties** includes some security options for kafkacat 
+
+With our python code: using the **BROKER_IP_ADDRESS** and find the **USERNAME** and **PASSWORD** from the **kafkacat.properties** file
+
+Producer:
+```
+$python code/simple_kafka_producer.py -b BROKER_IP_ADRESS:9092 -i tmp/ONUData-sample.csv -c 10 -s 30 -t testbdp2024 --sasl_username USERNAME --sasl_password PASSWORD
+```
+Consumer:
+```
+$python code/simple_kafka_consumer.py -b BROKER_IP_ADDRESS:9092  -t testbdp2024 -g group0 --sasl_username USERNAME --sasl_password PASSWORD
+```
 
 ## Main scenarios for practices
 
@@ -270,6 +304,7 @@ you can run another consumer but different **consumer group** to see
 ## References
 
 - Bitnami Kafka docker image guide: https://github.com/bitnami/containers/tree/main/bitnami/kafka 
+- Kafkakat: https://github.com/edenhill/kafkacat
 - https://medium.com/paypal-tech/scaling-kafka-to-support-paypals-data-growth-a0b4da420fab
 - https://blog.cloudflare.com/using-apache-kafka-to-process-1-trillion-messages/
  

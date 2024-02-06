@@ -25,6 +25,7 @@
   -  Alexandre Verbitski, Anurag Gupta, Debanjan Saha, Murali Brahmadesam, Kamal Gupta, Raman Mittal, Sailesh Krishnamurthy, Sandor Maurice, Tengiz Kharatishvili, and Xiaofeng Bao. 2017. [Amazon Aurora: Design Considerations for High Throughput Cloud-Native Relational Databases](https://dl.acm.org/doi/10.1145/3035918.3056101). In Proceedings of the 2017 ACM International Conference on Management of Data (SIGMOD '17).
   - CAP:  http://www.julianbrowne.com/article/viewer/brewers-cap-theorem
   - [Eventual consistency](https://dl.acm.org/ft_gateway.cfm?id=1466448&ftid=577532&dwn=1)
+  - [Consistency Tradeoffs in Modern Distributed Database System Design](https://www.cs.umd.edu/~abadi/papers/abadi-pacelc.pdf)
   - [A Model and Survey of Distributed Data-Intensive Systems](https://dl.acm.org/doi/10.1145/3604801)
 * **Addition for Big Data Storage and Database Services: common systems & integration problems**:  (download [PDF](pdfs/module2-lecture3-bigdatastoragedatabase-addition-v0.5.pdf)).
 * A short example of metadata: [Video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)

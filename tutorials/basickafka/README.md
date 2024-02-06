@@ -299,7 +299,11 @@ $python code/simple_kafka_consumer.py -b BROKER_IP_ADDRESS:9092  -t testbdp2024 
 - Fast producers with some slow consumers for a topic
 - Parallel processing of messages using multiple consumers
 - Obtaining old data vs obtain newest data
-- Multiple consumer groups 
+- Multiple consumer groups
+- Configure basic Kafka connectors to common databases with your selected data:
+  - Kafka connector for Cassandra: https://docs.datastax.com/en/kafka/doc/index.html
+  - Kafka connector for MongoDB: https://www.mongodb.com/products/integrations/kafka-connector
+- Configure Kafka with Nifi
 
 ## References
 

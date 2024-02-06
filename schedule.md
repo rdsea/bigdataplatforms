@@ -20,7 +20,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 18.01  |Meetup 1 | [Tech Radar](lecturenotes/pdfs/tutorial-walkaround-techradar-v0.5.pdf) and How [to prepare and succeed on Big Data assignments](lecturenotes/pdfs/how_to_assignment_meetup_slide.pdf)| Linh Truong, Minh-Tri Nguyen
 24.01  |Lecture 3  | [Big Data Storage and Database Services](https://bit.ly/bdp24-L3) (download [PDF](lecturenotes/pdfs/module2-lecture3-bigdatastoragedatabase-v0.5.pdf)). Additional slides: [common systems & integration problems](lecturenotes/pdfs/module2-lecture3-bigdatastoragedatabase-addition-v0.5.pdf). and [A short example of metadata](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)| Linh Truong
 25.01  |Tutorial 1 | [Hands-on examples with big database services](tutorials/consistency)| Linh Truong
-31.01   |Lecture 4 | [Big Data Ingestion, Transformation and Orchestration]() (download [PDF](lecturenotes/pdfs/module2-lecture4-ingestionandtransformation-v0.5.pdf)). Additional slides about [Streaming Data Ingestion with Apache Kafka]() | **Linh Truong**
+31.01   |Lecture 4 | [Big Data Ingestion, Transformation and Orchestration]() (download [PDF](lecturenotes/pdfs/module2-lecture4-ingestionandtransformation-v0.5.pdf)). Additional slides about [Streaming Data Ingestion with Apache Kafka](lecturenotes/pdfs/module2-lecture4-apachekafka.pdf) | **Linh Truong**
 31.01  |   | **Release the first assignment**
 01.02  | Tutorial 2  | [Data Ingestion with Apache Nifi](tutorials/nifi)| Linh Truong
 07.02  |Lecture 5 | [Hadoop and its Big Data Ecosystems]() (download [PDF](lecturenotes/pdfs/)). Study some real cases of Hadoop and data ingestion| **Linh Truong**

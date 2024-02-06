@@ -25,10 +25,11 @@
   -  Alexandre Verbitski, Anurag Gupta, Debanjan Saha, Murali Brahmadesam, Kamal Gupta, Raman Mittal, Sailesh Krishnamurthy, Sandor Maurice, Tengiz Kharatishvili, and Xiaofeng Bao. 2017. [Amazon Aurora: Design Considerations for High Throughput Cloud-Native Relational Databases](https://dl.acm.org/doi/10.1145/3035918.3056101). In Proceedings of the 2017 ACM International Conference on Management of Data (SIGMOD '17).
   - CAP:  http://www.julianbrowne.com/article/viewer/brewers-cap-theorem
   - [Eventual consistency](https://dl.acm.org/ft_gateway.cfm?id=1466448&ftid=577532&dwn=1)
+  - [A Model and Survey of Distributed Data-Intensive Systems](https://dl.acm.org/doi/10.1145/3604801)
 * **Addition for Big Data Storage and Database Services: common systems & integration problems**:  (download [PDF](pdfs/module2-lecture3-bigdatastoragedatabase-addition-v0.5.pdf)).
 * A short example of metadata: [Video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)
 * **Big Data Ingestion, Transformation and Orchestration**: [Online slides](https://bit.ly/bdp24-L3) (download [PDF](pdfs/module2-lecture4-ingestionandtransformation-v0.5.pdf))
-* **Apache Kafka for Streaming Data Ingestion - The Core**: [Online slides](), [basic Kafka setup](../tutorials/basickafka) and [examples of data ingestion with Kafka](../tutorials/cloud-data-pipeline)
+* **Apache Kafka for Streaming Data Ingestion - The Core**: [PDF](pdfs/module2-lecture4-apachekafka.pdf), [basic Kafka setup](../tutorials/basickafka) and [examples of data ingestion with Kafka](../tutorials/cloud-data-pipeline)
 * **Hadoop and its Big Data Ecosystems**: [Online slides]() (download [PDF](pdfs/))
 * **Some case studies for Hadoop and data ingestion**: Slides 
   - K. Shvachko, H. Kuang, S. Radia and R. Chansler, "The Hadoop Distributed File System," 2010 IEEE 26th Symposium on Mass Storage Systems and Technologies (MSST), Incline Village, NV, 2010, pp. 1-10.doi: 10.1109/MSST.2010.5496972

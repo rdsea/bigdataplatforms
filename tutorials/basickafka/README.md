@@ -304,11 +304,12 @@ $python code/simple_kafka_consumer.py -b BROKER_IP_ADDRESS:9092  -t testbdp2024 
   - Kafka connector for Cassandra: https://docs.datastax.com/en/kafka/doc/index.html
   - Kafka connector for MongoDB: https://www.mongodb.com/products/integrations/kafka-connector
 - Configure Kafka with Nifi
+- Examine some Kafka providers, [Confluent cloud](https://confluent.cloud/) offers a limit
 
 ## References
 
 - Bitnami Kafka docker image guide: https://github.com/bitnami/containers/tree/main/bitnami/kafka 
-- Kafkakat: https://github.com/edenhill/kafkacat
+- Kcat (Kafkakat): https://github.com/edenhill/kafkacat
 - https://medium.com/paypal-tech/scaling-kafka-to-support-paypals-data-growth-a0b4da420fab
 - https://blog.cloudflare.com/using-apache-kafka-to-process-1-trillion-messages/
  

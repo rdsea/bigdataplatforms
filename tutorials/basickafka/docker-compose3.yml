@@ -11,8 +11,8 @@ x-kafka: &kafka
 networks:
   kafka-tutorials:
     name: kafka-tutorials
-    #driver: bridge
-    external: true
+    driver: bridge
+    #external: true
 
 services:
   

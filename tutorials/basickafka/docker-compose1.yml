@@ -6,7 +6,8 @@ version: '3.5'
 networks:
   kafka-tutorials:
     name: kafka-tutorials
-    external: true
+    driver: bridge
+    #external: true
 
 services:
   kafka:

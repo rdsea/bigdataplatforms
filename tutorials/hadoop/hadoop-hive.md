@@ -38,7 +38,7 @@ You can create directories, files, etc. in HDFS:
 hdfs dfs -mkdir /user/mybdp/dir12345
 hdfs dfs -put somefile /user/mybdp/dir12345
 ```
->Check [the HDFS cheatsheet here](http://images.linoxide.com/hadoop-hdfs-commands-cheatsheet.pdf).
+>Check [the HDFS cheatsheet here](https://hadoop.apache.org/docs/r3.2.2/hadoop-project-dist/hadoop-hdfs/HDFSCommands.html).
 
 We already have a big file into HDFS. The file is in HDFS
 ```

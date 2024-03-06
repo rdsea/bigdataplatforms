@@ -36,7 +36,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 13.03  |Industry tutorial (TBD)|  |   
 15.03  |   | **Due the 2nd assignment**  |   |
 |20-24.03   | | Assignment grading  | **All**  |
-27.03  |Lecture 8 | [Workflows for Big Data Platforms]() (download [PDF](lecturenotes/pdfs/))| **Linh Truong**
+27.03  |Lecture 8 | [Workflows for Big Data Platforms](https://bit.ly/bdp24-L7) (download [PDF](lecturenotes/pdfs/module3-lecture7-dataprocessing-streaming-v0.5.pdf))| **Linh Truong**
 27.03  |   | **Release the third assignment**
 28.03  |Tutorial 6| [Stream Processing with Apache Flink](tutorials/streamingwithflink/README.md) | **Tri Nguyen**
 04.04  |Tutorial 7| [Data processing examples with Airflow](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/airflow/)| **Tri Nguyen**

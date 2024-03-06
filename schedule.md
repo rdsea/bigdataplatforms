@@ -31,12 +31,12 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 28.02  |Lecture 6  | [Big Data Processing with The Spark Programming Model](https://bit.ly/bdp24-L6) (download [PDF](lecturenotes/pdfs/module3-lecture6-dataprocessing-spark-v0.5.pdf)), [The MapReduce Programming Model](lecturenotes/pdfs/module3-mapreduce-v0.5.pdf)| **Linh Truong**
 28.02  |   | **Release the 2nd assignment**
 29.02  | Tutorial 4 |Hadoop | **Minh-Tri Nguyen**
-06.03  |Lecture 7 | [Stream Processing and Big Data Platforms]() (download [PDF](lecturenotes/pdfs/)) | **Linh Truong**
+06.03  |Lecture 7 | [Stream Processing and Big Data Platforms](https://bit.ly/bdp24-L7) (download [PDF](lecturenotes/pdfs/module3-lecture7-dataprocessing-streaming-v0.5.pdf)) | **Linh Truong**
 07.03  |Tutorial 5 | [Data Processing with Apache Spark](tutorials/spark/README.md)  | **Minh-Tri Nguyen**
 13.03  |Industry tutorial (TBD)|  |   
 15.03  |   | **Due the 2nd assignment**  |   |
 |20-24.03   | | Assignment grading  | **All**  |
-27.03  |Lecture 8 | [Workflows for Big Data Platforms](https://bit.ly/bdp24-L7) (download [PDF](lecturenotes/pdfs/module3-lecture7-dataprocessing-streaming-v0.5.pdf))| **Linh Truong**
+27.03  |Lecture 8 | [Workflows for Big Data Platforms]() (download [PDF]())| **Linh Truong**
 27.03  |   | **Release the third assignment**
 28.03  |Tutorial 6| [Stream Processing with Apache Flink](tutorials/streamingwithflink/README.md) | **Tri Nguyen**
 04.04  |Tutorial 7| [Data processing examples with Airflow](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/airflow/)| **Tri Nguyen**

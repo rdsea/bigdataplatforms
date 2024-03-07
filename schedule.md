@@ -33,7 +33,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 29.02  | Tutorial 4 |Hadoop | **Minh-Tri Nguyen**
 06.03  |Lecture 7 | [Stream Processing and Big Data Platforms](https://bit.ly/bdp24-L7) (download [PDF](lecturenotes/pdfs/module3-lecture7-dataprocessing-streaming-v0.5.pdf)) | **Linh Truong**
 07.03  |Tutorial 5 | [Data Processing with Apache Spark](tutorials/spark/README.md)  | **Minh-Tri Nguyen**
-13.03  |Industry tutorial (TBD)|  |   
+13.03  |No lecture/Hands-on|  |   
 15.03  |   | **Due the 2nd assignment**  |   |
 |20-24.03   | | Assignment grading  | **All**  |
 27.03  |Lecture 8 | [Workflows for Big Data Platforms]() (download [PDF]())| **Linh Truong**

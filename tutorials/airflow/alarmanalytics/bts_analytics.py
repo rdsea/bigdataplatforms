@@ -139,17 +139,19 @@ t_clean_data = PythonOperator(
 
 """
 the dependencies among tasks
-but now you have to remember how different tasks exchange data:
-- they pass data via files but you use local file systems, but 
+
+now you have to remember how different tasks exchange data:
+- they pass data via files and you use a local file system, but 
 task A and task B are not executed in the same machine
-- they pass data via global data storage, then some upload/download 
+- they pass data via a global data storage, then some upload/download of data 
 must be implemented.
 
-thus, you have to see the task implementation in detail. this example, basically, 
+thus, you have to see the task implementation in detail. This example, basically, 
 works only for local or file sharing systems as we implement download, check quality, 
-clean data, etc. using local file systems
+clean data, etc. using local file systems.
 """
 
-t_download_data >> t_basic_aggregration >> t_uploadgcs >> t_insert_data_warehouse >> t_msnotification  >> t_clean_data
+t_download_data >> t_basic_aggregration >> t_uploadgcs >> t_insert_data_warehouse
+t_insert_data_warehouse >> t_msnotification  >> t_clean_data
 
 #t_download_data >> t_check_quality >> t_uploadgcs >> t_clean_data

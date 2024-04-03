@@ -18,7 +18,7 @@ There are many open datasets that you can download for practicing activities in 
   - [Tortoise monitoring in Korkeasaari ZOO](https://iot.fvh.fi/downloads/tortoise/)
   - [Avian Vocalizations from CA & NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa)
 * Social networks/Multimedia
-  - [Reddit comments](https://www.kaggle.com/reddit/reddit-comments-may-2015)
+  - [Reddit comments](https://www.kaggle.com/datasets/kaggle/reddit-comments-may-2015)
 * Marketplace
   - [Airbnb Dataset](http://insideairbnb.com/get-the-data.html)
   - [Amazon Customer Review Dataset](https://www.kaggle.com/cynthiarempel/amazon-us-customer-reviews-dataset)

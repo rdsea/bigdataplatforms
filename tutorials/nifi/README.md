@@ -190,6 +190,7 @@ Furthermore, you can examine other tools to understand the **underlying models a
 - [Logstash](https://www.elastic.co/logstash/)
 - [Dbt](https://www.getdbt.com/)
 - [Data form](https://dataform.co/)
+- [RudderStack](https://www.rudderstack.com/docs/data-pipelines/overview/): for customers data transformation
 
 ## Challenge
 

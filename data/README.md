@@ -1,6 +1,7 @@
 # Free Datasets for Practices
 
 ## Open Datasets
+
 There are many open datasets that you can download for practicing activities in big data platforms. It is suggested that **you focus on a single domain and use the data to perform the work in the course**. The following datasets can be used for both batch and streaming analytics and used in different tasks (ingestion, processing, etc.)
 
 * Healthcare/Pandemic
@@ -30,7 +31,10 @@ There are many open datasets that you can download for practicing activities in 
   - [Alibaba Cluster Traces](https://github.com/alibaba/clusterdata)
 * Civil engineering/architect/construction data:
   - [2015 LiDAR Flight 150326_131440 for Dublin City](https://archive.nyu.edu/handle/2451/38660)
-
+* Cybersecurity:
+  - https://research.unsw.edu.au/projects/unsw-nb15-dataset
+  - https://www.unb.ca/cic/datasets/ids-2018.html
+  
 * [Open data sets in Google Big Query](https://cloud.google.com/bigquery/public-data)
 
 When using these datasets, you need to comply with their corresponding licenses.

@@ -40,6 +40,6 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 27.03  |   | **Release the third assignment**
 28.03  |Tutorial 6| [Stream Processing with Apache Flink](tutorials/streamingwithflink/README.md) | **Tri Nguyen**
 04.04  |Tutorial 7| [Data processing examples with Airflow](https://github.com/rdsea/bigdataplatforms/tree/master/tutorials/airflow)| **Tri Nguyen**
-10.04  |Lecture 9 | [Big Data Platforms in the Age of LLMs/Gen-AI]() (download [PDF]())| **Linh Truong**
-12.04  | | **Due of the third assignment**
-15-19.04  |   | Assignment grading| **All**
+10.04  |Lecture 9 | [Big Data Platforms in the Age of LLMs/Gen-AI](ttps://bit.ly/bdp24-L9) (download [PDF](lecturenotes/pdfs/module4-lecture9-bigdatallm-v0.1.pdf))| **Linh Truong**
+16.04  | | **Due of the third assignment**
+17.04 -  |   | Assignment grading| **All**

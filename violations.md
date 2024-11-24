@@ -9,10 +9,20 @@ We do not have automatic assignment evaluation and we read, check and run the as
 >Besides tools are also used for code and text similarity analysis
 
 For code, students should make clearly:
+
 * Reuse code from where by given the source and license.
 * Automatic generated code by tools, e.g. [Github Copilot](https://github.com/features/copilot)
 
-The violation handing procedure (based on Aalto):
+## The use of Genenative AI
+
+Generative AI is allowed for **ONLY CODE and SOFTWARE/SYSTEM CONFIGURATION** and a clear clarification must be provided.
+
+Generative AI is **NOT ALLOWED for the assignment report**.
+
+Violations will be treated according to the violation handling procedure.
+
+## The violation handling procedure (based on Aalto)
+
 * [The Aalto detailed procedure](https://into.aalto.fi/display/ensaannot/Aalto+University+Code+of+Academic+Integrity+and+Handling+Violations+Thereof#AaltoUniversityCodeofAcademicIntegrityandHandlingViolationsThereof-4.4Procedure)
 * Evidence (violated code, design, document, ...) will be sent to **the School LES Manager**
   - The LES Manager will contact the students and have a hearing

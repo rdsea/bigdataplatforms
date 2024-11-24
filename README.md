@@ -16,6 +16,7 @@ This GIT hosts material for [the course Big Data Platforms](https://mycourses.aa
 > For programming in clouds you might be interested in our [IoTCloudSamples](https://github.com/rdsea/IoTCloudSamples/). There are also some notes about [basics in big data analytics and platforms](https://github.com/linhsolar/basicbigdata).
 
 ## Previous course editions
+* [Big Data Platforms 2023](2024/README.md)
 * [Big Data Platforms 2023](2023/README.md)
 * [Big Data Platforms 2022](2022/README.md)
 * [Big Data Platforms 2021](2021/README.md)

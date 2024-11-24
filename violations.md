@@ -15,7 +15,7 @@ For code, students should make clearly:
 
 ## The use of Genenative AI
 
-Generative AI is allowed for **ONLY CODE and SOFTWARE/SYSTEM CONFIGURATION** and a clear clarification must be provided.
+Generative AI is allowed for **ONLY for CODE and SOFTWARE/SYSTEM CONFIGURATION** and a clear clarification must be provided.
 
 Generative AI is **NOT ALLOWED for the assignment report**.
 

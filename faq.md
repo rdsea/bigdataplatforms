@@ -1,9 +1,12 @@
 # Course FAQ
+
 ### Will the course be carried in online?
 
-No. the course will be in contact teaching in the campus again. There will be no video record. 
+No. the course will be in contact teaching in the campus again. There will be no video record.
+
 
 ### Number of accepted students
+
 The number of open slots for registration will be from **40-80**, dependent on how many teaching assistants (TA) we can have:
 
 * Unfortunately, hiring TAs is very difficult and out of the control of the responsible teacher. Therefore, the best way to ensure the quality is to limit the number of slots.
@@ -11,6 +14,7 @@ The number of open slots for registration will be from **40-80**, dependent on h
 So pls. watch out the registration and do the registration as early as possible. 
 
 ### I have registered the course but my registration was rejected, why?
+
 The course has a limited number of slots (see above). Furthermore, each year, during the selection, the course may reduce/increase the number of slots due to the availability of hired TAs (the hiring is difficult due to the lack of qualified TAs and the situation is known only before starting the course). The main reasons for rejection are to maintain the prerequisites and to maintain the quality of the course, **which is strongly dependent on the resources we have for the course**.  Therefore, we put some key requirements for registration acceptance. Rejection reasons could be:
 - Your study programme is not suitable and/or in the target  study programme of the course. Examples are: (i) not in CCIS master study, (ii) still in the BSc study phase, (iii) from adult/continuous learning programme (FITech), (iv) exchange study programme with unclear prerequisites
 - Your prerequisites are not fulfilled: lack of background in cloud computing, data management, data mining, etc.
@@ -50,7 +54,7 @@ No. We do not impose any lecture/tutorial participation rules. In principle, you
 
 ### Is the assignment/project independent work so that I dont have to team up with other students?
 
-Assignment/project work is independent at the moment. Thus you can complete the course without teamwork as long as you obtain enough marks from your assignments. Note that you may be required to be in person to explain your assignments.
+Assignment/project work is independent at the moment. Thus you can complete the course without teamwork as long as you obtain enough marks from your assignments. **Note that you will be required to be in person to explain your assignments**.
 
 Also pay attention of [the severity of academic violations](violations.md)
 
@@ -64,6 +68,7 @@ No one knows except you. The course requires both theoretical and engineering un
 Unfortunately, to understand big data platforms, we need to work on design, development, testing and operation aspects. While, business school students can focus more on utilizing big data platforms for running analytics, we require all students to understand big data platforms from a holistic view in this course.
 
 ### Can I learn the course without knowing cloud computing?
+
 Cloud computing is an important background as our big data platforms rely on cloud technologies (not necessarily requires specific cloud providers). If you dont know cloud computing, it will be difficult to finish the course.
 
 ### Which are the key backgrounds for being successful in this course?

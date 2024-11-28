@@ -1,14 +1,17 @@
 # Academic Violations
 
 **All assignments are individual work. You can discuss with your peer about possible technologies and solutions but the assignment result (the submission) is your sole work**. The following things would be considered violations:
+
 * Reuse existing work without clear clarification of the reuse and what is the new work
   - it is always safe to write clearly how you reuse the code/material and provide a reference
+* Using Generative AI for generating code/configuration without a clear declaration
+* Using Generative AI for generating the report.
 * Copy any part of existing solutions (code, design, document, etc.) from others
 
 We do not have automatic assignment evaluation and we read, check and run the assignment so the chance we detect a violation is **high**. 
 >Besides tools are also used for code and text similarity analysis
 
-For code, students should make clearly:
+To avoid the violation, for code/software configuration, students should make clearly:
 
 * Reuse code from where by given the source and license.
 * Automatic generated code by tools, e.g. [Github Copilot](https://github.com/features/copilot)
@@ -30,6 +33,10 @@ Violations will be treated according to the violation handling procedure.
      >In case of violation: assignment cannot be evaluated (pending).
       **The school will record the student in the case** (more severe consequences if the student has already marking of violations)
     > If the case is not violated, we will continue the  evaluation
+
+## Grades in cases of violation
+
+Any found/confirmed violation will result to **0 grade**, regardless of the penalty from the procedure handling by the school.
 
 ## References
 

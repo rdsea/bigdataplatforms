@@ -7,10 +7,10 @@ Notes:
 - meetups:
   - the schedule could be flexible but we try to use the common slots
 
-**Remember to read [online Course Management slides](https://bit.ly/cse4640management2024)** (download PDF)
+**Remember to read [Course Management slides](lecturenotes/pdfs/module0-lecture0-coursemanagement-2025.pdf)**
 
 
->The Schedule is currently revised for Spring 2024
+>The Schedule is currently revised for Spring 2025
 >Slides and links will be updated accordingly.
 
 Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles

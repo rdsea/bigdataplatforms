@@ -3,12 +3,13 @@
 >Being updated weekly, follow [the schedule of the course](../schedule.md) 
 
 * **Course Management**: [Online slides](https://bit.ly/cse4640management2024)
-* **Introduction to Big Data Platforms**: [Slides]() (download [PDF]())
-* **Architecting Big Data Platforms**: [Slides]() (download [PDF]())
+* **Introduction to Big Data Platforms**: [PDF Slides](pdfs/module1-lecture1-1-intro-v0.6.0.pdf)
+* **Architecting Big Data Platforms**: [PDF Slides](pdfs/module1-lecture1-2-architectingbigplatforms-v0.6.pdf)
   - Shadi Khalifa, Yehia Elshater, Kiran Sundaravarathan, Aparna Bhat, Patrick Martin, Fahim Imam, Dan Rope, Mike Mcroberts, and Craig Statchuk. 2016. The Six Pillars for Building Big Data Analytics Ecosystems. ACM Comput. Surv. 49, 2, Article 33 (August 2016), 36 pages. DOI: https://doi.org/10.1145/2963143
   - NIST [Big Data interoperability Framework](https://www.nist.gov/itl/big-data-nist/big-data-nist-documents/nbdif-version-30-final): the [reference architecture](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.1500-6r2.pdf) 
   - Chapter 1: Martin Kleppmann, [Designing Data-Intensive Applications](http://dataintensive.net/), O'Reilly Media,1 edition (April 11, 2017)
   - Pulkit Agrawal, Rajat Arya, Aanchal Bindal, Sandeep Bhatia, Anupriya Gagneja, Joseph Godlewski, Yucheng Low, Timothy Muss, Mudit Manu Paliwal, Sethu Raman, Vishrut Shah, Bochao Shen, Laura Sugden, Kaiyu Zhao, and Ming-Chuan Wu. 2019. Data Platform for Machine Learning. In Proceedings of the 2019 International Conference on Management of Data (SIGMOD '19). ACM, New York, NY, USA, 1803-1816. DOI: https://doi.org/10.1145/3299869.3314050
+  - Jordan Tigani, [Big Data is Dead](https://motherduck.com/blog/big-data-is-dead/)
 
 * **Service and Integration Models in Big Data Platforms**: [Slides](), (download [PDF]())
   - Adam Jacobs. 2009. The pathologies of big data. Commun. ACM 52, 8 (August 2009), 36-44. DOI: https://doi.org/10.1145/1536616.1536632

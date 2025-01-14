@@ -14,7 +14,7 @@ We use [consul](https://www.consul.io/) for service discovery.
 * Make sure that you have consul installed in your machine.
 * using consul-server.sh to run a consul server for testing
 ```
-$bash consul-server.sh aaltocs aaltosea /tmp/consul 0.0.0.0
+$bash consul-server.sh aaltocs aaltosea /tmp/consul 127.0.0.1
 ```
 Meaning that we run a consul server with:
 * -datacenter=aaltocs: to indicate the data center
@@ -48,8 +48,14 @@ In principle, services will publish their information into consul. We just make 
   $node simple_register.js mongoservice.json
   $node simple_register.js ../dms/simple_rest.json
   ```
-  the simple_rest.json can be obtained by calling simple_rest **curl -X GET http://localhost:3000/self**.
-
+  
+  the simple_rest.json can be obtained by calling simple_rest:
+  
+  ```
+  $curl -X GET http://localhost:3000/self
+  ```
+  
+  > Make sure you edit/check the json file to reflect the ip of your service instances
 * check your consul service, e.g., using http://localhost:8500/ui to see if services are alive or not
 
 You should see consul running: for example check http://localhost:8500/

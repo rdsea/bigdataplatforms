@@ -30,6 +30,7 @@ There are many open datasets that you can download for practicing activities in 
 * Environment Monitoring/Smart City
   - [Open data about air quality monitoring from Germany](https://github.com/opendata-stuttgart/meta/wiki/EN-APIs)
   - [UK Open Government Water Quality](https://environment.data.gov.uk/water-quality/view/landing)
+  - [Water Usage](https://osf.io/g3zvd/?view_only=63e9c2f0cdf547d792bdd8e93045f89e)
 
 * System/Datacenter operation traces/logs:
   - [Microsoft Azure traces dataset](https://github.com/Azure/AzurePublicDataset)

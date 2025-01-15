@@ -17,7 +17,7 @@
   - J. Lin, "The Lambda and the Kappa," in IEEE Internet Computing, vol. 21, no. 5, pp. 60-66, 2017, [doi: 10.1109/MIC.2017.3481351](https://ieeexplore.ieee.org/document/8039313).
 
 
-* **Edge Cloud Infrastructures for Big Data Platforms**: ([download PDF](pdfs/module1-cloudinfrastructuresandservices-v0.6.pdf)
+* **Edge Cloud Infrastructures for Big Data Platforms**: [download PDF](pdfs/module1-cloudinfrastructuresandservices-v0.6.pdf)
 * **A Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems**: [download PDF](pdfs/performance-dependability.pdf)
 * **Some industrial and open source big data platforms for Your tech radar**: [Slides](pdfs/) 
   

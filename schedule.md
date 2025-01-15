@@ -16,9 +16,9 @@ Notes:
 Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 --------|--------------|-------|---------
 8.01   |Lecture 1  | [Introduction to Big Data Platforms](lecturenotes/pdfs/module1-lecture1-1-intro-v0.6.0.pdf) and [Architecting Big Data Platforms](lecturenotes/pdfs/module1-lecture1-2-architectingbigplatforms-v0.6.pdf) | **Linh Truong**
-15.01  |Lecture 2  | [Service and Integration Models in Big Data Platforms](). Additional slides: [Cloud Infrastructures for Big Data Platforms](lecturenotes/pdfs/module1-cloudinfrastructuresandservices-v0.6.pdf) and [a Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems](lecturenotes/pdfs/performance-dependability.pdf)| **Linh Truong**
+15.01  |Lecture 2  | [Service and Integration Models in Big Data Platforms](lecturenotes/pdfs/module1-lecture2-0-integrationbdp-v0.6.pdf). Additional slides: [Cloud Infrastructures for Big Data Platforms](lecturenotes/pdfs/module1-cloudinfrastructuresandservices-v0.6.pdf) and [a Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems](lecturenotes/pdfs/performance-dependability.pdf)| **Linh Truong**
 16.01  |Meetup 1 | [TechRadar]() and How [to prepare and succeed on Big Data assignments]()| **Hong-Tri Nguyen, Minh-Tri Nguyen, Linh Truong**
-22.01  |Lecture 3  | [Data Services in Big Data Platforms]() (download [PDF]()). Additional slides: [common systems & integration problems](lecturenotes/pdfs/module2-lecture3-bigdatastoragedatabase-addition-v0.5.pdf). and [A short example of metadata](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)| **Linh Truong**
+22.01  |Lecture 3  | [Data Services in Big Data Platforms](). Additional slides: [common systems & integration problems](lecturenotes/pdfs/module2-lecture3-bigdatastoragedatabase-addition-v0.5.pdf). and [A short example of metadata](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)| **Linh Truong**
 22.01  |   | **Release the first assignment**
 23.01  |Tutorial 1 | [Hands-on examples with Data services](tutorials/consistency)|**Debayan Bhattacharya, Linh Truong** 
 29.01   |Lecture 4 | [Big Data Ingestion, Transformation and Orchestration]() (download [PDF]()). Additional slides about [Streaming Data Ingestion with Apache Kafka]() | **Linh Truong**

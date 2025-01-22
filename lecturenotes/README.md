@@ -21,7 +21,7 @@
 * **A Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems**: [download PDF](pdfs/performance-dependability.pdf)
 * **Some industrial and open source big data platforms for Your tech radar**: [Slides](pdfs/) 
   
-* **Data Services**: [Online Slides]() (download [PDF]())
+* **Data Services**: (download [PDF](pdfs/module2-lecture3-bigdatastoragedatabase-v0.6.pdf))
   - [Data Services - Exploring the technology trends in basic, integrated, and cloud data services.](https://cacm.acm.org/research/data-services/), CACM.
   - Chapters 5 & 9: Martin Kleppmann, Designing Data-Intensive Applications, O'Reilly Media,1 edition (April 11, 2017)
   -  http://cacm.acm.org/news/200095-the-data-lake-concept-is-maturing/fulltext
@@ -31,7 +31,7 @@
   - [Eventual consistency](https://dl.acm.org/ft_gateway.cfm?id=1466448&ftid=577532&dwn=1)
   - [Consistency Tradeoffs in Modern Distributed Database System Design](https://www.cs.umd.edu/~abadi/papers/abadi-pacelc.pdf)
   - [A Model and Survey of Distributed Data-Intensive Systems](https://dl.acm.org/doi/10.1145/3604801)
-* **Addition for Big Data Storage and Database Services: common systems & integration problems**:  (download [PDF]()).
+* **Addition for Big Data Storage and Database Services: common systems & integration problems**:  (download [PDF](pdfs/module2-lecture3-bigdatastoragedatabase-addition-v0.6.pdf)).
 * A short example of metadata: [Video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)
 * **Big Data Ingestion, Transformation and Orchestration**: [Online slides]() (download [PDF]())
 * **Apache Kafka for Streaming Data Ingestion - The Core**: [PDF](), [basic Kafka setup](../tutorials/basickafka) and [examples of data ingestion with Kafka](../tutorials/cloud-data-pipeline)

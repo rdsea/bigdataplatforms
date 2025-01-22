@@ -14,10 +14,16 @@ The consistency level is associated with an operation (e.g. a query). It is base
 The Cassandra under test is setup in Google Cloud Platform with 2 clusters, each has 3 nodes, using [Bitnami Cassandra images](https://docs.bitnami.com/google/infrastructure/cassandra/). 
 
 We setup a deployment, as shown in the following figure:
-![high-level view of Cassandra deployment](tutorials-cassandra.png)
-With this deployment you can think about different situations w.r.t. access control of the cluster.
+![high-level view of Cassandra deployment](tutorials-cassandra.png).
 
-Dependent on the setup, we can have nodes for accessing from outside the cluster, e.g.:
+> With this deployment you can think about different situations:
+> - Should data consumers and producers be deployed within the cluster nodes or within the internal network of the cluster? When and when not
+> - How to protect the cluster, given different possibilities of access of data consumers/producers?
+> - Is the cluster for single tenant or for multiple tenants? What could be possible situations if the cluster is provided for multiple tenants?
+> - How to scale the cluster?
+> - Is it possible to have nodes in different data centers?
+
+Dependent on the setup, we will have different internal and external IP addresses for accessing the cluster. For example, when we setup 5 nodes we will provide:
 
 * **Node1Cluster1**: IP address to be obtained during the tutorial
 * **Node2Cluster1**: IP address to be obtained during the tutorial

@@ -33,11 +33,7 @@ Dependent on the setup, we will have different internal and external IP addresse
 You need a username and password or public/private keys to access Cassandra:
 >*will let you know*
 
-Once, you get into one of the node, you have to change directory:
 
-```
-$cd /cassandra
-```
 
 You need to make sure that **cqlsh** and Cassandra Python Driver (as we use some python code examples) are installed in your machine:
 

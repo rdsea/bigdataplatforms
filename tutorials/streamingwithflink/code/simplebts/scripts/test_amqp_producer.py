@@ -16,7 +16,7 @@ connection = pika.BlockingConnection(params) # Connect to RabbitMQ
 
 channel = connection.channel() # start a channel
 channel.queue_declare(queue=args.queue_name, durable=True)
-f = open(args.input_file, 'r')
+f = open(args.input_file)
 
 #skill header
 f.readline()

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-#encoding: UTF-8
 # CS-E4640
 ## using spark-submit with local or yarn
 #spark-submit --master local[*] simple_taxi_tripcount.py --input_file hdfs:///user/mybdp/nytaxi2019.csv --output_dir hdfs:///user/mybdp/taxiresult01

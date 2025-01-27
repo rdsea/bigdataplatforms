@@ -22,7 +22,7 @@ logFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] [%(levelnam
 rootLogger = logging.getLogger("cloud-ingestor")
 rootLogger.setLevel(logging.DEBUG)
 
-fileHandler = logging.FileHandler("{0}/{1}.log".format(logPath, fileName))
+fileHandler = logging.FileHandler("{}/{}.log".format(logPath, fileName))
 fileHandler.setFormatter(logFormatter)
 fileHandler.setLevel(logging.DEBUG)
 rootLogger.addHandler(fileHandler)

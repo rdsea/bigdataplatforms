@@ -13,7 +13,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "confluent-kafka", specifier = ">=2.8.0" },
-    { name = "pandas" },
+    { name = "pandas", specifier = ">=2.2.3" },
 ]
 
 [[package]]

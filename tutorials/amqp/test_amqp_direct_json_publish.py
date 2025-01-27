@@ -14,7 +14,7 @@ if __name__ == '__main__':
     parser.add_argument('--exchange_type', default='direct', help='exchange type[fanout,direct,topic]')
     parser.add_argument('--queuename', help='queue name as routing_key')
     parser.add_argument('--input_data',help='input file name')
-    parser.add_argument('--interval',default=5,help='seconds, inteval between two sends')
+    parser.add_argument('--interval',default=5,help='seconds, interval between two sends')
     args = parser.parse_args()
     amqpLink=os.environ.get('AMQPURL', 'amqp://test:test@localhost')
     #create connection

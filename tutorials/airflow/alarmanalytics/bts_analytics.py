@@ -49,7 +49,7 @@ timestamp = str(date.today())
 report_file_short_name=f'{source_file_name_short}_analytic_{timestamp}.csv'
 report_destination = os.path.join(TMP_DIR,owner,report_file_short_name)
 
-#this configuration can be loaded frome somewhere, e.g., variable
+#this configuration can be loaded from somewhere, e.g., variable
 GCS_CONF={
     "bucket":"bts_analytics_report", #"airflowexamples",
     "subspace":"hotdata",
@@ -70,7 +70,7 @@ BIGQUERY_CONF={
 #See https://airflow.apache.org/docs/apache-airflow/stable/howto/variable.html
 teams_webhook = Variable.get("teams_webhook")
 #similar way we put service account json for bigquery into a variable
-#it is just one way, to refect different aspects of sharing secrets/common data
+#it is just one way, to reflect different aspects of sharing secrets/common data
 service_account_json=Variable.get(f'bigquery-{PROJECT_ID}', deserialize_json=True)
 credentials = service_account.Credentials.from_service_account_info(service_account_json)
 

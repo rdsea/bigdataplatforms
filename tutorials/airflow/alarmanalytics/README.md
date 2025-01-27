@@ -111,7 +111,7 @@ Follow the instruction [Managing Airflow connections](https://cloud.google.com/c
 
 ## Step4: Set up Microsoft Teams Notification Connection
 
-To allow Airflow to send notifiaction to Teams, you need to set up incoming webhook on Teams and add the webhook url to Airflow using the connection as described above. Follow the instruction steps: **Prepare MS Teams** and **Prepare Airflow** from [here](https://code.mendhak.com/Airflow-MS-Teams-Operator/#prepare-ms-teams).
+To allow Airflow to send notification to Teams, you need to set up incoming webhook on Teams and add the webhook url to Airflow using the connection as described above. Follow the instruction steps: **Prepare MS Teams** and **Prepare Airflow** from [here](https://code.mendhak.com/Airflow-MS-Teams-Operator/#prepare-ms-teams).
 
 Instead of storing the webhook link into the code, we will store it into a Variable named **teams_webhook**. 
 
@@ -130,7 +130,7 @@ BIGQUERY_CONF={
 }
 
 #similar way we put service account json for bigquery into a variable
-#it is just one way, to refect different aspects of sharing secrets/common data
+#it is just one way, to reflect different aspects of sharing secrets/common data
 service_account_json=Variable.get(f'bigquery-{PROJECT_ID}', deserialize_json=True)
 
 ```

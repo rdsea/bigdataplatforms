@@ -13,7 +13,7 @@ Sample data format:
 ```json
 [
    {
-      "topic":"temprature/topic",
+      "topic":"temperature/topic",
       "qos":0,
       "broker_publish_time":"2020-06-12 08:48:09",
       "broker_name":"edge_1",
@@ -21,7 +21,7 @@ Sample data format:
       "node_name":"Node 2"
    },
    {
-      "topic":"temprature/topic",
+      "topic":"temperature/topic",
       "qos":0,
       "broker_publish_time":"2020-06-12 08:48:10",
       "broker_name":"edge_1",
@@ -76,7 +76,7 @@ To run the cloud pipeline service, we need to perform the following:
 
 #### 1. Starting Kafka
 
-To start Kakfa, first run zookeeper:
+To start Kafka, first run zookeeper:
 
 ```bash
 $ docker-compose up -d zookeeper
@@ -87,7 +87,7 @@ Next start the Kafka brokers by:
 $ docker-compose up --scale kafka=NUMBER_OF_BROKERS
 ```
 Note the dynamic ports exposed by the scaled up brokers.
-#### 2. Start Mongo Databse
+#### 2. Start Mongo Database
 To start MongoDB, just run the command:
 
 ```bash
@@ -101,7 +101,7 @@ To start the Kafka consumer service, run the following command while Kafka is ru
 $ docker-compose up  --scale kafka=NUMBER_OF_BROKERS  database-processor
 ```
 
-Note: The Kafka Consumer requires a comma seperated list of Kafka brokers. It has to be provided in the `entrypoint` config of the `docker-compose.yml` file.
+Note: The Kafka Consumer requires a comma separated list of Kafka brokers. It has to be provided in the `entrypoint` config of the `docker-compose.yml` file.
 Example: `entrypoint: ["python3", "MongoIngestor.py", "192.168.1.12:32812,192.168.1.12:32814", "kafka-database-consumer-group-2"]`
 
 > Important: Note the IP address and the ports of Kafka brokers that is provided in the entrypoint config

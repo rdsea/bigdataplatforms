@@ -13,7 +13,7 @@ args = parser.parse_args()
 
 producer = KafkaProducer(bootstrap_servers=args.kafka,  value_serializer=lambda x:x.encode('utf-8'))
 
-f = open(args.input_file, 'r')
+f = open(args.input_file)
 count = 0
 #skill header
 f.readline()

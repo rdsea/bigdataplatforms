@@ -7,10 +7,10 @@ import pandas as pd
 SUPPORTING_PROTOCOLS = ["file", "hdfs", "gs"]
 
 """
-This function shows a simple download without secrets/authentication and 
-complex APIs using curl. but in reality, it involves complex configurations. 
-Therefore, to use Airflow Operator or write your own must be 
-considered carefully. 
+This function shows a simple download without secrets/authentication and
+complex APIs using curl. but in reality, it involves complex configurations.
+Therefore, to use Airflow Operator or write your own must be
+considered carefully.
 """
 
 
@@ -46,12 +46,12 @@ def clean_data(dest_files):
 
 
 """
-Now it comes to the situation that analyzing data 
-is specific for dataset, so one has to understand the data. 
+Now it comes to the situation that analyzing data
+is specific for dataset, so one has to understand the data.
 Also the data to be analyzed is in local file systems or remote storage services?
 If the data is remote, then it has to be downloaded into the place
 where the code is running. Remember that functions are running in distributed machines.
- 
+
 Similar situation for the output
 """
 
@@ -72,7 +72,7 @@ def basic_aggregation(input_file, report_destination):
 
 """
 Insert data into BigQuery. Instead of using Airflow Operators for big query, this
-shows a way that does not depend a lot of airflow, except getting the 
+shows a way that does not depend a lot of airflow, except getting the
 credentials link. Thus it can be reused in different places.
 """
 

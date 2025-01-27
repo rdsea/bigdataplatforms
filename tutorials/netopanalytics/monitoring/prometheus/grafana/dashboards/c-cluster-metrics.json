@@ -1,30 +1,30 @@
 {
   "__inputs": [
     {
+      "description": "",
+      "label": "Job name of Cassandra exporter",
       "name": "VAR_JOBNAME",
       "type": "constant",
-      "label": "Job name of Cassandra exporter",
-      "value": "cassandra",
-      "description": ""
+      "value": "cassandra"
     }
   ],
   "__requires": [
     {
-      "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
+      "type": "grafana",
       "version": "5.0.3"
     },
     {
-      "type": "panel",
       "id": "graph",
       "name": "Graph",
+      "type": "panel",
       "version": "5.0.0"
     },
     {
-      "type": "datasource",
       "id": "prometheus",
       "name": "Prometheus",
+      "type": "datasource",
       "version": "5.0.0"
     }
   ],
@@ -120,7 +120,7 @@
       },
       "yaxes": [
         {
-          "format": "µs",
+          "format": "\u00b5s",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -389,7 +389,7 @@
       },
       "yaxes": [
         {
-          "format": "µs",
+          "format": "\u00b5s",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -1685,8 +1685,8 @@
       },
       {
         "current": {
-          "value": "${VAR_JOBNAME}",
-          "text": "${VAR_JOBNAME}"
+          "text": "${VAR_JOBNAME}",
+          "value": "${VAR_JOBNAME}"
         },
         "datasource": null,
         "hide": 2,
@@ -1696,8 +1696,8 @@
         "name": "jobname",
         "options": [
           {
-            "value": "${VAR_JOBNAME}",
-            "text": "${VAR_JOBNAME}"
+            "text": "${VAR_JOBNAME}",
+            "value": "${VAR_JOBNAME}"
           }
         ],
         "query": "${VAR_JOBNAME}",

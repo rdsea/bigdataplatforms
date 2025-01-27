@@ -1,13 +1,21 @@
 {
-  "name":"mongodb",
-  "tags":["bdp","sensordata","aalto"],
-   "port": 27017,
-   "address":"192.168.8.106",
-   "check": {
-       "id": "checkmongdo",
-       "name": "Mongodb Status",
-       "args": ["/home/truong/myprojects/mygit/bigdataplatforms/tutorials/servicediscovery/mongocheck.py","--service_url", "mongodb://192.168.8.106:27017"],
-       "interval": "20s",
-       "timeout": "5s"
-   }
+  "address": "192.168.8.106",
+  "check": {
+    "args": [
+      "/home/truong/myprojects/mygit/bigdataplatforms/tutorials/servicediscovery/mongocheck.py",
+      "--service_url",
+      "mongodb://192.168.8.106:27017"
+    ],
+    "id": "checkmongdo",
+    "interval": "20s",
+    "name": "Mongodb Status",
+    "timeout": "5s"
+  },
+  "name": "mongodb",
+  "port": 27017,
+  "tags": [
+    "bdp",
+    "sensordata",
+    "aalto"
+  ]
 }

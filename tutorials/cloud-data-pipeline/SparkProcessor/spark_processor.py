@@ -1,21 +1,22 @@
 # spark-submit --master "spark://spark:7077" --packages  org.apache.spark:spark-streaming-kafka-0-8-assembly_2.11:2.4.6 pyspark_test.py
+import json
+import logging
+
+from kafka import KafkaProducer
 from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import KafkaUtils
-import json
-import logging
-from kafka import KafkaProducer
 
-logFormatter = logging.Formatter(
+log_formatter = logging.Formatter(
     "%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s"
 )
-rootLogger = logging.getLogger("mini-batcher-application")
-rootLogger.setLevel(logging.DEBUG)
+root_logger = logging.getLogger("mini-batcher-application")
+root_logger.setLevel(logging.DEBUG)
 
-consoleHandler = logging.StreamHandler()
-consoleHandler.setFormatter(logFormatter)
-consoleHandler.setLevel(logging.DEBUG)
-rootLogger.addHandler(consoleHandler)
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(log_formatter)
+console_handler.setLevel(logging.DEBUG)
+root_logger.addHandler(console_handler)
 
 WINDOW_DURATION = 60
 zookeeper_quorum = "zookeeper:2181"
@@ -27,29 +28,29 @@ sc = SparkContext("spark://spark:7077", appName="Pyspark_Temperature_Monitor")
 sc.setLogLevel("WARN")
 
 ssc = StreamingContext(sc, WINDOW_DURATION)
-kafkaStream = KafkaUtils.createStream(
+kafka_stream = KafkaUtils.createStream(
     ssc, zookeeper_quorum, consumer_group_id, {"sensors.temperature.4": 1}
 )
 
 
 # Reporting Services
-def GetKafkaProducer():
+def get_kafka_producer():
     return KafkaProducer(bootstrap_servers=[broker])
 
 
 def send_alert(key, node_avg_data, node_avg_count):
-    producer = GetKafkaProducer()
+    producer = get_kafka_producer()
     producer.send(
         topic_report,
         str.encode(
-            f"Node Name: {key}, Average Temp: {node_avg_data[key]/node_avg_count[key]} for window of {WINDOW_DURATION} seconds"
+            f"Node Name: {key}, Average Temp: {node_avg_data[key] / node_avg_count[key]} for window of {WINDOW_DURATION} seconds"
         ),
     )
     producer.flush()
 
 
 def process_kafka_pending_messages(message):
-    rootLogger.info("========= Started Processing New RDD! =========")
+    root_logger.info("========= Started Processing New RDD! =========")
     kafka_messages = message.collect()
     try:
         data = []
@@ -71,21 +72,21 @@ def process_kafka_pending_messages(message):
                     node_avg_data[node_name] + value["temperature"]
                 )
 
-        rootLogger.info("========= Completed Processing of RDD! =========")
-        rootLogger.info("========= Results =========")
+        root_logger.info("========= Completed Processing of RDD! =========")
+        root_logger.info("========= Results =========")
         # printing the valresults:
         for key in node_avg_data:
-            rootLogger.info(
-                f"Node Name: {key}, Average Temp: {node_avg_data[key]/node_avg_count[key]} for window of {WINDOW_DURATION} seconds"
+            root_logger.info(
+                f"Node Name: {key}, Average Temp: {node_avg_data[key] / node_avg_count[key]} for window of {WINDOW_DURATION} seconds"
             )
             send_alert(key, node_avg_data, node_avg_count)
 
     except Exception as e:
-        rootLogger.error(f"Encountred exception while processing: {e}")
-    rootLogger.info("========= Finish =========")
+        root_logger.error(f"Encountred exception while processing: {e}")
+    root_logger.info("========= Finish =========")
 
 
-parsed = kafkaStream.map(lambda v: v[1])
+parsed = kafka_stream.map(lambda v: v[1])
 parsed.foreachRDD(process_kafka_pending_messages)
 
 ssc.start()

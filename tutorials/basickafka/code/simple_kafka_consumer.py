@@ -12,9 +12,10 @@ We use python client library from https://docs.confluent.io/clients-confluent-ka
 Also see https://github.com/confluentinc/confluent-kafka-python
 """
 
-from confluent_kafka import Consumer
 import argparse
 import json
+
+from confluent_kafka import Consumer
 
 """
 Check other documents for starting Kafka, e.g.

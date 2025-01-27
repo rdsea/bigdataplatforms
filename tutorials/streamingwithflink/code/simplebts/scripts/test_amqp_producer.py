@@ -1,8 +1,10 @@
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
-import pika, os, logging, sys, time
 import argparse
+import time
+
+import pika
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--queue_name", help="queue name", default="bts_input")
@@ -27,7 +29,7 @@ f.readline()
 count = 0
 for line in f:
     count += 1
-    print("Sending line {}".format(count))
+    print(f"Sending line {count}")
     channel.basic_publish(exchange="", routing_key=args.queue_name, body=line)
     """
     Turn the sleeping time or implement an input parameter

@@ -2,13 +2,14 @@
 Simple example for studying queue-based data ingestion
 """
 
-import os
-from rq import Queue
-from redis import Redis
-from task import ingest_csv_file
-import time
 import argparse
+import os
+import time
+
 from dotenv import load_dotenv
+from redis import Redis
+from rq import Queue
+from task import ingest_csv_file
 
 load_dotenv()
 

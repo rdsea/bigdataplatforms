@@ -3,27 +3,30 @@ CS-E4640
 Simple example for teaching purpose
 """
 
-from pathlib import Path
-import sys
 import os
-from airflow.models import DAG
-from airflow.models import Variable
+import sys
+from pathlib import Path
+
+import pendulum
+from google.oauth2 import service_account
+
+from airflow.models import DAG, Variable
 from airflow.operators.python import PythonOperator
 from airflow.providers.google.cloud.transfers.local_to_gcs import (
     LocalFilesystemToGCSOperator,
 )
-from google.oauth2 import service_account
-import pendulum
-
 
 # include code in analytics
 sys.path.append(os.path.join(Path(__file__).resolve().parent, "."))
-from analytics.analytics_functions import basic_aggregation, clean_data, download_data
-from analytics.notification import post_notification
-from analytics.analytics_functions import data_to_bigquery
-
 from datetime import date
 
+from analytics.analytics_functions import (
+    basic_aggregation,
+    clean_data,
+    data_to_bigquery,
+    download_data,
+)
+from analytics.notification import post_notification
 
 DAG_NAME = "main_analytics"
 owner = "cse4640"
@@ -81,7 +84,7 @@ credentials = service_account.Credentials.from_service_account_info(
 
 # link for sharing results
 # shortcut for url so that we dont have to install gcpclient
-gcs_dest_file = "{}_analytic_{}.csv".format(owner, timestamp)
+gcs_dest_file = f"{owner}_analytic_{timestamp}.csv"
 gcs_file_url = "https://storage.cloud.google.com/{}/{}".format(
     GCS_CONF["bucket"], gcs_dest_file
 )

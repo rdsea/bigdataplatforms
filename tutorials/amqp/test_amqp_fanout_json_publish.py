@@ -4,9 +4,12 @@ Simple data publisher using fanout.
 see sample code from https://www.rabbitmq.com/getstarted.html
 """
 
-import pika, os, time
-import json
 import argparse
+import json
+import os
+import time
+
+import pika
 
 if __name__ == "__main__":
     # parsing command lines
@@ -20,8 +23,8 @@ if __name__ == "__main__":
         "--interval", default=5, help="seconds, interval between two sends"
     )
     args = parser.parse_args()
-    amqpLink = os.environ.get("AMQPURL", "amqp://test:test@localhost")
-    params = pika.URLParameters(amqpLink)
+    amqp_linkk = os.environ.get("AMQPURL", "amqp://test:test@localhost")
+    params = pika.URLParameters(amqp_linkk)
     params.socket_timeout = 5
     connection = pika.BlockingConnection(params)
     channel = connection.channel()

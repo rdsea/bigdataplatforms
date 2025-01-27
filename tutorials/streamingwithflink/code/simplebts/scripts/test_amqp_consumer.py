@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-import random
-import time
-import pika, os, logging
 import argparse
+
+import pika
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--queue_name", help="queue name", default="bts_output")
@@ -26,7 +25,7 @@ count = 0
 def callback(ch, method, properties, body):
     global count
     count += 1
-    print("Received alert {}:".format(count), body, sep=" ")
+    print(f"Received alert {count}:", body, sep=" ")
 
 
 # set up subscription on the queue

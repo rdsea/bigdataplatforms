@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 import argparse
-from pymongo import MongoClient
 import sys
+
+from pymongo import MongoClient
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

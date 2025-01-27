@@ -10,11 +10,12 @@ Also see https://github.com/confluentinc/confluent-kafka-python
 """
 
 import argparse
-from confluent_kafka import Producer
-import pandas as pd
+import datetime
 import json
 import time
-import datetime
+
+import pandas as pd
+from confluent_kafka import Producer
 
 """
 A common, known function used for jsonifying a timestamp into a string
@@ -99,7 +100,7 @@ if __name__ == "__main__":
         now process each chunk
         """
         chunk = chunk_data.dropna()
-        for index, row in chunk.iterrows():
+        for _index, row in chunk.iterrows():
             """
             Assume that when some data is available, we send it to Kafka in JSON
             """

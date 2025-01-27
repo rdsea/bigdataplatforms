@@ -3,19 +3,18 @@ CS-E4640
 Simple example for teaching purpose
 """
 
+import hashlib
+import json
+import time
+
 import airflow
 from airflow.models import DAG
 from airflow.operators.bash import BashOperator
-from airflow.providers.http.operators.http import SimpleHttpOperator
+from airflow.operators.dummy import DummyOperator
 from airflow.providers.google.cloud.transfers.local_to_gcs import (
     LocalFilesystemToGCSOperator,
 )
-from airflow.operators.dummy import DummyOperator
-import json
-import hashlib
-
-from datetime import datetime
-import time
+from airflow.providers.http.operators.http import SimpleHttpOperator
 
 DAG_NAME = "camerastate_upload_file"
 

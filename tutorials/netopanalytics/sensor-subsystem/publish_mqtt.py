@@ -1,6 +1,7 @@
-import time
-import paho.mqtt.client as mqtt
 import sys
+import time
+
+import paho.mqtt.client as mqtt
 
 topic = "ONT_DATA_SENSOR"
 broker_url = "localhost"
@@ -20,8 +21,8 @@ def send_mqtt_requests(payload):
 # Reads data from the sourse CSV and calls the API for pushing the data to mosquitto
 with open(path) as file:
     data = file.read()
-    dataRow = data.splitlines()
-    for idx, i in enumerate(dataRow):
+    data_row = data.splitlines()
+    for idx, i in enumerate(data_row):
         time.sleep(0.75)
         send_mqtt_requests(i)
         print("Published row " + str(idx) + ".")

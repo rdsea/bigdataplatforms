@@ -7,8 +7,10 @@ Here the data delivery model is fanout
 see sample code from https://www.rabbitmq.com/getstarted.html
 """
 
-import pika, os
 import argparse
+import os
+
+import pika
 
 if __name__ == "__main__":
     # parsing command lines
@@ -19,8 +21,8 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
     # Make sure you set the AMQPURL using environment variable
-    amqpLink = os.environ.get("AMQPURL", "amqp://test:test@localhost")
-    params = pika.URLParameters(amqpLink)
+    amqp_linkk = os.environ.get("AMQPURL", "amqp://test:test@localhost")
+    params = pika.URLParameters(amqp_linkk)
     params.socket_timeout = 5
     connection = pika.BlockingConnection(params)
     channel = connection.channel()

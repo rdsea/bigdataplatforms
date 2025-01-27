@@ -1,7 +1,8 @@
 # You can do analytics here with more complex code, here we only show a simple example
-from pathlib import Path
 import subprocess
 import traceback
+from pathlib import Path
+
 import pandas as pd
 
 SUPPORTING_PROTOCOLS = ["file", "hdfs", "gs"]
@@ -20,11 +21,10 @@ def download_data(source_file, dest_file):
     Path(dest_file).parent.mkdir(parents=True, exist_ok=True)
     download_cmd = "curl -o " + dest_file + " " + source_file
     print(f"Run {download_cmd}")
-    result = subprocess.run(
+    subprocess.run(
         download_cmd,
         shell=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
         text=True,
     )
 
@@ -41,7 +41,7 @@ def clean_data(dest_files):
             for file_name in dest_files:
                 print(f"Data cleansing by removing temporary local file: {file_name}")
                 Path(file_name).unlink(missing_ok=True)
-        except:
+        except Exception:
             traceback.print_exc()
 
 
@@ -62,7 +62,7 @@ def basic_aggregation(input_file, report_destination):
     df = pd.read_csv(input_file)
     print("Start to analyze the data")
     analytic = (
-        df[df["isActive"] == True]
+        df[df["isActive"] is True]
         .groupby(["station_id", "alarm_id"])["value"]
         .agg(["count", "min", "max"])
     )
@@ -88,7 +88,7 @@ def data_to_bigquery(
         print(f"Currently we do not support the storage with {input_data_src}")
         return
     if storage_protocol != "file":
-        print(f"This example is only for (local/share) file system")
+        print("This example is only for (local/share) file system")
         return
     # the assumption is that the data is already in the form that we can just put
     # into bigquery. see the big query schema in readme

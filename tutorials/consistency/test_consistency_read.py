@@ -1,11 +1,12 @@
 # CS-E4640
 ## Simple example for studying big data platforms
+import argparse
+from time import time
+
 from cassandra import ConsistencyLevel
+from cassandra.auth import PlainTextAuthProvider
 from cassandra.cluster import Cluster
 from cassandra.query import SimpleStatement
-from cassandra.auth import PlainTextAuthProvider
-from time import time
-import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--hosts", help='cassandra host "host1,host2,host3"')

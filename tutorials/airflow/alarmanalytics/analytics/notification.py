@@ -8,12 +8,10 @@ def post_notification(gcs_report, teams_webhook):
         "@type": "MessageCard",
         "@context": "http://schema.org/extensions",
         "themeColor": "0076D7",
-        "summary": "Analytic report {} ready".format(gcs_report),
+        "summary": f"Analytic report {gcs_report} ready",
         "sections": [
             {
-                "activityTitle": "Analytic report {} is ready for review".format(
-                    gcs_report
-                ),
+                "activityTitle": f"Analytic report {gcs_report} is ready for review",
                 "activitySubtitle": "Airflow",
             }
         ],

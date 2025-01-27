@@ -6,7 +6,9 @@ import json
 import pymongo
 
 
-logFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
+logFormatter = logging.Formatter(
+    "%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s"
+)
 rootLogger = logging.getLogger("mini-batcher-application")
 rootLogger.setLevel(logging.DEBUG)
 
@@ -18,7 +20,9 @@ rootLogger.addHandler(consoleHandler)
 
 class MongoIngestor:
     def __init__(self, userid, password):
-        db_client = pymongo.MongoClient(f"mongodb://{userid}:{password}@database:27017/")
+        db_client = pymongo.MongoClient(
+            f"mongodb://{userid}:{password}@database:27017/"
+        )
         mydb = db_client["ingestionDB"]
         self.col_1 = mydb["temperature"]
         self.col_2 = mydb["temperature_metadata"]
@@ -37,37 +41,40 @@ class MongoIngestor:
 class KafkaMessageConsumer:
     def __init__(self, servers, group_name):
         super().__init__()
-        self.consumer = KafkaConsumer(bootstrap_servers = servers, group_id = group_name)
+        self.consumer = KafkaConsumer(bootstrap_servers=servers, group_id=group_name)
         self.consumer.subscribe(pattern="sensors.temperature.*")
         rootLogger.info("Connected to Kafka broker")
 
     def consume(self, db_client):
         for message in self.consumer:
-            rootLogger.info("Message Topic:%s, Partition:%d, Offset:%d" % (message.topic, message.partition,
-                                          message.offset))
-            
-            metadata={
-                "topic": message.topic,
-                "partition" : message.partition,
-                "offset" : message.offset
-            }
-            result = db_client.insert_metadata(metadata)           
+            rootLogger.info(
+                "Message Topic:%s, Partition:%d, Offset:%d"
+                % (message.topic, message.partition, message.offset)
+            )
 
-            data= {
+            metadata = {
+                "topic": message.topic,
+                "partition": message.partition,
+                "offset": message.offset,
+            }
+            result = db_client.insert_metadata(metadata)
+
+            data = {
                 "metadata_id": result.inserted_id,
-                "topic" : message.topic,
-                "message" : json.loads(message.value)
-                }
+                "topic": message.topic,
+                "message": json.loads(message.value),
+            }
             db_client.insert_data(data)
             rootLogger.info(f"Saved data from edge device")
 
-username = os.environ.get('MONGO_USERNAME')
-password = os.environ.get('MONGO_PASSWORD')
+
+username = os.environ.get("MONGO_USERNAME")
+password = os.environ.get("MONGO_PASSWORD")
 
 if not username or password:
     raise Exception("MongoDB credentials not supplied")
 
-kafka_brokers=sys.argv[1].split(',')
+kafka_brokers = sys.argv[1].split(",")
 group_name = sys.argv[2]
 running = True
 

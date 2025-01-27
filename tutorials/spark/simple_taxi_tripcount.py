@@ -2,12 +2,9 @@
 # CS-E4640
 ## using spark-submit with local or yarn
 # spark-submit --master local[*] simple_taxi_tripcount.py --input_file hdfs:///user/mybdp/nytaxi2019.csv --output_dir hdfs:///user/mybdp/taxiresult01
-import csv
-import sys
-from datetime import datetime
-from pyspark.sql import SparkSession
-from pyspark.sql import functions as F
 import argparse
+
+from pyspark.sql import SparkSession
 
 parser = argparse.ArgumentParser()
 ##local file system starts with file:///
@@ -22,9 +19,9 @@ args = parser.parse_args()
 spark = SparkSession.builder.appName("cse4640-nytaxicount").getOrCreate()
 # NOTE: using hdfs:///..... for HDFS file or file:///
 # To test the program you can prepare a small data file
-inputFile = args.input_file
+input_file = args.input_file
 ## hadoop inputFile="hdfs://"
-df = spark.read.csv(inputFile, header=True, inferSchema=True)
+df = spark.read.csv(input_file, header=True, inferSchema=True)
 # df.show()
 print("Number of trips", df.count())
 # number of passenger count per vendor and total amount of money

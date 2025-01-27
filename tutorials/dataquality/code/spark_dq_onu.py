@@ -22,19 +22,16 @@ such techniques for their system.
 """
 
 import argparse
-from importlib import import_module
 import os
-import sys
+from importlib import import_module
 
 # just a quick setup as pydeequ needs this environment
 os.environ["SPARK_VERSION"] = "3.3"
-from pyspark.sql import SparkSession
 import pydeequ
-from pydeequ.analyzers import *
-from pydeequ.profiles import *
-from pydeequ.suggestions import *
-from pydeequ.checks import *
-from pydeequ.verification import *
+from pydeequ.analyzers import AnalysisRunner, AnalyzerContext
+from pydeequ.checks import Check, CheckLevel
+from pydeequ.verification import VerificationResult, VerificationSuite
+from pyspark.sql import SparkSession
 
 # Given the idea of a generic way to specify constraint,
 # we give here an example for ONU Data (see the readme.md)
@@ -129,10 +126,14 @@ if __name__ == "__main__":
                 if "column_name" in constraint.keys():
                     func(
                         column=constraint["column_name"],
-                        assertion=lambda x: x >= constraint["threshold"],
+                        assertion=lambda x, constraint=constraint: x
+                        >= constraint["threshold"],
                     )
                 else:
-                    func(assertion=lambda x: x >= constraint["threshold"])
+                    func(
+                        assertion=lambda x, constraint=constraint: x
+                        >= constraint["threshold"]
+                    )
             elif "column_name" in constraint.keys():
                 # for function without threshold but values
                 if "values" in constraint.keys():
@@ -142,7 +143,7 @@ if __name__ == "__main__":
             else:
                 print(f"Currently we have not implemented this {constraint}")
         else:
-            print(f'Invalid {constraint["function_name"]} in {dir(check)}')
+            print(f"Invalid {constraint['function_name']} in {dir(check)}")
     dq_check_result = VerificationSuite(spark).onData(input_df).addCheck(check).run()
     dq_check_result_df = VerificationResult.checkResultsAsDataFrame(
         spark, dq_check_result

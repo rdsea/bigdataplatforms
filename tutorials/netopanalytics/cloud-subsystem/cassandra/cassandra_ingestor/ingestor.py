@@ -1,11 +1,11 @@
-from kafka import KafkaConsumer
+import json
 import logging
 import sys
-import json
 import uuid
-from datetime import datetime, timedelta
-from cassandra.cluster import Cluster
+from datetime import datetime
 
+from cassandra.cluster import Cluster
+from kafka import KafkaConsumer
 
 LOG_FORMAT_STRING = "%Y-%m-%d"
 LOG_LEVEL = "INFO"
@@ -16,24 +16,24 @@ def get_formatted_datetime():
     return now.strftime(LOG_FORMAT_STRING)
 
 
-logPath = "./log"
-fileName = f"kafka_logs_{get_formatted_datetime()}"
+log_path = "./log"
+file_name = f"kafka_logs_{get_formatted_datetime()}"
 
-logFormatter = logging.Formatter(
+log_formatter = logging.Formatter(
     "%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s"
 )
-rootLogger = logging.getLogger("cloud-ingestor")
-rootLogger.setLevel(logging.DEBUG)
+root_logger = logging.getLogger("cloud-ingestor")
+root_logger.setLevel(logging.DEBUG)
 
-fileHandler = logging.FileHandler("{}/{}.log".format(logPath, fileName))
-fileHandler.setFormatter(logFormatter)
-fileHandler.setLevel(logging.DEBUG)
-rootLogger.addHandler(fileHandler)
+file_handler = logging.FileHandler(f"{log_path}/{file_name}.log")
+file_handler.setFormatter(log_formatter)
+file_handler.setLevel(logging.DEBUG)
+root_logger.addHandler(file_handler)
 
-consoleHandler = logging.StreamHandler()
-consoleHandler.setFormatter(logFormatter)
-consoleHandler.setLevel(logging.DEBUG)
-rootLogger.addHandler(consoleHandler)
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(log_formatter)
+console_handler.setLevel(logging.DEBUG)
+root_logger.addHandler(console_handler)
 
 string_date_format = "%Y-%m-%d %H:%M:%S"
 
@@ -45,11 +45,11 @@ class CassandraIngestor:
             cassandra_config["cluster_address"], port=cassandra_config["port"]
         )
         self.session = self.db_client.connect()
-        rootLogger.info(
+        root_logger.info(
             f"Connected to Cassandra Cluster on {cassandra_config['cluster_address']}:{cassandra_config['port']}"
         )
         self.session.set_keyspace("ONU_SENSOR")
-        rootLogger.info("Connected to Keyspace ONU_SENSOR")
+        root_logger.info("Connected to Keyspace ONU_SENSOR")
 
     def insert_data(self, data, cloud_topic):
         broker_publish_time = datetime.strptime(
@@ -92,19 +92,18 @@ class KafkaMessageConsumer:
 
         self.consumer = KafkaConsumer(bootstrap_servers=servers, group_id=group_name)
         self.consumer.subscribe(pattern="ONU_EDGE")
-        rootLogger.info("Connected to Kafka broker")
+        root_logger.info("Connected to Kafka broker")
 
     def consume(self, db_client):
         for message in self.consumer:
-            rootLogger.info(
-                "Message Topic: %s, Partition:%d, Offset:%d"
-                % (message.topic, message.partition, message.offset)
+            root_logger.info(
+                f"Message Topic: {message.topic}, Partition:{message.partition}, Offset:{message.offset}"
             )
 
             data = json.loads(message.value)
             for value in data:
                 db_client.insert_data(value, message.topic)
-            rootLogger.info(
+            root_logger.info(
                 f"[Performance] [{len(data)}] Inserted {len(data)} into Cassandra database"
             )
 

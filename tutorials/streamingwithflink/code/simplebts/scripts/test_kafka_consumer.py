@@ -1,6 +1,6 @@
-from kafka import KafkaConsumer
-import os, logging, sys, time
 import argparse
+
+from kafka import KafkaConsumer
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--queue_name", help="queue name", default="bts_input")
@@ -19,4 +19,4 @@ count = 0
 for message in consumer:
     count += 1
     result = message.value
-    print("Received alert {}: {}".format(count, result))
+    print(f"Received alert {count}: {result}")

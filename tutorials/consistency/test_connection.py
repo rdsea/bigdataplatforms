@@ -1,10 +1,11 @@
 # CS-E4640
 ## Simple example for studying big data platforms
-from cassandra.cluster import Cluster
-from cassandra.auth import PlainTextAuthProvider
-from cassandra.query import SimpleStatement
-from time import time
 import argparse
+from time import time
+
+from cassandra.auth import PlainTextAuthProvider
+from cassandra.cluster import Cluster
+from cassandra.query import SimpleStatement
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

@@ -1,5 +1,4 @@
 from pyhive import hive
-import time
 
 conn = hive.Connection(host="<HIVE_SERVER>", port="<PORT>", username="<username>")
 cursor = conn.cursor()

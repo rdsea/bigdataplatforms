@@ -3,8 +3,9 @@
 ## example to run with taxi data, assume the data is in text
 # spark-submit  --master yarn rdd_show_ex.py --master yarn  --input_file hdfs:///opt/data/rawdata/nytaxi2019-1000.csv --output_dir hdfs:///tmp/spark7
 
-from pyspark import SparkContext, SparkConf
 import argparse
+
+from pyspark import SparkConf, SparkContext
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--master", help="Spark Master")

@@ -25,9 +25,9 @@ repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.6.5
     hooks:
-      # - id: ruff
-      #   args: [--fix]
-      #   files: ^.*\.py$
+      - id: ruff
+        args: [--fix]
+        files: ^.*\.py$
       - id: ruff-format
 
   - repo: https://github.com/koalaman/shellcheck-precommit

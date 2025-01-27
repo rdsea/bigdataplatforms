@@ -1,12 +1,9 @@
-import paho.mqtt.client as mqtt
-import json
-import sys
-from datetime import datetime, timedelta
-import time
-from cloud_publisher import KafkaPublisher
 import logging
-import json
+import sys
+from datetime import datetime
 
+import paho.mqtt.client as mqtt
+from cloud_publisher import KafkaPublisher
 
 LOG_FORMAT_STRING = "%Y-%m-%d"
 LOG_LEVEL = "INFO"
@@ -17,24 +14,24 @@ def get_formatted_datetime():
     return now.strftime(LOG_FORMAT_STRING)
 
 
-logPath = "./log"
-fileName = f"mqtt_logs_{get_formatted_datetime()}"
+log_path = "./log"
+file_name = f"mqtt_logs_{get_formatted_datetime()}"
 
-logFormatter = logging.Formatter(
+log_formatter = logging.Formatter(
     "%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s"
 )
-rootLogger = logging.getLogger("mini-batcher-application")
-rootLogger.setLevel(logging.DEBUG)
+root_logger = logging.getLogger("mini-batcher-application")
+root_logger.setLevel(logging.DEBUG)
 
-fileHandler = logging.FileHandler("{}/{}.log".format(logPath, fileName))
-fileHandler.setFormatter(logFormatter)
-fileHandler.setLevel(logging.DEBUG)
-rootLogger.addHandler(fileHandler)
+file_handler = logging.FileHandler(f"{log_path}/{file_name}.log")
+file_handler.setFormatter(log_formatter)
+file_handler.setLevel(logging.DEBUG)
+root_logger.addHandler(file_handler)
 
-consoleHandler = logging.StreamHandler()
-consoleHandler.setFormatter(logFormatter)
-consoleHandler.setLevel(logging.DEBUG)
-rootLogger.addHandler(consoleHandler)
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(log_formatter)
+console_handler.setLevel(logging.DEBUG)
+root_logger.addHandler(console_handler)
 
 args = sys.argv
 
@@ -82,12 +79,12 @@ class MiniBatch:
 
             if (self.time_end - self.time_start).seconds > batch_pool_frequency:
                 try:
-                    kafka_publisher.produce(f"ONU_EDGE", self._queue, rootLogger)
-                    rootLogger.info(
+                    kafka_publisher.produce("ONU_EDGE", self._queue, root_logger)
+                    root_logger.info(
                         f"Successfully published mini-batch of {len(self._queue)} values to Kafka broker on topic ONU_EDGE"
                     )
                 except Exception as e:
-                    rootLogger.error(f"Encountered issue while trying to publish: {e}")
+                    root_logger.error(f"Encountered issue while trying to publish: {e}")
                 self._queue = []
                 self.time_start = datetime.now()
 

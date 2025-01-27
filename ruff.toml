@@ -1,3 +1,4 @@
+target-version = "py312"
 [format]
 docstring-code-format = true
 docstring-code-line-length = 10
@@ -6,7 +7,6 @@ docstring-code-line-length = 10
 convention = "pep257" # Accepts: "google", "numpy", or "pep257".
 
 [lint]
-exclude = ["src/qoa4ml/utils/pynvml_forked.py"]
 select = [
   "F",   # Pyflakes
   "E",   # Pycode styles

@@ -1,7 +1,6 @@
-from kafka import KafkaProducer
-from kafka.errors import KafkaError
-from threading import Thread
 import json
+
+from kafka import KafkaProducer
 
 
 def on_send_success(record_metadata):
@@ -21,8 +20,8 @@ class KafkaPublisher:
             print(f"Error occurred while connecting: {e}")
 
     # Produce Async and handle exception
-    def produce(self, topic, value, rootLogger):
+    def produce(self, topic, value, root_logger):
         try:
-            ack = self._producer.send(topic, str.encode(json.dumps(value)))
+            self._producer.send(topic, str.encode(json.dumps(value)))
         except Exception as e:
-            rootLogger.info(f"Encountered error while trying to publish: {e}")
+            root_logger.info(f"Encountered error while trying to publish: {e}")

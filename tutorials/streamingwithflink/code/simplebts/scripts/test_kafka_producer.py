@@ -2,9 +2,10 @@
 You need : pip install kafka-python
 """
 
-from kafka import KafkaProducer
-import os, logging, sys, time
 import argparse
+import time
+
+from kafka import KafkaProducer
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--queue_name", help="queue name", default="bts_input")
@@ -24,6 +25,6 @@ count = 0
 f.readline()
 for line in f:
     count += 1
-    print("Sending line {}".format(count))
+    print(f"Sending line {count}")
     producer.send(args.queue_name, line)
     time.sleep(1)

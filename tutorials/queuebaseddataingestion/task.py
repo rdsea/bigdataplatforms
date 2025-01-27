@@ -1,6 +1,6 @@
+import csv
 import os
 import tempfile
-import csv
 import urllib.request
 
 # import urllib.request.urlretrieve
@@ -24,8 +24,8 @@ def ingest_csv_file(url):
             # No store operation has been implemented. You can implement the operation with
             # common databases.
             # You can laso just store data into files and let other components to do the storing.
-            csvReader = csv.DictReader(csv_file)
-            for row in csvReader:
+            csv_reader = csv.DictReader(csv_file)
+            for row in csv_reader:
                 print(row)
         return {"url": url, "result": "OK"}
     except Exception as err:

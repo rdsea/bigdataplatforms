@@ -42,17 +42,17 @@ from pydeequ.verification import *
 # PROVINCECODE,DEVICEID,IFINDEX,FRAME,SLOT,PORT,ONUINDEX,ONUID,TIME,SPEEDIN,SPEEDOUT
 
 """
-for a fast and illustrating example, the specification 
+for a fast and illustrating example, the specification
 is given in a json object, but one should make it in a file
 and load it into spark in the right way
 simple mapping:
 - analyzer_name to class of AnalyzerObject
-https://pydeequ.readthedocs.io/en/latest/pydeequ.html#pydeequ.analyzers.AnalysisRunBuilder.addAnalyzer 
+https://pydeequ.readthedocs.io/en/latest/pydeequ.html#pydeequ.analyzers.AnalysisRunBuilder.addAnalyzer
 - function_name under check_constraints to function of Check
 https://pydeequ.readthedocs.io/en/latest/pydeequ.html#pydeequ.checks.Check
 
-Since we do the mapping is a simple way: 
-- the values of analyzer_name and function_name have to be the same in the APIs. 
+Since we do the mapping is a simple way:
+- the values of analyzer_name and function_name have to be the same in the APIs.
 - params, column names, and other values are based on input datasets.
 
 """

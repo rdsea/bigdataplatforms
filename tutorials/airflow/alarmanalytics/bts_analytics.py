@@ -88,10 +88,10 @@ gcs_file_url = "https://storage.cloud.google.com/{}/{}".format(
 
 """
 we need to pass secret and token for running the task
-to download data. The destination file should be defined very clear so that 
+to download data. The destination file should be defined very clear so that
 the destination can be shared for the next task.
 
-Under which situation, one should write one's own download vs 
+Under which situation, one should write one's own download vs
 using existing one like: HTTPOperator, S3, ...
 ==> think if you can reuse the code outside airflow? think about complex configuration
 """
@@ -153,13 +153,13 @@ t_clean_data = PythonOperator(
 the dependencies among tasks
 
 now you have to remember how different tasks exchange data:
-- they pass data via files and you use a local file system, but 
+- they pass data via files and you use a local file system, but
 task A and task B are not executed in the same machine
-- they pass data via a global data storage, then some upload/download of data 
+- they pass data via a global data storage, then some upload/download of data
 must be implemented.
 
-thus, you have to see the task implementation in detail. This example, basically, 
-works only for local or file sharing systems as we implement download, check quality, 
+thus, you have to see the task implementation in detail. This example, basically,
+works only for local or file sharing systems as we implement download, check quality,
 clean data, etc. using local file systems.
 """
 

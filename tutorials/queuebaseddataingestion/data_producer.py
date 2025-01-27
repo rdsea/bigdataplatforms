@@ -19,7 +19,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     """
-    Get redis connection, you can use a free redis instance from redislab. 
+    Get redis connection, you can use a free redis instance from redislab.
     You can also deploy your own redis instance.
     """
     redis = Redis(

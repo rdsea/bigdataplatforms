@@ -1,6 +1,6 @@
 # AMQP Samples
 
-This direcoty includes some simple AMQP test programs. There are many examples available in [RabbitMQ website](https://www.rabbitmq.com/getstarted.html).
+This directory includes some simple AMQP test programs. There are many examples available in [RabbitMQ website](https://www.rabbitmq.com/getstarted.html).
 
 ## Direct exchange
 

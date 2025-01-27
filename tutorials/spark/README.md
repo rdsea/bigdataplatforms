@@ -46,7 +46,7 @@ Login into the our Google Spark test:
 ```
 ssh mysimbdp@
 ```
-Now you are in a private enviroment and you can see that you have a Spark cluster with the the master is **yarn**
+Now you are in a private environment and you can see that you have a Spark cluster with the the master is **yarn**
 
 You  then you can test:
 ```

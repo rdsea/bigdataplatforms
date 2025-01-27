@@ -198,7 +198,7 @@ Write a flow that:
 
 1. Collect malware sample from git or vendors ftp servers
 	* Less funny, change malware with images
-2. Process the sampes:
+2. Process the samples:
 	* Get MD5 hash
 	* Get binary name
 	* Get binary size

@@ -15,7 +15,7 @@ if __name__ == '__main__':
     parser.add_argument('--exchange_type', default='topic', help='exchange type[fanout,direct,topic]')
     parser.add_argument('--routingkey', help='routing key for the message, e.g., test.json')
     parser.add_argument('--input_data',help='input file name')
-    parser.add_argument('--interval',default=5,help='seconds, inteval between two sends')
+    parser.add_argument('--interval',default=5,help='seconds, interval between two sends')
     args = parser.parse_args()
     amqpLink=os.environ.get('AMQPURL', 'amqp://test:test@localhost')
     #create connection
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     upload_data_records = json.load(open(args.input_data))
     for req_id in range(len(upload_data_records)):
         message = json.dumps(upload_data_records[req_id])
-        #asssume a random topic with the default routing + subtopic
+        #assume a random topic with the default routing + subtopic
         #e.g., test.json.sub1-test.json.sub5
         random_key =args.routingkey+".sub"+str(random.randint(1,5))
         print(f'Send data with the routing key as  {random_key}')

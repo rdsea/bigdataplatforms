@@ -137,7 +137,7 @@ if __name__ == "__main__":
     dq_analysis_result_df = AnalyzerContext.successMetricsAsDataFrame(spark, dq_analysis_result)
     dq_analysis_result_df.show()
 
-    #SECOND SUB-TUTORIAL check some contraints
+    #SECOND SUB-TUTORIAL check some constraints
     check_constraints=dq_dsl["check_constraints"]
     check = Check(spark, CheckLevel.Warning, "ONU Check")
     #load corresponding function of Check object based on

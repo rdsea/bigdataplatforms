@@ -14,7 +14,7 @@ class KafkaPublisher:
         try:
             self._producer = KafkaProducer(bootstrap_servers = config)
         except Exception as e:
-            print(f"Error occured while connecting: {e}")
+            print(f"Error occurred while connecting: {e}")
 
     # Produce Async and handle exception
     def produce(self, topic, value, rootLogger):

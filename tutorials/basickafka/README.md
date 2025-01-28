@@ -127,7 +127,7 @@ We will be using a docker-compose file for for setting up a multi-broker cluster
 
 Running a Kafka cluster in a container is different from running a single instance as many environment variables have to be configured. The docker-compose file for the services is *docker-compose3.yml*. The configuration in the file allows us to use a global Kafka Broker.
 
-_Note: In the `KAFKA_CFG_ADVERTISED_LISTENERS` setting, be sure to update the `BORKER`  setting for hostname/external ip of the machine instance. Otherwise, this won't be accessible from any system outside the `localhost`_(check https://github.com/bitnami/containers/tree/main/bitnami/kafka for seeing configuration paramters with bitnami kafka containers)
+_Note: In the `KAFKA_CFG_ADVERTISED_LISTENERS` setting, be sure to update the `BORKER`  setting for hostname/external ip of the machine instance. Otherwise, this won't be accessible from any system outside the `localhost`_(check https://github.com/bitnami/containers/tree/main/bitnami/kafka for seeing configuration parameters with bitnami kafka containers)
 
 > Example:    - KAFKA_CFG_ADVERTISED_LISTENERS=BROKER://192.168.8.106:9092
 

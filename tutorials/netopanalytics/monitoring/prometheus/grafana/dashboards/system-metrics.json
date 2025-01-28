@@ -1,37 +1,37 @@
 {
   "__inputs": [
     {
+      "description": "",
+      "label": "Job name of node exporter",
       "name": "VAR_JOBNAME",
       "type": "constant",
-      "label": "Job name of node exporter",
-      "value": "node",
-      "description": ""
+      "value": "node"
     },
     {
+      "description": "",
+      "label": "device_filter_regex",
       "name": "VAR_DEVICE_FILTER_REGEX",
       "type": "constant",
-      "label": "device_filter_regex",
-      "value": "^(md.*|dm-.*|sr.*|ram.*|loop.*|nsfs|shm|none|gvfsd-fuse|cgmfs|tmpfs)",
-      "description": ""
+      "value": "^(md.*|dm-.*|sr.*|ram.*|loop.*|nsfs|shm|none|gvfsd-fuse|cgmfs|tmpfs)"
     }
   ],
   "__requires": [
     {
-      "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
+      "type": "grafana",
       "version": "5.0.3"
     },
     {
-      "type": "panel",
       "id": "graph",
       "name": "Graph",
+      "type": "panel",
       "version": "5.0.0"
     },
     {
-      "type": "datasource",
       "id": "prometheus",
       "name": "Prometheus",
+      "type": "datasource",
       "version": "5.0.0"
     }
   ],
@@ -1438,8 +1438,8 @@
       },
       {
         "current": {
-          "value": "${VAR_JOBNAME}",
-          "text": "${VAR_JOBNAME}"
+          "text": "${VAR_JOBNAME}",
+          "value": "${VAR_JOBNAME}"
         },
         "datasource": null,
         "hide": 2,
@@ -1449,8 +1449,8 @@
         "name": "jobname",
         "options": [
           {
-            "value": "${VAR_JOBNAME}",
-            "text": "${VAR_JOBNAME}"
+            "text": "${VAR_JOBNAME}",
+            "value": "${VAR_JOBNAME}"
           }
         ],
         "query": "${VAR_JOBNAME}",
@@ -1459,8 +1459,8 @@
       },
       {
         "current": {
-          "value": "${VAR_DEVICE_FILTER_REGEX}",
-          "text": "${VAR_DEVICE_FILTER_REGEX}"
+          "text": "${VAR_DEVICE_FILTER_REGEX}",
+          "value": "${VAR_DEVICE_FILTER_REGEX}"
         },
         "datasource": null,
         "hide": 2,
@@ -1470,8 +1470,8 @@
         "name": "device_filter_regex",
         "options": [
           {
-            "value": "${VAR_DEVICE_FILTER_REGEX}",
-            "text": "${VAR_DEVICE_FILTER_REGEX}"
+            "text": "${VAR_DEVICE_FILTER_REGEX}",
+            "value": "${VAR_DEVICE_FILTER_REGEX}"
           }
         ],
         "query": "${VAR_DEVICE_FILTER_REGEX}",

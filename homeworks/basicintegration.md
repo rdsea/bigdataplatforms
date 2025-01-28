@@ -31,7 +31,7 @@ In this example, you can practice a simple queue-based concurrent data ingestion
 * Modify the code to do ingestion of data into your databases
 * Measure performance and handle possible failures
 
->A similar model can be exercised with your preferable programing languages and tools, such as
+>A similar model can be exercised with your preferable programming languages and tools, such as
 >* [Python Celery](https://docs.celeryproject.org/en/stable/) or [Golang Celery](https://github.com/gocelery/gocelery)
 >* [JavaScript/NodeJS Bull](https://github.com/OptimalBits/bull)
 

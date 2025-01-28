@@ -1,28 +1,32 @@
-from kafka import KafkaConsumer
-import msgpack
-import logging
-import sys
 import json
+import logging
+import os
+import sys
+
 import pymongo
+from kafka import KafkaConsumer
 
+log_formatter = logging.Formatter(
+    "%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s"
+)
+root_loggerr = logging.getLogger("mini-batcher-application")
+root_loggerr.setLevel(logging.DEBUG)
 
-logFormatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
-rootLogger = logging.getLogger("mini-batcher-application")
-rootLogger.setLevel(logging.DEBUG)
-
-consoleHandler = logging.StreamHandler()
-consoleHandler.setFormatter(logFormatter)
-consoleHandler.setLevel(logging.DEBUG)
-rootLogger.addHandler(consoleHandler)
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(log_formatter)
+console_handler.setLevel(logging.DEBUG)
+root_loggerr.addHandler(console_handler)
 
 
 class MongoIngestor:
     def __init__(self, userid, password):
-        db_client = pymongo.MongoClient(f"mongodb://{userid}:{password}@database:27017/")
+        db_client = pymongo.MongoClient(
+            f"mongodb://{userid}:{password}@database:27017/"
+        )
         mydb = db_client["ingestionDB"]
         self.col_1 = mydb["temperature"]
         self.col_2 = mydb["temperature_metadata"]
-        rootLogger.info("Connected to Mongo DB")
+        root_loggerr.info("Connected to Mongo DB")
 
     def insert_metadata(self, metadata):
         result = self.col_2.insert_one(metadata)
@@ -30,44 +34,46 @@ class MongoIngestor:
 
     def insert_data(self, data):
         result = self.col_1.insert_one(data)
-        rootLogger.info(f"Inserted metadata at: {result.inserted_id}")
+        root_loggerr.info(f"Inserted metadata at: {result.inserted_id}")
         return result
 
 
 class KafkaMessageConsumer:
     def __init__(self, servers, group_name):
         super().__init__()
-        self.consumer = KafkaConsumer(bootstrap_servers = servers, group_id = group_name)
+        self.consumer = KafkaConsumer(bootstrap_servers=servers, group_id=group_name)
         self.consumer.subscribe(pattern="sensors.temperature.*")
-        rootLogger.info("Connected to Kafka broker")
+        root_loggerr.info("Connected to Kafka broker")
 
     def consume(self, db_client):
         for message in self.consumer:
-            rootLogger.info("Message Topic:%s, Partition:%d, Offset:%d" % (message.topic, message.partition,
-                                          message.offset))
-            
-            metadata={
+            root_loggerr.info(
+                f"Message Topic:{message.topic}, Partition:{message.partition}, Offset:{message.offset}"
+            )
+
+            metadata = {
                 "topic": message.topic,
-                "partition" : message.partition,
-                "offset" : message.offset
+                "partition": message.partition,
+                "offset": message.offset,
             }
-            result = db_client.insert_metadata(metadata)           
+            result = db_client.insert_metadata(metadata)
 
-            data= {
+            data = {
                 "metadata_id": result.inserted_id,
-                "topic" : message.topic,
-                "message" : json.loads(message.value)
-                }
+                "topic": message.topic,
+                "message": json.loads(message.value),
+            }
             db_client.insert_data(data)
-            rootLogger.info(f"Saved data from edge device")
+            root_loggerr.info("Saved data from edge device")
 
-username = os.environ.get('MONGO_USERNAME')
-password = os.environ.get('MONGO_PASSWORD')
+
+username = os.environ.get("MONGO_USERNAME")
+password = os.environ.get("MONGO_PASSWORD")
 
 if not username or password:
     raise Exception("MongoDB credentials not supplied")
 
-kafka_brokers=sys.argv[1].split(',')
+kafka_brokers = sys.argv[1].split(",")
 group_name = sys.argv[2]
 running = True
 

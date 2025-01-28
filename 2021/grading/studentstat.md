@@ -5,7 +5,7 @@
   - **45 suspended students** (from the system - do not know the reason)
   - **1 student allowed to audit** (late registration)
   - **97 active registered students**
-  - **82 student reponses from our first survey** in which **14 students**  want to audit the course.
+  - **82 student responses from our first survey** in which **14 students**  want to audit the course.
 
 * Student schools:
   - SCI:78

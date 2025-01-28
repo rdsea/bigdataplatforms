@@ -155,6 +155,6 @@ Explain how the provider and the tenant can work together:
 
 Point 3.5:
 
-Explain the implication of types of daa and workloads:
+Explain the implication of types of data and workloads:
 
 Explain the extension:

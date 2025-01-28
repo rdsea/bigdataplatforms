@@ -1,7 +1,6 @@
 variable "project_id" {
   description = "Google Cloud project ID"
   type        = string
-  sensitive   = true
 }
 
 variable "region" {
@@ -22,16 +21,19 @@ variable "ssh_username" {
 }
 
 variable "private_key_path" {
-  description = "Path to the SSH private key"
+  description = <<EOT
+Path to the SSH private key. Ensure the private key exists at the specified path.
+An example is "~/.ssh/id_ed25519". 
+EOT
   type        = string
-  default     = "~/.ssh/id_ed25519"
-  sensitive   = true
 }
 
 variable "public_key_path" {
-  description = "Path to the SSH public key"
+  description = <<EOT
+Path to the SSH public key. Ensure the public key exists at the specified path.
+An example is "~/.ssh/id_ed25519.pub". 
+EOT
   type        = string
-  default     = "~/.ssh/id_ed25519.pub"
 }
 
 variable "source_ranges" {

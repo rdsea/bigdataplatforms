@@ -1,0 +1,60 @@
+fail_fast: true
+default_language_version:
+  python: python3.12
+repos:
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.17.0
+    hooks:
+      - id: pyupgrade
+
+  - repo: https://github.com/codespell-project/codespell
+    rev: "v2.3.0"
+    hooks:
+      - id: codespell
+        additional_dependencies:
+          - tomli
+        args:
+          [
+            "--write-changes",
+            "--interactive",
+            "3",
+            "-L",
+            "Commun,Sherif,SPEEDIN,speedin",
+          ]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.5
+    hooks:
+      - id: ruff
+        args: [--fix]
+        files: ^.*\.py$
+      - id: ruff-format
+
+  - repo: https://github.com/koalaman/shellcheck-precommit
+    rev: v0.10.0
+    hooks:
+      - id: shellcheck
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.19.1
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+        files: /.*\.(py|yaml|json)$
+      - id: end-of-file-fixer
+        files: /.*\.(py|yaml|json)$
+      - id: check-yaml
+        exclude: ^templates/deployment_templates.yaml
+        files: /.*\.yaml$
+        args: [--allow-multiple-documents]
+      - id: check-json
+        files: /.*\.json$
+      - id: pretty-format-json
+        args: [--autofix]
+        files: /.*\.json$
+      - id: check-toml
+        files: /.*\.toml$

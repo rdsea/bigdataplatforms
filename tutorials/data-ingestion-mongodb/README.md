@@ -43,7 +43,7 @@ One of the prime motivations for selecting MongoDB as our data saving platform w
 
 #### 1. Start the apache kafka
 
-To start Kakfa, first run zookeeper:
+To start Kafka, first run zookeeper:
 
 ```bash
 $ docker-compose up -d zookeeper

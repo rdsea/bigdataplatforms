@@ -67,7 +67,7 @@ services:
     ports:
       -  "5080:5080"
     #check and modify the scylla-manager.yaml under etc dir
-    #make sure the mapping is suitable wuth your configuration
+    #make sure the mapping is suitable with your configuration
     volumes:
       - ./etc:/etc/scylla-manager 
     networks:

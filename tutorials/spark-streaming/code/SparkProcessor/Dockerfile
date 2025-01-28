@@ -18,7 +18,7 @@ COPY requirements.txt requirements.txt
 
 RUN pip3 install -r requirements.txt
 
-#For deugging our spark application
+#For debugging our spark application
 RUN apt install -y vim
 
 WORKDIR /spark-processor

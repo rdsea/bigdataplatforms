@@ -95,5 +95,5 @@ Or check: the UI at https://localhost:8080 to see something like
 
 ## Using a free CockroachDB
 
-You can also try to use a free [CockroachDB Serverles](https://www.cockroachlabs.com/pricing/). In this case, you mainly play as a user to insert and query data.
+You can also try to use a free [CockroachDB Serverless](https://www.cockroachlabs.com/pricing/). In this case, you mainly play as a user to insert and query data.
 

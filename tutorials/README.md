@@ -18,7 +18,7 @@ Check the subdirectories to see some small examples we use in our courses.
 - [Spark programming](spark/)
 - [Spark streaming](spark-streaming/) 
 - [Stream processing with Flink](streamingwithflink/)
-- [An example of a mini edge-cloud big data plaform](netopanalytics/)
+- [An example of a mini edge-cloud big data platform](netopanalytics/)
 
 You might see many code examples about IoT, Edge and Clouds from our [IoTCloudSamples](https://github.com/rdsea/IoTCloudSamples/) that you can reuse for big data studies.
 

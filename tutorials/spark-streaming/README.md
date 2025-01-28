@@ -4,7 +4,7 @@
 
 This tutorial deals with performing streaming analytics using Apache spark. We attempt to model a real-world workflow where streaming data is coming from message broker and the stream processing engine ingests the messages. The result is then feedback on the same message broker.
 
-* [An acommpanying hands-on video is available](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=ab115ae1-0d37-435e-8587-abe600d04d6a)
+* [An accompanying hands-on video is available](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=ab115ae1-0d37-435e-8587-abe600d04d6a)
 * [Slides](slide/cs-e4640-hands-on-sparks-streaming.pptx)
 
 ### Prerequisite knowledge:
@@ -49,7 +49,7 @@ Additionally, the `spark-submit` application requires the `kafka-connector` jar 
 
 #### 1. Start the apache kafka
 
-To start Kakfa, first run zookeeper:
+To start Kafka, first run zookeeper:
 
 ```bash
 $ docker-compose up -d zookeeper

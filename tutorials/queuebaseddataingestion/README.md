@@ -7,6 +7,7 @@ This tutorial shows a simple, plain example of using queue-based jobs for data i
 ![A model of ingestion of files](filedataingestion.png)
 
 To illustrate the example, we assume that:
+
 * A data producer puts files of CSV in a storage (e.g., REST-based service, S3, Google Storage)
 * The data producer tells the ingestion workers that the data files are available
 * The workers will perform the ingestion
@@ -26,11 +27,14 @@ REDIS_PASSWORD=
 ## Distribute the ingestion requests
 
 A simple data producer, [data_producer.py](data_producer.py), just gets URI of a data file and make a request:
+
 ```
 $python data_producer.py --queuename [QUEUENAME] --uri [INPUT_FILE]
 $python data_producer.py --queuename bigdatastudy --uri "https://raw.githubusercontent.com/rdsea/IoTCloudSamples/master/data/bts/alarm-2017-10-23-12-vn.csv"
 ```
+
 You can modify the data producer as you want for study, suggestion:
+
 * Sending and managing multiple requests
 * Defining a clear message structure for requests and check the results
 

@@ -56,7 +56,8 @@ To set up a cluster, you can prepare many machines in a similar way but pay atte
 
 
 ### Step3: Start kafka server
-Since kafka uses Zookeeper, we need to start the it first before we fire up kafka.
+
+Running the server
 
  ```
 	$ bin/kafka-server-start.sh config/kraft/server.properties

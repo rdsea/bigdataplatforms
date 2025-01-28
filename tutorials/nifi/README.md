@@ -2,6 +2,13 @@
 
 The goal is to design simple flows with basic tasks of data ingestion to understand the concepts/techniques of big data ingestions and how they are implemented in Apache Nifi. It is important to examine the **model** and **configuration** of ingestion tasks to understand common concept. A second goal is to see if you can use Apache Nifi for your work in big data and data science.
 
+>Note: based on concept and techniques for ingestion pipeline design and development, you can try different software stacks and specific systems. You can examine other tools to understand the **underlying models and techniques** for ingestion, like:
+>- [Airbyte](https://airbyte.com/)
+>- [Logstash](https://www.elastic.co/logstash/)
+>- [Dbt](https://www.getdbt.com/)
+>- [Snowpipe and Snowpipe streaming from snowflake](https://docs.snowflake.com/en/user-guide/data-load-snowpipe-streaming-overview)
+>- [RudderStack](https://www.rudderstack.com/docs/data-pipelines/overview/): for customers data transformation
+
 
 ## Setup
 ### Apache Nifi
@@ -185,12 +192,6 @@ After successful with the above steps, now you can try different situations:
  - Ingest the change into the right sink (database, storage)
  - Do it with a large scale setting
 
-Furthermore, you can examine other tools to understand the **underlying models and techniques** for ingestion, like:
-- [Airbyte](https://airbyte.com/)
-- [Logstash](https://www.elastic.co/logstash/)
-- [Dbt](https://www.getdbt.com/)
-- [Data form](https://dataform.co/)
-- [RudderStack](https://www.rudderstack.com/docs/data-pipelines/overview/): for customers data transformation
 
 ## Challenge
 

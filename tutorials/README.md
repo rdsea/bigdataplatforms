@@ -9,7 +9,7 @@ Check the subdirectories to see some small examples we use in our courses.
 - [Consistency in NoSQL with Cassandra](consistency/)          
 - [Scalable SQL with CockroachDB](newsqldb/)  
 - [Data quality](dataquality/)
-- [Data Ingestion with Nifi](nifi/)                         
+- [Data Ingestion and Apache Nifi](nifi/)                         
 - [Example of cloud data pipeline](cloud-data-pipeline/)
 - [Data ingestion with MongoDb](data-ingestion-mongodb/)          
 - [Hadoop systems](hadoop/)

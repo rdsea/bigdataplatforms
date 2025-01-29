@@ -33,8 +33,8 @@
   - [A Model and Survey of Distributed Data-Intensive Systems](https://dl.acm.org/doi/10.1145/3604801)
 * **Addition for Big Data Storage and Database Services: common systems & integration problems**:  (download [PDF](pdfs/module2-lecture3-bigdatastoragedatabase-addition-v0.6.pdf)).
 * A short example of metadata: [Video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)
-* **Big Data Ingestion, Transformation and Orchestration**: (download [PDF]()
-* **Apache Kafka for Streaming Data Ingestion - The Core**: [PDF](pdfs/module2-lecture4-apachekafka-v0.6.pdf), [basic Kafka setup](../tutorials/basickafka) and [examples of data ingestion with Kafka](../tutorials/cloud-data-pipeline)
+* **Big Data Ingestion, Transformation and Orchestration**: (download [PDF](pdfs/module2-lecture4-ingestionandtransformation-v0.6.pdf)
+* **Apache Kafka for Streaming Data Ingestion - The Core**: [PDF](pdfs/module2-lecture4-apachekafka-v0.6.pdf), [basic Kafka setup](../tutorials/basickafka)
 * **Hadoop and its Big Data Ecosystems**: (download [PDF](pdfs/))
 * **Some case studies for Hadoop and data ingestion**:
   - K. Shvachko, H. Kuang, S. Radia and R. Chansler, "The Hadoop Distributed File System," 2010 IEEE 26th Symposium on Mass Storage Systems and Technologies (MSST), Incline Village, NV, 2010, pp. 1-10.doi: 10.1109/MSST.2010.5496972

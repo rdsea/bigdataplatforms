@@ -17,15 +17,19 @@ You can download [Apache Nifi](https://nifi.apache.org/download.html) and instal
 >Note: the following information is with **nifi-1.24.0 and nifi-2.0.0-M1**
 
 Create a test user:
-```
-$bin/nifi.sh set-single-user-credentials student0 cse4640student0
+```bash
+bin/nifi.sh set-single-user-credentials student0 cse4640student0
 ```
 Start Nifi server
-```
-$bin/nifi.sh run
+```bash
+# Linux server
+bin/nifi.sh run
+
+# Window server
+bin/nifi.cmd run
 ```
 Then access Nifi from the Web browser:
-```
+```bash
 https://127.0.0.1:8443/nifi
 ```
 >Note about the username/password by reading Nifi guide. Replace "127.0.0.1" with your nifi host IP/name.
@@ -39,8 +43,8 @@ When ingesting data through message brokers, you can use your own RabbitMQ in yo
 
 We have a simple python code that can be used for receiving messages sent to AMQP (using fanout), e.g.,
 
-```
-~$ python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
+```bash
+python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
 ```
 
 ### Google Storage
@@ -61,10 +65,9 @@ Include:
 * **FetchFile**: used to fetch files from **ListFile**
 * **PutGCSObject**: this task is used to store files into Google Storage. To use it, you need to define **GCPCredentialsControllerService**. When you define **GCPCredentialsControllerService** you can use the Google credential accessing to a Google Storage.
 The following configuration is used with the Google Storage setup for you:
-
-* **bucket** = **bdplabnifi** (or your own bucket)
-* In **GCPCredentialsControllerService**: copy the below service account
-* Then enable **GCPCredentialsControllerService**
+  * **bucket** = **bdplabnifi** (or your own bucket)
+  * In **GCPCredentialsControllerService**: copy the below service account
+  * Then enable **GCPCredentialsControllerService**
 
 
 >Gcloud service account for the practice will be shared. You can also use your Google Storage and set service account with your Google Storage.
@@ -75,9 +78,9 @@ Testing:
 >Be careful with the files you put into the directory to avoid make wrong files to the Google Storage
 
 >If you use a shared bucket with a service account, you can use **gcloud/gsutil** or some programs to list contents of the bucket. For example, first download [the code for listing objects](https://cloud.google.com/storage/docs/listing-objects#storage-list-objects-python) into **storage_list_files.py** and  store the google service json to a file: e.g., google.json
-```
-$export GOOGLE_APPLICATION_CREDENTIALS=google.json
-$python3 storage_list_files.py bdplabnifi
+```bash
+export GOOGLE_APPLICATION_CREDENTIALS=google.json
+python3 storage_list_files.py bdplabnifi
 ```
 > see sample code in https://cloud.google.com/storage/docs/reference/libraries#client-libraries-install-python
 
@@ -92,11 +95,11 @@ We should test it only with CSV or JSON files of small data. We use the followin
 	```
 	exchange name: amq.fanout
 	routing key: mybdpnifi
-	hostname: hawk.rmq.cloudamqp.com
+	hostname: hawk.rmq.cloudamqp.com # edit this based on the provided IP 
 	port: 5672
 	virtual host: frlocnsr
-	username: <see below>
-	password: <see below>
+	username: <see below> or prvovided during the hands-on
+	password: <see below> or prvovided during the hands-on
 
 	```
 AMQP username/password for practice will be shared.
@@ -109,9 +112,9 @@ AMQP username/password for practice will be shared.
 
 Using the following program to check if the data has been sent to the message broker:
 
-```console
-$export AMQPURL=**Get the link during the practice**
-$python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
+```bash
+export AMQPURL=**Get the link during the practice**
+python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
 ```
 >Note that the AMQP configuration for the python program must match the AMQP broker set in Nifi. In case you use your fast RabbitMQ docker then, $export AMQPURL="amqp://guest:guest@localhost"
 
@@ -130,14 +133,18 @@ Assume that you have a relational database, say MySQL in the following example. 
 	```
 	>Make sure you setup it right, otherwise binary logging feature might not work. In the practice, we can give you the access to a remote MySQL server, make sure you have "mysql" installed in your machine.
 
+- Download an extension and unzip/untar the [download connector for mySQL](https://dev.mysql.com/downloads/connector/j/) and copy .jar to nifi/lib/
+- edit MySQL Driver Class Location to nifi/lib
+- edit MySQL Driver Class Name to com.mysql.jdbc.Driver
+
 - Define a database user name for test: such as **cse4640** with password ="bigdataplatforms"
 - Create a database under the selected username. E.g., create a database **bdpdb**
-	```
+	```mysql
 	mysql> create database bdpdb;
 	mysql> use bdpdb;
 	```
 - Then create a table like:
-	```
+	```mysql
 	CREATE TABLE myTable (
 		id INTEGER PRIMARY KEY,
 		country text,
@@ -155,10 +162,10 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
 
 1. Use a **CaptureChangeMySQL processor** with the following configuration based on the username, MySQL host, database, etc.
 
-	```console
+	```
 	MySQL Hosts:
-	Username: "cse4640"
-	Password: "bigdataplatforms"
+	Username: "cse4640" # or provided during the lecture
+	Password: "bigdataplatforms" # or provided during the lecture
 	Database/Schema: bdpdb
 	Table Name Pattern: myTable*
 
@@ -166,11 +173,11 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
 
 2. **PublishAMQP processor**: similar to the previous exercise, we just publish the whole change captured to an AMQP message broker.
 
-3. Start an AMQP consumer client to receive the change
-	```console
-	$export AMQPURL=**Get the link during the practice**
-	$python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
-	```
+3. Start an AMQP consumer client to receive the change, remember to check the IP 
+```bash
+export AMQPURL=**Get the link during the practice**
+python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
+```
 4. Start to insert the data by inserting some data into the selected table. For example,
 
 	```

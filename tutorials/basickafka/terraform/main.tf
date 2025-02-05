@@ -82,6 +82,7 @@ resource "google_compute_instance" "kafka" {
     source      = "run-kafka.sh"
     destination = "run-kafka.sh"
   }
+
 }
 
 resource "null_resource" "kafka-script-run" {
@@ -105,6 +106,11 @@ resource "null_resource" "kafka-script-run" {
   provisioner "file" {
     source      = "server.properties"
     destination = "/usr/local/kafka/config/kraft/server.properties"
+  }
+
+  provisioner "file" {
+    source      = "kafka_server_jaas.conf"
+    destination = "/usr/local/kafka/config/kraft/kafka_server_jaas.conf"
   }
 
   provisioner "remote-exec" {

@@ -13,6 +13,7 @@ After=network.target
 
 [Service]
 Environment="KAFKA_HOME=/usr/local/kafka"
+Environment="KAFKA_OPTS="-Djava.security.auth.login.config=/usr/local/kafka/config/kraft/kafka_server_jaas.conf"
 
 WorkingDirectory=/usr/local/kafka
 ExecStart=/usr/local/kafka/bin/kafka-server-start.sh /usr/local/kafka/config/kraft/server.properties

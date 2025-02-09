@@ -23,12 +23,12 @@ import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer;
-import org.apache.flink.streaming.connectors.rabbitmq.RMQSink;
-import org.apache.flink.streaming.connectors.rabbitmq.common.RMQConnectionConfig;
+//import org.apache.flink.streaming.connectors.rabbitmq.RMQSink;
+//import org.apache.flink.streaming.connectors.rabbitmq.common.RMQConnectionConfig;
 import org.apache.flink.util.Collector;
-import org.python.core.PyInstance;
-import org.python.core.PyObject;
-import org.python.util.PythonInterpreter;
+//import org.python.core.PyInstance;
+//import org.python.core.PyObject;
+//import org.python.util.PythonInterpreter;
 
 import java.io.StringReader;
 import java.text.SimpleDateFormat;

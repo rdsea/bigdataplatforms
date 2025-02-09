@@ -17,22 +17,23 @@ We will practice Apache Flink with simple activities:
 
 ## 2. Setup Apache Flink for Practices
 
-Download [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the installation guide for a local machine](https://ci.apache.org/projects/flink/flink-docs-release-1.9/getting-started/tutorials/local_setup.html). In this simple tutorial, we use Apache Flink 1.14.3 for Scala 2.11.
+Download [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the installation guide for a local machine](https://nightlies.apache.org/flink/flink-docs-stable/). In this simple tutorial, we use Apache Flink 2.20.0 for Scala 2.12.
 
-The example we use to run is for [the BTS data](../../../../data/bts) and we will use [Kafka](https://kafka.apache.org/) and [RabbitMQ](http://www.rabbitmq.com) as the message broker through the streaming analytics application obtains data.
+The example we use to run is for [the BTS data](../../data/bts) and we will use [Kafka](https://kafka.apache.org/) and [RabbitMQ](http://www.rabbitmq.com) as the message broker through the streaming analytics application obtains data.
 
 You can setup your own RabbitMQ or use a test RabbitMQ during the tutorial. A very simple way of starting a test RabbitMQ is via docker. Use the command:
 
 ```bash
-$ docker run -d -p 5672:5672 --hostname my-rabbit --name rabbitMQ rabbitmq
+docker run -d -p 5672:5672 --hostname my-rabbit --name rabbitMQ rabbitmq
 ```
-It will start a container of rabbitMQ with both username and password as `guest`.
+It will start a container of RabbitMQ with both username and password as `guest`.
 
-You can also follow [the Kafka instructions](https://kafka.apache.org/quickstart) to start a Kafka cluster or use [our simple Kafka tutorial](../../../basickafka/README.md). Then you have to create a few topics before running the experiment and test if your Kafka server works
+You can also follow [the Kafka instructions](https://kafka.apache.org/quickstart) to start a Kafka cluster or use [our simple Kafka tutorial](../../tutorials/basickafka/README.md). Then you have to create a few topics before running the experiment and test if your Kafka server works
 
 ```bash
-$ bin/kafka-topics.sh --create --topic <your topic name> --bootstrap-server <your Kafka host ip>:<Kafka port>
-$ bin/kafka-topics.sh --list --zookeeper <zookeeper host>:<zookeeper port>
+bin/kafka-topics.sh --create --topic <your topic name> --bootstrap-server <your Kafka host ip>:<Kafka port>
+#./kafka-topics.sh --create --topic flink_kafka --bootstrap-server localhost:9092
+bin/kafka-topics.sh --list --zookeeper <zookeeper host>:<zookeeper port>
 ```
 
 ## 3. Exercises
@@ -45,17 +46,21 @@ then check the [UI](http://localhost:8081)
 
 Alternatively, you can also use `docker-compose` to start a cluster. The relevant compose configuration file is in `code/docker-compose.yml`.  You can start the cluster using :
 ```bash
-$ docker-compose up -d
+docker-compose up -d
 ```
 and then check the [UI](http://localhost:8081)
 
 
 ### Practices with Flink  SocketWindowWordCount example
 
-You can check [the Flink example](https://ci.apache.org/projects/flink/flink-docs-release-1.9/getting-started/tutorials/local_setup.html) and test it to see how it works.
+You can check [the Flink example](https://nightlies.apache.org/flink/flink-docs-release-1.20/docs/try-flink/local_installation/) and test it to see how it works.
 
->Hint: You can also use the web UI to submit a job to a Session cluster. Alternatively, use Flink CLI on the host if it is installed: flink run -d -m ${FLINK_JOBMANAGER_URL} /job.jar [jar_arguments]
+>Hint: You can also use the web UI to submit a job to a Session cluster. Alternatively, use Flink CLI on the host if it is installed: 
 
+```bash
+#flink run -d -m ${FLINK_JOBMANAGER_URL} /job.jar [jar_arguments]
+bin/flink run examples/streaming/WordCount.jar
+```
 
 ## BTS example
 
@@ -63,8 +68,10 @@ You can check [the Flink example](https://ci.apache.org/projects/flink/flink-doc
 Check [the source of BTS in our Git](code/simplebts/). It is a simple example for illustrating purposes. The program is built with maven.
 
 ```bash
-$ mvn install
-$ ls target/simplebts-0.1-SNAPSHOT.jar
+# install maven
+# sudo apt install maven
+mvn install
+ls target/simplebts-0.1-SNAPSHOT.jar
 ```
 the file **target/simplebts-0.1-SNAPSHOT.jar* is the one that will be submitted to Flink.
 
@@ -72,14 +79,15 @@ the file **target/simplebts-0.1-SNAPSHOT.jar* is the one that will be submitted 
 Before running BTS Flink, check if we can send and receive data to/from RabbitMQ. We have two python test programs in **scripts/** and the data file in **cs-e4640/data/bts**:
 
 Start a BTS test producer using Kafka client:
-```
-$ python3 test_kafka_producer.py --queue_name [your_selected_queue_name] --input_file  [cs-e4640/data/bts/bts-data-alarm-2017.csv] --kafka [your_kafka_host]
+```bash
+# pip install kafka-python-ng
+python test_kafka_producer.py --queue_name [your_selected_queue_name] --input_file  [cs-e4640/data/bts/bts-data-alarm-2017.csv] --kafka [your_kafka_host]
 ```
 Then start a BTS test receivers in both Kafka client and RabbitMQ:
-```
-$ python3 test_kafka_consumer.py --queue_name [your_selected_queue_name] --kafka [your_kafka_host]
-
-$ python3 test_amqp_consumer.py --queue_name [your_selected_queue_name] --rabbit [your_rabbitmq_uri]
+```bash
+python test_kafka_consumer.py --queue_name [your_selected_queue_name] --kafka [your_kafka_host]
+# pip install pika
+python test_amqp_consumer.py --queue_name [your_selected_queue_name] --rabbit [your_rabbitmq_uri]
 ```
 if you see the receiver outputs data, it means that the RabbitMQ is working.
 
@@ -93,17 +101,18 @@ Now assume that you choose two queue names:
 
 Run the Flink BTS program:
 
-```
+```bash
 bin/flink run simplebts-0.1-SNAPSHOT.jar --amqpurl  amqp://guest:guest@localhost:5672 --iqueue iqueue123 --oqueue oqueue123 --kafkaurl localhost:9092 --parallelism 1
 ```
 Now start our test producer again with the queue name as **iqueue123**:
-```
+```bash
 python3 test_kafka_producer.py --queue_name iqueue123 --input_file  cs-e4640/data/bts/bts-data-alarm-2017.csv --kafka localhost:9092
 ```
 and then start a BTS test receivers with queue name as **oqueue123**:
-```
-$ python3 test_kafka_consumer.py --queue_name oqueue123 --kafka localhost:9092
-$ python3 test_amqp_consumer.py --queue_name oqueue123 --rabbit  amqp://guest:guest@localhost:5672
+```bash
+python3 test_kafka_consumer.py --queue_name oqueue123 --kafka localhost:9092
+
+#python3 test_amqp_consumer.py --queue_name oqueue123 --rabbit  amqp://guest:guest@localhost:5672
 ```
 to see if you can receive any alerts.
 

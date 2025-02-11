@@ -9,12 +9,36 @@ The examples here illustrate a few aspects that we discuss how Dask supports the
 
 ## Setup
 
+### Set up Dask
+
 Setting up Dask can be done by following [the Dask document](https://docs.dask.org/en/stable/install.html).
 
-The libraries required for the code examples can be installed by running rye:
+The dask and libraries required for the code examples can be installed by running rye:
 ```bash
 $rye sync
 ```
+
+This will install dask and other libraries for the example
+
+### Create a simple distributed cluster in a single machine
+
+Follow Dask to create a distributed cluster within a single machine but basically the following step can create the cluster:
+1. Run a schedule in a terminal
+
+```
+$dask scheduler
+```
+Open new terminals and run a worker (as many as you want)
+
+```
+$dask worker localhost:8786 --nworkers 2 --nthreads 4
+
+```
+> assume "localhost" and 8786 are information about the scheduler. here the number of workers and  threads per worker are based on your need.
+
+Then open the dashboard to see if things work (http://localhost:8787/status)
+
+### Running example code
 
 Running the code examples by python, after enabling the environment
 ```

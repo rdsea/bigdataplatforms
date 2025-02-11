@@ -77,7 +77,7 @@ resource "google_dataproc_cluster" "bdp-spark-cluster" {
 
     master_config {
       num_instances = 1
-      machine_type  = "n1-standard-4"
+      machine_type  = var.master_machinetype
       disk_config {
         boot_disk_size_gb = 50
         num_local_ssds    = 0
@@ -86,9 +86,9 @@ resource "google_dataproc_cluster" "bdp-spark-cluster" {
 
     worker_config {
       num_instances = 2
-      machine_type  = "n1-standard-4"
+      machine_type  = var.worker_machinetype
       disk_config {
-        boot_disk_size_gb = 50
+        boot_disk_size_gb = 100
         num_local_ssds    = 0
       }
     }

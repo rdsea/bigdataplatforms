@@ -21,6 +21,8 @@ services:
       <<: *cassandras
       CASSANDRA_DC: DC1   
     expose: *exposes
+    networks:
+      - basiccassandra
     ports: 
       - "9042:9042"
 
@@ -30,7 +32,9 @@ services:
     environment: 
       <<: *cassandras
       CASSANDRA_DC: DC1   
-    expose: *exposes      
+    expose: *exposes  
+    networks:
+      - basiccassandra    
     ports: 
       - "9043:9042"
     restart: always
@@ -46,8 +50,14 @@ services:
       CASSANDRA_DC: DC2 
     expose: *exposes
     restart: always
-  
     depends_on: 
-      - cassandra1    
+      - cassandra1 
+    networks:
+      - basiccassandra   
     ports: 
       - "9044:9042"
+#create a network for scylla nodes
+networks:
+  basiccassandra:
+    name: basiccassandra
+    driver: bridge

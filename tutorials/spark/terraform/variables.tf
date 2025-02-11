@@ -24,37 +24,13 @@ variable "password" {
   description = "password for the user"
   type        = string
 }
-#
-# variable "private_key_path" {
-#   description = <<EOT
-# Path to the SSH private key. Ensure the private key exists at the specified path.
-# An example is "~/.ssh/id_ed25519". 
-# EOT
-#   type        = string
-# }
-#
-# variable "public_key_path" {
-#   description = <<EOT
-# Path to the SSH public key. Ensure the public key exists at the specified path.
-# An example is "~/.ssh/id_ed25519.pub". 
-# EOT
-#   type        = string
-# }
-#
-# variable "source_ranges" {
-#   description = "Source IP ranges allowed in firewall rules"
-#   type        = list(string)
-#   default     = ["0.0.0.0/0"]
-# }
-#
-# variable "disk_size" {
-#   description = "Size of the Kafka disks"
-#   type        = number
-#   default     = 10
-# }
-#
-# variable "instance_type" {
-#   description = "Machine type for the Kafka instances"
-#   type        = string
-#   default     = "e2-medium"
-# }
+
+variable "master_machinetype" {
+  description = "instance type for master node"
+  type        = string
+}
+
+variable "worker_machinetype" {
+  description = "instance type for worker node"
+  type        = string
+}

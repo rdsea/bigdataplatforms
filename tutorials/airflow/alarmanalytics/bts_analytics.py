@@ -8,13 +8,12 @@ import sys
 from pathlib import Path
 
 import pendulum
-from google.oauth2 import service_account
-
 from airflow.models import DAG, Variable
 from airflow.operators.python import PythonOperator
 from airflow.providers.google.cloud.transfers.local_to_gcs import (
     LocalFilesystemToGCSOperator,
 )
+from google.oauth2 import service_account
 
 # include code in analytics
 sys.path.append(os.path.join(Path(__file__).resolve().parent, "."))

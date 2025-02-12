@@ -21,12 +21,12 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 22.01  |Lecture 3  | [Data Services in Big Data Platforms](lecturenotes/pdfs/module2-lecture3-bigdatastoragedatabase-v0.6.pdf). Additional slides: [common systems & integration problems](lecturenotes/pdfs/module2-lecture3-bigdatastoragedatabase-addition-v0.6.pdf). and [A short example of metadata](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)| **Linh Truong**
 22.01  |   | **Release the first assignment**
 23.01  |Tutorial 1 | [Hands-on examples with Data services](tutorials/consistency)|**Debayan Bhattacharya, Linh Truong** 
-29.01   |Lecture 4 | [Big Data Ingestion, Transformation and Orchestration]() (download [PDF](lecturenotes/pdfs/module2-lecture4-ingestionandtransformation-v0.6.pdf)). Additional slides about [Streaming Data Ingestion with Apache Kafka](lecturenotes/pdfs/module2-lecture4-apachekafka-v0.6.pdf) | **Linh Truong**
+29.01   |Lecture 4 | [Big Data Ingestion, Transformation and Orchestration](lecturenotes/pdfs/module2-lecture4-ingestionandtransformation-v0.6.pdf)). Additional slides about [Streaming Data Ingestion with Apache Kafka](lecturenotes/pdfs/module2-lecture4-apachekafka-v0.6.pdf) | **Linh Truong**
 30.01  | Tutorial 2  | [Data Ingestion with Apache Nifi](tutorials/nifi)| **Hong-Tri Nguyen,  Minh-Tri Nguyen**
 05.02  | No lecture/Meetup | Backup| **All**
 06.02  |Tutorial 3 | [Kafka for Big Data](https://github.com/rdsea/bigdataplatforms/tree/master/tutorials/basickafka)| **Korawit Rupanya, Anh-Dung Nguyen**
 7.02  |   |  **Due of the first assignment -13.00**
-12.02  |Lecture 5 | [Programming Models for Big Data Processing]() (download [PDF]())| **Linh Truong**
+12.02  |Lecture 5 | [Programming Models for Big Data Processing](lecturenotes/pdfs/module3-lecture5-programmingmodels-v0.6.pdf)| **Linh Truong**
 13.02  |Tutorial 4 | [Data Processing with Apache Spark](tutorials/spark/README.md)  | **Debayan Bhattacharya, Minh-Tri Nguyen**
 17-21.02  | No lecture week  | Finalizing assignment 1 grading| **All**
 24.2  | **Room A237 & B119** | **Assignment 1 Individual Grading Meeting**   | **All**

@@ -3,7 +3,8 @@
 * [An accompanying hands-on video is available - Update the link later](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=35976699-d98c-4dee-bbe4-ac0500ab604d)
 * [Slides](slides/cs-e4640-hands-on-flink-streaming.pptx)
 
-## 1. Introduction
+## Introduction
+
 We will practice Apache Flink with simple activities:
 * setup Apache Flink in local machine
 * write streaming applications with Flink
@@ -15,7 +16,7 @@ We will practice Apache Flink with simple activities:
 >Note: there are many tutorials about Apache Flink that you can take a look in the Internet, e.g. [Flink DataStream API Tutorial](https://ci.apache.org/projects/flink/flink-docs-stable/getting-started/tutorials/datastream_api.html) or [Apache Flink with in AWS](https://www.youtube.com/watch?v=4FIPt87A_qM)
 
 
-## 2. Setup Apache Flink for Practices
+## Setup Apache Flink for Practices
 
 Download [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the installation guide for a local machine](https://ci.apache.org/projects/flink/flink-docs-release-1.9/getting-started/tutorials/local_setup.html). In this simple tutorial, we use Apache Flink 1.14.3 for Scala 2.11.
 
@@ -35,8 +36,10 @@ $ bin/kafka-topics.sh --create --topic <your topic name> --bootstrap-server <you
 $ bin/kafka-topics.sh --list --zookeeper <zookeeper host>:<zookeeper port>
 ```
 
-## 3. Exercises
+## Exercises
+
 ### Check if the installation is OK
+
 Following Flink guide to see if the installation is ok. Move into the directory of your Flink installation and start Flink:
 ```
 /opt/flink$ bin/start-cluster.sh

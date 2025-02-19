@@ -5,7 +5,7 @@ Check configuration of the spark for specific master information.
 
 $ spark-submit --master yarn broadcast-ex.py --master yarn
 
-Or 
+Or
 
 $spark-submit --master spark://host:port ../mygit/bigdataplatforms/tutorials/spark/broadcast-ex.py --master spark://host:port
 """
@@ -21,7 +21,7 @@ args = parser.parse_args()
 conf = SparkConf().setAppName("cse4640-broadcast").setMaster(args.master)
 sc = SparkContext(conf=conf)
 b_var = sc.broadcast([5, 10])
-print(f'The value of the broadcast: {b_var.value}')
+print(f"The value of the broadcast: {b_var.value}")
 counter = sc.accumulator(0)
 sc.parallelize([1, 2, 3, 4]).foreach(lambda x: counter.add(b_var.value[0]))
-print(f'The value of the counter is {counter.value}')
+print(f"The value of the counter is {counter.value}")

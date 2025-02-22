@@ -1,10 +1,10 @@
 # Simple postgres server for using with self-deployment airflow for learning
 # it can be used when configuring airflow with Celery executor
-version: '3.5'
+# version: '3.5'
 services:
   airflowdb:
     image: postgres
-    restart: always
+    # restart: always
     ports:
       - 5432:5432
     environment:

@@ -49,6 +49,7 @@ There are several workflow systems with similar concepts that you can practice:
 * [Luigi](https://github.com/spotify/luigi)
 * [Prefect](https://www.prefect.io/)
 * [Agro](https://github.com/argoproj/argo-workflows)
+* [Dagster](https://dagster.io/)
 * [Metaflow](https://metaflow.org/)
 * [Serverless Workflow](https://serverlessworkflow.io/)
 

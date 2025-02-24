@@ -14,4 +14,4 @@ services:
       - PGDATA=/var/lib/postgresql/data/pgdata
     # update according to your configuration
     volumes:
-      - /opt/data/postgres:/var/lib/postgresql/data
+      - /opt/homebrew/var/postgresql@14:/var/lib/postgresql/data

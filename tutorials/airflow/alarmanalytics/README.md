@@ -39,7 +39,7 @@ There are some common error message that may appear during the setup:
 
 Following Airflow guide to see if the installation is ok. Run the following command in two different tabs.
 
-```
+```bash
 airflow webserver -p 8080
 airflow scheduler
 ```
@@ -77,7 +77,7 @@ In case, you cannot see `bts_analytics` DAG in the DAGs list from the UI, please
 
 The workflow includes uploading file to google cloud storage. For this you need to have a Google Storage bucket available and service account to access the bucket:
 
-```
+```python
 GCS_CONF={
     "bucket":"bts_analytics_report",
     "gcp_conn_id":'bdp_gcloud_storage'
@@ -86,7 +86,7 @@ GCS_CONF={
 
 So we expect to have the service account for accessing the bucket **airflowexamples** that is defined in Airflow with the connection id **bdp_gcloud_storage**. Look at the following task:
 
-```
+```python
 t_uploadgcs =  LocalFilesystemToGCSOperator(
     task_id="upload_local_file_to_gcs",
     src=report_destination,
@@ -140,9 +140,9 @@ service_account_json=Variable.get(f'bigquery-{PROJECT_ID}', deserialize_json=Tru
 
 Run First copy your BTSAnalyitcs workflow into the dags directory of Airflow installation (usually $HOME/airflow)/dags
 
-```
-$cp bts_analytics.py ~/airflow/dags/
-$cp -r analytics ~/airflow/dags/
+```bash
+cp bts_analytics.py ~/airflow/dags/
+cp -r analytics ~/airflow/dags/
 ```
 
 or
@@ -158,4 +158,3 @@ Make sure that you turn it **ON** (see the icon **i** in the 2nd column of the U
 ## Further Actions
 
 It is very basic but you can start to work on your advanced cases that you learn from the course.
-

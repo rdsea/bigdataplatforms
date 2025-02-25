@@ -19,3 +19,13 @@ variable "bucket_name" {
   description = "The name of the GCS bucket"
   type        = string
 }
+
+variable "table_id" {
+  description = "Name of the BigQuery table to create"
+  type        = string
+}
+
+variable "dataset_id" {
+  description = "Name of the BigQuery dataset to create"
+  type        = string
+}

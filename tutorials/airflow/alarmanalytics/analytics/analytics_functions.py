@@ -62,7 +62,7 @@ def basic_aggregation(input_file, report_destination):
     df = pd.read_csv(input_file)
     print("Start to analyze the data")
     analytic = (
-        df[df["isActive"] is True]
+        df[df["isActive"]]
         .groupby(["station_id", "alarm_id"])["value"]
         .agg(["count", "min", "max"])
     )

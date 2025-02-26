@@ -84,20 +84,19 @@ resource "google_service_account" "bq_service_account" {
   display_name = "BigQuery Service Account"
 }
 
-resource "google_bigquery_table_iam_member" "bq_table_access" {
+resource "google_bigquery_dataset_iam_member" "bq_table_access" {
   project    = var.project_id
-  dataset_id = google_bigquery_dataset.my_dataset.id
-  table_id   = google_bigquery_table.my_table.id
-  role       = "roles/bigquery.admin"
-  member     = "serviceAccount:${google_service_account.bq_service_account.email}"
+  dataset_id = google_bigquery_dataset.my_dataset.dataset_id
+  # table_id   = google_bigquery_table.my_table.table_id
+  role   = "roles/bigquery.admin"
+  member = "serviceAccount:${google_service_account.bq_service_account.email}"
 }
 
-# resource "google_bigquery_dataset_iam_member" "bq_table_access" {
-#   project    = var.project_id
-#   dataset_id = google_bigquery_dataset.my_dataset.id
-#   role       = "roles/bigquery.admin"
-#   member     = "serviceAccount:${google_service_account.bq_service_account.email}"
-# }
+resource "google_project_iam_member" "admin" {
+  project = var.project_id
+  role    = "roles/bigquery.admin"
+  member  = "serviceAccount:${google_service_account.bq_service_account.email}"
+}
 
 resource "google_service_account_key" "bq_service_key" {
   service_account_id = google_service_account.bq_service_account.name

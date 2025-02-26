@@ -79,12 +79,12 @@ The workflow includes uploading file to google cloud storage. For this you need 
 
 ```python
 GCS_CONF={
-    "bucket":"bts_analytics_report",
+    "bucket":"cs-e4640-airflow-tutorial",
     "gcp_conn_id":'bdp_gcloud_storage'
 }
 ```
 
-So we expect to have the service account for accessing the bucket **airflowexamples** that is defined in Airflow with the connection id **bdp_gcloud_storage**. Look at the following task:
+So we expect to have the service account for accessing the bucket **cs-e4640-airflow-tutorial** that is defined in Airflow with the connection id **bdp_gcloud_storage**. Look at the following task:
 
 ```python
 t_uploadgcs =  LocalFilesystemToGCSOperator(
@@ -124,9 +124,9 @@ A service account is created with a permission to update data. In the code, we u
 
 ```python
 #just for flexibility to switch from a project to another for testing
-PROJECT_ID="cs-e4640"
+PROJECT_ID="aalto-t313-cs-e4640"
 BIGQUERY_CONF={
-    "table_id":f'{PROJECT_ID}.btsanalytics.StationAnalytics',
+    "table_id":f'{PROJECT_ID}.airflow_tutorial.StationAnalytics',
     "project_id": PROJECT_ID
 }
 

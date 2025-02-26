@@ -41,6 +41,8 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 19.03  |   | **Release the third assignment**
 20.03  |Tutorial 6| [Stream Processing with Apache Flink](tutorials/streamingwithflink/README.md) | **Hong-Tri Nguyen, Minh-Tri Nguyen**
 17-21.03   | | Finalizing assignment grading 2  | **All**  |
+24.3 | **Room A237 & B119** | **Assignment 2 Individual Grading Meeting**   | **All**
 26.03| Meet ups | Support for assignment 3  | **All**  |
 04.04  | | **Due of the third assignment**
 07.04 -16.04  |   | Finalizing assignment 3 grading| **All**
+14.4 | **Room A237 & B119** | **Assignment 3 Individual Grading Meeting**   | **All**

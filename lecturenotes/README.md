@@ -47,7 +47,7 @@
   -   Matei Zaharia, Reynold S. Xin, Patrick Wendell, Tathagata Das, Michael Armbrust, Ankur Dave, Xiangrui Meng, Josh Rosen, Shivaram Venkataraman, Michael J. Franklin, Ali Ghodsi, Joseph Gonzalez, Scott Shenker, and Ion Stoica. 2016. Apache Spark: a unified engine for big data processing. Commun. ACM 59, 11 (October 2016), 56-65. DOI: https://doi.org/10.1145/2934664
   -  Jeffrey Dean and Sanjay Ghemawat. 2008. MapReduce: simplified data processing on large clusters. Commun. ACM 51, 1 (January 2008), 107-113. DOI: https://doi.org/10.1145/1327452.1327492
 
-* **Workflows for Big Data Platforms**: [Online slides]() (download [PDF]())
+* **Workflows for Big Data Platforms**: (download [PDF](pdfs/module3-lecture6-workflows-v0.6.pdf))
   - [Running Apache Airflow at Lyft](https://eng.lyft.com/running-apache-airflow-at-lyft-6e53bb8fccff)
   -  Mutaz Barika, Saurabh Garg, Albert Y. Zomaya, Lizhe Wang, Aad Van Moorsel, and Rajiv Ranjan. 2019. Orchestrating Big Data Analysis Workflows in the Cloud: Research Challenges, Survey, and Future Directions. ACM Comput. Surv. 52, 5, Article 95 (September 2019), 41 pages. DOI: https://doi.org/10.1145/3332301
   - [How Agari Uses Airbnb's Airflow as a Smarter Cron](http://highscalability.com/blog/2015/9/3/how-agari-uses-airbnbs-airflow-as-a-smarter-cron.html)

@@ -33,7 +33,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 26.02  |Lecture 6  | [Workflows for Big Data Platforms](lecturenotes/pdfs/module3-lecture6-workflows-v0.6.pdf)| **Linh-Truong**
 26.02  |   | **Release the 2nd assignment**
 27.02  |Tutorial 5| [Data processing examples with Airflow](https://github.com/rdsea/bigdataplatforms/tree/master/tutorials/airflow)| **Korawit Rupanya, Anh-Dung Nguyen, Linh-Truong**
-05.03  |Lecture 7 | [Stream Processing]() (download [PDF]()) | **Linh Truong**
+05.03  |Lecture 7 | [Stream Processing](lecturenotes/pdfs/module3-lecture7-dataprocessing-streaming-v0.6.pdf)). Additional: [Apache Flink for Stream Processing in Big Data Platforms](lecturenotes/pdfs/module3-streaming-flink-v0.6.pdf) | **Linh Truong**
 06.03  |Backup | On-demand topic related to assignment | 
 12.03  |No lecture/Hands-on|  |   
 14.03  |   | **Due the 2nd assignment**  |   |

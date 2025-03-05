@@ -1,6 +1,6 @@
 # Airflow Tutorial
 
->To be updated: BigQuery tasks
+> To be updated: BigQuery tasks
 
 ## Use Case Introduction
 
@@ -12,33 +12,34 @@ In this tutorial, we will practice [Apache Airflow](https://airflow.apache.org/)
 4. Set up Microsoft Teams Notification Connection
 5. Run the workflow
 
->Note: there are many tutorials about Apache Airflow that you can take a look in the Internet, e.g. [Airflow tutorial](https://github.com/tuanavu/airflow-tutorial). There are also advanced tutorials/discussions to use Airflow in other contexts like [Tensorflow and Airflow](https://www.tensorflow.org/tfx/tutorials/tfx/airflow_workshop), [Airflow in Twitter](https://blog.twitter.com/engineering/en_us/topics/insights/2018/ml-workflows.html) and [Airflow in Lyft](https://eng.lyft.com/running-apache-airflow-at-lyft-6e53bb8fccff).
+> Note: there are many tutorials about Apache Airflow that you can take a look in the Internet, e.g. [Airflow tutorial](https://github.com/tuanavu/airflow-tutorial). There are also advanced tutorials/discussions to use Airflow in other contexts like [Tensorflow and Airflow](https://www.tensorflow.org/tfx/tutorials/tfx/airflow_workshop), [Airflow in Twitter](https://blog.twitter.com/engineering/en_us/topics/insights/2018/ml-workflows.html) and [Airflow in Lyft](https://eng.lyft.com/running-apache-airflow-at-lyft-6e53bb8fccff).
 
 The final workflow on Airflow will look like this:
 ![images](images/result.png)
 
-## Step1: Setup Apache Airflow 
+## Step1: Setup Apache Airflow
+
 Follow the instruction for [ installation guide for a local machine](https://airflow.apache.org/start.html). In this simple tutorial, we use Apache Airflow running in a local machine using [SequenceExecutor](https://airflow.apache.org/_api/airflow/executors/index.html).
 
-> Note: There are other method to run Apache Airflow, such as [installing Apache Airflow](https://airflow.apache.org/installation.html) and [Google Cloud Composer](https://cloud.google.com/composer/) is a cloud-based version of Apache Airflow. You can try to use it if you have an access, but in this tutorial we will demo the use case when you install it on your local machine. 
+> Note: There are other method to run Apache Airflow, such as [installing Apache Airflow](https://airflow.apache.org/installation.html) and [Google Cloud Composer](https://cloud.google.com/composer/) is a cloud-based version of Apache Airflow. You can try to use it if you have an access, but in this tutorial we will demo the use case when you install it on your local machine.
 
 There are some common error message that may appear during the setup:
 
-* Need to upgrade package/python version 
+- Need to upgrade package/python version
 
 > Solve: Create virtual environment
-`conda create --name airflow python=3.6 sqlite=3.35.0`
+> `conda create --name airflow python=3.6 sqlite=3.35.0`
 
-* UTF-8 is not defined
+- UTF-8 is not defined
 
 > Solve: Export language variables
-`export LC_ALL=en_US.UTF-8\nexport LANG=en_US.UTF-8` 
-
+> `export LC_ALL=en_US.UTF-8\nexport LANG=en_US.UTF-8`
 
 ### Finally, check if the installation is OK
-Following Airflow guide to see if the installation is ok. Run the following command in two different tabs.  
 
-```
+Following Airflow guide to see if the installation is ok. Run the following command in two different tabs.
+
+```bash
 airflow webserver -p 8080
 airflow scheduler
 ```
@@ -75,15 +76,17 @@ In case, you cannot see `bts_analytics` DAG in the DAGs list from the UI, please
 ## Step3: Set up Google Cloud Storage Connections
 
 The workflow includes uploading file to google cloud storage. For this you need to have a Google Storage bucket available and service account to access the bucket:
-```
+
+```python
 GCS_CONF={
-    "bucket":"bts_analytics_report",
+    "bucket":"cs-e4640-airflow-tutorial",
     "gcp_conn_id":'bdp_gcloud_storage'
 }
 ```
-So we expect to have the service account for accessing the bucket **airflowexamples** that is defined in Airflow with the connection id **bdp_gcloud_storage**. Look at the following task:
 
-```
+So we expect to have the service account for accessing the bucket **cs-e4640-airflow-tutorial** that is defined in Airflow with the connection id **bdp_gcloud_storage**. Look at the following task:
+
+```python
 t_uploadgcs =  LocalFilesystemToGCSOperator(
     task_id="upload_local_file_to_gcs",
     src=report_destination,
@@ -95,37 +98,35 @@ t_uploadgcs =  LocalFilesystemToGCSOperator(
 
 ```
 
-
 ### Setup Google Cloud Storage
 
 Normally for your own use, you will have to set up the google cloud storage and create service account yourselves.
-For testing purpose, we have create a service account for you and will be given in Mycourses, and the bucket is **bts_analytics_report**. You can view the bucket [here](https://console.cloud.google.com/storage/browser/bts_analytics_report). 
-
+For testing purpose, we have create a service account for you and will be given during the tutorial, and the bucket is **cs-e4640-airflow-tutorial**.
 
 ### Setup Connection in Airflow
 
 Follow the instruction [Managing Airflow connections](https://cloud.google.com/composer/docs/how-to/managing/connections) to set up connection in **Admin->Connections**.
 
-
->You can change the **bucket** and **gcp\_conn\_id** to suitable values in your GoogleCloudStorage. Read more about how does a connection works  [connection information in Airflow admin](https://airflow.apache.org/concepts.html#connections).
+> You can change the **bucket** and **gcp_conn_id** to suitable values in your GoogleCloudStorage. Read more about how does a connection works [connection information in Airflow admin](https://airflow.apache.org/concepts.html#connections).
 
 ## Step4: Set up Microsoft Teams Notification Connection
 
 To allow Airflow to send notification to Teams, you need to set up incoming webhook on Teams and add the webhook url to Airflow using the connection as described above. Follow the instruction steps: **Prepare MS Teams** and **Prepare Airflow** from [here](https://code.mendhak.com/Airflow-MS-Teams-Operator/#prepare-ms-teams).
 
-Instead of storing the webhook link into the code, we will store it into a Variable named **teams_webhook**. 
+Instead of storing the webhook link into the code, we will store it into a Variable named **teams_webhook**.
 
-## (Optional)  Setup BigQuery
+## (Optional) Setup BigQuery
 
 It is also possible to setup BigQuery service account and a table in BigQuery so that the data can also be stored into BigQuery. In BigQuery, you create a dataset and a table. The schema of the table in our example is as:
 ![bigquery schema](images/bigquerystationschema.png)
 
 A service account is created with a permission to update data. In the code, we use Airflow Variable to store the bigquery service account under **bigquery-{PROJECT_ID}**:
+
 ```python
 #just for flexibility to switch from a project to another for testing
-PROJECT_ID="cs-e4640" 
+PROJECT_ID="aalto-t313-cs-e4640"
 BIGQUERY_CONF={
-    "table_id":f'{PROJECT_ID}.btsanalytics.StationAnalytics',
+    "table_id":f'{PROJECT_ID}.airflow_tutorial.StationAnalytics',
     "project_id": PROJECT_ID
 }
 
@@ -139,11 +140,13 @@ service_account_json=Variable.get(f'bigquery-{PROJECT_ID}', deserialize_json=Tru
 
 Run First copy your BTSAnalyitcs workflow into the dags directory of Airflow installation (usually $HOME/airflow)/dags
 
+```bash
+cp bts_analytics.py ~/airflow/dags/
+cp -r analytics ~/airflow/dags/
 ```
-$cp bts_analytics.py ~/airflow/dags/
-$cp -r analytics ~/airflow/dags/
-```
+
 or
+
 ```
 $python3 /path_to_directory/bts_analytics.py
 ```
@@ -151,7 +154,6 @@ $python3 /path_to_directory/bts_analytics.py
 Now if you look at the [Airflow UI](http://localhost:8080), you would see the **bts_analytics** (and other example workflows).
 
 Make sure that you turn it **ON** (see the icon **i** in the 2nd column of the UI). Then you can click to the workflow. In the UI of the workflow, you can examine the code, and run the workflow by "Trigger DAG". Check if it runs well.
-
 
 ## Further Actions
 

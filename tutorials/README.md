@@ -14,6 +14,8 @@ Check the subdirectories to see some small examples we use in our courses.
 - [Data ingestion with MongoDb](data-ingestion-mongodb/)          
 - [Hadoop systems](hadoop/)
 - [MapReduce Programming](mapreduce/)  
+- [Basic Dask](basicdask/)
+- [Basic distributed queries with Trino](basicdisquery/)
 - [Workflows with Apache Airflow](airflow/)
 - [Spark programming](spark/)
 - [Spark streaming](spark-streaming/) 

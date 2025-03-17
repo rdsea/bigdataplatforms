@@ -8,13 +8,12 @@ import sys
 from pathlib import Path
 
 import pendulum
-from google.oauth2 import service_account
-
 from airflow.models import DAG, Variable
 from airflow.operators.python import PythonOperator
 from airflow.providers.google.cloud.transfers.local_to_gcs import (
     LocalFilesystemToGCSOperator,
 )
+from google.oauth2 import service_account
 
 # include code in analytics
 sys.path.append(os.path.join(Path(__file__).resolve().parent, "."))
@@ -57,14 +56,14 @@ report_destination = os.path.join(TMP_DIR, owner, report_file_short_name)
 
 # this configuration can be loaded from somewhere, e.g., variable
 GCS_CONF = {
-    "bucket": "bts_analytics_report",  # "airflowexamples",
+    "bucket": "cs-e4640-airflow-tutorial",  # "airflowexamples",
     "subspace": "hotdata",
     "gcp_conn_id": "bdp_gcloud_storage",
 }
 # just for flexibility to switch from a project to another for testing
-PROJECT_ID = "cs-e4640"  # aalto
+PROJECT_ID = "aalto-t313-cs-e4640"  # aalto
 BIGQUERY_CONF = {
-    "table_id": f"{PROJECT_ID}.btsanalytics.StationAnalytics",
+    "table_id": f"{PROJECT_ID}.airflow_tutorial.StationAnalytics",
     "project_id": PROJECT_ID,
 }
 # webhook and service account json are stored in some kind of "vault"

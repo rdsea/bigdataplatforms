@@ -1,9 +1,13 @@
 # Simple Tutorial for Stream Data Processing with Apache Flink.
 
-* [An accompanying hands-on video is available - Update the link later](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=35976699-d98c-4dee-bbe4-ac0500ab604d)
-* [Slides](slides/cs-e4640-hands-on-flink-streaming.pptx)
+Some materials:
 
-## 1. Introduction
+* [Apache Flink for Big Data Platforms](../../lecturenotes/pdfs/module3-streaming-flink-v0.6.pdf)
+* [An accompanying hands-on video is available - Update the link later](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=35976699-d98c-4dee-bbe4-ac0500ab604d)
+* [Hands-on Slides](slides/cs-e4640-hands-on-flink-streaming.pptx)
+
+## Introduction
+
 We will practice Apache Flink with simple activities:
 * setup Apache Flink in local machine
 * write streaming applications with Flink
@@ -15,7 +19,7 @@ We will practice Apache Flink with simple activities:
 >Note: there are many tutorials about Apache Flink that you can take a look in the Internet, e.g. [Apache Flink with in AWS](https://www.youtube.com/watch?v=4FIPt87A_qM)
 
 
-## 2. Setup Apache Flink for Practices
+## Setup Apache Flink for Practices
 
 Download [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the guide for a local machine](https://nightlies.apache.org/flink/flink-docs-stable/). In this simple tutorial, we use Apache Flink 1.20.1 for Scala 2.12.
 

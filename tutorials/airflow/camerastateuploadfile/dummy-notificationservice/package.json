@@ -1,10 +1,9 @@
 {
   "author": "",
   "dependencies": {
-    "express": "^4.17.3"
+    "express": "^4.21.2"
   },
   "description": "",
-  "devDependencies": {},
   "keywords": [],
   "license": "Apache-2.0",
   "main": "simple_rest.js",

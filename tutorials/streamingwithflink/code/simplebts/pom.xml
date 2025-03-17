@@ -30,10 +30,10 @@ under the License.
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<flink.version>1.12.5</flink.version>
+		<flink.version>1.20.1</flink.version>
 		<java.version>1.8</java.version>
 		<jpython.version>2.2.1</jpython.version>
-		<scala.binary.version>2.11</scala.binary.version>
+		<scala.binary.version>2.12</scala.binary.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<log4j.version>2.17.1</log4j.version>
@@ -56,38 +56,36 @@ under the License.
 	<dependencies>
 		<!-- Apache Flink dependencies -->
 		<!-- These dependencies are provided, because they should not be packaged into the JAR file. -->
-		<dependency>
-			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-java</artifactId>
-			<version>${flink.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-clients_${scala.binary.version}</artifactId>
-			<version>${flink.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.python</groupId>
-			<artifactId>jython</artifactId>
-			<version>${jpython.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-streaming-java_${scala.binary.version}</artifactId>
-			<version>${flink.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>
-			<version>${flink.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.flink</groupId>
-			<artifactId>flink-connector-rabbitmq_${scala.binary.version}</artifactId>
-			<version>${flink.version}</version>
-		</dependency>
+    <dependency>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-java</artifactId>
+      <version>${flink.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-streaming-java</artifactId>
+      <version>${flink.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.flink</groupId>
+      <artifactId>flink-clients</artifactId>
+      <version>${flink.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.flink</groupId>
+        <artifactId>flink-connector-kafka</artifactId>
+        <version>3.3.0-1.20</version>
+    </dependency>
+		<!-- <dependency> -->
+		<!-- 	<groupId>org.apache.flink</groupId> -->
+		<!-- 	<artifactId>flink-connector-rabbitmq_${scala.binary.version}</artifactId> -->
+		<!-- 	<version>${flink.version}</version> -->
+		<!-- </dependency> -->
+    <!-- <dependency> -->
+    <!--     <groupId>org.apache.flink</groupId> -->
+    <!--     <artifactId>flink-connector-rabbitmq</artifactId> -->
+    <!--     <version>3.0.1-1.17</version> -->
+    <!-- </dependency> -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j-impl</artifactId>
@@ -113,6 +111,13 @@ under the License.
 				<version>1.7</version>
 		</dependency>
 
+
+    <!-- Additional dependencies for GCP may be required -->
+    <!-- <dependency> -->
+    <!--     <groupId>org.apache.flink</groupId> -->
+    <!--     <artifactId>flink-connector-gcp-pubsub</artifactId> -->
+    <!--     <version>3.1.0-1.19</version> -->
+    <!-- </dependency> -->
 
 	</dependencies>
 

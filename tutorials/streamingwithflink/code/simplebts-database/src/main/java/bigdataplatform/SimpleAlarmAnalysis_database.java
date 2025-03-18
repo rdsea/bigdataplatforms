@@ -117,8 +117,8 @@ public class SimpleAlarmAnalysis_database {
                 new JdbcConnectionOptions.JdbcConnectionOptionsBuilder()
                     .withUrl("jdbc:mysql://0.0.0.0:3306/hong3_database")
                     .withDriverName("com.mysql.cj.jdbc.Driver")
-                    .withUsername("root")
-                    .withPassword("root")
+                    .withUsername("bigdata")
+                    .withPassword("tridep")
                     .build()
             )
         ).setParallelism(1);

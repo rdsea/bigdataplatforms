@@ -88,7 +88,7 @@ public class SimpleAlarmAnalysis_database {
         // Define JDBC Sink
         alerts.addSink(
             JdbcSink.sink(
-                "INSERT INTO bts_alerts_test2 (station_id, trend) VALUES (?, ?)",  // SQL query
+                "INSERT INTO bts_alerts (station_id, trend) VALUES (?, ?)",  // SQL query
                 // (statement, record) -> {
                 //     String[] parts = record.split(",", 2);  // Expecting "station_id,trend"
                 //     statement.setString(1, parts[0].trim());

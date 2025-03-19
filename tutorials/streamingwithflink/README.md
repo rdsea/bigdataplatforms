@@ -136,32 +136,31 @@ python3 test_kafka_consumer.py --queue_name oqueue123 --kafka localhost:9092
 to see if you can receive any alerts.
 
 #### Run Flink BTS working with mySQL
-
-Now assume that you choose two queue names:
-* **iqueue123**: indicate the queue where we send the data
-* **localhost:9092**: is the **Kafka url**
-* **iqueue123**: indicate the queue where we send the data
-* **localhost:9092**: is the **Kafka url**
+If you want to add another sink like mySQL
+* **iQ**: indicate the queue where we send the data
+* **localhost:9092**: is the **Kafka url** producing data
+* **oQ**: indicate the queue where we send the data
+* **localhost:9092**: is the **Kafka url** broker store data
+* **localhost:3306**: is the baseurl for mySQL
+* **bigdata**: is the database username
+* **tridep**: is the database password
+* **hong3_database**: is the database name
+* **bts_alert_test**: is the table name which you can change in the tutorial
 
 Run the Flink BTS program:
-
 ```bash
 cd flink-1.19.2
-bin/flink run ../simplebts/target/simplebts-0.1-SNAPSHOT.jar --iqueue iqueue123 --oqueue oqueue123 --kafkaurl localhost:9092  --outkafkaurl localhost:9092 --parallelism 1
+```bash
+bin/flink run ../maven-test/btsFlink/target/btsFlink-1.0-SNAPSHOT.jar --iqueue iQ --oqueue oQ --inkafkaurl localhost:9092 --outkafkaurl localhost:9092 --databaseHost localhost:3306 --databaseUser bigdata --databasePass tridep --databaseName hong3_database --tablename bts_alert_test
 ```
-Now start our test producer again with the queue name as **iqueue123**:
+
+Now start our test producer again with the queue name as **iQ**:
 ```bash
 cd simplebts/scripts
-python3 test_kafka_producer.py --queue_name iqueue123 --input_file  ../../data/bts-data-alarm-2017.csv --kafka localhost:9092
+python3 test_kafka_producer.py --queue_name iQ --input_file  ../../data/bts-data-alarm-2017.csv --kafka localhost:9092
 ```
-and then start a BTS test receivers with queue name as **oqueue123**:
-```bash
-python3 test_kafka_consumer.py --queue_name oqueue123 --kafka localhost:9092
-```
-```bash
-bin/flink run ../maven-test/btsFlink/target/btsFlink-1.0-SNAPSHOT.jar --iqueue iQ --oqueue oQ --inkafkaurl localhost:9092 --outkafkaurl localhost:9092 --databaseHost 34.88.158.221:3306 --databaseUser bigdata --databasePass tridep --databaseName hong3_database --tablename bts_alert_test
-```
-to see if you can receive any alerts.
+Then you can check and see if you can receive any alerts written into mySQL database.
+
 #### Check logs
 Check the logs under **flink/log**:
 * flink * taskexecutor *.log

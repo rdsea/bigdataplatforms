@@ -8,8 +8,6 @@ We will practice Apache Flink with simple activities:
 * setup Apache Flink in local machine
 * write streaming applications with Flink
 * run Flink streaming applications
-* change the application to run it on remote server
-* understand relationships between developers and platform providers through tools/supports
 
 
 >Note: there are many tutorials about Apache Flink that you can take a look in the Internet, e.g. [Apache Flink with in AWS](https://www.youtube.com/watch?v=4FIPt87A_qM)
@@ -17,7 +15,7 @@ We will practice Apache Flink with simple activities:
 
 ## 2. Setup Apache Flink for Practices
 
-Download [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the guide for a local machine](https://nightlies.apache.org/flink/flink-docs-stable/). In this simple tutorial, we use Apache Flink 1.20.1 for Scala 2.12.
+Download [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the guide for a local machine](https://nightlies.apache.org/flink/flink-docs-stable/). In this simple tutorial, we use Apache Flink 1.19.2 for Scala 2.12.
 
 You can also follow [the Kafka instructions](https://kafka.apache.org/quickstart) to start a Kafka cluster or use [our simple Kafka tutorial](../../tutorials/basickafka/README.md). Then you have to create a few topics before running the experiment and test if your Kafka server works
 
@@ -27,8 +25,14 @@ bin/kafka-topics.sh --create --topic <your topic name> --bootstrap-server <your 
 bin/kafka-topics.sh --list --zookeeper <zookeeper host>:<zookeeper port>
 ```
 
+OR 
+```bash
+KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
+bin/kafka-storage.sh format --standalone -t $KAFKA_CLUSTER_ID -c config/server.properties
+bin/kafka-server-start.sh config/server.properties
+```
+
 ## 3. Exercises
-### Check if the binary is OK
 Following Flink guide to see if the setting is ok. Move into the directory of your Flink and start Flink:
 ```bash
 bin/start-cluster.sh
@@ -44,7 +48,7 @@ and then check the [UI](http://localhost:8081)
 
 ### Practices with Flink  SocketWindowWordCount example
 
-You can check [the Flink example](https://nightlies.apache.org/flink/flink-docs-release-1.20/docs/try-flink/local_installation/) and test it to see how it works.
+You can check [the Flink example](https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/try-flink/local_installation/) and test it to see how it works.
 
 >Hint: You can also use the web UI to submit a job to a Session cluster. Alternatively, use Flink CLI on the host if it is setup: 
 
@@ -66,11 +70,9 @@ Flink
 │   ├── dependency-reduced-pom.xml
 │   ├── pom.xml
 │   └── scripts
-│       ├── test_amqp_consumer.py
-│       ├── test_amqp_producer.py
 │       ├── test_kafka_consumer.py
 │       └── test_kafka_producer.py
-├── flink-1.20.1
+├── flink-1.19.2
     ├── bin
     │   ├── start-cluster.sh
     │   ├── stop-cluster.sh
@@ -109,7 +111,7 @@ python test_kafka_consumer.py --queue_name [your_selected_queue_name] --kafka [y
 ```
 if you see the receiver outputs data, it means that the RabbitMQ is working.
 
-#### Run Flink BTS
+#### Run Flink BTS working with messaging queue
 
 Now assume that you choose two queue names:
 * **iqueue123**: indicate the queue where we send the data
@@ -119,7 +121,7 @@ Now assume that you choose two queue names:
 Run the Flink BTS program:
 
 ```bash
-cd flink-1.20.1
+cd flink-1.19.2
 bin/flink run ../simplebts/target/simplebts-0.1-SNAPSHOT.jar --iqueue iqueue123 --oqueue oqueue123 --kafkaurl localhost:9092  --outkafkaurl localhost:9092 --parallelism 1
 ```
 Now start our test producer again with the queue name as **iqueue123**:
@@ -133,6 +135,30 @@ python3 test_kafka_consumer.py --queue_name oqueue123 --kafka localhost:9092
 ```
 to see if you can receive any alerts.
 
+#### Run Flink BTS working with mySQL
+
+Now assume that you choose two queue names:
+* **iqueue123**: indicate the queue where we send the data
+* **localhost:9092**: is the **Kafka url**
+* **iqueue123**: indicate the queue where we send the data
+* **localhost:9092**: is the **Kafka url**
+
+Run the Flink BTS program:
+
+```bash
+cd flink-1.19.2
+bin/flink run ../simplebts/target/simplebts-0.1-SNAPSHOT.jar --iqueue iqueue123 --oqueue oqueue123 --kafkaurl localhost:9092  --outkafkaurl localhost:9092 --parallelism 1
+```
+Now start our test producer again with the queue name as **iqueue123**:
+```bash
+cd simplebts/scripts
+python3 test_kafka_producer.py --queue_name iqueue123 --input_file  ../../data/bts-data-alarm-2017.csv --kafka localhost:9092
+```
+and then start a BTS test receivers with queue name as **oqueue123**:
+```bash
+python3 test_kafka_consumer.py --queue_name oqueue123 --kafka localhost:9092
+```
+to see if you can receive any alerts.
 #### Check logs
 Check the logs under **flink/log**:
 * flink * taskexecutor *.log

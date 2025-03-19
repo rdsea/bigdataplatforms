@@ -34,7 +34,7 @@ import org.apache.flink.connector.jdbc.JdbcExecutionOptions;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class SimpleAlarmAnalysis_database {
+public class SimpleAlarmAnalysis {
 
     public static void main(String[] args) throws Exception {
         // Using Flink ParameterTool to parse input parameters
@@ -42,8 +42,13 @@ public class SimpleAlarmAnalysis_database {
 
         String inputQueue = params.get("iqueue", "bts_in");  // name of the input queue of the input stream
         String outputQueue = params.get("oqueue", "bts_out");  // name of the output queue to return the results
-        String inputKafkaHost = params.get("kafkaurl", "localhost:9092");  // set the kafka host
+        String inputKafkaHost = params.get("inkafkaurl", "localhost:9092");  // set the kafka host
         String outKafkaHost = params.get("outkafkaurl", "localhost:9092");  // set the kafka host
+        String databaseHost = params.get("databaseHost", "localhost:3306");
+        String databaseUser = params.get("databaseUser", "bigdata");
+        String databasePass = params.get("databasePass", "tridep");
+        String databaseName = params.get("databaseName", "hong3_database");
+        String table_name = params.get("tablename", "bts_alets");
         int parallelismDegree = params.getInt("parallelism", 1);  // set the level of Parallelism
 
         // Setting up the execution environment
@@ -85,15 +90,18 @@ public class SimpleAlarmAnalysis_database {
         FlinkKafkaProducer<String> btsProducer = new FlinkKafkaProducer<>(outputQueue, outputSchema, producerProperties, FlinkKafkaProducer.Semantic.AT_LEAST_ONCE); // fault-tolerance
         alerts.addSink(btsProducer).setParallelism(1); // set the value to scale the output stream
 
+        // Add the table creation sink to ensure the table exists before inserting data
+        alerts.addSink(new TableCreationSink(
+                "jdbc:mysql://" + databaseHost + "/" + databaseName,
+                databaseUser,
+                databasePass,
+                table_name
+        )).setParallelism(1);
+
         // Define JDBC Sink
         alerts.addSink(
             JdbcSink.sink(
-                "INSERT INTO bts_alerts (station_id, trend) VALUES (?, ?)",  // SQL query
-                // (statement, record) -> {
-                //     String[] parts = record.split(",", 2);  // Expecting "station_id,trend"
-                //     statement.setString(1, parts[0].trim());
-                //     statement.setString(2, parts[1].trim());
-                // },
+                "INSERT INTO " + table_name + "(station_id, trend) VALUES (?, ?)",  // SQL query
                 (statement, record) -> {
                     // Extract JSON part from the record
                     String jsonPart = record.substring(record.indexOf("{")); // Extracts: {"btsalarmalert":{"station_id":1161114019, "trend":stable}}
@@ -115,10 +123,10 @@ public class SimpleAlarmAnalysis_database {
                     .withMaxRetries(3)
                     .build(),
                 new JdbcConnectionOptions.JdbcConnectionOptionsBuilder()
-                    .withUrl("jdbc:mysql://0.0.0.0:3306/hong3_database")
+                    .withUrl("jdbc:mysql://" + databaseHost + "/"+ databaseName)
                     .withDriverName("com.mysql.cj.jdbc.Driver")
-                    .withUsername("bigdata")
-                    .withPassword("tridep")
+                    .withUsername(databaseUser)
+                    .withPassword(databasePass)
                     .build()
             )
         ).setParallelism(1);

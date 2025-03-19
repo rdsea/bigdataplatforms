@@ -158,6 +158,9 @@ and then start a BTS test receivers with queue name as **oqueue123**:
 ```bash
 python3 test_kafka_consumer.py --queue_name oqueue123 --kafka localhost:9092
 ```
+```bash
+bin/flink run ../maven-test/btsFlink/target/btsFlink-1.0-SNAPSHOT.jar --iqueue iQ --oqueue oQ --inkafkaurl localhost:9092 --outkafkaurl localhost:9092 --databaseHost 34.88.158.221:3306 --databaseUser bigdata --databasePass tridep --databaseName hong3_database --tablename bts_alert_test
+```
 to see if you can receive any alerts.
 #### Check logs
 Check the logs under **flink/log**:

@@ -62,4 +62,4 @@
   -  Tyler Akidau, Robert Bradshaw, Craig Chambers, Slava Chernyak, Rafael Fernández-Moctezuma, Reuven Lax, Sam McVeety, Daniel Mills, Frances Perry, Eric Schmidt, Sam Whittle: The Dataflow Model: A Practical Approach to Balancing Correctness, Latency, and Cost in Massive-Scale, Unbounded, Out-of-Order Data Processing. Proc. VLDB Endow. 8(12): 1792-1803 (2015), http://www.vldb.org/pvldb/vol8/p1792-Akidau.pdf
   -  Ellen Friedman and Kostas Tzoumas, Introduction to Apache Flink, [Link](https://mapr.com/introduction-to-apache-flink/assets/introduction-to-apache-flink.pdf)
   -   Matei Zaharia, Tathagata Das, Haoyuan Li, Scott Shenker, and Ion Stoica. 2012. Discretized streams: an efficient and fault-tolerant model for stream processing on large clusters. In Proceedings of the 4th USENIX conference on Hot Topics in Cloud Ccomputing (HotCloud'12). USENIX Association, Berkeley, CA, USA, 10-10. [Link](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2012/EECS-2012-259.pdf)
-* **Big Data Platforms in the Age of LLMs/Gen-AI**: [Online Slides]) (download [PDF]())
+* **GenAI/LLMs and Big Data Platforms**: [download PDF](pdfs/module4-lecture8-bigdatallm-v0.2.pdf)

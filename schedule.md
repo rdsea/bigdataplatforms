@@ -37,7 +37,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 06.03  |Backup | On-demand topic related to assignment | 
 12.03  |No lecture/Hands-on|  |   
 14.03  |   | **Due the 2nd assignment**  |   |
-19.03  |Lecture 8 | [Data Platforms in the Age of LLMs/Gen-AI]() (download [PDF]())| **Linh Truong**
+19.03  |Lecture 8 | [GenAI/LLMs and Big Data Platforms](lecturenotes/pdfs/module4-lecture8-bigdatallm-v0.2.pdf)| **Linh Truong**
 19.03  |   | **Release the third assignment**
 20.03  |Tutorial 6| [Stream Processing with Apache Flink](tutorials/streamingwithflink/README.md) | **Hong-Tri Nguyen, Minh-Tri Nguyen**
 17-21.03   | | Finalizing assignment grading 2  | **All**  |

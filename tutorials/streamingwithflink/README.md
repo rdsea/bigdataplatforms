@@ -33,6 +33,19 @@ bin/kafka-server-start.sh config/server.properties
 ```
 
 ## 3. Exercises
+At the default Flink server only allow a job running at a currnet time. Therefore, for easy testing, you can change the configuration. (It works with docker-compose taskmanager also)
+```bash
+vim flink1.19.2/conf/config.yaml # change numberOfTaskSlots to 10 for 10 jobs at that time.
+
+taskmanager:
+  bind-host: localhost
+  host: localhost
+  # The number of task slots that each TaskManager offers. Each slot runs one parallel pipeline.
+  numberOfTaskSlots: 10
+  memory:
+    process:
+      size: 1728m
+```
 Following Flink guide to see if the setting is ok. Move into the directory of your Flink and start Flink:
 ```bash
 bin/start-cluster.sh
@@ -52,6 +65,7 @@ You can check [the Flink example](https://nightlies.apache.org/flink/flink-docs-
 
 >Hint: You can also use the web UI to submit a job to a Session cluster. Alternatively, use Flink CLI on the host if it is setup: 
 
+If you run flink server on another machine like a cloud can add a parameter with "-m"
 ```bash
 #flink run -d -m ${FLINK_JOBMANAGER_URL} /job.jar [jar_arguments]
 bin/flink run examples/streaming/WordCount.jar
@@ -66,7 +80,7 @@ Flink
 │   └── bts-data-alarm-2017.csv
 ├── docker-compose
 │   └── docker-compose.yml
-├── simplebts
+├── simplebts (from code/ in github)
 │   ├── dependency-reduced-pom.xml
 │   ├── pom.xml
 │   └── scripts

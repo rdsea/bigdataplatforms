@@ -1,7 +1,7 @@
 # Simple Tutorial for Stream Data Processing with Apache Flink.
 
 * [An accompanying hands-on video is available - Update the link later](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=35976699-d98c-4dee-bbe4-ac0500ab604d)
-* [Slides](slides/cs-e4640-hands-on-flink-streaming.pptx)
+* [Slides](slides/2025-flink.pdf)
 
 ## 1. Introduction
 We will practice Apache Flink with simple activities:

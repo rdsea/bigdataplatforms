@@ -45,14 +45,6 @@ docker-compose up -d
 ```
 and then check the [UI](http://localhost:8081)
 
-As the default for Flink number of job is one, which you can change for easy working later:
-```yml
-cd conf
-vim config.yaml
-
-# change this parameter from 1 to 10, so you can work continuously 10 jobs 
-  numberOfTaskSlots: 10
-```
 
 ### Practices with Flink  SocketWindowWordCount example
 
@@ -97,7 +89,6 @@ Check [the source of BTS in our Git](code/simplebts/). It is a simple example fo
 Define a job via Java which is built with maven.
 
 ```bash
-You should prepare IntelliJ (from Jet Brrain) for java compile with Maven 
 # install maven to compile java project source code
 # sudo apt install maven
 cd simplebts
@@ -127,8 +118,8 @@ Now assume that you choose two queue names:
 * **oqueue123**: indicate the queue where we receive the alert.
 * **localhost:9092**: is the **Kafka url**
 
-Run the Flink BTS program:
 
+Run the Flink BTS program:
 ```bash
 cd flink-1.19.2
 bin/flink run ../simplebts/target/simplebts-0.1-SNAPSHOT.jar --iqueue iqueue123 --oqueue oqueue123 --kafkaurl localhost:9092  --outkafkaurl localhost:9092 --parallelism 1
@@ -156,13 +147,19 @@ If you want to add another sink like mySQL
 * **hong3_database**: is the database name
 * **bts_alert_test**: is the table name which you can change in the tutorial
 
+Compile and create a jar package for simplebts
+```bash
+cd simplebts-database
+mvn install
+```
+
 Run the Flink BTS program:
 ```bash
 cd flink-1.19.2
-bin/flink run ../maven-test/btsFlink/target/btsFlink-1.0-SNAPSHOT.jar --iqueue iQ --oqueue oQ --inkafkaurl localhost:9092 --outkafkaurl localhost:9092 --databaseHost localhost:3306 --databaseUser bigdata --databasePass tridep --databaseName hong3_database --tablename bts_alert_test
+bin/flink run ../simplebts-database/target/btsFlink-1.0-SNAPSHOT.jar --iqueue iQ --oqueue oQ --inkafkaurl localhost:9092 --outkafkaurl localhost:9092 --databaseHost localhost:3306 --databaseUser bigdata --databasePass tridep --databaseName hong3_database --tablename bts_alert_test
 ```
 
-Now start our test producer again with the queue name as **iQ**:
+Now start our test producer again with the queue name as **iQ** (since the scripts are from simpllebts folder)
 ```bash
 cd simplebts/scripts
 python3 test_kafka_producer.py --queue_name iQ --input_file  ../../data/bts-data-alarm-2017.csv --kafka localhost:9092
@@ -184,6 +181,3 @@ Change the code to submit Flink job to a remote server.
 ## Other systems
 
 - https://doc.arroyo.dev/introduction
-
-bin/zookeeper-server-start.sh config/zookeeper.properties
-

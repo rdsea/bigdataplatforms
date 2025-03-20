@@ -34,7 +34,7 @@ import org.apache.flink.connector.jdbc.JdbcExecutionOptions;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-public class SimpleAlarmAnalysis {
+public class SimpleAlarmAnalysis_database {
 
     public static void main(String[] args) throws Exception {
         // Using Flink ParameterTool to parse input parameters

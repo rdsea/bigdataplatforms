@@ -1,0 +1,15 @@
+[project]
+name = "airflow"
+version = "0.1.0"
+description = "Apache airflow tutorial"
+dependencies = [
+    "apache-airflow[celery]>=2.10.5",
+    "psycopg2>=2.9.10",
+    "apache-airflow-providers-google>=12.0.0",
+]
+requires-python = ">= 3.10"
+
+[tool.rye]
+managed = true
+virtual = true
+dev-dependencies = []

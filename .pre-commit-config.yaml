@@ -19,7 +19,7 @@ repos:
             "--interactive",
             "3",
             "-L",
-            "Commun,Sherif,SPEEDIN,speedin",
+            "Commun,Sherif,SPEEDIN,speedin,connexion",
           ]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit

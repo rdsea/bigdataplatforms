@@ -32,7 +32,7 @@ under the License.
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<flink.version>1.19.2</flink.version>
 		<java.version>1.8</java.version>
-		<jpython.version>2.2.1</jpython.version>
+		<jpython.version>2.7.2</jpython.version>
 		<scala.binary.version>2.12</scala.binary.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>

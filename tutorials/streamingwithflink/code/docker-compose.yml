@@ -1,7 +1,7 @@
 version: "3.0"
 services:
   jobmanager:
-    image: flink:1.11.0-scala_2.11
+    image: flink:1.19.2
     expose:
       - "6123"
     ports:
@@ -11,7 +11,7 @@ services:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
 
   taskmanager:
-    image: flink:1.11.0-scala_2.11
+    image: flink:1.19.2
     expose:
       - "6121"
       - "6122"

@@ -42,6 +42,8 @@ There are many open datasets that you can download for practicing activities in 
 * Cybersecurity:
   - https://research.unsw.edu.au/projects/unsw-nb15-dataset
   - https://www.unb.ca/cic/datasets/ids-2018.html
+  - https://www.cse.wustl.edu/~jain/ehms/index.html
+  - https://archive.ics.uci.edu/dataset/942/rt-iot2022
 
 * Industry/Manufacturing:
   * [MIMII Dataset: Sound Dataset for Malfunctioning Industrial Machine Investigation and Inspection](https://zenodo.org/records/3384388)

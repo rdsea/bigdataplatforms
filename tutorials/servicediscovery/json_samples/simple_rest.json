@@ -1,0 +1,1 @@
+{"name":"simplerest","tags":["bdp","nothing","aalto"],"port":3000,"address":"192.168.1.31","check":{"id":"checksimplerest","name":"Simple Status","args":["curl","http://192.168.1.31:3000/health"],"interval":"20s","timeout":"10s"}}

@@ -193,7 +193,7 @@ You should get something like:
 
 You can check [Scylla](https://www.scylladb.com/compare/scylladb-vs-apache-cassandra/) which is another Cassandra-compatible implementation.
 
-We have a [simple docker compose](scylladb-compose.yml) for exercises.
+**Note**: We have a [simple docker compose](scylladb-compose.yml) for exercises but it is not up-to-date.
 
 ## Author
 

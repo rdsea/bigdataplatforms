@@ -183,7 +183,7 @@ You should get
 
 >Remember that we have **replication_factor==3** so a data item is replicated in 3 nodes. This shows that the data was correctly replicated across all our nodes and configuration was correct. Apache Cassandra has a lot of different configurations that were not covered in this tutorial and these can be found in cassandra's [documentation](https://cassandra.apache.org/doc/latest/configuration/index.html).
 
->Further note: If you want to use the data set [Avian Vocalizations from CA & NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa), you can use statements in (etc/sample_bird.cqlsh). Note that, we only use the metadata from the CSV file. Furthermore, we extract only a few fields.[A sample of extracted data is here](../consistency/sampledata.csv).
+>Further note: If you want to use the data set [Avian Vocalizations from CA & NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa), you can use statements in (etc/sample_bird.cqlsh). Note that, we only use the metadata from the CSV file. Furthermore, we extract only a few fields. [A sample of extracted data is here](../consistency/sampledata.csv).
 
 ## Practices
 
@@ -198,7 +198,6 @@ You should get
 You can check [Scylla](https://www.scylladb.com/compare/scylladb-vs-apache-cassandra/) which is another Cassandra-compatible implementation.
 
 We have a [simple docker compose](scylladb-compose.yml) for exercises.
-
 
 ## Author
 

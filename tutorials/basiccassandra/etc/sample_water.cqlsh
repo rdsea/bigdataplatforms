@@ -1,0 +1,52 @@
+/* 
+Example for basic cassandra
+using water data: https://osf.io/g3zvd/?view_only=63e9c2f0cdf547d792bdd8e93045f89e
+*/
+
+
+-- Create a keyspace called tutorial12345
+
+
+CREATE KEYSPACE tutorial12345
+      WITH REPLICATION = {
+       'class' : 'SimpleStrategy',
+       'replication_factor' : 3
+      };
+
+-- Let's create a table named water1234 inside this keyspace
+
+CREATE TABLE tutorial12345.water1234 (
+       timestamp timestamp, -- the time of data record
+       city text,
+       zip text,
+       egridregion text,
+       temperaturef int,
+       humidity int,
+       data_availability_weather int,
+       wetbulbtemperaturef float,
+       coal float,
+       hybrid float,
+       naturalgas float,
+       nuclear float, 
+       other float, 
+       petroleum float,
+       solar float,
+       wind float,
+       data_availability_energy float,
+       onsitewuefixedapproach float,
+       onsitewuefixedcoldwater float,
+       offsitewue float,
+    PRIMARY KEY ((city,zip), timestamp));
+
+-- We now need to insert some values into our database
+INSERT INTO tutorial12345.water1234 
+(timestamp, city, zip, egridregion, temperaturef, humidity, data_availability_weather, wetbulbtemperaturef, coal, hybrid, naturalgas,nuclear, other, petroleum, solar, wind, data_availability_energy,onsitewuefixedapproach, onsitewuefixedcoldwater,offsitewue) values(
+'2019-01-01 00:00:00','Austin','78704','ERCT',42,76,1,37.9783997397202,51725,3010,36030,17927,1086,0,205,33383,1,1.34616023459296,0,1.6258769164237)
+;
+
+-- load csv sample, cqlsh must be able to access the data file
+
+COPY tutorial12345.water1234 
+(timestamp, city, zip, egridregion, temperaturef, humidity, data_availability_weather, wetbulbtemperaturef, coal, hybrid, naturalgas,nuclear, other, petroleum, solar, wind, data_availability_energy,onsitewuefixedapproach, onsitewuefixedcoldwater,offsitewue)
+FROM 'datasamples/water_dataset_v_05.14.24_1000.csv'
+WITH HEADER = true AND DELIMITER = ',';

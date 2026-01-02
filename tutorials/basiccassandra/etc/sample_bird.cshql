@@ -1,0 +1,26 @@
+-- using bird data
+-- Create a keyspace called tutorial12345
+
+    $CREATE KEYSPACE tutorial12345
+      WITH REPLICATION = {
+       'class' : 'SimpleStrategy',
+       'replication_factor' : 3
+      };
+
+-- Let's create a table named bird1234 inside this keyspace
+
+    $CREATE TABLE tutorial12345.bird1234 (
+       country text,
+       duration_seconds int ,
+       english_cname text ,
+       id int,
+       latitude float,
+       longitude float,
+       species text,
+    PRIMARY KEY (id,species,country));
+
+-- We now need to insert some values into our database
+   
+    INSERT INTO tutorial12345.bird1234 
+    (country, duration_seconds, english_cname, id,  species, latitude, longitude) 
+    values ('United States',42,'Yellow-breasted Chat',408123,'virens',33.6651,-117.8434);

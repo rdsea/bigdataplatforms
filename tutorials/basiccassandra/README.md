@@ -13,31 +13,31 @@ Key components of Cassandra are used in this tutorial:
 
 #### Computing Environments
 
-We test with Linux environments.
+The tutorial uses containerized computing environments. We test with Linux-based environments.
 
 #### Cassandra docker images
 
-This instructions assume that you have [docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/) installed in your machine.
+This instructions assume that you have [docker](https://docs.docker.com/get-docker/) and [docker compose](https://docs.docker.com/compose/install/) installed in your machine. Using *docker pull* we will get the cassandra image and use it.
 
-- using *docker pull* we will get the cassandra image and use it
+#### Setup cqlsh
 
-#### Setup cqlsh 
+Inside the cassandra docker image, you can find *cqlsh*. You can install a version of *cqlsh* in the local machine using the provided *pyproject.toml* with [rye](https://rye.astral.sh/):
 
-Inside the cassandra docker image, you can find *cqlsh*. You can install a version of *cqlsh* in the local machine:
 ```
 $rye sync
-$source source .venv/bin/activate*
+$source source .venv/bin/activate
 ```
 
 #### Data sets
 
-In this example, we use [the OSF water open dataset](https://osf.io/g3zvd/?view_only=63e9c2f0cdf547d792bdd8e93045f89e). You can download that dataset and use a subset of records for testing.
+In this example, we use [the OSF water open dataset](https://osf.io/g3zvd/?view_only=63e9c2f0cdf547d792bdd8e93045f89e). You can download that dataset and use any subset of the dataset for testing.
 
-> There is a very good set of [exercises for basic data tasks](https://gist.github.com/jeffreyscarpenter/761ddcd1c125dfb194dc02d753d31733). You can use it to practice your work. 
+> There is a very good set of [exercises for basic data tasks](https://gist.github.com/jeffreyscarpenter/761ddcd1c125dfb194dc02d753d31733). You can use it to practice your work.
 
 ## Configuring Cassandra cluster in a container
 
 We basically create a Cassandra system different nodes (machines):
+
 * cluster name: *tutorials*
 * Node 1: *cassandra1* in data center "DC1"
 * Node 2: *cassandra2* in data center "DC1"
@@ -64,15 +64,12 @@ Having obtained the container names from step 2 of the previous section, let us 
     $ docker ps
     $ docker exec  -it <container_name> /bin/bash
     ```
-2. Let's inspect our cluster using **nodetool status**
-
-Use nodetool to check Cassandra nodes in different data centers.
-
-```bash
-$ nodetool status
+2. Let's inspect our cluster using **nodetool status**. Use nodetool to check Cassandra nodes in different data centers.
 
 ```
- which shows some information like:
+$ nodetool status
+```
+which shows some information like:
 ```
 Datacenter: DC1
     ===============
@@ -88,18 +85,16 @@ Datacenter: DC1
     |/ State=Normal/Leaving/Joining/Moving
     --  Address     Load        Tokens  Owns (effective)  Host ID                               Rack 
     UN  172.23.0.3  114.69 KiB  16      69.7%             63e34913-dec5-43f7-a928-260b1076ea86  rack1
-
 ```
 
 3. In order to interact with our database, let us enter the cqlsh shell command
-     ```
+    ```
      $ cqlsh
     ```
 
 Notes:
 >In this simple test: the cassandra system can be accessed without username/password
->You can also install a separate cqlsh and use the cqlsh outside the container by running ```$docker run -it cassandra cqlsh [host] -u [username] -p [password]```
->Or install python package for cqlsh: ```pip install cqlsh``` (or as mentioned before)
+>You can also install a separate cqlsh and use the cqlsh outside the container, such as install python package for cqlsh: ```pip install cqlsh``` (or as mentioned before), and running ```cqlsh [host] -u [username] -p [password]```.
 
 ## Play with a simple example
 
@@ -149,7 +144,7 @@ Some examples of commands for *cqlsh* is avaiable under [sample water scripts](e
 3. We now need to insert some values into our database
    
 ```
- cqlsh>INSERT INTO tutorial12345.water1234 
+cqlsh>INSERT INTO tutorial12345.water1234 
 (timestamp, city, zip, egridregion, temperaturef, humidity, data_availability_weather, wetbulbtemperaturef, coal, hybrid, naturalgas,nuclear, other, petroleum, solar, wind, data_availability_energy,onsitewuefixedapproach, onsitewuefixedcoldwater,offsitewue) values(
 '2019-01-01 00:00:00','Austin','78704','ERCT',42,76,1,37.9783997397202,51725,3010,36030,17927,1086,0,205,33383,1,1.34616023459296,0,1.6258769164237);
 ```
@@ -166,12 +161,12 @@ WITH HEADER = true AND DELIMITER = ',';
 ```
 cqlsh> select * from tutorial12345.water1234 ;
 ```
-You should get
+You should get something like:
     ![snapshot of cassandra](querysnapshotwater.png)
 
 >Note that usually we dont do **"select *"**. We use this as we put only a few record of data as an example.
 
-5. Let's do the same query on another node. This can be done by repeating steps 3 and 7 on the terminal (after step 1). The result of the query should be as in step 7.
+5. Let's do the same query on another node. The result of the query should be as shown in the previous step.
 6.  To simulate node failures or outages. Let us stop two nodes. Run the following command twice each time giving the name of the node that you want to terminate:
     ```
     $ docker stop <container_name>
@@ -180,10 +175,9 @@ You should get
     ```
     $ docker-compose ps
     ```
-
+8. Try to query again and see the result/error.
 >Remember that we have **replication_factor==3** so a data item is replicated in 3 nodes. This shows that the data was correctly replicated across all our nodes and configuration was correct. Apache Cassandra has a lot of different configurations that were not covered in this tutorial and these can be found in cassandra's [documentation](https://cassandra.apache.org/doc/latest/configuration/index.html).
 
->Further note: If you want to use the data set [Avian Vocalizations from CA & NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa), you can use statements in (etc/sample_bird.cqlsh). Note that, we only use the metadata from the CSV file. Furthermore, we extract only a few fields. [A sample of extracted data is here](../consistency/sampledata.csv).
 
 ## Practices
 
@@ -192,6 +186,8 @@ You should get
 * Learn how to scale up and down nodes of Cassandra
 * Find a way to deploy in different machines so that you can test the network and performance
 * Work on data storage for Cassandra
+
+>**Further note**: If you want to use the data set [Avian Vocalizations from CA & NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa), you can use statements in (etc/sample_bird.cqlsh). Note that, we only use the metadata from the CSV file. Furthermore, we extract only a few fields. [A sample of extracted data is here](datasamples/birdsampledata.csv).
 
 ## Scylladb
 

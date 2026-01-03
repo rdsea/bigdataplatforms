@@ -2,8 +2,6 @@
 # see https://hub.docker.com/r/scylladb/scylla/
 # https://opensource.docs.scylladb.com/stable/operating-scylla/procedures/tips/best-practices-scylla-on-docker.html
 
-# version: '3.9'
-
 services:
   scylla1:
     image: scylladb/scylla:latest
@@ -14,40 +12,51 @@ services:
       - scyllanet
     # make sure you create the volume and configure it correctly
     volumes:
-      - /opt/data/rawdata/scylla-data/scylla1:/var/lib/scylla
+      - scylla1:/var/lib/scylla
+    command: ["--developer-mode=1", "--smp 1", "--overprovisioned=1"]
     ports:
       - "9042:9042"
       - "9160:9160"
       - "9180:9180"
       - "10000:10000"
+    healthcheck:
+      # commands and options for health check
+      #test: ["CMD", "nodetool", "status"]
+      test: ["CMD-SHELL", "cqlsh -e 'DESCRIBE KEYSPACES'"]
+      interval: 30s
+      timeout: 5s
+      retries: 10
 
-  scyllab2:
+  scylla2:
     image: scylladb/scylla:latest
     container_name: scyllatest-node2
-    restart: always
+    #restart: always
     hostname: scyllatest-node2
     networks:
       - scyllanet
     # make sure you create the volume and configure it correctly
     volumes:
-      - /opt/data/rawdata/scylla-data/scylla2:/var/lib/scylla
+      - scylla2:/var/lib/scylla
+    depends_on:
+      scylla1:
+        condition: service_healthy
     # ports:
     #  - "29042:9042"
     #  - "29160:9160"
     #  - "29180:9180"
     #  - "20000:10000"
-    command: ["--seeds=scyllatest-node1"]
+    command: ["--seeds=scyllatest-node1", "--smp 1", "--overprovisioned=1"]
 
-  scyllab3:
+  scylla3:
     image: scylladb/scylla:latest
     container_name: scyllatest-node3
-    restart: always
+    #restart: always
     hostname: scyllatest-node3
     networks:
       - scyllanet
     # make sure you create the volume and configure it correctly
     volumes:
-      - /opt/data/rawdata/scylla-data/scylla3:/var/lib/scylla
+      - scylla3:/var/lib/scylla
     # ports:
     #  - "39042:9042"
     #  - "39160:9160"
@@ -55,39 +64,18 @@ services:
     #  - "30000:10000"
     #  - "26257:26257"
     #  - "8080:8080"
-    command: ["--seeds=scyllatest-node1"]
-
-  ### Management Node and its database
-  scylla-manager:
-    image: scylladb/scylla-manager:latest
-    container_name: scyllatest-manager
-    #restart: always
-    hostname: scyllatest-manager
-    ports:
-      - "5080:5080"
-    # check and modify the scylla-manager.yaml under etc dir
-    # make sure the mapping is suitable with your configuration
-    volumes:
-      - ./etc:/etc/scylla-manager
-    networks:
-      - scyllanet
     depends_on:
-      - scylla-managerdb
-  # a separate node as a database for the manager
-  scylla-managerdb:
-    image: scylladb/scylla:latest
-    container_name: scyllatest-managerdb
-    #restart: always
-    hostname: scyllatest-managerdb
-    ports:
-      - "9043:9042"
-    volumes:
-      - /opt/data/rawdata/scylla-data/scylla_manager_db_data:/var/lib/scylla
-    networks:
-      - scyllanet
+      scylla1:
+        condition: service_healthy
+    command: ["--seeds=scyllatest-node1", "--smp 1", "--overprovisioned=1"]
 
 # create a network for scylla nodes
 networks:
   scyllanet:
     name: scyllanet
     driver: bridge
+# some data volumes
+volumes:
+  scylla1:
+  scylla2:
+  scylla3:

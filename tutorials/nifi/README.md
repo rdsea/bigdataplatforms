@@ -62,6 +62,7 @@ Note: the following information is with **nifi-1.24.0 and nifi-2.0.0-M1**
 >Note about the username/password by reading Nifi guide. Replace "127.0.0.1" with your nifi host IP/name.
 
 ### Other components
+
 #### AMQP Broker
 
   When ingesting data through message brokers, you can use your own RabbitMQ in your local machine or a free instance created from [CloudAMQP.com](https://cloudamqp.com).
@@ -85,25 +86,29 @@ Note: the following information is with **nifi-1.24.0 and nifi-2.0.0-M1**
 
 This example illustrates a scenario where you setup Nifi as a service which continuously check file-based data sources (e.g., directories in file systems, sftp, http, ..) and ingest the new files into a cloud storage.
 
-Include:
-
+**Include:**
 * **ListFile**: is used to list files in a directory. The property **Input Directory** is where input files will be scanned for ingestion
+
 * **FetchFile**: used to fetch files from **ListFile**
+
 * **PutGCSObject**: this task is used to store files into Google Storage. To use it, you need to define **GCPCredentialsControllerService**. When you define **GCPCredentialsControllerService** you can use the Google credential accessing to a Google Storage.
 The following configuration is used with the Google Storage setup for you:
-  * **bucket** = **bdplabnifi** (or your own bucket)
   * In **GCPCredentialsControllerService**: copy the below service account
   * Then enable **GCPCredentialsControllerService**
+    - GCP Credentials Provider Service: GCPCredentialsControllerService (the controller service used to authenticate with Google Cloud.)
+    - Project ID: aalto-t313-cs-e4640 (The Google Cloud Project ID where the bucket resides)
+    - Bucket: bdplabnifi (The name of the GCS bucket)
+    - Key: hong3nguyen/${filename} (The destination path in the bucket. Uses the folder hong3nguyen/ and appends the dynamic filename)
 
+> Gcloud service account for the practice will be shared. You can also use your Google Storage and set service account with your Google Storage.
 
->Gcloud service account for the practice will be shared. You can also use your Google Storage and set service account with your Google Storage.
-
-Testing:
+**Testing:**
 
 * Copy some files into the directory specified in **Input Directory** prototype of **ListFile** and see if the new copied files will be ingested into the Google Storage.
 >Be careful with the files you put into the directory to avoid make wrong files to the Google Storage
 
 >If you use a shared bucket with a service account, you can use **gcloud/gsutil** or some programs to list contents of the bucket. For example, first download [the code for listing objects](https://cloud.google.com/storage/docs/listing-objects#storage-list-objects-python) into **storage_list_files.py** and  store the google service json to a file: e.g., google.json
+
 ```bash
 export GOOGLE_APPLICATION_CREDENTIALS=google.json
 python3 storage_list_files.py bdplabnifi

@@ -87,10 +87,9 @@ Note: the following information is with **nifi-1.24.0 and nifi-2.0.0-M1**
 This example illustrates a scenario where you setup Nifi as a service which continuously check file-based data sources (e.g., directories in file systems, sftp, http, ..) and ingest the new files into a cloud storage.
 
 **Include:**
-* **ListFile**: is used to list files in a directory. The property **Input Directory** is where input files will be scanned for ingestion
-
+* **ListFile**: is used to list files in a directory. 
+  - **Input Directory:**  is where input files will be scanned for ingestion
 * **FetchFile**: used to fetch files from **ListFile**
-
 * **PutGCSObject**: this task is used to store files into Google Storage. To use it, you need to define **GCPCredentialsControllerService**. When you define **GCPCredentialsControllerService** you can use the Google credential accessing to a Google Storage.
 The following configuration is used with the Google Storage setup for you:
   * In **GCPCredentialsControllerService**: copy the below service account

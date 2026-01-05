@@ -14,9 +14,7 @@ The goal is to design simple flows with basic tasks of data ingestion to underst
 ### Apache Nifi
 You can download [Apache Nifi](https://nifi.apache.org/download.html) and install it into your machine. Check the document to see if a minimum configuration should be made for your installation.
 
-Note: the following information is with **nifi-1.24.0 and nifi-2.0.0-M1**
-
-> Note: the following instruction is based on nifi-2.7.2
+> Note: the following instruction is based on nifi-2.7.2, and the environment is an Ubuntu 22.04.2 LTS machine. The students are recommended to prepare a Linux-based machine
 
 - Error from running Nifi due to the JAVA
   ```bash
@@ -44,6 +42,7 @@ Note: the following information is with **nifi-1.24.0 and nifi-2.0.0-M1**
 - Start Nifi server
     ```bash
     bin/nifi.sh run  # Linux server
+    # OR
     bin/nifi.cmd run # Window server
     ```
 
@@ -61,24 +60,24 @@ Note: the following information is with **nifi-1.24.0 and nifi-2.0.0-M1**
 
 >Note about the username/password by reading Nifi guide. Replace "127.0.0.1" with your nifi host IP/name.
 
-### AMQP Broker
+### Other components
 
-When ingesting data through message brokers, you can use your own RabbitMQ in your local machine or a free instance created from [CloudAMQP.com](https://cloudamqp.com).
+#### AMQP Broker
 
+  When ingesting data through message brokers, you can use your own RabbitMQ in your local machine or a free instance created from [CloudAMQP.com](https://cloudamqp.com).
 
-### Simple program for receiving data from message brokers.
+- **Simple program for receiving data from message brokers.**
+ We have a simple python code that can be used for receiving messages sent to AMQP (using fanout), e.g.,
 
-We have a simple python code that can be used for receiving messages sent to AMQP (using fanout), e.g.,
+  ```bash
+  python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
+  ```
 
-```bash
-python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
-```
+#### Google Storage
 
-### Google Storage
+  Google Storage is used as data sink. You can use your own google storage bucket or a common bucket available. You will need a service account credential for configuring Nifi and Google Storage.
 
-Google Storage is used as data sink. You can use your own google storage bucket or a common bucket available. You will need a service account credential for configuring Nifi and Google Storage.
-
->if you use your own storage bucket then create a service account which can be used for Nifi
+  >if you use your own storage bucket then create a service account which can be used for Nifi
 
 ## Exercises
 

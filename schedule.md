@@ -7,7 +7,7 @@ Notes:
 - meetups:
   - the schedule could be flexible but we try to use the common slots
 
-**Remember to read [Course Management slides](lecturenotes/pdfs/)**
+**Remember to read [Course Management slides](lecturenotes/pdfs/module0-lecture0-coursemanagement-2026.pdf)**
 
 
 >The Schedule is currently revised for Spring 2026

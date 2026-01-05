@@ -2,7 +2,7 @@
 
 >Being updated weekly, follow [the schedule of the course](../schedule.md) 
 
-* **Course Management**: [Slides](pdfs/module0-lecture0-coursemanagement-2025.pdf)
+* **Course Management**: [Slides](pdfs/module0-lecture0-coursemanagement-2026.pdf)
 * **Introduction to Big Data Platforms**: [PDF Slides](pdfs/)
 * **Architecting Big Data Platforms**: [PDF Slides](pdfs/)
   - Shadi Khalifa, Yehia Elshater, Kiran Sundaravarathan, Aparna Bhat, Patrick Martin, Fahim Imam, Dan Rope, Mike Mcroberts, and Craig Statchuk. 2016. The Six Pillars for Building Big Data Analytics Ecosystems. ACM Comput. Surv. 49, 2, Article 33 (August 2016), 36 pages. DOI: https://doi.org/10.1145/2963143

@@ -14,24 +14,51 @@ The goal is to design simple flows with basic tasks of data ingestion to underst
 ### Apache Nifi
 You can download [Apache Nifi](https://nifi.apache.org/download.html) and install it into your machine. Check the document to see if a minimum configuration should be made for your installation.
 
->Note: the following information is with **nifi-1.24.0 and nifi-2.0.0-M1**
+Note: the following information is with **nifi-1.24.0 and nifi-2.0.0-M1**
 
-Create a test user:
-```bash
-bin/nifi.sh set-single-user-credentials student0 cse4640student0
-```
-Start Nifi server
-```bash
-# Linux server
-bin/nifi.sh run
+> Note: the following instruction is based on nifi-2.7.2
 
-# Window server
-bin/nifi.cmd run
-```
-Then access Nifi from the Web browser:
-```bash
-https://127.0.0.1:8443/nifi
-```
+- Error from running Nifi due to the JAVA
+  ```bash
+  nifi.sh: JAVA_HOME not set; results may vary
+
+  JAVA_HOME=
+  NIFI_HOME=/home/hong3nguyen/Public/tools/nifi-2.7.2
+
+  Error: LinkageError occurred while loading main class org.apache.nifi.bootstrap.BootstrapProcess
+          java.lang.UnsupportedClassVersionError: org/apache/nifi/bootstrap/BootstrapProcess has been compiled by a more recent versio of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 55.0
+  Failed to get run command
+  ```
+
+- Ubuntu
+    ```bash
+    sudo apt install openjdk-21-jdk
+    update-java-alternatives --list 
+    export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+    ```
+
+- Create a test user:
+    ```bash
+    bin/nifi.sh set-single-user-credentials student0 cse4640student0
+    ```
+- Start Nifi server
+    ```bash
+    bin/nifi.sh run  # Linux server
+    bin/nifi.cmd run # Window server
+    ```
+
+- Debug mode
+  ```bash
+  ./nifi.sh status
+  tail -f ../logs/nifi-app.log
+  grep -C 3 "Generated Password" ../logs/nifi-app.log
+  ```
+
+- Then access Nifi from the Web browser:
+    ```bash
+    https://127.0.0.1:8443/nifi
+    ```
+
 >Note about the username/password by reading Nifi guide. Replace "127.0.0.1" with your nifi host IP/name.
 
 ### AMQP Broker
@@ -200,7 +227,7 @@ After successful with the above steps, now you can try different situations:
  - Do it with a large scale setting
 
 
-## Challenge
+## Challenges and exercises
 
 Write a flow that:
 
@@ -217,3 +244,4 @@ Write a flow that:
 ## Authors
 - Eljon Harlicaj
 - Linh Truong
+- Hong-Tri Nguyen 

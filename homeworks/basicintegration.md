@@ -3,6 +3,7 @@
 ## Uploading files big data platforms
 
 Many data sources are not in the cloud whereas the data storage/databases in your big data platform are hosted in the cloud. Thus, we must move the data to the cloud. There might be some issues:
+
 * Limited bandwidth and unreliable network between the site of data sources and the big data platform
 * The volume of data requires to design a different way of transferring data
 
@@ -19,6 +20,7 @@ You can practice the file uploading to see possible issues: first download [NY t
 >  - https://csvkit.readthedocs.io/en/latest/
 
 Then try to address the following design question:
+
 * *"If a data source file is too big, how can I ingest it into the database in my big data platform?"*
 
 ## Queue-based Concurrent Ingestion Tasks
@@ -39,6 +41,7 @@ In this example, you can practice a simple queue-based concurrent data ingestion
 ## MQTT and AMQP protocols
 
 When using MQTT and AMQP as a protocol for transferring data, we will need MQTT/AMQP message brokers for data ingestion. The data is sent to/received from MQTT and AMQP messaging systems. To practice these protocols:
+
 * Deploy or use existing MQTT/RabbitMQ, such as [Cloud MQTT](https://cloudmqtt.com) and [Cloud AMQP](https://cloudamqp.com)
 
 * Use timeseries datasets, such as

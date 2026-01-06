@@ -16,7 +16,7 @@ To avoid the violation, for code/software configuration, students should make cl
 * Reuse code from where by given the source and license.
 * Automatic generated code by tools, e.g. [Github Copilot](https://github.com/features/copilot)
 
-## The use of Genenative AI
+## The use of Generative AI
 
 Generative AI is allowed for **ONLY for CODE and SOFTWARE/SYSTEM CONFIGURATION** and a clear clarification must be provided.
 
@@ -26,7 +26,7 @@ Violations will be treated according to the violation handling procedure.
 
 ## The violation handling procedure (based on Aalto)
 
-* [The Aalto detailed procedure](https://into.aalto.fi/display/ensaannot/Aalto+University+Code+of+Academic+Integrity+and+Handling+Violations+Thereof#AaltoUniversityCodeofAcademicIntegrityandHandlingViolationsThereof-4.4Procedure)
+* [The Aalto detailed procedure](https://www.aalto.fi/en/applications-instructions-and-guidelines/aalto-university-code-of-academic-integrity-and-handling-violations-thereof-in-force-until-31)
 * Evidence (violated code, design, document, ...) will be sent to **the School LES Manager**
   - The LES Manager will contact the students and have a hearing
   - The (vice)dean will decide based on these, what will happen:

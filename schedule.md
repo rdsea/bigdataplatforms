@@ -15,7 +15,7 @@ Notes:
 
 Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 --------|--------------|-------|---------
-07.01   |Lecture 1  | [Introduction to Big Data Platforms](lecturenotes/pdfs/) and [Architecting Big Data Platforms](lecturenotes/pdfs/) | **Linh Truong**
+07.01   |Lecture 1  | [Introduction to Big Data Platforms](lecturenotes/pdfs/module1-lecture1-1-intro-v0.7.0.pdf) and [Architecting Big Data Platforms](lecturenotes/pdfs/module1-lecture1-2-architectingbigplatforms-v0.7.pdf) | **Linh Truong**
 14.01  |Lecture 2  | [Service and Integration Models in Big Data Platforms](lecturenotes/pdfs/). Additional slides: [Cloud Infrastructures for Big Data Platforms](lecturenotes/pdfs/) and [a Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems](lecturenotes/pdfs/performance-dependability.pdf)| **Linh Truong**
 15.01 |TBD | TBD | |
 21.01  |Lecture 3  | [Data Services in Big Data Platforms](lecturenotes/pdfs/). Additional slides: [common systems & integration problems](lecturenotes/pdfs/)| **Linh Truong**

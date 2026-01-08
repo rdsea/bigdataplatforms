@@ -124,6 +124,7 @@ The following configuration is used with the Google Storage setup for you:
 * Adding texts to files into the directory specified in **Input Directory** prototype of **ListFile** 
 - Viewing: using the following code to check if the data has been sent to the message broker:
   - create an env to run this one
+
   ```python
   import argparse
   import os
@@ -163,6 +164,14 @@ The following configuration is used with the Google Storage setup for you:
       connection.close()
   ```
 
+  - OR using a common from messageQ tutorial
+
+  ```bash
+  export AMQPURL=**Get the link during the practice**
+  python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
+  ```
+
+
 ### Capture changes in legacy databases and do ingestion to a big data platform
 
 This exercise illustrates how to take only changes from databases and ingest the changes into big data storage/databases.
@@ -180,9 +189,6 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
     ```
 
     > Make sure you setup it right, otherwise binary logging feature might not work. In the practice, we can give you the access to a remote MySQL server, make sure you have "mysql" installed in your machine.
-  - Download an extension and unzip/untar the [download connector for mySQL](https://dev.mysql.com/downloads/connector/j/) and copy .jar to nifi/lib/
-  - edit MySQL Driver Class Location to nifi/lib
-  - edit MySQL Driver Class Name to com.mysql.jdbc.Driver
 
   - Define a database user name for test: such as **cse4640** with password ="bigdataplatforms"
   - Create a database under the selected username. E.g., create a database **bdpdb**
@@ -206,35 +212,85 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
 - **RabbitMQ setting** similar to the previous one
 
 #### Nifi
-1. Use a **CaptureChangeMySQL processor** with the following configuration based on the username, MySQL host, database, etc.
+- Use a **CaptureChangeMySQL processor** with the following configuration based on the username, MySQL host, database, etc.
 	```yaml
 	MySQL Nodes: localhost
 	Username: "cse4640" # or provided during the lecture
 	Password: "bigdataplatforms" # or provided during the lecture
 	Database/Schema: bdpdb
 	Table Name Pattern: myTable
-
 	```
+  - Download an extension and unzip/untar the [download connector for mySQL](https://dev.mysql.com/downloads/connector/j/) in *Platform independent* and copy .jar to nifi/lib/
+  ```yaml
+  MySQL Driver Class Names: com.mysql.jdbc.Driver
+  MySQL Driver Class Locations: PATH/nifi-version/lib
+  ```
 
-2. **PublishAMQP processor**: similar to the previous exercise, we just publish the whole change captured to an AMQP message broker.
+- **PublishAMQP processor**: similar to the previous exercise, we just publish the whole change captured to an AMQP message broker.
 
-#### Nifi
-3. Start an AMQP consumer client to receive the change, remember to check the IP 
+- **EvaluateJsonPath**
+Once you know the path (let's assume Scenario A $.country for this example), configure the processor to replace the entire file content with just that value.
+  ```yaml
+    Destination: flowfile-content # This deletes everything else and leaves only the result.
+    Return Type: auto-detect # (or string).
+    country: $.columns[?(@.name=='country')].value # Add Property (+):
+  ```
+  - the value of country property is based on the Json; for example, I insert a record from the python in test 
+  ```json
+  {"type":"insert","timestamp":1767887526000,"binlog_filename":"mysql-bin.000001","binlog_position":2269,"database":"bdpdb","table_name":"myTable","table_id":90,"columns":[{"id":1,"name":"id","column_type":4,"value":103},{"id":2,"name":"country","column_type":-1,"value":"Estonia"},{"id":3,"name":"duration_seconds","column_type":4,"value":45},{"id":4,"name":"english_cname","column_type":-1,"value":"Barn Swallow"},{"id":5,"name":"latitude","column_type":7,"value":59.437},{"id":6,"name":"longitude","column_type":7,"value":24.753},{"id":7,"name":"species","column_type":-1,"value":"Hirundo rustica"}]}
+  ```
+
+#### Testing
+
+- Start an AMQP consumer client to receive the change, remember to check the IP 
   ```bash
   export AMQPURL=**Get the link during the practice**
   python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
   ```
 
-4. Start to insert the data by inserting some data into the selected table. For example,
-
-    ```
+- Start to insert the data by inserting some data into the selected table. After ssh run this one
+    ```mysql
     INSERT INTO myTable (country, duration_seconds, english_cname, id,  species, latitude, longitude) values ('United States',42,'Yellow-breasted Chat',408123,'virens',33.6651,-117.8434);
     ```
 
-	> *For simple tests, just change the value of the INSERT to add new data into the database to see.*
+    - OR
+
+    ```python
+    import mysql.connector
+
+    # database configuration
+    config = {
+        "user": "cse4640",
+        "password": "bigdataplatforms",
+        "host": "localhost",
+        "database": "bdpdb",
+    }
+    try:
+        conn = mysql.connector.connect(**config)
+        cursor = conn.cursor()
+
+        sql = """INSERT INTO myTable 
+                (id, country, duration_seconds, english_cname, latitude, longitude, species) 
+                VALUES (%s, %s, %s, %s, %s, %s, %s)"""
+
+        val = (1, "Estonia", 45, "Barn Swallow", 59.437, 24.753, "Hirundo rustica")
+
+        cursor.execute(sql, val)
+        conn.commit()
+
+        print(f"Success! Record inserted, ID: {val[0]}")
+
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+
+    finally:
+        if "conn" in locals() and conn.is_connected():
+            cursor.close()
+            conn.close()
+    ```
+> *For simple tests, just change the value of the INSERT to add new data into the database to see.*
 
 > You might get a problem reported elsewhere: https://issues.apache.org/jira/browse/NIFI-9323. In this case, maybe you should disable the flow, clear states and then restart Nifi.
-
 
 ## Conclusions
 
@@ -248,7 +304,7 @@ After successful with the above steps, now you can try different situations:
  - Do it with a large scale setting
 
 
-## Challenges and exercises
+## Exercises
 
 Write a flow that:
 

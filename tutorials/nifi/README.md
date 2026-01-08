@@ -225,9 +225,7 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
   MySQL Driver Class Names: com.mysql.jdbc.Driver
   MySQL Driver Class Locations: PATH/nifi-version/lib
   ```
-
 - **PublishAMQP processor**: similar to the previous exercise, we just publish the whole change captured to an AMQP message broker.
-
 - **EvaluateJsonPath**: filter content of any record before storing to the messageQ
   ```yaml
     Destination: flowfile-content # This deletes everything else and leaves only the result.
@@ -247,16 +245,15 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
   python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
   ```
 
-- Start to insert the data by inserting some data into the selected table. After ssh run this one
+- Insert the data by inserting some data into the selected table. 
+  - After ssh run this one
     ```mysql
     INSERT INTO myTable (country, duration_seconds, english_cname, id,  species, latitude, longitude) values ('United States',42,'Yellow-breasted Chat',408123,'virens',33.6651,-117.8434);
     ```
 
-    - OR
-
+  - Insert via python
     ```python
     import mysql.connector
-
     # database configuration
     config = {
         "user": "cse4640",

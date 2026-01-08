@@ -18,24 +18,6 @@ Note: the following information is with **nifi-1.24.0 and nifi-2.0.0-M1**
 
 > Note: the following instruction is based on nifi-2.7.2
 
-- Error from running Nifi due to the JAVA
-  ```bash
-  nifi.sh: JAVA_HOME not set; results may vary
-
-  JAVA_HOME=
-  NIFI_HOME=/home/hong3nguyen/Public/tools/nifi-2.7.2
-
-  Error: LinkageError occurred while loading main class org.apache.nifi.bootstrap.BootstrapProcess
-          java.lang.UnsupportedClassVersionError: org/apache/nifi/bootstrap/BootstrapProcess has been compiled by a more recent versio of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 55.0
-  Failed to get run command
-  ```
-
-- Ubuntu
-    ```bash
-    sudo apt install openjdk-21-jdk
-    update-java-alternatives --list 
-    export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
-    ```
 
 - Create a test user:
     ```bash
@@ -59,34 +41,40 @@ Note: the following information is with **nifi-1.24.0 and nifi-2.0.0-M1**
     https://127.0.0.1:8443/nifi
     ```
 
->Note about the username/password by reading Nifi guide. Replace "127.0.0.1" with your nifi host IP/name.
+> Note about the username/password by reading Nifi guide. Replace "127.0.0.1" with your nifi host IP/name.
 
-### Other components
+### Troubleshooting
+  - Error from running Nifi due to the JAVA
+    ```bash
+    nifi.sh: JAVA_HOME not set; results may vary
 
-#### AMQP Broker
+    JAVA_HOME=
+    NIFI_HOME=/home/hong3nguyen/Public/tools/nifi-2.7.2
 
-  When ingesting data through message brokers, you can use your own RabbitMQ in your local machine or a free instance created from [CloudAMQP.com](https://cloudamqp.com).
+    Error: LinkageError occurred while loading main class org.apache.nifi.bootstrap.BootstrapProcess
+            java.lang.UnsupportedClassVersionError: org/apache/nifi/bootstrap/BootstrapProcess has been compiled by a more recent versio of the Java Runtime (class file version 65.0), this version of the Java Runtime only recognizes class file versions up to 55.0
+    Failed to get run command
+    ```
 
-- **Simple program for receiving data from message brokers.**
- We have a simple python code that can be used for receiving messages sent to AMQP (using fanout), e.g.,
+  - Ubuntu
+      ```bash
+      sudo apt install openjdk-21-jdk
+      update-java-alternatives --list 
+      export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+      ```
 
-  ```bash
-  python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
-  ```
-
-### Google Storage
-
-  Google Storage is used as data sink. You can use your own google storage bucket or a common bucket available. You will need a service account credential for configuring Nifi and Google Storage.
-
-  >if you use your own storage bucket then create a service account which can be used for Nifi
-
-## Hand-on
+## Hand-ons
 
 ### Define a flow for ingesting data into Google Storage
 
 This example illustrates a scenario where you setup Nifi as a service which continuously check file-based data sources (e.g., directories in file systems, sftp, http, ..) and ingest the new files into a cloud storage.
 
-##### **Setting:**
+#### Services
+- Storage is provided at the hand-on day OR you can also use your storage from cloud/local
+  - GCP storage along with Gcloud service account
+  - MinIO
+
+#### Nifi
 * **ListFile**: is used to list files in a directory. 
   - **Input Directory:**  is where input files will be scanned for ingestion
 * **FetchFile**: used to fetch files from **ListFile**
@@ -105,26 +93,23 @@ The following configuration is used with the Google Storage setup for you:
 
 > Gcloud service account for the practice will be shared at hand-on day. OR you can also use your Google Storage and set service account with your Google Storage.
 
-##### **Testing:**
-* Copy some files into the directory specified in **Input Directory** prototype of **ListFile** and see if the new copied files will be ingested into the Google Storage.
+#### Testing
+* Copy some files into the directory specified in **Input Directory** prototype of **ListFile**
+- See if the new copied files will be ingested into the Google Storage.
 
-#### Define a flow for ingesting data via AMQP
+### Define a flow for ingesting data via AMQP
 
-We should test it only with CSV or JSON files of small data. We use the following components:
 
-##### **Services**
-> RabbitMQ service is provided at the hand-on day OR you can also use your RabbitMQ from your cloud/local
-
+#### Services
+- RabbitMQ is provided at the hand-on day OR you can also use your RabbitMQ from cloud/local
   - **Local setting: you can also deploy a fast docker RabbitMQ for testing** which will give a local rabbitmq with default username/password as "guest/guest"
     > $docker run  -it  -p 5672:5672 rabbitmq:3
+    - You may have to create a queue and set the binding from routing key to queue. Check [this](https://www.tutlane.com/tutorial/rabbitmq/rabbitmq-bindings) for help.
 
-    > You may have to create a queue and set the binding from routing key to queue. Check [this](https://www.tutlane.com/tutorial/rabbitmq/rabbitmq-bindings) for help.
-
-##### **Nifi:**
+#### Nifi
 * **ListFile**: is used to list files in a directory. The property **Input Directory** is where input files will be scanned for ingestion
 * **FetchFile**: used to fetch files from **ListFile**
 * **PublishAMQP**: used to read content of a file and send the whole content to RabbitMQ. For this component, the configuration is based on an existing RabbitMQ. If you use the pre-defined RabbitMQ, then use the following configuration:
-
 	```yaml
 	exchange name: amq.fanout
 	routing key: mybdpnifi
@@ -135,8 +120,9 @@ We should test it only with CSV or JSON files of small data. We use the followin
 	password: <see below> or prvovided during the hands-on
 	```
 
-##### **Testing:**
-- Using the following program to check if the data has been sent to the message broker:
+#### Testing
+* Adding texts to files into the directory specified in **Input Directory** prototype of **ListFile** 
+- Viewing: using the following code to check if the data has been sent to the message broker:
   - create an env to run this one
   ```python
   import argparse
@@ -180,11 +166,46 @@ We should test it only with CSV or JSON files of small data. We use the followin
 ### Capture changes in legacy databases and do ingestion to a big data platform
 
 This exercise illustrates how to take only changes from databases and ingest the changes into big data storage/databases.
-
->Note the information about username, table, MySQL hostname, etc.
-
 Now we will capture changes from a SQL database (assume this is a legacy database). First step in to define  relevant connectors that Nifi uses to communicate with SQL instances:
 
+#### Services
+
+- **MySQL setting**
+  Assume that you have a relational database, say MySQL in the following example. You can setup it to have the following configuration:
+  - Enable binary logging feature in MySQL (see https://dev.mysql.com/doc/refman/5.7/en/replication-howto-masterbaseconfig.html and https://snapshooter.com/learn/mysql/enable-and-use-binary-log-mysql). For example,
+    ```
+    server-id =1
+    log_bin                = /var/log/mysql/mysql-bin.log
+    binlog_format = row
+    ```
+
+    > Make sure you setup it right, otherwise binary logging feature might not work. In the practice, we can give you the access to a remote MySQL server, make sure you have "mysql" installed in your machine.
+  - Download an extension and unzip/untar the [download connector for mySQL](https://dev.mysql.com/downloads/connector/j/) and copy .jar to nifi/lib/
+  - edit MySQL Driver Class Location to nifi/lib
+  - edit MySQL Driver Class Name to com.mysql.jdbc.Driver
+
+  - Define a database user name for test: such as **cse4640** with password ="bigdataplatforms"
+  - Create a database under the selected username. E.g., create a database **bdpdb**
+    ```mysql
+    mysql> create database bdpdb;
+    mysql> use bdpdb;
+    ```
+  - Then create a table like:
+    ```mysql
+    CREATE TABLE myTable (
+      id INTEGER PRIMARY KEY,
+      country text,
+      duration_seconds INTEGER,
+      english_cname text ,
+      latitude float,
+      longitude float,
+      species text
+    );
+    ```
+
+- **RabbitMQ setting** similar to the previous one
+
+#### Nifi
 1. Use a **CaptureChangeMySQL processor** with the following configuration based on the username, MySQL host, database, etc.
 	```yaml
 	MySQL Nodes: localhost
@@ -197,12 +218,13 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
 
 2. **PublishAMQP processor**: similar to the previous exercise, we just publish the whole change captured to an AMQP message broker.
 
+#### Nifi
 3. Start an AMQP consumer client to receive the change, remember to check the IP 
   ```bash
   export AMQPURL=**Get the link during the practice**
   python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
-
   ```
+
 4. Start to insert the data by inserting some data into the selected table. For example,
 
     ```
@@ -213,42 +235,6 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
 
 > You might get a problem reported elsewhere: https://issues.apache.org/jira/browse/NIFI-9323. In this case, maybe you should disable the flow, clear states and then restart Nifi.
 
-
-**MySQL database local**
-
-Assume that you have a relational database, say MySQL in the following example. You can setup it to have the following configuration:
-- Enable binary logging feature in MySQL (see https://dev.mysql.com/doc/refman/5.7/en/replication-howto-masterbaseconfig.html and https://snapshooter.com/learn/mysql/enable-and-use-binary-log-mysql). For example,
-
-	```
-	server-id =1
-	log_bin                = /var/log/mysql/mysql-bin.log
-	binlog_format = row
-	```
-
-	> Make sure you setup it right, otherwise binary logging feature might not work. In the practice, we can give you the access to a remote MySQL server, make sure you have "mysql" installed in your machine.
-
-- Download an extension and unzip/untar the [download connector for mySQL](https://dev.mysql.com/downloads/connector/j/) and copy .jar to nifi/lib/
-- edit MySQL Driver Class Location to nifi/lib
-- edit MySQL Driver Class Name to com.mysql.jdbc.Driver
-
-- Define a database user name for test: such as **cse4640** with password ="bigdataplatforms"
-- Create a database under the selected username. E.g., create a database **bdpdb**
-	```mysql
-	mysql> create database bdpdb;
-	mysql> use bdpdb;
-	```
-- Then create a table like:
-	```mysql
-	CREATE TABLE myTable (
-		id INTEGER PRIMARY KEY,
-		country text,
-		duration_seconds INTEGER,
-		english_cname text ,
-		latitude float,
-		longitude float,
-		species text
-	);
-	```
 
 ## Conclusions
 

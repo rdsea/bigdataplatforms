@@ -172,22 +172,31 @@ metadata_startup_script = <<-EOT
     apt-get update
     apt-get install -y mysql-server
 
-    # 1. Enable External Access (0.0.0.0)
+    # 1. Enable External Access
     sed -i 's/bind-address.*/bind-address = 0.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf
+    
+    # 2. Enable Binary Logging (Required for CDC)
+    # We append these lines to the config file to ensure binlog is ON
+    echo "log_bin = /var/log/mysql/mysql-bin.log" >> /etc/mysql/mysql.conf.d/mysqld.cnf
+    echo "binlog_format = ROW" >> /etc/mysql/mysql.conf.d/mysqld.cnf
+    echo "server_id = 1" >> /etc/mysql/mysql.conf.d/mysqld.cnf
+    
     systemctl restart mysql
 
-    # 2. SQL Configuration
-    # We use a Here-Doc (EOF) to pass multiple commands into mysql safely
-    
+    # 3. SQL Setup
     mysql -e "CREATE DATABASE IF NOT EXISTS bdpdb;"
-    
-    # Create the user 'cse4640' with password 'bigdataplatforms' allowing access from ANY IP (%)
     mysql -e "CREATE USER IF NOT EXISTS 'cse4640'@'%' IDENTIFIED BY 'bigdataplatforms';"
+    
+    # GRANT 1: Standard access to the specific database
     mysql -e "GRANT ALL PRIVILEGES ON bdpdb.* TO 'cse4640'@'%';"
+    
+    # GRANT 2: (NEW) Global Replication privileges needed for NiFi CDC
+    # Note: This MUST be on *.* because replication is a server-wide privilege
+    mysql -e "GRANT REPLICATION CLIENT, REPLICATION SLAVE ON *.* TO 'cse4640'@'%';"
+    
     mysql -e "FLUSH PRIVILEGES;"
 
-    # 3. Create the Table
-    # We switch to the database 'bdpdb' and run the create table statement
+    # 4. Create Table
     mysql -D bdpdb -e "CREATE TABLE IF NOT EXISTS myTable (
         id INTEGER PRIMARY KEY,
         country text,

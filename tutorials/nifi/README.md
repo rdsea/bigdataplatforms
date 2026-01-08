@@ -80,78 +80,141 @@ Note: the following information is with **nifi-1.24.0 and nifi-2.0.0-M1**
 
   >if you use your own storage bucket then create a service account which can be used for Nifi
 
-## Exercises
+## Hand-on
 
 ### Define a flow for ingesting data into Google Storage
 
 This example illustrates a scenario where you setup Nifi as a service which continuously check file-based data sources (e.g., directories in file systems, sftp, http, ..) and ingest the new files into a cloud storage.
 
-**Include:**
+##### **Setting:**
 * **ListFile**: is used to list files in a directory. 
   - **Input Directory:**  is where input files will be scanned for ingestion
 * **FetchFile**: used to fetch files from **ListFile**
-* **PutGCSObject**: this task is used to store files into Google Storage. To use it, you need to define **GCPCredentialsControllerService**. When you define **GCPCredentialsControllerService** you can use the Google credential accessing to a Google Storage.
+* **PutGCSObject**: this task is used to store files into Google Storage. 
+To use it, you need to define **GCPCredentialsControllerService**. When you define **GCPCredentialsControllerService** you can use the Google credential accessing to a Google Storage.
+  ```yaml
+  GCP Credentials Provider Service: GCPCredentialsControllerService # (the controller service used to authenticate with Google Cloud.)
+  Project ID: aalto-t313-cs-e4640 # (The Google Cloud Project ID where the bucket resides)
+  Bucket: bdplabnifi # (The name of the GCS bucket)
+  Key: hong3nguyen/${filename} # (The destination path in the bucket. Uses the folder hong3nguyen/ and appends the dynamic filename)
+  ```
+
 The following configuration is used with the Google Storage setup for you:
   * In **GCPCredentialsControllerService**: copy the below service account
   * Then enable **GCPCredentialsControllerService**
-    - GCP Credentials Provider Service: GCPCredentialsControllerService (the controller service used to authenticate with Google Cloud.)
-    - Project ID: aalto-t313-cs-e4640 (The Google Cloud Project ID where the bucket resides)
-    - Bucket: bdplabnifi (The name of the GCS bucket)
-    - Key: hong3nguyen/${filename} (The destination path in the bucket. Uses the folder hong3nguyen/ and appends the dynamic filename)
 
-> Gcloud service account for the practice will be shared. You can also use your Google Storage and set service account with your Google Storage.
+> Gcloud service account for the practice will be shared at hand-on day. OR you can also use your Google Storage and set service account with your Google Storage.
 
-**Testing:**
-
+##### **Testing:**
 * Copy some files into the directory specified in **Input Directory** prototype of **ListFile** and see if the new copied files will be ingested into the Google Storage.
->Be careful with the files you put into the directory to avoid make wrong files to the Google Storage
-
->If you use a shared bucket with a service account, you can use **gcloud/gsutil** or some programs to list contents of the bucket. For example, first download [the code for listing objects](https://cloud.google.com/storage/docs/listing-objects#storage-list-objects-python) into **storage_list_files.py** and  store the google service json to a file: e.g., google.json
-
-```bash
-export GOOGLE_APPLICATION_CREDENTIALS=google.json
-python3 storage_list_files.py bdplabnifi
-```
-> see sample code in https://cloud.google.com/storage/docs/reference/libraries#client-libraries-install-python
 
 #### Define a flow for ingesting data via AMQP
 
 We should test it only with CSV or JSON files of small data. We use the following components:
 
+##### **Services**
+> RabbitMQ service is provided at the hand-on day OR you can also use your RabbitMQ from your cloud/local
+
+  - **Local setting: you can also deploy a fast docker RabbitMQ for testing** which will give a local rabbitmq with default username/password as "guest/guest"
+    > $docker run  -it  -p 5672:5672 rabbitmq:3
+
+    > You may have to create a queue and set the binding from routing key to queue. Check [this](https://www.tutlane.com/tutorial/rabbitmq/rabbitmq-bindings) for help.
+
+##### **Nifi:**
 * **ListFile**: is used to list files in a directory. The property **Input Directory** is where input files will be scanned for ingestion
 * **FetchFile**: used to fetch files from **ListFile**
 * **PublishAMQP**: used to read content of a file and send the whole content to RabbitMQ. For this component, the configuration is based on an existing RabbitMQ. If you use the pre-defined RabbitMQ, then use the following configuration:
 
-	```
+	```yaml
 	exchange name: amq.fanout
 	routing key: mybdpnifi
 	hostname: hawk.rmq.cloudamqp.com # edit this based on the provided IP 
 	port: 5672
-	virtual host: frlocnsr
+	virtual host: 
 	username: <see below> or prvovided during the hands-on
 	password: <see below> or prvovided during the hands-on
-
 	```
-AMQP username/password for practice will be shared.
 
-*You can also deploy a fast docker RabbitMQ for testing*:
-> $docker run  -it  -p 5672:5672 rabbitmq:3
-> which will give a local rabbitmq with default username/password as "guest/guest"
+##### **Testing:**
+- Using the following program to check if the data has been sent to the message broker:
+  - create an env to run this one
+  ```python
+  import argparse
+  import os
+  import pika
 
-  > You may have to create a queue and set the binding from routing key to queue. Check [this](https://www.tutlane.com/tutorial/rabbitmq/rabbitmq-bindings) for help.
+  if __name__ == "__main__":
+      # parsing command lines
+      parser = argparse.ArgumentParser()
+      # exchange: amq.fanout or amq.topic
+      parser.add_argument("--exchange", help="exchange name")
+      # routing key: if amq.fanout, then no routing key must be defined
+      parser.add_argument("--routingkey", help="routing key")
+      args = parser.parse_args()
 
-Using the following program to check if the data has been sent to the message broker:
+      amqp_link = os.environ.get("AMQPURL", "amqp://guest:guest@localhost")
+      params = pika.URLParameters(amqp_link)
 
-```bash
-export AMQPURL=**Get the link during the practice**
-python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
-```
->Note that the AMQP configuration for the python program must match the AMQP broker set in Nifi. In case you use your fast RabbitMQ docker then, $export AMQPURL="amqp://guest:guest@localhost"
+      params.socket_timeout = 5
+      connection = pika.BlockingConnection(params)
+      channel = connection.channel()
+      result_queue = channel.queue_declare(queue="", exclusive=True)
+      queue_name = result_queue.method.queue
 
+      # channel.queue_bind(exchange=args.exchange, queue=queue_name)
+      channel.queue_bind(
+          exchange=args.exchange, queue=queue_name, routing_key=args.routingkey
+      )
+
+      print(f" [*] Waiting for messages in {queue_name}. To exit press CTRL+C")
+
+      def callback(ch, method, properties, body):
+          print(f"Received: {body.decode()}")
+
+      # callback for receiving data
+      channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
+      channel.start_consuming()
+      connection.close()
+  ```
 
 ### Capture changes in legacy databases and do ingestion to a big data platform
 
 This exercise illustrates how to take only changes from databases and ingest the changes into big data storage/databases.
+
+>Note the information about username, table, MySQL hostname, etc.
+
+Now we will capture changes from a SQL database (assume this is a legacy database). First step in to define  relevant connectors that Nifi uses to communicate with SQL instances:
+
+1. Use a **CaptureChangeMySQL processor** with the following configuration based on the username, MySQL host, database, etc.
+	```yaml
+	MySQL Nodes: localhost
+	Username: "cse4640" # or provided during the lecture
+	Password: "bigdataplatforms" # or provided during the lecture
+	Database/Schema: bdpdb
+	Table Name Pattern: myTable
+
+	```
+
+2. **PublishAMQP processor**: similar to the previous exercise, we just publish the whole change captured to an AMQP message broker.
+
+3. Start an AMQP consumer client to receive the change, remember to check the IP 
+  ```bash
+  export AMQPURL=**Get the link during the practice**
+  python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
+
+  ```
+4. Start to insert the data by inserting some data into the selected table. For example,
+
+    ```
+    INSERT INTO myTable (country, duration_seconds, english_cname, id,  species, latitude, longitude) values ('United States',42,'Yellow-breasted Chat',408123,'virens',33.6651,-117.8434);
+    ```
+
+	> *For simple tests, just change the value of the INSERT to add new data into the database to see.*
+
+> You might get a problem reported elsewhere: https://issues.apache.org/jira/browse/NIFI-9323. In this case, maybe you should disable the flow, clear states and then restart Nifi.
+
+
+**MySQL database local**
 
 Assume that you have a relational database, say MySQL in the following example. You can setup it to have the following configuration:
 - Enable binary logging feature in MySQL (see https://dev.mysql.com/doc/refman/5.7/en/replication-howto-masterbaseconfig.html and https://snapshooter.com/learn/mysql/enable-and-use-binary-log-mysql). For example,
@@ -161,7 +224,8 @@ Assume that you have a relational database, say MySQL in the following example. 
 	log_bin                = /var/log/mysql/mysql-bin.log
 	binlog_format = row
 	```
-	>Make sure you setup it right, otherwise binary logging feature might not work. In the practice, we can give you the access to a remote MySQL server, make sure you have "mysql" installed in your machine.
+
+	> Make sure you setup it right, otherwise binary logging feature might not work. In the practice, we can give you the access to a remote MySQL server, make sure you have "mysql" installed in your machine.
 
 - Download an extension and unzip/untar the [download connector for mySQL](https://dev.mysql.com/downloads/connector/j/) and copy .jar to nifi/lib/
 - edit MySQL Driver Class Location to nifi/lib
@@ -185,38 +249,6 @@ Assume that you have a relational database, say MySQL in the following example. 
 		species text
 	);
 	```
-
->Note the information about username, table, MySQL hostname, etc.
-
-Now we will capture changes from a SQL database (assume this is a legacy database). First step in to define  relevant connectors that Nifi uses to communicate with SQL instances:
-
-1. Use a **CaptureChangeMySQL processor** with the following configuration based on the username, MySQL host, database, etc.
-
-	```
-	MySQL Hosts:
-	Username: "cse4640" # or provided during the lecture
-	Password: "bigdataplatforms" # or provided during the lecture
-	Database/Schema: bdpdb
-	Table Name Pattern: myTable*
-
-	```
-
-2. **PublishAMQP processor**: similar to the previous exercise, we just publish the whole change captured to an AMQP message broker.
-
-3. Start an AMQP consumer client to receive the change, remember to check the IP 
-```bash
-export AMQPURL=**Get the link during the practice**
-python3 cs-e4640/tutorials/amqp/test_amqp_fanout_consumer.py --exchange amq.fanout
-```
-4. Start to insert the data by inserting some data into the selected table. For example,
-
-	```
-	INSERT INTO myTable (country, duration_seconds, english_cname, id,  species, latitude, longitude) values ('United States',42,'Yellow-breasted Chat',408123,'virens',33.6651,-117.8434);
-	```
-	>*For simple tests, just change the value of the INSERT to add new data into the database to see.*
-
->You might get a problem reported elsewhere: https://issues.apache.org/jira/browse/NIFI-9323. In this case, maybe you should disable the flow, clear states and then restart Nifi.
-
 
 ## Conclusions
 

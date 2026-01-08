@@ -228,8 +228,7 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
 
 - **PublishAMQP processor**: similar to the previous exercise, we just publish the whole change captured to an AMQP message broker.
 
-- **EvaluateJsonPath**
-Once you know the path (let's assume Scenario A $.country for this example), configure the processor to replace the entire file content with just that value.
+- **EvaluateJsonPath**: filter content of any record before storing to the messageQ
   ```yaml
     Destination: flowfile-content # This deletes everything else and leaves only the result.
     Return Type: auto-detect # (or string).

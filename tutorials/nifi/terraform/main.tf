@@ -55,15 +55,18 @@ resource "local_file" "key1_file" {
   content  = base64decode(google_service_account_key.key1.private_key)
 }
 
+# ==============================================================================
+# PART 2: RabbjitMQ (Ubuntu 24.04)
+# ==============================================================================
 # 1. Create a VPC Network for RabbitMQ (Best practice: don't use 'default')
-resource "google_compute_network" "rabbitmq_vpc" {
-  name = "rabbitmq-network"
+resource "google_compute_network" "nifi_vpc" {
+  name = "nifi-network"
 }
 
 # 2. Create Firewall Rules to allow external access
 resource "google_compute_firewall" "rabbitmq_firewall" {
   name    = "allow-rabbitmq"
-  network = google_compute_network.rabbitmq_vpc.name
+  network = google_compute_network.nifi_vpc.name
 
   allow {
     protocol = "tcp"
@@ -88,7 +91,7 @@ resource "google_compute_instance" "rabbitmq_vm" {
   }
 
   network_interface {
-    network = google_compute_network.rabbitmq_vpc.name
+    network = google_compute_network.nifi_vpc.name
     access_config {
       # This block assigns a public IP
     }
@@ -123,4 +126,82 @@ resource "google_compute_instance" "rabbitmq_vm" {
 output "rabbitmq_public_ip" {
   value       = google_compute_instance.rabbitmq_vm.network_interface[0].access_config[0].nat_ip
   description = "The Public IP to access RabbitMQ"
+}
+# ==============================================================================
+# PART 3: MYSQL DATABASE (Ubuntu 24.04)
+# ==============================================================================
+
+# 1. Firewall Rule: Allow MySQL Port 3306
+resource "google_compute_firewall" "mysql_firewall" {
+  name    = "allow-mysql"
+  network = google_compute_network.nifi_vpc.name # Attaches to the same network
+
+  allow {
+    protocol = "tcp"
+    ports    = ["3306"] # Standard MySQL port
+  }
+
+  target_tags   = ["mysql-server"]
+  source_ranges = ["0.0.0.0/0"] # WARNING: Open to the world. Restrict this in production!
+}
+
+# 2. Create the MySQL VM
+resource "google_compute_instance" "mysql_vm" {
+  name         = "mysql-server"
+  machine_type = "e2-medium"
+  zone         = var.zone
+  tags         = ["mysql-server"] # Matches the firewall rule above
+
+  boot_disk {
+    initialize_params {
+      image = "ubuntu-os-cloud/ubuntu-2404-lts-amd64"
+      size  = 20
+    }
+  }
+
+  network_interface {
+    network = google_compute_network.nifi_vpc.name
+    access_config {
+      # Assign Public IP
+    }
+  }
+
+  # Startup script to install and configure MySQL
+metadata_startup_script = <<-EOT
+    #!/bin/bash
+    apt-get update
+    apt-get install -y mysql-server
+
+    # 1. Enable External Access (0.0.0.0)
+    sed -i 's/bind-address.*/bind-address = 0.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf
+    systemctl restart mysql
+
+    # 2. SQL Configuration
+    # We use a Here-Doc (EOF) to pass multiple commands into mysql safely
+    
+    mysql -e "CREATE DATABASE IF NOT EXISTS bdpdb;"
+    
+    # Create the user 'cse4640' with password 'bigdataplatforms' allowing access from ANY IP (%)
+    mysql -e "CREATE USER IF NOT EXISTS 'cse4640'@'%' IDENTIFIED BY 'bigdataplatforms';"
+    mysql -e "GRANT ALL PRIVILEGES ON bdpdb.* TO 'cse4640'@'%';"
+    mysql -e "FLUSH PRIVILEGES;"
+
+    # 3. Create the Table
+    # We switch to the database 'bdpdb' and run the create table statement
+    mysql -D bdpdb -e "CREATE TABLE IF NOT EXISTS myTable (
+        id INTEGER PRIMARY KEY,
+        country text,
+        duration_seconds INTEGER,
+        english_cname text,
+        latitude float,
+        longitude float,
+        species text
+    );"
+  EOT
+}
+
+# 3. Output the MySQL Public IP
+output "mysql_public_ip" {
+  value       = google_compute_instance.mysql_vm.network_interface[0].access_config[0].nat_ip
+  description = "The Public IP to access MySQL (Port 3306)"
 }

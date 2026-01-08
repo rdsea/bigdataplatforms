@@ -303,7 +303,6 @@ After successful with the above steps, now you can try different situations:
 ## Exercises
 
 Write a flow that:
-
 1. Process the samples:
 	* Get MD5 hash
 	* Get binary name

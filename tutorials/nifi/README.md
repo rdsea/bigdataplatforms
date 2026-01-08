@@ -304,15 +304,13 @@ After successful with the above steps, now you can try different situations:
 
 Write a flow that:
 
-1. Collect malware sample from git or vendors ftp servers
-	* Less funny, change malware with images
-2. Process the samples:
+1. Process the samples:
 	* Get MD5 hash
 	* Get binary name
 	* Get binary size
-3. Create a csv entry containing hash,name,size
-4. Merge all entries in a single file
-5. Store the file to your own Google storage
+2. Create a csv entry containing hash,name,size
+3. Merge all entries in a single file
+4. Store the file to your own Google storage
 
 ## Authors
 - Eljon Harlicaj

@@ -17,11 +17,13 @@ Check the subdirectories to see some small examples we use in our courses.
 - [Basic Kafka](basickafka/)
 
 ### Data Storage 
+
 - [Basic Cassandra](basiccassandra/)
 - [Consistency in NoSQL with Cassandra](consistency/)          
 - [Scalable SQL with CockroachDB](newsqldb/)  
   
 ### Data Ingestion 
+
 - [Data quality](dataquality/)
 - [Queue-based data ingestion](queuebaseddataingestion/)
 - [Data Ingestion and Apache Nifi](nifi/)                         
@@ -45,4 +47,5 @@ Check the subdirectories to see some small examples we use in our courses.
 You might see many code examples about IoT, Edge and Clouds from our [IoTCloudSamples](https://github.com/rdsea/IoTCloudSamples/) that you can reuse for big data studies.
 
 We also play with LLMs for assisting the study:
+
 - [Assisting your study with LLMs](llmbdp/)

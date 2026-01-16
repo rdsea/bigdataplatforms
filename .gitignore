@@ -177,3 +177,4 @@ terraform.rc
 
 # terraform lock 
 *.lock.hcl
+.DS_Store

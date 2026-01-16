@@ -49,11 +49,14 @@ If you use one of our node, Cassandra Python Driver has already been installed i
 ```
 $source virtualenv/bin/activate
 ```
+
+If you get error in the above steps for accessing cassandra via cqlsh, follow below
+
 ## 2. Sample data
 
 We use the data set [A Dataset for Research on Water Sustainability](https://osf.io/g3zvd/overview?view_only=63e9c2f0cdf547d792bdd8e93045f89e). However, we only use the metadata from the CSV file. Furthermore, we extract only a few fields.
 
-[The extracted data is here] tutorials/consistency/water_dataset.csv
+[The extracted data is here] tutorials/basiccassandra/datasamples/water_dataset_v_05.14.24_1000.csv
 >If you dont use the python sample programs, you can also use other datasets, as long as you follow *CQL* samples by adapting them for your data.
 
 ## 3. Exercise Steps
@@ -62,14 +65,37 @@ In the following steps, we assume that username is *mybdp*.
 
 
 ### 3.1 Create a keyspace
-Check the node address using nodetool:
+Check the node address using nodetool:(name of container can be 'cassandra-seed' OR 'cassandra-2' OR 'cassandra-3' )
 ```
-$nodetool status
+docker exec -it <name of container> nodetool status
 ```
-Login into Cassandra using *cqlsh*:
+Login into Cassandra using *cqlsh*: (The ip address, username and password will be given on the day of the tutorial)
 ```
 $cqlsh [Node1|2|3] -u mybdp
+
+
 ```
+
+If you get error in the above steps for accessing cassandra via cqlsh, follow below (change it according to your OS)
+```
+# macOS (Homebrew)
+brew install python@3.11
+
+python3.11 -m venv ~/cqlsh311
+source ~/cqlsh311/bin/activate
+
+# Avoid C extensions and pick a supported loop
+export CASS_DRIVER_NO_EXTENSIONS=1
+export CASS_DRIVER_EVENT_LOOP_MANAGER=asyncio
+
+pip install --upgrade pip
+pip install "cassandra-driver==3.29.0" cqlsh
+
+# Use the venv’s cqlsh explicitly
+~/cqlsh311/bin/cqlsh <ip> 9042 -u mybdp -p 'password'
+```
+
+
 The password will be provided in the tutorial session.
 Choose your keyspace name, e.g. **tutorial-studentid**. Pls. keep the *replication factor* as in the following example.
 
@@ -130,9 +156,16 @@ mybdp@cqlsh>SELECT * from tutorial12345.water1234;
 what do you see?
 
 #### Test if you can connect to Cassandra using a Python program
+Run the below code from you PC terminal (change the path of the .py file accordingly)
 
 ```
-$python3 consistency/test_connection.py --host [Node1|2|3] --u mybdp --p [Password] --q "SELECT * FROM tutorial12345.water1234;"
+python consistency/test_connection.py \
+  --hosts <node ip> \
+  --u mybdp \
+  --p 'password' \
+  --q SELECT * FROM tutorial12345.water1234;"
+
+
 ```
 
 ### 3.4 Programming consistency levels
@@ -179,7 +212,7 @@ Note:
 Using different nodes, you can try to run a read test using Python to see the performance and data accuracy:
 
 ```
-python3 consistency/test_consistency_read.py --host [node] --u mybdp --p [password] --q "SELECT * FROM tutorial12345.water1234"
+python3 consistency/test_consistency_read.py --host [node ip] --u mybdp --p [password] --q "SELECT * FROM tutorial12345.water1234"
 ```
 What do you see, compared with a similar query from other nodes.
 
@@ -191,7 +224,7 @@ What do you see, compared with a similar query from other nodes.
 
 Change the level of consistency in the code and see if it affects the performance.
 ```
-python3 test_consistency_write.py --hosts "node1,node2,node3" --u mybdp --p [password]
+python3 test_consistency_write.py --hosts <node ip> --u mybdp --p [password]
 ```
 Check if you program works.
 
@@ -264,6 +297,8 @@ If you repeat the above-mentioned examples with **CONSISTENCY TWO**, what do you
 Assume that the node you connect fails, try to connect to different hosts. What do you get?
 
 ## 4. Hot and Cold Spaces
+
+ 
 In real-world systems, not all data is accessed equally. Recent data is usually queried frequently and requires low latency (hot data), while older data is accessed rarely and can tolerate higher latency (cold data). In Cassandra, this separation is typically handled at the data-modeling and application level.
 
 In this tutorial, we demonstrate a simple hot → cold data transition using two tables.
@@ -272,7 +307,7 @@ In this tutorial, we demonstrate a simple hot → cold data transition using two
 
 We store recent records in a hot table and move older records into a cold table.
 ```
-CREATE TABLE tutorial12345.water_hot (
+mybdp@cqlsh>CREATE TABLE tutorial12345.water_hot (
   timestamp timestamp,
   city text,
   zip text,
@@ -298,7 +333,7 @@ CREATE TABLE tutorial12345.water_hot (
 ```
 
 ```
-CREATE TABLE tutorial12345.water_cold (
+mybdp@cqlsh>CREATE TABLE tutorial12345.water_cold (
   timestamp timestamp,
   city text,
   zip text,
@@ -326,14 +361,14 @@ CREATE TABLE tutorial12345.water_cold (
 
 ## 4.2 Writing and Reading Hot Data
 
-All new incoming data is written only to the hot table:
+All new incoming data is written only to the hot table: (Add any data you want)
 ```
-INSERT INTO tutorial12345.water_hot (...) VALUES (...);
+mybdp@cqlsh>INSERT INTO tutorial12345.water_hot (...) VALUES (...);
 ```
 
 Typical operational queries read from the hot table:
 ```
-SELECT * FROM tutorial12345.water_hot
+mybdp@cqlsh>SELECT * FROM tutorial12345.water_hot
 WHERE city='Austin' AND zip='78704' LIMIT 50;
 ```
 
@@ -360,8 +395,8 @@ python3 consistency/migrate_hot_to_cold.py --host [Node1|2|3] --u mybdp --p [Pas
 
 After migration, verify:
 ```
-SELECT count(*) FROM tutorial12345.water_hot;
-SELECT count(*) FROM tutorial12345.water_cold;
+mybdp@cqlsh>SELECT count(*) FROM tutorial12345.water_hot;
+mybdp@cqlsh>SELECT count(*) FROM tutorial12345.water_cold;
 ```
 
 Note:
@@ -382,4 +417,4 @@ This demonstrates how data access patterns and consistency choices are closely r
 * https://docs.datastax.com/en/ddac/doc/datastax_enterprise/dbInternals/dbIntConfigConsistency.html
 * https://docs.datastax.com/en/ddaccql/doc/cql/cql_reference/cqlsh_commands/cqlshTracing.html#cqlshTracing__examples
 * [Performance experiments of Cassandra in Azure](https://github.com/Azure-Samples/cassandra-on-azure-vms-performance-experiments/)
-*
+

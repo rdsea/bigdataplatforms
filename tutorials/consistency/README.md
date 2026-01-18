@@ -368,10 +368,14 @@ This simulates how frequently accessed data gradually becomes archival data.
 A simple migration script (in Python) can be found at : consistency/migrate_hot_to_cold.py
 
 Save as: consistency/migrate_hot_to_cold.py
+Change the cutoff time accordingly.
 
 Run it:
 ```
-python3 consistency/migrate_hot_to_cold.py --host [Node1|2|3] --u mybdp --p [Password] --city Austin --zip 78704 --cutoff_minutes 5
+python3 consistency/migrate_hot_to_cold.py \
+  --host <IP> --u mybdp --p 'password' \
+  --cutoff_at "2026-01-18 01:30:00" --cutoff_minutes 30
+
 ```
 
 After migration, verify:

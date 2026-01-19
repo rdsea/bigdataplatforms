@@ -14,8 +14,6 @@ The goal is to design simple flows with basic tasks of data ingestion to underst
 ### Apache Nifi
 You can download [Apache Nifi](https://nifi.apache.org/download.html) and install it into your machine. Check the document to see if a minimum configuration should be made for your installation.
 
-Note: the following information is with **nifi-1.24.0 and nifi-2.0.0-M1**
-
 > Note: the following instruction is based on nifi-2.7.2
 
 

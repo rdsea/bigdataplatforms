@@ -5,17 +5,16 @@ Some materials:
 * [Apache Flink for Big Data Platforms](../../lecturenotes/pdfs/module3-streaming-flink-v0.6.pdf)
 * [An accompanying hands-on video is available - Update the link later](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=35976699-d98c-4dee-bbe4-ac0500ab604d)
 * [Slides](slides/2025-flink.pdf)
-* 
+
 ## Introduction
 
 We will practice Apache Flink with simple activities:
-* setup Apache Flink in local machine
-* write streaming applications with Flink
-* run Flink streaming applications
+* Setup Apache Flink in local machine
+* Write streaming applications with Flink
+* Run Flink streaming applications
 
 
 >Note: there are many tutorials about Apache Flink that you can take a look in the Internet, e.g. [Apache Flink with in AWS](https://www.youtube.com/watch?v=4FIPt87A_qM)
-
 
 ## Setup Apache Flink for Practices
 

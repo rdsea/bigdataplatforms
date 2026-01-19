@@ -2,6 +2,7 @@ non-git
 tmp
 .env
 .DS_store
+.DS_Store
 #Java 
 .class
 target/

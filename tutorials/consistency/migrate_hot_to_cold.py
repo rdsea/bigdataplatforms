@@ -31,11 +31,11 @@ def migrate(host, username, password, city, zip_code, cutoff_dt):
     session = cluster.connect(KEYSPACE)
 
     # 1) Read old rows from HOT (assumes schema supports this range query)
-    select_q = """
+    select_q = session.prepare("""
         SELECT * FROM water_hot
         WHERE city=? AND zip=? AND timestamp < ?
         ALLOW FILTERING;
-    """
+    """)
     rows = session.execute(select_q, (city, zip_code, cutoff_dt))
 
     # 2) Insert into COLD + 3) Delete from HOT

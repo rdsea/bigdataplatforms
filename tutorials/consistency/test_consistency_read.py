@@ -24,7 +24,7 @@ if __name__ == "__main__":
     session = cluster.connect()
     ## Change the consistency level to see
     input = args.q
-    # copy a line of the bird song in csv file here
+    # copy a line of the water data in csv file here
     start = time()
     ## enable only 1 option
     consistency_level = ConsistencyLevel.ONE

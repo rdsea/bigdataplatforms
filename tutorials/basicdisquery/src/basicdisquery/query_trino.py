@@ -12,7 +12,7 @@ EX_NAMES = ["mongodb", "cassandra", "bigquery"]
 # pre-define queries
 SAMPLE_QUERIES = {
     "mongodb": "SELECT * FROM test.listings LIMIT 10",
-    "cassandra": "select * from tutorial12345.bird1234 LIMIT 10",
+    "cassandra": "select * from tutorial12345.water1234 LIMIT 10",
     "bigquery": "SELECT * FROM taxitesting.taxi_trips LIMIT 20",
 }
 if __name__ == "__main__":

@@ -21,7 +21,7 @@
 * **A Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems**: [download PDF](pdfs/performance-dependability.pdf)
 * **Some industrial and open source big data platforms for Your tech radar**: [Slides](pdfs/) 
   
-* **Data Services**: (download [PDF](pdfs/))
+* **Data Services**: (download [PDF](pdfs/module2-lecture3-bigdatastoragedatabase-v0.7.1.pdf))
   - [Data Services - Exploring the technology trends in basic, integrated, and cloud data services.](https://cacm.acm.org/research/data-services/), CACM.
   - Chapters 5 & 9: Martin Kleppmann, Designing Data-Intensive Applications, O'Reilly Media,1 edition (April 11, 2017)
   -  http://cacm.acm.org/news/200095-the-data-lake-concept-is-maturing/fulltext

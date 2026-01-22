@@ -31,8 +31,7 @@
   - [Eventual consistency](https://dl.acm.org/ft_gateway.cfm?id=1466448&ftid=577532&dwn=1)
   - [Consistency Tradeoffs in Modern Distributed Database System Design](https://www.cs.umd.edu/~abadi/papers/abadi-pacelc.pdf)
   - [A Model and Survey of Distributed Data-Intensive Systems](https://dl.acm.org/doi/10.1145/3604801)
-* **Addition for Big Data Storage and Database Services: common systems & integration problems**:  (download [PDF](pdfs/)).
-* A short example of metadata: [Video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=e54ba118-53c1-4097-9b12-acc2013ddb4f)
+
 * **Big Data Ingestion, Transformation and Orchestration**: (download [PDF](pdfs/)
 * **Apache Kafka for Streaming Data Ingestion - The Core**: [PDF](pdfs/), [basic Kafka setup](../tutorials/basickafka)
 * **Hadoop and its Big Data Ecosystems**: (download [PDF](../2024/lecturenotes/pdfs/module3-lecture5-hadoop-v0.5.pdf))

@@ -1,4 +1,4 @@
-# Tutorial to sho w how to use Kafka with Big Data on GCP by using Terraform
+# Tutorial to show how to use Kafka with Big Data on GCP by using Terraform
 
 This tutorial demonstrates how to set up a Kafka cluster on Google Cloud Platform (GCP) using Terraform, and how to integrate it with Big Data services on GCP. You should have a basic understanding of Kafka, GCP, and Terraform before proceeding with this tutorial. Basic Kafka knowledge can be acquired from the [Basics Kafka tutorial](../basickafka/README.md).
 
@@ -79,36 +79,42 @@ This tutorial demonstrates how to set up a Kafka cluster on Google Cloud Platfor
     ssh -i ~/.ssh/your_key your_user@<kafka-0-ip>
     ```
     replace `your_key` and `your_user` with your actual SSH key and username.
-2. Prepare a Kafka Topic
+2. Since we use configured your Kafka brokers to require SASL authentication (via SASL_PLAINTEXT), you need to copy the 'security-cf.properties' file to the Kafka node you will use as the producer.
+    ```
+    scp -i ~/.ssh/your_key security-cf.properties your_user@<kafka-0-ip>:/usr/local/kafka/config/security-cf.properties
+    ```
+    replace `your_key` and `your_user` with your actual SSH key and username.
+3. Prepare a Kafka Topic
     ```
     /usr/local/kafka/bin/kafka-topics.sh --create \
     --topic reddit-comments \
     --bootstrap-server kafka-0:9092,kafka-1:9092,kafka-2:9092 \
     --partitions 3 \
-    --replication-factor 3
+    --replication-factor 3 \
+    --command-config security-cf.properties
     ```
     verify the topic creation using
     ```
-    /usr/local/kafka/bin/kafka-topics.sh --list --bootstrap-server kafka-0:9092
+    /usr/local/kafka/bin/kafka-topics.sh --list --bootstrap-server kafka-0:9092 --command-config security-cf.properties
     ```
 ### Create Cassandra Keyspace and Table
 On any Cassandra node (or the same Kafka node if you installed Cassandra there):
-    ```
-    cqlsh <cassandra-ip> 9042
-    ```
-    Inside ``cqlsh``:
-    ```
-    CREATE KEYSPACE reddit WITH replication = {'class':'SimpleStrategy','replication_factor':3};
+```
+cqlsh <cassandra-ip> 9042
+```
+Inside ``cqlsh``:
+```
+CREATE KEYSPACE reddit WITH replication = {'class':'SimpleStrategy','replication_factor':3};
 
-    USE reddit;
+USE reddit;
 
-    CREATE TABLE comments (
+CREATE TABLE comments (
     id text PRIMARY KEY,
     subreddit text,
     body text,
     created_utc timestamp
-    );
-    ```
+);
+```
 ### Set Up Kafka Connect Cassandra Sink
 Prepare a ``cassandra-sink.json`` file locally (on the Kafka node):
 ```
@@ -138,5 +144,101 @@ Check status:
 curl http://localhost:8083/connectors/cassandra-sink/status
 ```
 ### Produce Reddit Comments to Kafka
-On the Kafka producer node:
+In this step, we stream the Reddit comments dataset from Google Cloud Storage (GCS), parse it, and produce records into Kafka.
+1. Prepare the dataset on the Kafka producer node. SSH into the Kafka producer node (e.g., kafka-0) if you are not already connected:
 ```
+ssh -i ~/.ssh/your_key your_user@<kafka-0-ip>
+```
+replace `your_key` and `your_user` with your actual SSH key and username.
+Download the dataset from GCS:
+```
+gsutil cp gs://reddit-bigdata-bucket/reddit-comments-may-2015.zip .
+```
+Unzip the dataset:
+```
+unzip reddit-comments-may-2015.zip
+```
+
+You should now see a large JSON file (or multiple JSON files) containing Reddit comments.
+
+2. Install required tools on the producer node. Install Python and required dependencies:
+```
+sudo apt update
+sudo apt install -y python3 python3-pip
+pip3 install kafka-python
+```
+3. Copy `reddit_producer.py` to the Kafka producer node. You can use `scp` to transfer the file:
+```
+scp -i ~/.ssh/your_key reddit_producer.py your_user@<kafka-0-ip>:/home/your_user/reddit_producer.py
+```
+replace `your_key` and `your_user` with your actual SSH key and username.
+
+    Note:
+    The dataset is very large. In a real system, batching, backpressure, and rate-limiting should be implemented 
+    to avoid overwhelming Kafka and Cassandra.
+
+4. Run the producer script to stream
+Start producing messages:
+```
+python3 reddit_producer.py
+```
+You should see no errors if Kafka authentication, topic creation, and network configuration are correct.
+
+### Verify Data Flow End-to-End
+1. Verify Kafka ingestion
+On any Kafka node:
+```
+/usr/local/kafka/bin/kafka-console-consumer.sh \
+--bootstrap-server kafka-0:9092 \
+--topic reddit-comments \
+--from-beginning \
+--max-messages 5 \
+--consumer.config /usr/local/kafka/config/security-cf.properties
+```
+You should see JSON-formatted Reddit comments.
+
+2. Verify Cassandra sink
+On any Cassandra node:
+```
+cqlsh <cassandra-ip> 9042
+```
+Then:
+```
+USE reddit;
+
+SELECT * FROM comments LIMIT 10;
+```
+You should observe Reddit comment records persisted in Cassandra.
+
+### (Optional) Scaling and Performance Considerations
+
+- Increase Kafka topic partitions to improve throughput.
+
+- Increase Kafka Connect task parallelism (tasks.max).
+
+- Tune Cassandra write consistency and compaction strategy.
+Use Kafka Connect converters (Avro/Protobuf) instead of JSON for production.
+
+- Deploy Kafka Connect and Cassandra as managed services when possible.
+
+## Cleanup
+To avoid unnecessary cloud costs, destroy all Terraform-managed resources when finished:
+```
+terraform destroy
+```
+
+## Conclusion
+
+This tutorial demonstrated how to:
+
+- Provision a multi-node Kafka cluster on GCP using Terraform
+
+- Upload large-scale datasets to Google Cloud Storage
+
+- Stream Big Data from GCS into Kafka
+
+- Persist Kafka streams into Cassandra using Kafka Connect
+
+- Validate an end-to-end Big Data pipeline on cloud infrastructure
+
+This architecture forms a foundational pattern for cloud-native Big Data ingestion pipelines, and can be extended with BigQuery, Dataflow, Spark, or Flink for large-scale analytics.

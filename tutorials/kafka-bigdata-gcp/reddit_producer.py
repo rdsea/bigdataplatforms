@@ -1,28 +1,36 @@
-#!/usr/bin/env python3
 import json
-import time
-from confluent_kafka import Producer
+from kafka import KafkaProducer
+from datetime import datetime
 
-BROKER = "<BROKER_NODE_0_IP>:9092"
-TOPIC = "reddit-comments"
+producer = KafkaProducer(
+    bootstrap_servers=[
+        "kafka-0:9092",
+        "kafka-1:9092",
+        "kafka-2:9092"
+    ],
+    security_protocol="SASL_PLAINTEXT",
+    sasl_mechanism="PLAIN",
+    sasl_plain_username="admin",
+    sasl_plain_password="admin-secret",
+    value_serializer=lambda v: json.dumps(v).encode("utf-8")
+)
 
-producer = Producer({"bootstrap.servers": BROKER})
+topic = "reddit-comments"
 
-with open("/tmp/RC_2015-05.json", "r") as f:
+with open("reddit_comments.json", "r") as f:
     for line in f:
-        try:
-            record = json.loads(line)
-            msg = {
-                "author": record.get("author"),
-                "subreddit": record.get("subreddit"),
-                "body": record.get("body"),
-                "created_utc": record.get("created_utc")
-            }
-            producer.produce(TOPIC, json.dumps(msg).encode("utf-8"))
-            producer.poll(0)
-            time.sleep(0.001)
-        except json.JSONDecodeError:
-            continue
+        record = json.loads(line)
+
+        message = {
+            "id": record.get("id"),
+            "subreddit": record.get("subreddit"),
+            "body": record.get("body"),
+            "created_utc": datetime.utcfromtimestamp(
+                record.get("created_utc", 0)
+            ).isoformat()
+        }
+
+        producer.send(topic, value=message)
 
 producer.flush()
-print("Finished producing Reddit comments.")
+producer.close()

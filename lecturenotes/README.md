@@ -33,13 +33,14 @@
   - [A Model and Survey of Distributed Data-Intensive Systems](https://dl.acm.org/doi/10.1145/3604801)
 
 * **Big Data Ingestion, Transformation and Orchestration**: (download [PDF](pdfs/)
-* **Apache Kafka for Streaming Data Ingestion - The Core**: [PDF](pdfs/), [basic Kafka setup](../tutorials/basickafka)
-* **Hadoop and its Big Data Ecosystems**: (download [PDF](../2024/lecturenotes/pdfs/module3-lecture5-hadoop-v0.5.pdf))
-* **Some case studies for Hadoop and data ingestion**:
+* **Apache Kafka for Streaming Data Ingestion - The Core**: [PDF](pdfs/module2-lecture4-apachekafka-v0.7.pdf), [basic Kafka setup](../tutorials/basickafka)
+* **Some case studies, data ingestion and data services**:
+* - Matteo Merli, Sijie Guo, Penghui Li, Hang Chen, Neng Lu, "Ursa: A Lakehouse-Native Data Streaming Engine for Kafka", https://www.vldb.org/pvldb/vol18/p5184-guo.pdf
   - K. Shvachko, H. Kuang, S. Radia and R. Chansler, "The Hadoop Distributed File System," 2010 IEEE 26th Symposium on Mass Storage Systems and Technologies (MSST), Incline Village, NV, 2010, pp. 1-10.doi: 10.1109/MSST.2010.5496972
   - Vinod Kumar Vavilapalli, Arun C. Murthy, Chris Douglas, Sharad Agarwal, Mahadev Konar, Robert Evans, Thomas Graves, Jason Lowe, Hitesh Shah, Siddharth Seth, Bikas Saha, Carlo Curino, Owen O'Malley, Sanjay Radia, Benjamin Reed, and Eric Baldeschwieler. 2013. Apache Hadoop YARN: yet another resource negotiator. In Proceedings of the 4th annual Symposium on Cloud Computing (SOCC '13). ACM, New York, NY, USA, Article 5, 16 pages. DOI:https://doi.org/10.1145/2523616.2523633
   - Ashish Thusoo, Joydeep Sen Sarma, Namit Jain, Zheng Shao, Prasad Chakka, Suresh Anthony, Hao Liu, Pete Wyckoff, and Raghotham Murthy. 2009. Hive: a warehousing solution over a map-reduce framework. Proc. VLDB Endow. 2, 2 (August 2009), 1626-1629. DOI: https://doi.org/10.14778/1687553.1687609
   - Roshan Sumbaly, Jay Kreps, and Sam Shah. 2013. The big data ecosystem at LinkedIn. In Proceedings of the 2013 ACM SIGMOD International Conference on Management of Data (SIGMOD '13). ACM, New York, NY, USA, 1125-1134. DOI: http://dx.doi.org/10.1145/2463676.2463707
+  - *Hadoop and its Big Data Ecosystems*: (download [PDF](../2024/lecturenotes/pdfs/module3-lecture5-hadoop-v0.5.pdf))
 * **Programming Models for Data Processing**: (download [PDF](pdfs/)), [The MapReduce Programming Model](../2024/lecturenotes/pdfs/module3-mapreduce-v0.5.pdf))
   - Belcastro, L., Cantini, R., Marozzo, F. et al. , [Programming big data analysis: principles and solutions](https://journalofbigdata.springeropen.com/articles/10.1186/s40537-021-00555-2)
   - Matei Zaharia, Bill Chambers , Spark: The Definitive Guide, [Book](https://learning.oreilly.com/library/view/spark-the-definitive/9781491912201/), [Code](https://github.com/databricks/Spark-The-Definitive-Guide)

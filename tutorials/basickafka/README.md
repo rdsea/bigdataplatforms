@@ -8,8 +8,6 @@
 Apache Kafka is a distributed streaming platform used for building real-time data pipelines and streaming apps [Kafka documentation](http://kafka.apache.org/documentation.html).
 In this manual, all the commands and are written in bold-italic. The commands to be typed on the terminal window are preceded by a dollar ($) sign when the result is included.
 
-- [Accompanying hands-on video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=33ee67f3-f018-45b2-b6d5-abea00dbbb2a)
-
 ## Prerequisite
 
 > Java is needed for running Kafka. Java must be installed.

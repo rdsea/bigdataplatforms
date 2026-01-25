@@ -321,9 +321,8 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
 
 ## Conclusions
 
-Now you have an overview on the vast capabilities of Apache Nifi. We suggest you try to define simple data-flow in order to make some practice.
-
-After successful with the above steps, now you can try different situations:
+Now you have an overview on the vast capabilities of Apache Nifi.
+With the above steps, now you can try different situations:
  - Now, as in the first example, we can define **ListFile**, **FetchFile** and **PutCSObject** to automatically store all the updates to a legacy database in a Google storage in csv format.
  - Add other processors to handle the changes
  - Using Apache Kafka as messaging system for ingestion

@@ -67,6 +67,23 @@ You can download [Apache Nifi **Binaries**](https://nifi.apache.org/download.htm
 #### NOTE 
 
 >SERVICES: **are provided at the hands-on day along with hostname, username/password, etc**
+- The instructor will show information:
+    ```yaml
+    gcloud storage buckets:
+        Account service key: 
+        Project ID: 
+        Bucket name: 
+    AMQP:
+        Hostname:
+        Username:
+        Password:
+    MySQL:
+        Hostname:
+        Username:
+        Password:
+        Database: 
+        TableName:
+    ```
 
 >NiFi: **Students** focus on Nifi setting and configuration
 
@@ -117,11 +134,11 @@ This example illustrates a scenario where you setup Nifi as a service which cont
 	```yaml
 	exchange name: amq.fanout
 	routing key: mybdpnifi
-	hostname: hawk.rmq.cloudamqp.com # edit this based on the provided IP 
+	hostname: <Hostname> # edit this based on the provided IP 
 	port: 5672
 	virtual host: 
-	username: admin # prvovided during the hands-on
-	password: <see in Hands-on> # prvovided during the hands-on
+	username: <Username> # prvovided during the hands-on
+	password: <Password> # prvovided during the hands-on
 	```
 
 #### Testing

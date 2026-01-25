@@ -12,14 +12,15 @@ The goal is to design simple flows with basic tasks of data ingestion to underst
 
 ## Setup
 ### Apache Nifi
-You can download [Apache Nifi](https://nifi.apache.org/download.html) and install it into your machine. Check the document to see if a minimum configuration should be made for your installation.
+You can download [Apache Nifi **Binaries**](https://nifi.apache.org/download.html).
 
-> Note: the following instruction is based on nifi-2.7.2
+> Note: the following instruction is based on nifi-2.7.2 and Ubuntu 22.04 LTS
 
 
 - Create a test user:
     ```bash
-    bin/nifi.sh set-single-user-credentials student0 cse4640student0
+    bin/nifi.sh set-single-user-credentials <username> <password>
+    # example:  bin/nifi.sh set-single-user-credentials student0 cse4640student0
     ```
 - Start Nifi server
     ```bash
@@ -36,10 +37,10 @@ You can download [Apache Nifi](https://nifi.apache.org/download.html) and instal
 
 - Then access Nifi from the Web browser:
     ```bash
-    https://127.0.0.1:8443/nifi
+    https://localhost:8443/nifi
     ```
 
-> Note about the username/password by reading Nifi guide. Replace "127.0.0.1" with your nifi host IP/name.
+> Note about setting a Nifi on cloud: Replace "localhost" with your nifi host IP/name.
 
 ### Troubleshooting
   - Error from running Nifi due to the JAVA

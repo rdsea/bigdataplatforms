@@ -64,6 +64,14 @@ You can download [Apache Nifi **Binaries**](https://nifi.apache.org/download.htm
 
 ## Hand-ons
 
+#### NOTE 
+
+SERVICES: **are provided at the hands-on day along with hostname, username/password, etc**
+
+NiFi: **Students** focus on Nifi setting and configuration
+
+TESTING: are provided by the instructors to show results sent by NiFi config from the students
+
 ### Define a flow for ingesting data into Google Storage
 
 This example illustrates a scenario where you setup Nifi as a service which continuously check file-based data sources (e.g., directories in file systems, sftp, http, ..) and ingest the new files into a cloud storage.
@@ -164,8 +172,10 @@ This example illustrates a scenario where you setup Nifi as a service which cont
       connection.close()
   ```
 
-  > python amqp_fanout_consumer.py --exchange amq.fanout --host localhost --user guest --password guest
-  > example: python test_amqp_fanout_consumer.py --exchange amq.fanout --host localhost --user guest --password guest
+  ```bash
+  python amqp_fanout_consumer.py --exchange amq.fanout --host <host> --user <username> --password <password>
+  #example: python test_amqp_fanout_consumer.py --exchange amq.fanout --host localhost --user guest --password guest
+  ```
 
   - OR using a common from messageQ tutorial
 
@@ -217,18 +227,17 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
 #### Nifi
 - Use a **CaptureChangeMySQL processor** with the following configuration based on the username, MySQL host, database, etc.
 	```yaml
-	MySQL Nodes: localhost
-	Username: "cse4640" # or provided during the lecture
-	Password: "bigdataplatforms" # or provided during the lecture
-	Database/Schema: bdpdb
-	Table Name Pattern: myTable
+	MySQL Nodes: <HostName> # the host of the MySQL server is provided during the hands-on
+	Username: <UserName> # or provided during the lecture
+	Password: <Password> # or provided during the lecture
+	Database/Schema: <DatabaseName> # or provided during the lecture
+	Table Name Pattern: <TableName> # or provided during the lecture
 	```
-  - Download an extension and unzip/untar the [download connector for mySQL](https://dev.mysql.com/downloads/connector/j/) in *Platform independent* and copy .jar to nifi/lib/
+  - Download an extension and unzip/untar the [download connector for mySQL](https://dev.mysql.com/downloads/connector/j/) in **Platform independent** then extract and copy .jar to the your nifi extensions folder: for example, nifi-2.7.2/lib/
   ```yaml
   MySQL Driver Class Names: com.mysql.jdbc.Driver
-  MySQL Driver Class Locations: PATH/nifi-version/lib
+  MySQL Driver Class Locations: PATH/nifi-2.7.2/lib
   ```
-- **PublishAMQP processor**: similar to the previous exercise, we just publish the whole change captured to an AMQP message broker.
 - **EvaluateJsonPath**: filter content of any record before storing to the messageQ
   ```yaml
     Destination: flowfile-content # This deletes everything else and leaves only the result.
@@ -240,6 +249,7 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
   {"type":"insert","timestamp":1767887526000,"binlog_filename":"mysql-bin.000001","binlog_position":2269,"database":"bdpdb","table_name":"myTable","table_id":90,"columns":[{"id":1,"name":"id","column_type":4,"value":103},{"id":2,"name":"country","column_type":-1,"value":"Estonia"},{"id":3,"name":"duration_seconds","column_type":4,"value":45},{"id":4,"name":"english_cname","column_type":-1,"value":"Barn Swallow"},{"id":5,"name":"latitude","column_type":7,"value":59.437},{"id":6,"name":"longitude","column_type":7,"value":24.753},{"id":7,"name":"species","column_type":-1,"value":"Hirundo rustica"}]}
   ```
 
+- **PublishAMQP processor**: similar to the previous exercise, we just publish the whole change captured to an AMQP message broker.
 #### Testing
 
 - Start an AMQP consumer client to receive the change, remember to check the IP 
@@ -249,7 +259,7 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
   ```
 
 - Insert the data by inserting some data into the selected table. 
-  - After ssh run this one
+  - Insert via ssh then run this one
     ```mysql
     INSERT INTO myTable (country, duration_seconds, english_cname, id,  species, latitude, longitude) values ('United States',42,'Yellow-breasted Chat',408123,'virens',33.6651,-117.8434);
     ```
@@ -258,17 +268,19 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
     ```python
     import mysql.connector
     # database configuration
+    # change <UserName> <Password> <HostName> <DatabaseName> to your information provided in the hands-on
     config = {
-        "user": "cse4640",
-        "password": "bigdataplatforms",
-        "host": "localhost",
-        "database": "bdpdb",
+        "user": "<UserName>",
+        "password": "<Password>",
+        "host": "<HostName>",
+        "database": "<DatabaseName>",
     }
     try:
         conn = mysql.connector.connect(**config)
         cursor = conn.cursor()
 
-        sql = """INSERT INTO myTable 
+        # change <TableName> to your table provided in the hands-on
+        sql = """INSERT INTO <TableName> 
                 (id, country, duration_seconds, english_cname, latitude, longitude, species) 
                 VALUES (%s, %s, %s, %s, %s, %s, %s)"""
 
@@ -301,18 +313,6 @@ After successful with the above steps, now you can try different situations:
  - Using Apache Kafka as messaging system for ingestion
  - Ingest the change into the right sink (database, storage)
  - Do it with a large scale setting
-
-
-## Exercises
-
-Write a flow that:
-1. Process the samples:
-	* Get MD5 hash
-	* Get binary name
-	* Get binary size
-2. Create a csv entry containing hash,name,size
-3. Merge all entries in a single file
-4. Store the file to your own Google storage
 
 ## Authors
 - Eljon Harlicaj

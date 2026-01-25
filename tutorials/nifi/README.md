@@ -66,11 +66,11 @@ You can download [Apache Nifi **Binaries**](https://nifi.apache.org/download.htm
 
 #### NOTE 
 
-SERVICES: **are provided at the hands-on day along with hostname, username/password, etc**
+>SERVICES: **are provided at the hands-on day along with hostname, username/password, etc**
 
-NiFi: **Students** focus on Nifi setting and configuration
+>NiFi: **Students** focus on Nifi setting and configuration
 
-TESTING: are provided by the instructors to show results sent by NiFi config from the students
+> TESTING: are provided by the instructors to show results sent by NiFi config from the students
 
 ### Define a flow for ingesting data into Google Storage
 

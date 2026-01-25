@@ -78,16 +78,13 @@ This example illustrates a scenario where you setup Nifi as a service which cont
   - **Input Directory:**  is where input files will be scanned for ingestion
 * **FetchFile**: used to fetch files from **ListFile**
 * **PutGCSObject**: this task is used to store files into Google Storage. 
-To use it, you need to define **GCPCredentialsControllerService**. When you define **GCPCredentialsControllerService** you can use the Google credential accessing to a Google Storage.
   ```yaml
   GCP Credentials Provider Service: GCPCredentialsControllerService # (the controller service used to authenticate with Google Cloud.)
   Project ID: aalto-t313-cs-e4640 # (The Google Cloud Project ID where the bucket resides)
-  Bucket: bdplabnifi # (The name of the GCS bucket)
-  Key: hong3nguyen/${filename} # (The destination path in the bucket. Uses the folder hong3nguyen/ and appends the dynamic filename)
+  Bucket: bdplabnifi # (The name of the GCS bucket which is setup for this hand-on)
+  Key: <yourNAME>/${filename} # (The destination path in the bucket. Change yourNAME to your actual name to uses the folder yourNAME/ and appends the dynamic filename)
   ```
-
-The following configuration is used with the Google Storage setup for you:
-  * In **GCPCredentialsControllerService**: copy the below service account
+  - To use it, you need to define **GCPCredentialsControllerService** by *Go to service*. When you define **GCPCredentialsControllerService** you have to use the Google credential accessing (Google service account) to a Google Storage provided during the lecture, called KEY.json and copy the *PATH/KEY.json* to **Servive Account JSON File** service account
   * Then enable **GCPCredentialsControllerService**
 
 > Gcloud service account for the practice will be shared at hand-on day. OR you can also use your Google Storage and set service account with your Google Storage.

@@ -112,8 +112,8 @@ This example illustrates a scenario where you setup Nifi as a service which cont
 	hostname: hawk.rmq.cloudamqp.com # edit this based on the provided IP 
 	port: 5672
 	virtual host: 
-	username: <see below> or prvovided during the hands-on
-	password: <see below> or prvovided during the hands-on
+	username: admin # prvovided during the hands-on
+	password: <see in Hands-on> # prvovided during the hands-on
 	```
 
 #### Testing
@@ -121,7 +121,8 @@ This example illustrates a scenario where you setup Nifi as a service which cont
 - Viewing: using the following code to check if the data has been sent to the message broker:
   - create an env to run this one
 
-  ```python
+  ```python 
+  # amqp_fanout_consumer.py
   import argparse
   import os
   import pika
@@ -131,11 +132,14 @@ This example illustrates a scenario where you setup Nifi as a service which cont
       parser = argparse.ArgumentParser()
       # exchange: amq.fanout or amq.topic
       parser.add_argument("--exchange", help="exchange name")
-      # routing key: if amq.fanout, then no routing key must be defined
+      # routing key: if amq.fanout, then no routing key must be defined. Only define for amq.topic 
       parser.add_argument("--routingkey", help="routing key")
+      parser.add_argument("--host", help="host name")
+      parser.add_argument("--user", help="user name")
+      parser.add_argument("--password", help="password")
       args = parser.parse_args()
 
-      amqp_link = os.environ.get("AMQPURL", "amqp://guest:guest@localhost")
+      amqp_link = os.environ.get("AMQPURL", f"amqp://{args.user}:{args.password}@{args.host}") # guest:guest
       params = pika.URLParameters(amqp_link)
 
       params.socket_timeout = 5
@@ -159,6 +163,9 @@ This example illustrates a scenario where you setup Nifi as a service which cont
       channel.start_consuming()
       connection.close()
   ```
+
+  > python amqp_fanout_consumer.py --exchange amq.fanout --host localhost --user guest --password guest
+  > example: python test_amqp_fanout_consumer.py --exchange amq.fanout --host localhost --user guest --password guest
 
   - OR using a common from messageQ tutorial
 

@@ -134,11 +134,10 @@ This example illustrates a scenario where you setup Nifi as a service which cont
 	```yaml
 	exchange name: amq.fanout
 	routing key: mybdpnifi
-	hostname: <HostName> # edit this based on the provided IP 
+	hostname: <HostName> # provided during the hands-on
 	port: 5672
-	virtual host: 
-	username: <Username> # prvovided during the hands-on
-	password: <Password> # prvovided during the hands-on
+	username: <Username> # provided during the hands-on
+	password: <Password> # provided during the hands-on
 	```
 
 #### Testing
@@ -194,7 +193,7 @@ This example illustrates a scenario where you setup Nifi as a service which cont
   #example: python test_amqp_fanout_consumer.py --exchange amq.fanout --host localhost --user guest --password guest
   ```
 
-  - OR using a common from messageQ tutorial
+  - OR using from messageQ tutorial
 
   ```bash
   export AMQPURL=**Get the link during the practice**
@@ -210,7 +209,7 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
 #### Services
 
 - **MySQL setting**
-  Assume that you have a relational database, say MySQL in the following example. You can setup it to have the following configuration:
+  Assume that we have a relational database, say MySQL in the following example. We can setup it to have the following configuration:
   - Enable binary logging feature in MySQL (see https://dev.mysql.com/doc/refman/5.7/en/replication-howto-masterbaseconfig.html and https://snapshooter.com/learn/mysql/enable-and-use-binary-log-mysql). For example,
     ```
     server-id =1
@@ -218,15 +217,15 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
     binlog_format = row
     ```
 
-    > Make sure you setup it right, otherwise binary logging feature might not work. In the practice, we can give you the access to a remote MySQL server, make sure you have "mysql" installed in your machine.
+    > Make sure we setup it right, otherwise binary logging feature might not work. In the practice, we can give you the access to a remote MySQL server, make sure you have "mysql" installed in your machine.
 
-  - Define a database user name for test: such as **cse4640** with password ="bigdataplatforms"
+  - Define a database user name for test: such as **Username** with **Password** are provided during the hands-on
   - Create a database under the selected username. E.g., create a database **bdpdb**
     ```mysql
     mysql> create database bdpdb;
     mysql> use bdpdb;
     ```
-  - Then create a table like:
+  - Then create a table, called **myTable**, like:
     ```mysql
     CREATE TABLE myTable (
       id INTEGER PRIMARY KEY,
@@ -259,9 +258,9 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
   ```yaml
     Destination: flowfile-content # This deletes everything else and leaves only the result.
     Return Type: auto-detect # (or string).
-    country: $.columns[?(@.name=='country')].value # Add Property (+):
+    country: $.columns[?(@.name=='country')].value # Add Property (+): to extract only the country value from the record to put to the queue
   ```
-  - the value of country property is based on the Json; for example, I insert a record from the python in test 
+  - The value of country property is based on the Json; for example, I insert a record from the python in test 
   ```json
   {"type":"insert","timestamp":1767887526000,"binlog_filename":"mysql-bin.000001","binlog_position":2269,"database":"bdpdb","table_name":"myTable","table_id":90,"columns":[{"id":1,"name":"id","column_type":4,"value":103},{"id":2,"name":"country","column_type":-1,"value":"Estonia"},{"id":3,"name":"duration_seconds","column_type":4,"value":45},{"id":4,"name":"english_cname","column_type":-1,"value":"Barn Swallow"},{"id":5,"name":"latitude","column_type":7,"value":59.437},{"id":6,"name":"longitude","column_type":7,"value":24.753},{"id":7,"name":"species","column_type":-1,"value":"Hirundo rustica"}]}
   ```
@@ -326,7 +325,7 @@ Now you have an overview on the vast capabilities of Apache Nifi. We suggest you
 
 After successful with the above steps, now you can try different situations:
  - Now, as in the first example, we can define **ListFile**, **FetchFile** and **PutCSObject** to automatically store all the updates to a legacy database in a Google storage in csv format.
- - Add other processors to handle the change nicely
+ - Add other processors to handle the changes
  - Using Apache Kafka as messaging system for ingestion
  - Ingest the change into the right sink (database, storage)
  - Do it with a large scale setting

@@ -14,21 +14,21 @@ In this manual, all the commands and are written in bold-italic. The commands to
 
 ### Step1: Download and extract Kafka binaries
 
-Download the Kafka from this link [Kafka download](https://downloads.apache.org/kafka/3.6.1/kafka_2.13-3.6.1.tgz). For this project we are using Kafka version 3.6.1 for Scala version 2.13. After downloading, follow the following steps:
+Download the Kafka from this link [Kafka download](https://downloads.apache.org/kafka/4.1.1/kafka_2.13-4.1.1.tgz). For this project we are using Kafka version 4.1.1 for Scala version 2.13 After downloading, follow the following steps:
 
 ```bash
 mkdir kafka
-mv kafka_2.13-3.6.1.tgz kafka
+mv kafka_2.13-4.1.1.tgz kafka
 cd kafka/
-tar -xzf kafka_2.13-3.6.1.tgz
-cd kafka_2.13-3.6.1
+tar -xzf kafka_2.13-4.1.1.tgz
+cd kafka_2.13-4.1.1
 ```
 
 Let us assume kafka is under `$KAFKA`
 
 ### Step2: Configure the kafka server
 
-Since we use Kafka without Zookeeper, we will use the configuration file under `$KAFKA/conf/kraft`. Edit the **server.properties** file and pay attention to:
+Since we use Kafka without Zookeeper, we will use the configuration file under `$KAFKA/kafka-4.1.1-src/config`. Edit the **server.properties** file and pay attention to:
 
 ```properties
 # The role of this server. Setting this puts us in KRaft mode
@@ -47,10 +47,10 @@ Get a uuid for Kafka cluster:
 bin/kafka-storage.sh random-uuid
 ```
 
-then use the output uuid for the cluster id, e.g., **GBq4dvG2QtacMXRDdpgbuQ**
+then use the output uuid for the cluster id, e.g., **d-hxI9WHRjKL_A449TNZsg**
 
 ```bash
-bin/kafka-storage.sh format --config config/kraft/server.properties --cluster-id GBq4dvG2QtacMXRDdpgbuQ
+bin/kafka-storage.sh format --config config/server.properties --standalone --cluster-id d-hxI9WHRjKL_A449TNZsg
 ```
 
 To set up a cluster, you can prepare many machines in a similar way but pay attention that:
@@ -63,7 +63,7 @@ To set up a cluster, you can prepare many machines in a similar way but pay atte
 Running the server
 
 ```bash
-bin/kafka-server-start.sh config/kraft/server.properties
+bin/kafka-server-start.sh config/server.properties
 ```
 
 ### Step4: Testing the installation
@@ -98,39 +98,10 @@ A simple script on how to start Kafka producers and consumers from the terminal 
 There are two ways to run Kafka from a container. One is to get the image from [docker hub](https://hub.docker.com/) and then run it by using docker, for example:
 
 ```bash
-docker run bitnami/kafka
+docker run apache/kafka
 ```
 
-Second alternative is to get the docker compose file of the Kafka image [bitnami/kafka](https://github.com/bitnami/containers/blob/main/bitnami/kafka/docker-compose.yml). Save it in the your editor and then do the following. In this example,
-we will assume that the file is saved as docker-compose1.yml in a folder named kafka.
-
-1. To start the zookeeper and kafka servers type:
-
-   ```bash
-   docker-compose -f docker-compose1.yml up
-   ```
-
-2. Open a new terminal and get the name of the kafka container by typing
-
-   ```bash
-   docker-compose -f docker-compose1.yml ps
-   ```
-
-3. Run a terminal inside the container by using the command
-
-   ```bash
-   docker exec -it <Container ID> /bin/bash
-   ```
-
-   Where the container name was obtained from step two
-
-4. Test if Kafka is running correctly in the container by creating a topic
-
-   ```bash
-   kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test
-   ```
-
-   If all went well, you should see the text _Created topic test_ on your terminal.
+For further information, you can look at the [Kafka Docker Image Usage Guide](https://github.com/apache/kafka/blob/trunk/docker/examples/README.md).
 
 ---
 

@@ -43,7 +43,6 @@ resource "google_compute_firewall" "allow-http-https" {
       "9092",  # Kafka broker
       "9093",  # Kafka controller
       "8083",  # Kafka Connect REST
-      "9042"   # Cassandra CQL
     ]
   }
 
@@ -69,7 +68,7 @@ resource "google_compute_disk" "kafka-disk" {
 }
 
 ############################################
-# Kafka + Connect + Cassandra Nodes
+# Kafka + Connect Instances
 ############################################
 
 resource "google_compute_instance" "kafka" {
@@ -120,11 +119,6 @@ resource "google_compute_instance" "kafka" {
     source      = "install-connect.sh"
     destination = "install-connect.sh"
   }
-
-  provisioner "file" {
-    source      = "install-cassandra.sh"
-    destination = "install-cassandra.sh"
-  }
 }
 
 ############################################
@@ -147,10 +141,9 @@ resource "null_resource" "kafka-configure" {
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x ~/install-kafka.sh ~/run-kafka.sh ~/install-connect.sh ~/install-cassandra.sh",
+      "chmod +x ~/install-kafka.sh ~/run-kafka.sh ~/install-connect.sh",
       ". ~/install-kafka.sh",
       ". ~/install-connect.sh",
-      ". ~/install-cassandra.sh"
     ]
   }
 

@@ -113,24 +113,20 @@ We will be using a docker-compose file for for setting up a multi-broker cluster
 
 Running a Kafka cluster in a container is different from running a single instance as many environment variables have to be configured. The docker-compose file for the services is _docker-compose3.yml_. The configuration in the file allows us to use a global Kafka Broker.
 
-_Note: In the `KAFKA_CFG_ADVERTISED_LISTENERS` setting, be sure to update the `BROKER` setting for hostname/external ip of the machine instance. Otherwise, this won't be accessible from any system outside the `localhost`_(check https://github.com/bitnami/containers/tree/main/bitnami/kafka for seeing configuration parameters with bitnami kafka containers)
+_Note: In the `KAFKA_ADVERTISED_LISTENERS` setting, be sure to update the `BROKER` setting for hostname/external ip of the machine instance. Otherwise, this won't be accessible from any system outside the `localhost`_
 
-> Example: - KAFKA_CFG_ADVERTISED_LISTENERS=BROKER://192.168.8.106:9092
+> Example: - KAFKA_ADVERTISED_LISTENERS=BROKER://192.168.8.106:9092
 
 To set a cluster, we need a cluster id that you can generate by using kafka-storage.sh and use the returned uuid for the customer name
 
 ```bash
-$ docker run -it  bitnami/kafka:latest kafka-storage.sh random-uuid
-kafka 14:43:29.43
-kafka 14:43:29.43 Welcome to the Bitnami kafka container
-kafka 14:43:29.43 Subscribe to project updates by watching https://github.com/bitnami/containers
-kafka 14:43:29.43 Submit issues and feature requests at https://github.com/bitnami/containers/issues
-kafka 14:43:29.43
+$ ❯ docker run -it --rm apache/kafka:latest \
+          /opt/kafka/bin/kafka-storage.sh random-uuid
 
-pQooK8X-Q_2cDlViPWvpyg
+0D2OO3VWS-SEy25KMVKUtA
 ```
 
-**pQooK8X-Q_2cDlViPWvpyg** can be used as the cluster id that you can update the compose file.
+**0D2OO3VWS-SEy25KMVKUtA** can be used as the cluster id that you can update the compose file.
 
 1. Start the containers by running
 
@@ -336,6 +332,6 @@ python code/simple_kafka_consumer.py -b BROKER_IP_ADDRESS:9092  -t testbdp2024 -
 
 ## Authors
 
-- Tutorial author: Strasdosky Otewa, Rohit Raj, Guangkai Jiang and Linh Truong
+- Tutorial author: Korawit Rupanya, Strasdosky Otewa, Rohit Raj, Guangkai Jiang and Linh Truong
 
 - Editor: Linh Truong

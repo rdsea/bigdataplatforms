@@ -7,29 +7,33 @@ This extended tutorial demonstrates how to deploy a multi-producer, multi-topic 
 - Terraform installed on your local machine.
 
 ### Motivation Scenario
-Two tenant sharing same kafka
+Modern data-driven systems increasingly operate in multi-tenant environments, where multiple independent applications or organizations (tenants) generate and consume large volumes of data concurrently. Consider a shared data platform operated by an infrastructure provider (e.g., a university, enterprise IT department, or cloud operator) for examples:
 
-what is the purpose? few lines
+Tenant A: A real-time data ingestion service (e.g., IoT sensors, energy monitoring, or log streams).
 
-### Architectural Overview
+Tenant B: A batch- or analytics-oriented service (e.g., data science workloads, machine learning pipelines, or reporting systems).
 
-PUT prof pic here
+Both tenants produce high-throughput data streams and require reliable, scalable, and low-latency data transport. Deploying separate Kafka clusters per tenant would significantly increase operational cost, resource consumption, and management complexity. Instead, the tenants share a single Kafka cluster, while remaining logically isolated through Kafka topics, partitions, and access control mechanisms.
+
+### Tutorial Simple Kafka Architectural Overview
+
+In this tutorial, we demonstrate how a single Kafka cluster can be shared by multiple producers and consumers, forming a scalable big data pipeline suitable for multi-tenant environments.
+
+![KafkaTutorialTargetArchitecture](KafkaTutorialTargetArchitecture.drawio.svg)
 
 #### Target Architecture
 
 - Producers
 
-    - Producer 1 → produces Dataset A → Topic A
+    - Tenant 1(Tenant P1) → produces Dataset A → Topic A
 
-    - Producer 2 → produces Dataset B → Topic B
-
-    - Producer 2 → produces Dataset C → Topic C
+    - Tenant 2(Tenant P2) → produces Dataset B → Topic B
 
 - Kafka Cluster
 
-    - 3 Kafka brokers (kafka-0, kafka-1, kafka-2)
+    - 1 Kafka brokers
 
-    - 3 topics: topic-a, topic-b, topic-c
+    - 2 topics: Topic A, Topic B
 
     - Replication factor = 3
 
@@ -37,30 +41,27 @@ PUT prof pic here
 
 - Consumers (Kafka Connect + Cassandra)
 
-- Consumer Group 1
+- Consumer Group A
 
     - 2 Kafka Connect worker nodes
-
+        - Consumer 1(Tenant C_A1)
+        - Consumer 2(Tenant C_A2)
     - Subscribes to Topic A
 
-- Consumer Group 2
+- Consumer Group B
 
     - 2 Kafka Connect worker nodes
-
+        - Consumer 1(Tenant C_B1)
+        - Consumer 2(Tenant C_B2)
     - Subscribes to Topic B
-
 - Sink
-
     - Cassandra cluster
 
 ## Running the whole pipeline with sample data
 ### Prepare the sample data
-1. In this tutorial, we use the same data set as [consistency(Cassandra) Tutoria](../consistency/) 
-
-[A Dataset for Research on Water Sustainability](https://osf.io/g3zvd/overview?view_only=63e9c2f0cdf547d792bdd8e93045f89e). However, students can download this dataset fully to test it as the big data in later steps. 
-
-[A sample of the extracted data is here](../../tutorials/basiccassandra/datasamples/water_dataset_v_05.14.24_1000.csv) 
->If you dont use the python sample programs, you can also use other datasets, as long as you follow *CQL* samples by adapting them for your data.
+1. In this tutorial, we use the two set of sample data
+    - The same data set as [consistency(Cassandra) Tutorial](../consistency/) which is [A Dataset for Research on Water Sustainability](https://osf.io/g3zvd/overview?view_only=63e9c2f0cdf547d792bdd8e93045f89e).
+    - [Sample of BTS monitoring data](../../data/bts/)
 
 ### Prepare a Kafka Topic
 1. Pick one Kafka node, usually kafka-0, as the producer host.
@@ -77,7 +78,7 @@ PUT prof pic here
 3. Prepare a Kafka Topic
     ```
     /usr/local/kafka/bin/kafka-topics.sh --create \
-    --topic water1234 \
+    --topic water_data \
     --bootstrap-server kafka-0:9092,kafka-1:9092,kafka-2:9092 \
     --partitions 3 \
     --replication-factor 3 \
@@ -91,12 +92,12 @@ PUT prof pic here
 Prepare a ``cassandra-sink.json`` file locally (on the Kafka node):
 ```
 {
-  "name": "cassandra-water1234-sink",
+  "name": "cassandra-water_data-sink",
   "config": {
     "connector.class": "com.datamountaineer.streamreactor.connect.cassandra.CassandraSinkConnector",
     "tasks.max": "1",
 
-    "topics": "water1234",
+    "topics": "water_data",
 
     "contact.points": "<cassandra-ip>",
     "loadBalancing.local.dc": "datacenter1",
@@ -104,7 +105,7 @@ Prepare a ``cassandra-sink.json`` file locally (on the Kafka node):
     "key.space": "tutorial12345",
 
     "connect.cassandra.kcql": 
-      "INSERT INTO water1234 
+      "INSERT INTO water_data 
        SELECT 
          timestamp,
          egridregion,
@@ -157,20 +158,20 @@ sudo apt update
 sudo apt install -y python3 python3-pip
 pip3 install kafka-python
 ```
-3. Copy `sample_data_producer.py` to the Kafka producer node. You can use `scp` to transfer the file:
+3. Copy `sample_data_producer_A.py` to the Kafka producer node. You can use `scp` to transfer the file:
 ```
-scp -i ~/.ssh/your_key sample_data_producer.py your_user@<kafka-0-ip>:/home/your_user/sample_data_producer.py
+scp -i ~/.ssh/your_key sample_data_producer_A.py your_user@<kafka-0-ip>:/home/your_user/sample_data_producer_A.py
 ```
 replace `your_key` and `your_user` with your actual SSH key and username.
 
     Note:
-    The dataset is very large. In a real system, batching, backpressure, and rate-limiting should be implemented 
+    The dataset is very large. In a real system, batching, back pressure, and rate-limiting should be implemented 
     to avoid overwhelming Kafka and Cassandra.
 
 4. Run the producer script to stream
 Start producing messages:
 ```
-python3 sample_data_producer.py
+python3 sample_data_producer_A.py
 ```
 You should see no errors if Kafka authentication, topic creation, and network configuration are correct.
 
@@ -180,12 +181,12 @@ On any Kafka node:
 ```
 /usr/local/kafka/bin/kafka-console-consumer.sh \
 --bootstrap-server kafka-0:9092 \
---topic water1234 \
+--topic water_data \
 --from-beginning \
 --max-messages 5 \
 --consumer.config /usr/local/kafka/config/security-cf.properties
 ```
-You should see JSON-formatted water1234 data.
+You should see JSON-formatted water_data data.
 
 2. Verify Cassandra sink
 On any Cassandra node:
@@ -194,11 +195,15 @@ cqlsh <cassandra-ip> 9042
 ```
 Then:
 ```
-USE water1234;
+USE water_data;
 
 SELECT * FROM comments LIMIT 10;
 ```
-You should observe water1234 records persisted in Cassandra.
+You should observe water_data records persisted in Cassandra.
+
+### Do same for the second dataset
+Repeat the above steps to create another topic (e.g., `bts_data`), set up another Kafka Connect Cassandra sink connector, and produce the BTS monitoring dataset into Kafka.
+
 ### (Optional) Scaling and Performance Considerations
 
 - Increase Kafka topic partitions to improve throughput.
@@ -208,6 +213,12 @@ You should observe water1234 records persisted in Cassandra.
 - Tune Cassandra write consistency and compaction strategy.
 
 - Use Kafka Connect converters (Avro/Protobuf) instead of JSON.
+
+### What if? Try modifying the pipeline with different scenarios.
+
+- Different data formats: Modify the producer and connector to handle CSV, Avro, or Parquet.
+- Consumer groups are down: Stop one Kafka Connect worker and observe failover.
+- High load: Simulate high-throughput data production and monitor system performance.
 
 ## Cleanup
 To avoid unnecessary cloud costs, destroy all Terraform-managed resources when finished:

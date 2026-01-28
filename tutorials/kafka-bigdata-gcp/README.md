@@ -1,6 +1,10 @@
 # Tutorial: Running a Multi-Producer Kafka with Big Data Pipeline on GCP
 
-This extended tutorial demonstrates how to deploy a multi-producer, multi-topic Kafka pipeline on Google Cloud Platform (GCP) using Terraform, and how to persist streaming data into Cassandra using Kafka Connect with multiple consumer groups. You should have a basic understanding of Kafka, GCP, and Terraform before proceeding with this tutorial. Basic Kafka knowledge can be acquired from the [Basics Kafka tutorial](../basickafka/README.md).
+This extended tutorial demonstrates how to deploy a multi-producer, multi-topic Kafka pipeline on Google Cloud Platform (GCP) using Terraform, and how to persist streaming data into Cassandra using Kafka Connect with multiple consumer groups.
+
+The tutorial targets multi-tenant big data scenarios, where several independent data producers and consumers share a Kafka cluster while remaining logically isolated.
+
+You should have a basic understanding of Kafka, GCP, and Terraform before proceeding with this tutorial. Basic Kafka knowledge can be acquired from the [Basics Kafka tutorial](../basickafka/README.md).
 
 ## Prerequisites
 - A GCP account with billing enabled.
@@ -22,43 +26,51 @@ In this tutorial, we demonstrate how a single Kafka cluster can be shared by mul
 ![TutorialTargetArchitecture](TutorialDiagram.drawio.svg)
 
 #### Target Architecture
-
 - Producers
-
-    - Tenant 1(Tenant P1) → produces Dataset A → Topic A
-
-    - Tenant 2(Tenant P2) → produces Dataset B → Topic B
-
+    - Tenant Producer 1(P1) → produces Dataset A → Topic `water_data`
+    - Tenant Producer 2(P2) → produces Dataset B → Topic `bts_data`
 - Kafka Cluster
-
-    - 1 Kafka brokers
-
-    - 2 topics: Topic A, Topic B
-
+    - 3 Kafka brokers (`kafka-0`, `kafka-1`, `kafka-2`)
+    - 2 topics: 
+        - Topic `water_data`
+        - Topic `bts_data`
     - Replication factor = 3
-
     - Partitions per topic = 3
-
 - Consumers (Kafka Connect + Cassandra)
-
+Kafka Connect workers act as Kafka consumers and form consumer groups.
 - Consumer Group A
-
     - 2 Kafka Connect worker nodes
-        - Consumer 1(Tenant C_A1)
-        - Consumer 2(Tenant C_A2)
-    - Subscribes to Topic A
-
+        - Tenant Consumer 1 (C_1_A)
+        - Tenant Consumer 2 (C_2_A)
+    - Subscribes to Topic `water_data`
 - Consumer Group B
-
     - 2 Kafka Connect worker nodes
-        - Consumer 1(Tenant C_B1)
-        - Consumer 2(Tenant C_B2)
-    - Subscribes to Topic B
+        - Tenant Consumer 1 (C_1_B)
+        - Tenant Consumer 2 (C_2_B)
+    - Subscribes to Topic `bts_data`
 - Sink
     - Cassandra cluster
 
-## Running the whole pipeline with sample data
-### Prepare the sample data
+#### Kafka Consumer Groups in This Tutorial
+
+In Apache Kafka, consumer groups are created implicitly, not explicitly.
+
+A consumer group is formed when:
+- One or more consumers share the same group.id
+- Kafka assigns topic partitions dynamically among group members
+
+Kafka Connect and Consumer Groups
+- Each Kafka Connect connector defines one consumer group
+- Each task (tasks.max) corresponds to one consumer instance
+- If a worker fails, Kafka automatically rebalances partitions
+
+This mechanism provides:
+- Parallelism
+- Fault tolerance
+- Logical isolation between tenants
+
+## Running the pipeline with Sample data
+### Prepare the Sample data
 1. In this tutorial, we use the two set of sample data
     - The same data set as [consistency(Cassandra) Tutorial](../consistency/) which is [A Dataset for Research on Water Sustainability](https://osf.io/g3zvd/overview?view_only=63e9c2f0cdf547d792bdd8e93045f89e).
     - [Sample of BTS monitoring data](../../data/bts/)
@@ -89,24 +101,25 @@ In this tutorial, we demonstrate how a single Kafka cluster can be shared by mul
     /usr/local/kafka/bin/kafka-topics.sh --list --bootstrap-server kafka-0:9092 --command-config security-cf.properties
     ```
 ### Set Up Kafka Connect Cassandra Sink
-Prepare a ``cassandra-sink.json`` file locally (on the Kafka node):
+Prepare a ``cassandra-water-data-sink.json`` file locally (on the Kafka node):
 ```
 {
-  "name": "cassandra-water_data-sink",
+  "name": "cassandra-water-data-sink",
   "config": {
     "connector.class": "com.datamountaineer.streamreactor.connect.cassandra.CassandraSinkConnector",
-    "tasks.max": "1",
+    "tasks.max": "2",
 
     "topics": "water_data",
+    "consumer.group.id": "water_data_cassandra_group",
 
     "contact.points": "<cassandra-ip>",
     "loadBalancing.local.dc": "datacenter1",
 
-    "key.space": "tutorial12345",
+    "key.space": "BDP_Kafka_Tutorial",
 
-    "connect.cassandra.kcql": 
-      "INSERT INTO water_data 
-       SELECT 
+    "connect.cassandra.kcql":
+      "INSERT INTO water_data
+       SELECT
          timestamp,
          egridregion,
          temperaturef,
@@ -125,7 +138,7 @@ Prepare a ``cassandra-sink.json`` file locally (on the Kafka node):
          onsitewuefixedapproach,
          onsitewuefixedcoldwater,
          offsitewue
-       FROM water1234
+       FROM water_data
        PK city, zip",
 
     "auto.create": "true",
@@ -137,12 +150,22 @@ Then, create the connector:
 ```
 curl -X POST http://localhost:8083/connectors \
 -H "Content-Type: application/json" \
--d @cassandra-sink.json
+-d @cassandra-water-data-sink.json
 ```
 Check status:
 ```
-curl http://localhost:8083/connectors/cassandra-sink/status
+curl curl http://localhost:8083/connectors/cassandra-water-data-sink/status
 ```
+#### Verify Consumer Group Creation
+List all consumer groups:
+```
+/usr/local/kafka/bin/kafka-consumer-groups.sh \
+--bootstrap-server kafka-0:9092 \
+--list \
+--command-config security-cf.properties
+```
+Expected output includes:
+- `water_data_cassandra_group`
 ### Produce data into Kafka
 In this step, we stream the sample dataset from Google Cloud Storage (GCS), parse it, and produce records into Kafka.
 
@@ -158,9 +181,9 @@ sudo apt update
 sudo apt install -y python3 python3-pip
 pip3 install kafka-python
 ```
-3. Copy `sample_data_producer_A.py` to the Kafka producer node. You can use `scp` to transfer the file:
+3. Copy `sample_data_producer_1.py` to the Kafka producer node. You can use `scp` to transfer the file:
 ```
-scp -i ~/.ssh/your_key sample_data_producer_A.py your_user@<kafka-0-ip>:/home/your_user/sample_data_producer_A.py
+scp -i ~/.ssh/your_key sample_data_producer_1.py your_user@<kafka-0-ip>:/home/your_user/sample_data_producer_1.py
 ```
 replace `your_key` and `your_user` with your actual SSH key and username.
 
@@ -171,7 +194,7 @@ replace `your_key` and `your_user` with your actual SSH key and username.
 4. Run the producer script to stream
 Start producing messages:
 ```
-python3 sample_data_producer_A.py
+python3 sample_data_producer_1.py
 ```
 You should see no errors if Kafka authentication, topic creation, and network configuration are correct.
 
@@ -195,15 +218,22 @@ cqlsh <cassandra-ip> 9042
 ```
 Then:
 ```
-USE water_data;
+USE BDP_Kafka_Tutorial;
 
-SELECT * FROM comments LIMIT 10;
+SELECT * FROM water_data LIMIT 10;
 ```
 You should observe water_data records persisted in Cassandra.
 
-### Do same for the second dataset
-Repeat the above steps to create another topic (e.g., `bts_data`), set up another Kafka Connect Cassandra sink connector, and produce the BTS monitoring dataset into Kafka.
+### Repeat for the Second Dataset
+Repeat the above steps which include:
+- Create Kafka topic `bts_data`
+- Consumer group: `bts_data_cassandra_group`
+- Connector configuration adapted to BTS schema
 
+Each dataset is isolated by:
+- Topic
+- Consumer group
+- Cassandra table
 ### (Optional) Scaling and Performance Considerations
 
 - Increase Kafka topic partitions to improve throughput.
@@ -217,6 +247,7 @@ Repeat the above steps to create another topic (e.g., `bts_data`), set up anothe
 ### What if? Try modifying the pipeline with different scenarios.
 
 - Different data formats: Modify the producer and connector to handle CSV, Avro, or Parquet.
+- Zip-compressed data: Update the producer to decompress data before sending to Kafka and ensure the connector can handle it as well as the consumer.
 - Consumer groups are down: Stop one Kafka Connect worker and observe failover.
 - High load: Simulate high-throughput data production and monitor system performance.
 
@@ -234,10 +265,16 @@ This tutorial demonstrated how to:
 
 - Upload large-scale datasets to Google Cloud Storage
 
-- Stream Big Data from GCS into Kafka
+- Stream large datasets into Kafka
 
 - Persist Kafka streams into Cassandra using Kafka Connect
 
-- Validate an end-to-end Big Data pipeline on cloud infrastructure
+- Validate fault tolerance, scalability, and isolation
 
 This architecture forms a foundational pattern for cloud-native Big Data ingestion pipelines, and can be extended with BigQuery, Dataflow, Spark, or Flink for large-scale analytics.
+
+## Authors
+
+- Tutorial author: Korawit Rupanya.
+
+- Editor: Linh Truong

@@ -21,12 +21,12 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 21.01  |Lecture 3  | [Data Services in Big Data Platforms](lecturenotes/pdfs/module2-lecture3-bigdatastoragedatabase-v0.7.1.pdf). | **Linh Truong**
 21.01  |   | **Release the first assignment**
 22.01  |Tutorial 1 | [Hands-on examples with Data services](tutorials/consistency)|****
-28.01   |Lecture 4 | [Big Data Ingestion, Transformation and Orchestration](lecturenotes/pdfs/)). Additional slides about [Streaming Data Ingestion with Apache Kafka](lecturenotes/pdfs/module2-lecture4-apachekafka-v0.7.pdf) | **Linh Truong**
+28.01   |Lecture 4 | [Big Data Ingestion, Transformation and Orchestration](lecturenotes/pdfs/module2-lecture4-ingestionandtransformation-v0.7.2.pdf)). Additional slides about [Streaming Data Ingestion with Apache Kafka](lecturenotes/pdfs/module2-lecture4-apachekafka-v0.7.pdf) | **Linh Truong**
 29.01  | Tutorial 2  | [Data Ingestion with Apache Nifi](tutorials/nifi)| ****
 04.02  | No lecture/Meetup | Backup| **All**
-05.02  |Tutorial 3 | [Kafka for Big Data](https://github.com/rdsea/bigdataplatforms/tree/master/tutorials/basickafka)| **Korawit Rupanya**
+05.02  |Tutorial 3 | [Kafka for Big Data](tutorials/basickafka) and [Kafka Data Ingestion](tutorials/kafka-bigdata-gcp)| **Korawit Rupanya**
 6.02  |   |  **Due of the first assignment -13.00**
-11.02  |Lecture 5 | [Programming Models for Big Data Processing](lecturenotes/pdfs/module3-lecture5-programmingmodels-v0.6.pdf)| **Linh Truong**
+11.02  |Lecture 5 | [Programming Models for Big Data Processing](lecturenotes/pdfs/)| **Linh Truong**
 12.02  |Tutorial 4 | [Data Processing with Apache Spark](tutorials/spark/README.md)  | **Debayan Bhattacharya**
 16-20.02  | No lecture week  | Finalizing assignment 1 grading| **All**
 TBD  | **Room TBD** | **Assignment 1 Individual Grading Meeting**   | **All**

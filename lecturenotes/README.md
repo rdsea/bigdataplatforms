@@ -32,8 +32,8 @@
   - [Consistency Tradeoffs in Modern Distributed Database System Design](https://www.cs.umd.edu/~abadi/papers/abadi-pacelc.pdf)
   - [A Model and Survey of Distributed Data-Intensive Systems](https://dl.acm.org/doi/10.1145/3604801)
 
-* **Big Data Ingestion, Transformation and Orchestration**: (download [PDF](pdfs/)
-* **Apache Kafka for Streaming Data Ingestion - The Core**: [PDF](pdfs/module2-lecture4-apachekafka-v0.7.pdf), [basic Kafka setup](../tutorials/basickafka)
+* **Big Data Ingestion, Transformation and Orchestration**: (download [PDF](pdfs/module2-lecture4-ingestionandtransformation-v0.7.2.pdf)
+* **Apache Kafka for Streaming Data Ingestion - The Core**: [PDF](pdfs/module2-lecture4-apachekafka-v0.7.pdf), [basic Kafka setup](../tutorials/basickafka), [kafka data ingestion](../tutorials/kafka-bigdata-gcp)
 * **Some case studies, data ingestion and data services**:
 * - Matteo Merli, Sijie Guo, Penghui Li, Hang Chen, Neng Lu, "Ursa: A Lakehouse-Native Data Streaming Engine for Kafka", https://www.vldb.org/pvldb/vol18/p5184-guo.pdf
   - K. Shvachko, H. Kuang, S. Radia and R. Chansler, "The Hadoop Distributed File System," 2010 IEEE 26th Symposium on Mass Storage Systems and Technologies (MSST), Incline Village, NV, 2010, pp. 1-10.doi: 10.1109/MSST.2010.5496972

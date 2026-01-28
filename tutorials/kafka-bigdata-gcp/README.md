@@ -19,7 +19,7 @@ Both tenants produce high-throughput data streams and require reliable, scalable
 
 In this tutorial, we demonstrate how a single Kafka cluster can be shared by multiple producers and consumers, forming a scalable big data pipeline suitable for multi-tenant environments.
 
-![KafkaTutorialTargetArchitecture](KafkaTutorialTargetArchitecture.drawio.svg)
+![TutorialTargetArchitecture](TutorialDiagram.drawio.svg)
 
 #### Target Architecture
 

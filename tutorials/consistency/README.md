@@ -56,7 +56,7 @@ $source virtualenv/bin/activate
 
 We use the data set [A Dataset for Research on Water Sustainability](https://osf.io/g3zvd/overview?view_only=63e9c2f0cdf547d792bdd8e93045f89e). However, students can download this dataset fully to test it as the big data in later steps. 
 
-[A sample of the extracted data is here] tutorials/basiccassandra/datasamples/water_dataset_v_05.14.24_1000.csv
+[A sample of the extracted data is here](../../tutorials/basiccassandra/datasamples/water_dataset_v_05.14.24_1000.csv) 
 >If you dont use the python sample programs, you can also use other datasets, as long as you follow *CQL* samples by adapting them for your data.
 
 ## 3. Exercise Steps

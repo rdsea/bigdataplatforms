@@ -16,15 +16,34 @@ sudo unzip -o /tmp/${CONNECTOR_NAME}.zip -d /usr/local/kafka/connect-plugins/
 
 # Create basic connect-distributed.properties
 sudo tee /usr/local/kafka/config/connect-distributed.properties >/dev/null <<EOL
-bootstrap.servers=localhost:9092
+bootstrap.servers=<kafka-0-ip>:9092
+listeners=http://0.0.0.0:8083
+rest.advertised.host.name=<kafka-0-ip>
 group.id=connect-cluster
+
 key.converter=org.apache.kafka.connect.json.JsonConverter
 value.converter=org.apache.kafka.connect.json.JsonConverter
 key.converter.schemas.enable=false
 value.converter.schemas.enable=false
+
+security.protocol=SASL_PLAINTEXT
+sasl.mechanism=PLAIN
+sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required \
+  username="admin" \
+  password="admin-secret";
+
 offset.storage.topic=connect-offsets
 config.storage.topic=connect-configs
 status.storage.topic=connect-status
+
+offset.storage.replication.factor=1
+config.storage.replication.factor=1
+status.storage.replication.factor=1
+
+rest.port=8083
+rest.host.name=0.0.0.0
+
+
 plugin.path=/usr/local/kafka/connect-plugins
 EOL
 
@@ -46,3 +65,8 @@ WantedBy=multi-user.target
 EOL
 
 echo "Kafka Connect installed and started!"
+sudo systemctl daemon-reload
+sudo systemctl enable kafka-connect
+sudo systemctl start kafka-connect
+
+sudo systemctl status kafka-connect --no-pager

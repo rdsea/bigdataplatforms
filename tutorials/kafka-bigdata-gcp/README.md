@@ -84,7 +84,7 @@ This mechanism provides:
     replace `your_key` and `your_user` with your actual SSH key and username.
 2. Since we use configured your Kafka brokers to require SASL authentication (via SASL_PLAINTEXT), you need to copy the 'security-cf.properties' file to the Kafka node you will use as the producer.
     ```
-    scp -i ~/.ssh/your_key security-cf.properties your_user@<kafka-0-ip>:/usr/local/kafka/config/security-cf.properties
+    scp -i ~/.ssh/your_key ./client/security-cf.properties your_user@<kafka-0-ip>:/usr/local/kafka/config/security-cf.properties
     ```
     replace `your_key` and `your_user` with your actual SSH key and username.
 3. Prepare a Kafka Topic
@@ -92,13 +92,13 @@ This mechanism provides:
     /usr/local/kafka/bin/kafka-topics.sh --create \
     --topic water_data \
     --bootstrap-server kafka-0:9092,kafka-1:9092,kafka-2:9092 \
-    --partitions 3 \
+    --partitions 3 \.
     --replication-factor 3 \
-    --command-config security-cf.properties
+    --command-config /usr/local/kafka/config/security-cf.properties
     ```
     verify the topic creation using
     ```
-    /usr/local/kafka/bin/kafka-topics.sh --list --bootstrap-server kafka-0:9092 --command-config security-cf.properties
+    /usr/local/kafka/bin/kafka-topics.sh --list --bootstrap-server kafka-0:9092 --command-config /usr/local/kafka/config/security-cf.properties
     ```
 ### Set Up Kafka Connect Cassandra Sink
 Prepare a ``cassandra-water-data-sink.json`` file locally (on the Kafka node):
@@ -106,47 +106,58 @@ Prepare a ``cassandra-water-data-sink.json`` file locally (on the Kafka node):
 {
   "name": "cassandra-water-data-sink",
   "config": {
-    "connector.class": "com.datamountaineer.streamreactor.connect.cassandra.CassandraSinkConnector",
+    "connector.class": "io.lenses.streamreactor.connect.cassandra.CassandraSinkConnector",
     "tasks.max": "2",
-
     "topics": "water_data",
     "consumer.group.id": "water_data_cassandra_group",
-
-    "contact.points": "<cassandra-ip>",
-    "loadBalancing.local.dc": "datacenter1",
-
-    "key.space": "BDP_Kafka_Tutorial",
-
-    "connect.cassandra.kcql":
-      "INSERT INTO water_data
-       SELECT
-         timestamp,
-         egridregion,
-         temperaturef,
-         humidity,
-         data_availability_weather,
-         wetbulbtemperaturef,
-         coal,
-         hybrid,
-         naturalgas,
-         nuclear,
-         other,
-         petroleum,
-         solar,
-         wind,
-         data_availability_energy,
-         onsitewuefixedapproach,
-         onsitewuefixedcoldwater,
-         offsitewue
-       FROM water_data
-       PK city, zip",
-
-    "auto.create": "true",
-    "insert.mode": "insert"
+    "connect.cassandra.username": "bdp_user1",
+    "connect.cassandra.password": "Bdp#User1_2026",
+    "connect.cassandra.port": "9042",
+    "connect.cassandra.contact.points": "<cassandra-ip>",
+    "connect.cassandra.load.balancing.local.dc": "datacenter1",
+    "connect.cassandra.key.space": "BDP_Kafka_Tutorial",
+    "connect.cassandra.kcql": "INSERT INTO BDP_Kafka_Tutorial.water_data SELECT timestamp, egridregion, temperaturef, humidity, data_availability_weather, wetbulbtemperaturef, coal, hybrid, naturalgas, nuclear, other, petroleum, solar, wind, data_availability_energy, onsitewuefixedapproach, onsitewuefixedcoldwater, offsitewue FROM water_data PK (city, zip)"
   }
 }
 ```
-Then, create the connector:
+First, you need to fix Kafka Connect bootstrap server.
+```
+vim usr/local/kafka/config/connect-distributed.properties
+```
+Replace `kafka-0-ip` with the actual IP address of `kafka-0` node.
+Then restart Kafka Connect service:
+``` 
+sudo systemctl restart kafka-connect
+```
+Then, create the connector but first you need to replace `<cassandra-ip>` with the actual Cassandra node IP address.
+#### Install the Cassandra Sink Connector
+If you have not installed the Cassandra Sink Connector, follow these steps:
+1. Download the Cassandra Sink Connector package on any Kafka Connect worker node:
+```
+cd /tmp
+wget https://github.com/lensesio/stream-reactor/releases/download/11.4.0/kafka-connect-cassandra-sink-11.4.0.zip
+```
+2. Install it into the plugin path
+```
+sudo unzip kafka-connect-cassandra-sink-11.4.0.zip -d /usr/local/kafka/connect-plugins/
+```
+3. Restart Kafka Connect service to load the new connector
+```
+sudo systemctl restart kafka-connect
+```
+4. Verify the connector installation
+```
+curl http://localhost:8083/connector-plugins | jq
+```
+You should see an entry similar to:
+```
+{
+  "class": "com.datamountaineer.streamreactor.connect.cassandra.CassandraSinkConnector",
+  "type": "sink",
+  "version": "11.4.0"
+}
+```
+#### Create the connector
 ```
 curl -X POST http://localhost:8083/connectors \
 -H "Content-Type: application/json" \
@@ -154,20 +165,20 @@ curl -X POST http://localhost:8083/connectors \
 ```
 Check status:
 ```
-curl curl http://localhost:8083/connectors/cassandra-water-data-sink/status
+curl http://localhost:8083/connectors/cassandra-water-data-sink/status
 ```
 #### Verify Consumer Group Creation
 List all consumer groups:
 ```
 /usr/local/kafka/bin/kafka-consumer-groups.sh \
---bootstrap-server kafka-0:9092 \
+--bootstrap-server <kafka-0-ip>:9092 \
 --list \
---command-config security-cf.properties
+--command-config /usr/local/kafka/config/security-cf.properties
 ```
 Expected output includes:
 - `water_data_cassandra_group`
 ### Produce data into Kafka
-In this step, we stream the sample dataset from Google Cloud Storage (GCS), parse it, and produce records into Kafka.
+In this step, we stream the sample dataset, parse it, and produce records into Kafka.
 
 1. SSH into the Kafka producer node (e.g., kafka-0) if you are not already connected:
 ```

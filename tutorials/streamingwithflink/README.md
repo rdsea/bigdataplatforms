@@ -161,7 +161,7 @@ Check [the source of BTS in our Git](code/simplebts/). It is a simple example fo
 
 - The file **target/simplebts-0.1-SNAPSHOT.jar** is the one that will be submitted to Flink
 
-#### Submit the job to Flink
+#### Submit the job to Flink and return to Kafka
 - Now assume that you choose two queue names:
   * **iQ**: indicate the queue where we send the data
   * **oQ**: indicate the queue where we receive the alert.
@@ -175,7 +175,7 @@ Check [the source of BTS in our Git](code/simplebts/). It is a simple example fo
   ```
 
 
-#### Run Flink BTS working with mySQL
+#### Submit the job to Flink and return to mySQL
 If you want to add another sink like mySQL
 * **iQ**: indicate the queue where we send the data
 * **localhost:9092**: is the **Kafka url** producing data
@@ -187,24 +187,25 @@ If you want to add another sink like mySQL
 * **hong3_database**: is the database name
 * **bts_alert_test**: is the table name which you can change in the tutorial
 
-Compile and create a jar package for simplebts
-```bash
-cd simplebts-database
-mvn install
-```
+- Compile and create a jar package for simplebts
+  ```bash
+  cd simplebts-database
+  mvn install
+  ```
 
-Run the Flink BTS program:
-```bash
-cd flink-1.19.2
-bin/flink run ../simplebts-database/target/btsFlink-1.0-SNAPSHOT.jar --iqueue iQ --oqueue oQ --inkafkaurl localhost:9092 --outkafkaurl localhost:9092 --databaseHost localhost:3306 --databaseUser bigdata --databasePass tridep --databaseName hong3_database --tablename bts_alert_test
-```
+- Run the Flink BTS program:
+  ```bash
+  cd flink-1.20.3
+  bin/flink run ../simplebts-database/target/btsFlink-1.0-SNAPSHOT.jar --iqueue iQ --oqueue oQ --inkafkaurl localhost:9092 --outkafkaurl localhost:9092 --databaseHost localhost:3306 --databaseUser bigdata --databasePass tridep --databaseName hong3_database --tablename bts_alert_test
+  ```
 
-Now start our test producer again with the queue name as **iQ** (since the scripts are from simpllebts folder)
-```bash
-cd simplebts/scripts
-python3 test_kafka_producer.py --queue_name iQ --input_file  ../../data/bts-data-alarm-2017.csv --kafka localhost:9092
-```
-Then you can check and see if you can receive any alerts written into mySQL database.
+- Start test producer again with the queue name as **iQ** (since the scripts are from simpllebts folder)
+  ```bash
+  cd simplebts/scripts
+  python test_kafka_producer.py --queue_name iQ --input_file  ../../data/bts-data-alarm-2017.csv --kafka localhost:9092
+  ```
+
+- Then you can check and see if you can receive any alerts written into mySQL database.
 
 #### Check logs
 Check the logs under **flink/log**:

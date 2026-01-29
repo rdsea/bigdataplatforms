@@ -9,16 +9,45 @@ Some materials:
 ## Introduction
 
 We will practice Apache Flink with simple activities:
-* Setup Apache Flink in local machine
-* Write streaming applications with Flink
-* Run Flink streaming applications
+1. Setup Apache Flink in local machine
+2. Write streaming applications with Flink
+3. Run Flink streaming applications
 
+## Setup Apache Flink
+In this tutorial, we use Apache Flink 1.20.3 and Flink 2.2.0.
 
->Note: there are many tutorials about Apache Flink that you can take a look in the Internet, e.g. [Apache Flink with in AWS](https://www.youtube.com/watch?v=4FIPt87A_qM)
+- **Binary** is downloaded from [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the guide for a local machine](https://nightlies.apache.org/flink/flink-docs-stable/). 
+- Docker for Flink
+  ```bash
+  docker pull flink:1.20.3
+  docker pull flink:2.2.0
+  ```
 
-## Setup Apache Flink for Practices
+### Flink binary setting
+At the default Flink server only allow a job running. Therefore, for easy testing, you can change the numberOfTaskSlots configuration. (Do similarly with docker-compose taskmanager also)
+```bash
+# flink1.20.3/conf/config.yaml 
+taskmanager:
+  bind-host: localhost
+  host: localhost
+  # The number of task slots that each TaskManager offers. Each slot runs one parallel pipeline.
+  numberOfTaskSlots: 10
+  memory:
+    process:
+      size: 1728m
+```
 
-Download [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the guide for a local machine](https://nightlies.apache.org/flink/flink-docs-stable/). In this simple tutorial, we use Apache Flink 1.19.2 for Scala 2.12.
+- Move into the directory of your Flink and start Flink:
+  ```bash
+  bin/start-cluster.sh
+  ```
+- Alternatively, you can also use `docker-compose` to start a cluster. The relevant compose configuration file is in `code/docker-compose.yml`.  You can start the cluster using:
+  ```bash
+  docker-compose up -d
+  ```
+
+- Then access Flink from a Web Browser
+  > http://localhost:8081
 
 You can also follow [the Kafka instructions](https://kafka.apache.org/quickstart) to start a Kafka cluster or use [our simple Kafka tutorial](../../tutorials/basickafka/README.md). Then you have to create a few topics before running the experiment and test if your Kafka server works
 
@@ -35,46 +64,25 @@ bin/kafka-storage.sh format --standalone -t $KAFKA_CLUSTER_ID -c config/server.p
 bin/kafka-server-start.sh config/server.properties
 ```
 
-## 3. Exercises
-At the default Flink server only allow a job running at a currnet time. Therefore, for easy testing, you can change the configuration. (It works with docker-compose taskmanager also)
-```bash
-vim flink1.19.2/conf/config.yaml # change numberOfTaskSlots to 10 for 10 jobs at that time.
+## Hand-on
 
-taskmanager:
-  bind-host: localhost
-  host: localhost
-  # The number of task slots that each TaskManager offers. Each slot runs one parallel pipeline.
-  numberOfTaskSlots: 10
-  memory:
-    process:
-      size: 1728m
-```
-Following Flink guide to see if the setting is ok. Move into the directory of your Flink and start Flink:
-```bash
-bin/start-cluster.sh
-```
-then check the [UI](http://localhost:8081)
-
-Alternatively, you can also use `docker-compose` to start a cluster. The relevant compose configuration file is in `code/docker-compose.yml`.  You can start the cluster using :
-```bash
-docker-compose up -d
-```
-and then check the [UI](http://localhost:8081)
-
-
-### Practices with Flink  SocketWindowWordCount example
-
+### SocketWindowWordCount example
 You can check [the Flink example](https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/try-flink/local_installation/) and test it to see how it works.
 
->Hint: You can also use the web UI to submit a job to a Session cluster. Alternatively, use Flink CLI on the host if it is setup: 
+- Use Flink CLI on the same host if it is setup:
+  ```bash
+  bin/flink run examples/streaming/WordCount.jar
+  ```
 
-If you run flink server on another machine like a cloud can add a parameter with "-m"
-```bash
-#flink run -d -m ${FLINK_JOBMANAGER_URL} /job.jar [jar_arguments]
-bin/flink run examples/streaming/WordCount.jar
-```
+- If you run flink server on another machine like a cloud can add a parameter with "-m"
+  ```bash
+  bin/flink run -d -m FLINK_JOBMANAGER_URL PATH/job.jar [jar_arguments]
+  ```
 
-## BTS example
+- Alternatively, you can also use the web UI to **Submit New Job** to a Session cluster. 
+
+
+### BTS dataset example
 
 The structure for the directory 
 ```

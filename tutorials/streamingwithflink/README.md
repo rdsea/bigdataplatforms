@@ -49,24 +49,10 @@ taskmanager:
 - Then access Flink from a Web Browser
   > http://localhost:8081
 
-You can also follow [the Kafka instructions](https://kafka.apache.org/quickstart) to start a Kafka cluster or use [our simple Kafka tutorial](../../tutorials/basickafka/README.md). Then you have to create a few topics before running the experiment and test if your Kafka server works
-
-```bash
-bin/kafka-topics.sh --create --topic <your topic name> --bootstrap-server <your Kafka host ip>:<Kafka port>
-#./kafka-topics.sh --create --topic flink_kafka --bootstrap-server localhost:9092
-bin/kafka-topics.sh --list --zookeeper <zookeeper host>:<zookeeper port>
-```
-
-OR 
-```bash
-KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
-bin/kafka-storage.sh format --standalone -t $KAFKA_CLUSTER_ID -c config/server.properties
-bin/kafka-server-start.sh config/server.properties
-```
 
 ## Hand-on
 
-### SocketWindowWordCount example
+### SocketWindowWordCount example job
 You can check [the Flink example](https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/try-flink/local_installation/) and test it to see how it works.
 
 - Use Flink CLI on the same host if it is setup:
@@ -81,10 +67,9 @@ You can check [the Flink example](https://nightlies.apache.org/flink/flink-docs-
 
 - Alternatively, you can also use the web UI to **Submit New Job** to a Session cluster. 
 
-
-### BTS dataset example
-
+### Develop BTS dataset job
 The structure for the directory 
+
 ```
 Flink
 ├── data
@@ -97,7 +82,7 @@ Flink
 │   └── scripts
 │       ├── test_kafka_consumer.py
 │       └── test_kafka_producer.py
-├── flink-1.19.2
+├── flink-1.20.3
     ├── bin
     │   ├── start-cluster.sh
     │   ├── stop-cluster.sh
@@ -109,20 +94,53 @@ Flink
         └── table
 ```
 #### Check the source code and compile it
+
 Check [the source of BTS in our Git](code/simplebts/). It is a simple example for illustrating purposes. 
 
-Define a job via Java which is built with maven.
+- Define a job via Java which is built with maven 
+  ```bash
+  # install maven to compile java project source code
+  sudo apt install maven
+  cd simplebts
+  mvn install
+  # generate target/simplebts-0.1-SNAPSHOT.jar
+  ```
 
-```bash
-# install maven to compile java project source code
-# sudo apt install maven
-cd simplebts
-mvn install
-# to generate target/simplebts-0.1-SNAPSHOT.jar
-```
-the file **target/simplebts-0.1-SNAPSHOT.jar* is the one that will be submitted to Flink.
+- The file **target/simplebts-0.1-SNAPSHOT.jar** is the one that will be submitted to Flink.
 
 #### Test Kafka with the BTS data
+
+##### Kafka setting
+- You can also follow [the Kafka instructions](https://kafka.apache.org/quickstart) to start a Kafka cluster or use [our simple Kafka tutorial](../../tutorials/basickafka/README.md). 
+
+  ```bash
+  KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
+  bin/kafka-storage.sh format --standalone -t $KAFKA_CLUSTER_ID -c config/server.properties
+  bin/kafka-server-start.sh config/server.properties
+  ```
+  - Then you have to create a few topics before running the experiment and test if your Kafka server works
+  ```bash
+  bin/kafka-topics.sh --create --topic <your-topic-name> --bootstrap-server <your Kafka host ip>:<Kafka port>
+  #./kafka-topics.sh --create --topic flink_kafka --bootstrap-server localhost:9092
+  bin/kafka-topics.sh --list --zookeeper <zookeeper-host>:<zookeeper-port>
+  ```
+- Docker for a local kafka
+  ```bash
+  docker run -d \
+  --name my-kafka-broker \
+  -p 9092:9092 \
+  -e KAFKA_NODE_ID=1 \
+  -e KAFKA_PROCESS_ROLES=broker,controller \
+  -e KAFKA_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093 \
+  -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 \
+  -e KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER \
+  -e KAFKA_CONTROLLER_QUORUM_VOTERS=1@localhost:9093 \
+  apache/kafka:latest
+
+  docker exec -it my-kafka-broker /opt/kafka/bin/kafka-topics.sh \
+  --create --topic <your-topic-name> --bootstrap-server localhost:9092
+  ```
+
 Before running BTS Flink, check if we can send and receive data to/from Kafka. We have two python test programs in **scripts/** and the data file in **cs-e4640/data/bts** or in data folder:
 
 Start a BTS test producer using Kafka client:

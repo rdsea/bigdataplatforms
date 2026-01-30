@@ -75,6 +75,21 @@ This mechanism provides:
     - The same data set as [consistency(Cassandra) Tutorial](../consistency/) which is [A Dataset for Research on Water Sustainability](https://osf.io/g3zvd/overview?view_only=63e9c2f0cdf547d792bdd8e93045f89e).
     - [Sample of BTS monitoring data](../../data/bts/)
 
+### Start GCP Infrastructure with Terraform
+1. Start with terraform initialization
+```
+terraform init
+```
+2. Review the execution plan
+```
+terraform plan
+```
+3. Apply the Terraform configuration to create the infrastructure
+```
+terraform apply
+```
+This process may take several minutes to complete. Once finished, Terraform will output the necessary information, including the IP addresses of the Kafka and Cassandra nodes.
+
 ### Prepare a Kafka Topic
 1. Pick one Kafka node, usually kafka-0, as the producer host.
 
@@ -92,7 +107,7 @@ This mechanism provides:
     /usr/local/kafka/bin/kafka-topics.sh --create \
     --topic water_data \
     --bootstrap-server kafka-0:9092,kafka-1:9092,kafka-2:9092 \
-    --partitions 3 \.
+    --partitions 3 \
     --replication-factor 3 \
     --command-config /usr/local/kafka/config/security-cf.properties
     ```
@@ -100,7 +115,20 @@ This mechanism provides:
     ```
     /usr/local/kafka/bin/kafka-topics.sh --list --bootstrap-server kafka-0:9092 --command-config /usr/local/kafka/config/security-cf.properties
     ```
-### Set Up Kafka Connect Cassandra Sink
+### Set Up Kafka Connect Cassandra Sinki
+#### Install the Cassandra Sink Connector
+1. Verify the connector installation
+```
+curl http://localhost:8083/connector-plugins | jq
+```
+You should see an entry similar to:
+```
+{
+  "class": "io.lenses.streamreactor.connect.cassandra.CassandraSinkConnector",
+  "type": "sink",
+  "version": "11.4.0"
+}
+```
 Prepare a ``cassandra-water-data-sink.json`` file locally (on the Kafka node):
 ```
 {
@@ -120,6 +148,7 @@ Prepare a ``cassandra-water-data-sink.json`` file locally (on the Kafka node):
   }
 }
 ```
+#### Create the connector
 First, you need to fix Kafka Connect bootstrap server.
 ```
 vim usr/local/kafka/config/connect-distributed.properties
@@ -127,37 +156,9 @@ vim usr/local/kafka/config/connect-distributed.properties
 Replace `kafka-0-ip` with the actual IP address of `kafka-0` node.
 Then restart Kafka Connect service:
 ``` 
-sudo systemctl restart kafka-connect
+systemctl restart kafka-connect
 ```
 Then, create the connector but first you need to replace `<cassandra-ip>` with the actual Cassandra node IP address.
-#### Install the Cassandra Sink Connector
-If you have not installed the Cassandra Sink Connector, follow these steps:
-1. Download the Cassandra Sink Connector package on any Kafka Connect worker node:
-```
-cd /tmp
-wget https://github.com/lensesio/stream-reactor/releases/download/11.4.0/kafka-connect-cassandra-sink-11.4.0.zip
-```
-2. Install it into the plugin path
-```
-sudo unzip kafka-connect-cassandra-sink-11.4.0.zip -d /usr/local/kafka/connect-plugins/
-```
-3. Restart Kafka Connect service to load the new connector
-```
-sudo systemctl restart kafka-connect
-```
-4. Verify the connector installation
-```
-curl http://localhost:8083/connector-plugins | jq
-```
-You should see an entry similar to:
-```
-{
-  "class": "com.datamountaineer.streamreactor.connect.cassandra.CassandraSinkConnector",
-  "type": "sink",
-  "version": "11.4.0"
-}
-```
-#### Create the connector
 ```
 curl -X POST http://localhost:8083/connectors \
 -H "Content-Type: application/json" \
@@ -195,6 +196,10 @@ pip3 install kafka-python
 3. Copy `sample_data_producer_1.py` to the Kafka producer node. You can use `scp` to transfer the file:
 ```
 scp -i ~/.ssh/your_key sample_data_producer_1.py your_user@<kafka-0-ip>:/home/your_user/sample_data_producer_1.py
+```
+4. Copy the sample dataset to the Kafka producer node. You can use `scp` to transfer the file:
+```
+scp -i ~/.ssh/your_key ../../tutorials/basiccassandra/datasamples/water_dataset_v_05.14.24_1000.csv your_user@<kafka-0-ip>:/home/your_user/water_dataset_v_05.14.24_1000.csv
 ```
 replace `your_key` and `your_user` with your actual SSH key and username.
 

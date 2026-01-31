@@ -24,21 +24,14 @@ if __name__ == "__main__":
     # replace values with data from dataset
     # or change the code so that it reads data from the file
     # input 1
-    '''
-    input= """
-    INSERT INTO tutorial3.bird1234 (country, duration_seconds, english_cname, id,  species, latitude, longitude)
-    VALUES
-    ('Mexico',29,'Black-tailed Gnatcatcher',71907,'melanura',32.156,-115.79299999999999)
-    ;
-    """
-    '''
-    # input 2
-    input2 = """
-    INSERT INTO tutorial3.bird1234 (country, duration_seconds, english_cname, id,species)
-    VALUES
-    ('United States',6,'Black-tailed Gnatcatcher',361929,'melanura')
-    ;
-    """
+    input = ("INSERT INTO tutorial123.water123 "
+         "(timestamp, city, zip, egridregion, temperaturef, humidity, "
+         " data_availability_weather, wetbulbtemperaturef, coal, hydro, naturalgas, nuclear) "
+         "VALUES ('2019-01-03 18:00:00','Austin','78704','ERCT',42,76,1,37.9783997397202,58235,2692,56099,19019);")
+
+    input2 = ("INSERT INTO tutorial123.water123 "
+          "(timestamp, city, zip, egridregion, temperaturef) "
+          "VALUES ('2019-01-19 03:00:00','Austin','78704','ERCT',65);")
 
     start = time()
     ## enable only 1 option

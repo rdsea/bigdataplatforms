@@ -49,27 +49,34 @@ If you use one of our node, Cassandra Python Driver has already been installed i
 ```
 $source virtualenv/bin/activate
 ```
+
+
+
 ## 2. Sample data
 
-We use the data set [Avian Vocalizations from CA & NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa). However, we only use the metadata from the CSV file. Furthermore, we extract only a few fields.
+We use the data set [A Dataset for Research on Water Sustainability](https://osf.io/g3zvd/overview?view_only=63e9c2f0cdf547d792bdd8e93045f89e). However, students can download this dataset fully to test it as the big data in later steps. 
 
-[A sample of extracted data is here](sampledata.csv).
+[A sample of the extracted data is here](../../tutorials/basiccassandra/datasamples/water_dataset_v_05.14.24_1000.csv) 
 >If you dont use the python sample programs, you can also use other datasets, as long as you follow *CQL* samples by adapting them for your data.
 
 ## 3. Exercise Steps
 
 In the following steps, we assume that username is *mybdp*.
-
+After you SSH into VM to access the Cassandra Node (The key, ip address and username will be provided during the session )
 
 ### 3.1 Create a keyspace
-Check the node address using nodetool:
+Check the node address using nodetool:(name of container can be 'cassandra-seed' OR 'cassandra-2' OR 'cassandra-3' )
 ```
 $nodetool status
 ```
-Login into Cassandra using *cqlsh*:
+Login into Cassandra using *cqlsh*: (The ip address, username and password will be given on the day of the tutorial)
 ```
 $cqlsh [Node1|2|3] -u mybdp
+
+
 ```
+
+
 The password will be provided in the tutorial session.
 Choose your keyspace name, e.g. **tutorial-studentid**. Pls. keep the *replication factor* as in the following example.
 
@@ -84,18 +91,31 @@ CREATE KEYSPACE tutorial12345
 
 ### 3.2 Create a table within the keyspace
 
-Choose your table name, e.g., **bird1234**
+Choose your table name, e.g., **water1234**
 ```
 mybdp@cqlsh>
-CREATE TABLE tutorial12345.bird1234 (
-   country text,
-   duration_seconds int ,
-   english_cname text ,
-   id int,
-   latitude float,
-   longitude float,
-   species text,
-PRIMARY KEY (id,species,country));
+CREATE TABLE tutorial12345.water1234 (
+       timestamp timestamp, -- the time of data record
+       city text,
+       zip text,
+       egridregion text,
+       temperaturef int,
+       humidity int,
+       data_availability_weather int,
+       wetbulbtemperaturef float,
+       coal float,
+       hybrid float,
+       naturalgas float,
+       nuclear float, 
+       other float, 
+       petroleum float,
+       solar float,
+       wind float,
+       data_availability_energy float,
+       onsitewuefixedapproach float,
+       onsitewuefixedcoldwater float,
+       offsitewue float,
+    PRIMARY KEY ((city,zip), timestamp));
 ```
 
 ### 3.3 Performing some basic checks
@@ -104,22 +124,29 @@ PRIMARY KEY (id,species,country));
 Using **cqlsh**
 
 ```
-mybdp@cqlsh>SELECT * from tutorial12345.bird1234;
+mybdp@cqlsh>SELECT * from tutorial12345.water1234;
 ```
 
 #### Access data from another Cassandra node
 Assume that you open a new terminal and connect to the cluster using **Node2** or **Node3**:
 
 ```
-mybdp@cqlsh>SELECT * from tutorial12345.bird1234;
+mybdp@cqlsh>SELECT * from tutorial12345.water1234;
 ```
 
 what do you see?
 
 #### Test if you can connect to Cassandra using a Python program
+Run the below code from you PC terminal (change the path of the .py file accordingly)
 
 ```
-$python3 consistency/test_connection.py --host [Node1|2|3] --u mybdp --p [Password] --q "SELECT * FROM tutorial12345.bird1234;"
+python consistency/test_connection.py \
+  --hosts <node ip> \
+  --u mybdp \
+  --p 'password' \
+  --q SELECT * FROM tutorial12345.water1234;"
+
+
 ```
 
 ### 3.4 Programming consistency levels
@@ -127,7 +154,9 @@ $python3 consistency/test_connection.py --host [Node1|2|3] --u mybdp --p [Passwo
 #### Insert data by connecting to **Node1**
 ```
 mybdp@cqlsh>
-INSERT INTO tutorial12345.bird1234 (country, duration_seconds, english_cname, id,  species, latitude, longitude) values ('United States',42,'Yellow-breasted Chat',408123,'virens',33.6651,-117.8434);
+INSERT INTO tutorial12345.water1234 
+(timestamp, city, zip, egridregion, temperaturef, humidity, data_availability_weather, wetbulbtemperaturef, coal, hybrid, naturalgas,nuclear, other, petroleum, solar, wind, data_availability_energy,onsitewuefixedapproach, onsitewuefixedcoldwater,offsitewue) values(
+'2019-01-01 00:00:00','Austin','78704','ERCT',42,76,1,37.9783997397202,51725,3010,36030,17927,1086,0,205,33383,1,1.34616023459296,0,1.6258769164237);
 ```
 
 you can copy data from the dataset and insert data as many as you want.
@@ -150,7 +179,7 @@ mybdp@cqlsh>CONSISTENCY QUORUM;
 Write a simple query, e.g.,
 
 ```
-mybdp@cqlsh>SELECT * from tutorial12345.bird1234;
+mybdp@cqlsh>SELECT * from tutorial12345.water1234;
 ```
 The analyzing the trace to understand how Cassandra handles queries
 
@@ -164,7 +193,7 @@ Note:
 Using different nodes, you can try to run a read test using Python to see the performance and data accuracy:
 
 ```
-python3 consistency/test_consistency_read.py --host [node] --u mybdp --p [password] --q "SELECT * FROM tutorial12345.bird1234"
+python3 consistency/test_consistency_read.py --host [node ip] --u mybdp --p [password] --q "SELECT * FROM tutorial12345.water1234"
 ```
 What do you see, compared with a similar query from other nodes.
 
@@ -176,7 +205,7 @@ What do you see, compared with a similar query from other nodes.
 
 Change the level of consistency in the code and see if it affects the performance.
 ```
-python3 test_consistency_write.py --hosts "node1,node2,node3" --u mybdp --p [password]
+python3 test_consistency_write.py --hosts <node ip> --u mybdp --p [password]
 ```
 Check if you program works.
 
@@ -208,23 +237,36 @@ mybdp@cqlsh>CREATE KEYSPACE tutorialfactor2
    'replication_factor' : 2
   };
 ```
-Choose your table name, e.g. bird1234
+Choose your table name, e.g. water1234
 ```
-mybdp@cqlsh>CREATE TABLE tutorialfactor2.bird1234 (
-   country text,
-   duration_seconds int ,
-   english_cname text ,
-   id int,
-   latitude float,
-   longitude float,
-   species text,
-PRIMARY KEY (id, species,country));
+mybdp@cqlsh>CREATE TABLE tutorial12345.water1234 (
+       timestamp timestamp, -- the time of data record
+       city text,
+       zip text,
+       egridregion text,
+       temperaturef int,
+       humidity int,
+       data_availability_weather int,
+       wetbulbtemperaturef float,
+       coal float,
+       hybrid float,
+       naturalgas float,
+       nuclear float, 
+       other float, 
+       petroleum float,
+       solar float,
+       wind float,
+       data_availability_energy float,
+       onsitewuefixedapproach float,
+       onsitewuefixedcoldwater float,
+       offsitewue float,
+    PRIMARY KEY ((city,zip), timestamp));
 ```
 
 Then if you set consistency level THREE and query:
 ```
 mybdp@cqlsh>CONSISTENCY THREE;
-mybdp@cqlsh> select * from tutorialfactor2.bird1234;
+mybdp@cqlsh> select * from tutorialfactor2.water1234;
 ```
 
 What do you get?
@@ -235,11 +277,129 @@ If you repeat the above-mentioned examples with **CONSISTENCY TWO**, what do you
 
 Assume that the node you connect fails, try to connect to different hosts. What do you get?
 
+## 4. Hot and Cold Spaces
+
+ 
+In real-world systems, not all data is accessed equally. Recent data is usually queried frequently and requires low latency (hot data), while older data is accessed rarely and can tolerate higher latency (cold data). In Cassandra, this separation is typically handled at the data-modeling and application level.
+
+In this tutorial, we demonstrate a simple hot → cold data transition using two tables.
+
+## 4.1 Create Hot and Cold Tables
+
+We store recent records in a hot table and move older records into a cold table.
+```
+mybdp@cqlsh>CREATE TABLE tutorial12345.water_hot (
+  timestamp timestamp,
+  city text,
+  zip text,
+  egridregion text,
+  temperaturef int,
+  humidity int,
+  data_availability_weather int,
+  wetbulbtemperaturef float,
+  coal float,
+  hybrid float,
+  naturalgas float,
+  nuclear float,
+  other float,
+  petroleum float,
+  solar float,
+  wind float,
+  data_availability_energy float,
+  onsitewuefixedapproach float,
+  onsitewuefixedcoldwater float,
+  offsitewue float,
+  PRIMARY KEY ((city, zip), timestamp)
+) WITH CLUSTERING ORDER BY (timestamp DESC);
+```
+
+```
+mybdp@cqlsh>CREATE TABLE tutorial12345.water_cold (
+  timestamp timestamp,
+  city text,
+  zip text,
+  egridregion text,
+  temperaturef int,
+  humidity int,
+  data_availability_weather int,
+  wetbulbtemperaturef float,
+  coal float,
+  hybrid float,
+  naturalgas float,
+  nuclear float,
+  other float,
+  petroleum float,
+  solar float,
+  wind float,
+  data_availability_energy float,
+  onsitewuefixedapproach float,
+  onsitewuefixedcoldwater float,
+  offsitewue float,
+  PRIMARY KEY ((city, zip), timestamp)
+) WITH CLUSTERING ORDER BY (timestamp DESC);
+
+```
+
+## 4.2 Writing and Reading Hot Data
+
+All new incoming data is written only to the hot table: (Add any data you want)
+```
+mybdp@cqlsh>INSERT INTO tutorial12345.water_hot (...) VALUES (...);
+```
+
+Typical operational queries read from the hot table:
+```
+mybdp@cqlsh>SELECT * FROM tutorial12345.water_hot
+WHERE city='Austin' AND zip='78704' LIMIT 50;
+```
+
+## 4.3 Moving Data from Hot to Cold (Application-level Script)
+
+After a certain time period (e.g., older than a few minutes or days), data is migrated from hot to cold using a small application-level script:
+
+1.Read old records from water_hot (older than a cutoff timestamp)
+
+2.Insert them into water_cold
+
+3.Delete them from water_hot
+
+This simulates how frequently accessed data gradually becomes archival data.
+
+A simple migration script (in Python) can be found at : consistency/migrate_hot_to_cold.py
+
+Save as: consistency/migrate_hot_to_cold.py
+Change the cutoff time accordingly.
+
+Run it:
+```
+python3 consistency/migrate_hot_to_cold.py \
+  --host <IP> --u mybdp --p 'password' \
+  --cutoff_at "2026-01-18 01:30:00" --cutoff_minutes 30
+
+```
+
+After migration, verify:
+```
+mybdp@cqlsh>SELECT count(*) FROM tutorial12345.water_hot;
+mybdp@cqlsh>SELECT count(*) FROM tutorial12345.water_cold;
+```
+
+Note:
+For tutorial simplicity, the script migrates data for a single partition (city,zip). In real systems, hot→cold movement is typically done via scheduled ETL jobs, streaming pipelines, or batch processing (e.g., Spark/Dataflow), and is modeled to avoid heavy filtering.
+
+## 4.4 Relation to Consistency
+
+Different consistency levels can be applied depending on data temperature:
+
+1.Hot data: typically written and read using QUORUM
+
+2.Cold data: often written and read using ONE, as it is less latency-sensitive
 
 
-## 4. Some References
+
+## 5. Some References
 
 * https://docs.datastax.com/en/ddac/doc/datastax_enterprise/dbInternals/dbIntConfigConsistency.html
 * https://docs.datastax.com/en/ddaccql/doc/cql/cql_reference/cqlsh_commands/cqlshTracing.html#cqlshTracing__examples
 * [Performance experiments of Cassandra in Azure](https://github.com/Azure-Samples/cassandra-on-azure-vms-performance-experiments/)
-*
+

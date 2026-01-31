@@ -7,7 +7,7 @@ Notes:
 - meetups:
   - the schedule could be flexible but we try to use the common slots
 
-**Remember to read [Course Management slides](lecturenotes/pdfs/)**
+**Remember to read [Course Management slides](lecturenotes/pdfs/module0-lecture0-coursemanagement-2026.pdf)**
 
 
 >The Schedule is currently revised for Spring 2026
@@ -15,9 +15,9 @@ Notes:
 
 Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 --------|--------------|-------|---------
-07.01   |Lecture 1  | [Introduction to Big Data Platforms](lecturenotes/pdfs/) and [Architecting Big Data Platforms](lecturenotes/pdfs/) | **Linh Truong**
-14.01  |Lecture 2  | [Service and Integration Models in Big Data Platforms](lecturenotes/pdfs/). Additional slides: [Cloud Infrastructures for Big Data Platforms](lecturenotes/pdfs/) and [a Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems](lecturenotes/pdfs/)| **Linh Truong**
-15.01 |TBD | TBD | |
+07.01   |Lecture 1  | [Introduction to Big Data Platforms](lecturenotes/pdfs/module1-lecture1-1-intro-v0.7.0.pdf) and [Architecting Big Data Platforms](lecturenotes/pdfs/module1-lecture1-2-architectingbigplatforms-v0.7.pdf) | **Linh Truong**
+14.01  |Lecture 2  | [Service and Integration Models in Big Data Platforms](lecturenotes/pdfs/module1-lecture2-0-integrationbdp-v0.7.1.pdf). Additional slides: [Cloud Infrastructures for Big Data Platforms](lecturenotes/pdfs/) and [a Recap on Performance, Dependability, and Fault Tolerance in Distributed Systems](lecturenotes/pdfs/performance-dependability.pdf)| **Linh Truong**
+15.01 |No meeting | No meeting | |
 21.01  |Lecture 3  | [Data Services in Big Data Platforms](lecturenotes/pdfs/). Additional slides: [common systems & integration problems](lecturenotes/pdfs/)| **Linh Truong**
 21.01  |   | **Release the first assignment**
 22.01  |Tutorial 1 | [Hands-on examples with Data services](tutorials/consistency)|****

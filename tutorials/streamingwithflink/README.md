@@ -81,25 +81,25 @@ The structure for the directory
 ```
 Flink
 ├── data
-│   └── bts-data-alarm-2017.csv
+│   └── bts-data-alarm-2017.csv
 ├── docker-compose
-│   └── docker-compose.yml
+│   └── docker-compose.yml
 ├── simplebts (from code/ in github)
 │   ├── dependency-reduced-pom.xml
 │   ├── pom.xml
-│   └── scripts
-│       ├── test_kafka_consumer.py
-│       └── test_kafka_producer.py
+│   └── scripts
+│       ├── test_kafka_consumer.py
+│       └── test_kafka_producer.py
 ├── flink-1.19.2
     ├── bin
-    │   ├── start-cluster.sh
-    │   ├── stop-cluster.sh
-    │   └── flink
+    │   ├── start-cluster.sh
+    │   ├── stop-cluster.sh
+    │   └── flink
     └── examples
-        ├── batch
-        ├── python
-        ├── streaming
-        └── table
+        ├── batch
+        ├── python
+        ├── streaming
+        └── table
 ```
 #### Check the source code and compile it
 Check [the source of BTS in our Git](code/simplebts/). It is a simple example for illustrating purposes. 

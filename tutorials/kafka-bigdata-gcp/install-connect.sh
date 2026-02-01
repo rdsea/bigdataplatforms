@@ -32,11 +32,12 @@ sudo chmod -R 755 /usr/local/kafka/connect-plugins
 # Kafka Connect Distributed Config
 # -----------------------------
 sudo tee /usr/local/kafka/config/connect-distributed.properties >/dev/null <<'EOL'
-bootstrap.servers=<kafka-0-ip>:9092
+# change localhost to IP of the kafka-0
+bootstrap.servers=localhost:9092
 group.id=connect-cluster
 
 listeners=http://0.0.0.0:8083
-rest.advertised.host.name=<kafka-0-ip>
+rest.advertised.host.name=localhost
 rest.port=8083
 
 # Converters
@@ -52,7 +53,28 @@ sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule require
   username="admin" \
   password="admin-secret";
 
-# Internal topics
+# Consumer (For the Sink Connector to read your topic)
+consumer.security.protocol=SASL_PLAINTEXT
+consumer.sasl.mechanism=PLAIN
+consumer.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required \
+  username="admin" \
+  password="admin-secret";
+
+# Producer (REQUIRED: For writing to internal storage topics)
+producer.security.protocol=SASL_PLAINTEXT
+producer.sasl.mechanism=PLAIN
+producer.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required \
+  username="admin" \
+  password="admin-secret";
+
+# Admin (REQUIRED: For managing internal topics)
+admin.security.protocol=SASL_PLAINTEXT
+admin.sasl.mechanism=PLAIN
+admin.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required \
+  username="admin" \
+  password="admin-secret";
+
+
 offset.storage.topic=connect-offsets
 config.storage.topic=connect-configs
 status.storage.topic=connect-status

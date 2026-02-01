@@ -5,11 +5,6 @@
 package fi.aalto.cs.cse4640;
 
 import java.util.Date;
-
-/**
- *
- * @author truong
- */
 public class BTSAlarmEvent {
     public String station_id;
     public String datapoint_id;

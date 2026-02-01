@@ -5,28 +5,42 @@ Some materials:
 * [Apache Flink for Big Data Platforms](../../lecturenotes/pdfs/module3-streaming-flink-v0.6.pdf)
 * [An accompanying hands-on video is available - Update the link later](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=35976699-d98c-4dee-bbe4-ac0500ab604d)
 * [Slides](slides/2025-flink.pdf)
-
+* 
 ## Introduction
 
 We will practice Apache Flink with simple activities:
-1. Setup Apache Flink in local machine
-2. Write streaming applications with Flink
-3. Run Flink streaming applications
+* setup Apache Flink in local machine
+* write streaming applications with Flink
+* run Flink streaming applications
 
-## Setup Apache Flink
-In this tutorial, we use Apache Flink 1.20.3 and Flink 2.2.0.
 
-- **Binary** is downloaded from [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the guide for a local machine](https://nightlies.apache.org/flink/flink-docs-stable/). 
-- Docker for Flink
-  ```bash
-  docker pull flink:1.20.3
-  docker pull flink:2.2.0
-  ```
+>Note: there are many tutorials about Apache Flink that you can take a look in the Internet, e.g. [Apache Flink with in AWS](https://www.youtube.com/watch?v=4FIPt87A_qM)
 
-### Flink binary setting
-At the default Flink server only allow a job running. Therefore, for easy testing, you can change the numberOfTaskSlots configuration. (Do similarly with docker-compose taskmanager also)
+
+## Setup Apache Flink for Practices
+
+Download [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the guide for a local machine](https://nightlies.apache.org/flink/flink-docs-stable/). In this simple tutorial, we use Apache Flink 1.19.2 for Scala 2.12.
+
+You can also follow [the Kafka instructions](https://kafka.apache.org/quickstart) to start a Kafka cluster or use [our simple Kafka tutorial](../../tutorials/basickafka/README.md). Then you have to create a few topics before running the experiment and test if your Kafka server works
+
 ```bash
-# flink1.20.3/conf/config.yaml 
+bin/kafka-topics.sh --create --topic <your topic name> --bootstrap-server <your Kafka host ip>:<Kafka port>
+#./kafka-topics.sh --create --topic flink_kafka --bootstrap-server localhost:9092
+bin/kafka-topics.sh --list --zookeeper <zookeeper host>:<zookeeper port>
+```
+
+OR 
+```bash
+KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
+bin/kafka-storage.sh format --standalone -t $KAFKA_CLUSTER_ID -c config/server.properties
+bin/kafka-server-start.sh config/server.properties
+```
+
+## 3. Exercises
+At the default Flink server only allow a job running at a currnet time. Therefore, for easy testing, you can change the configuration. (It works with docker-compose taskmanager also)
+```bash
+vim flink1.19.2/conf/config.yaml # change numberOfTaskSlots to 10 for 10 jobs at that time.
+
 taskmanager:
   bind-host: localhost
   host: localhost
@@ -36,146 +50,110 @@ taskmanager:
     process:
       size: 1728m
 ```
+Following Flink guide to see if the setting is ok. Move into the directory of your Flink and start Flink:
+```bash
+bin/start-cluster.sh
+```
+then check the [UI](http://localhost:8081)
 
-- Move into the directory of your Flink and start Flink:
-  ```bash
-  bin/start-cluster.sh
-  ```
-- Alternatively, you can also use `docker-compose` to start a cluster. The relevant compose configuration file is in `code/docker-compose.yml`.  You can start the cluster using:
-  ```bash
-  docker-compose up -d
-  ```
-
-- Then access Flink from a Web Browser
-  > http://localhost:8081
+Alternatively, you can also use `docker-compose` to start a cluster. The relevant compose configuration file is in `code/docker-compose.yml`.  You can start the cluster using :
+```bash
+docker-compose up -d
+```
+and then check the [UI](http://localhost:8081)
 
 
-## Hand-on
+### Practices with Flink  SocketWindowWordCount example
 
-### SocketWindowWordCount example job
 You can check [the Flink example](https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/try-flink/local_installation/) and test it to see how it works.
 
-- Use Flink CLI on the same host if it is setup:
-  ```bash
-  bin/flink run examples/streaming/WordCount.jar
-  ```
+>Hint: You can also use the web UI to submit a job to a Session cluster. Alternatively, use Flink CLI on the host if it is setup: 
 
-- If you run flink server on another machine like a cloud can add a parameter with "-m"
-  ```bash
-  bin/flink run -d -m <FLINK-JOBMANAGER-URL> <PATH/job.jar> <jar-arguments>
-  ```
+If you run flink server on another machine like a cloud can add a parameter with "-m"
+```bash
+#flink run -d -m ${FLINK_JOBMANAGER_URL} /job.jar [jar_arguments]
+bin/flink run examples/streaming/WordCount.jar
+```
 
-- Alternatively, you can also use the web UI to **Submit New Job** to a Session cluster. 
-
-### Ingest BTS dataset and alert with Flink job
+## BTS example
 
 The structure for the directory 
-
 ```
 Flink
 ├── data
-│   └── bts-data-alarm-2017.csv
+│   └── bts-data-alarm-2017.csv
 ├── docker-compose
-│   └── docker-compose.yml
+│   └── docker-compose.yml
 ├── simplebts (from code/ in github)
 │   ├── dependency-reduced-pom.xml
 │   ├── pom.xml
-│   └── scripts
-│       ├── test_kafka_consumer.py
-│       └── test_kafka_producer.py
-├── flink-1.20.3
+│   └── scripts
+│       ├── test_kafka_consumer.py
+│       └── test_kafka_producer.py
+├── flink-1.19.2
     ├── bin
-    │   ├── start-cluster.sh
-    │   ├── stop-cluster.sh
-    │   └── flink
+    │   ├── start-cluster.sh
+    │   ├── stop-cluster.sh
+    │   └── flink
     └── examples
-        ├── batch
-        ├── python
-        ├── streaming
-        └── table
+        ├── batch
+        ├── python
+        ├── streaming
+        └── table
 ```
+#### Check the source code and compile it
+Check [the source of BTS in our Git](code/simplebts/). It is a simple example for illustrating purposes. 
 
-#### Kafka ingest/produce and consume data
-##### Kafka setting
-- For Binary, you can follow [the Kafka instructions](https://kafka.apache.org/quickstart) to download a binary and start a Kafka cluster or use [our simple Kafka tutorial](../../tutorials/basickafka/README.md). 
+Define a job via Java which is built with maven.
 
-  ```bash
-  KAFKA_CLUSTER_ID="$(bin/kafka-storage.sh random-uuid)"
-  bin/kafka-storage.sh format --standalone -t $KAFKA_CLUSTER_ID -c config/server.properties
-  bin/kafka-server-start.sh config/server.properties
-  ```
-  - Then you have to create a few topics before running the experiment and test if your Kafka server works
-  ```bash
-  bin/kafka-topics.sh --create --topic <your-topic-name> --bootstrap-server <your Kafka host ip>:<Kafka port>
-  #./kafka-topics.sh --create --topic flink_kafka --bootstrap-server localhost:9092
-  bin/kafka-topics.sh --list --zookeeper <zookeeper-host>:<zookeeper-port>
-  ```
+```bash
+# install maven to compile java project source code
+# sudo apt install maven
+cd simplebts
+mvn install
+# to generate target/simplebts-0.1-SNAPSHOT.jar
+```
+the file **target/simplebts-0.1-SNAPSHOT.jar* is the one that will be submitted to Flink.
 
-- Alternatively, you can use **Docker** for a local kafka
-  ```bash
-  docker run -d \
-  --name my-kafka-broker \
-  -p 9092:9092 \
-  -e KAFKA_NODE_ID=1 \
-  -e KAFKA_PROCESS_ROLES=broker,controller \
-  -e KAFKA_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093 \
-  -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 \
-  -e KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER \
-  -e KAFKA_CONTROLLER_QUORUM_VOTERS=1@localhost:9093 \
-  apache/kafka:latest
+#### Test Kafka with the BTS data
+Before running BTS Flink, check if we can send and receive data to/from Kafka. We have two python test programs in **scripts/** and the data file in **cs-e4640/data/bts** or in data folder:
 
-  # Create with 4 partitions so 4 Flink tasks can read in parallel
-  # O.W do not need to create topics but the default partition and replication are 1
-  docker exec -it my-kafka-broker /opt/kafka/bin/kafka-topics.sh \
-  --create --topic <your-topic-name> --bootstrap-server localhost:9092 --partitions 4
+Start a BTS test producer using Kafka client:
+```bash
+# pip install kafka-python-ng
+python test_kafka_producer.py --queue_name [your_selected_queue_name] --input_file  [cs-e4640/data/bts/bts-data-alarm-2017.csv] --kafka [your_kafka_host]
+```
+Then start a BTS test receivers in both Kafka client and Kafka:
+```bash
+python test_kafka_consumer.py --queue_name [your_selected_queue_name] --kafka [your_kafka_host]
+```
+if you see the receiver outputs data, it means that the RabbitMQ is working.
 
-  # NOTE the topic here means queue-name below
-  ```
+#### Run Flink BTS working with messaging queue
 
-- Produce BTS data to the **Kafka broker**:
-  ```bash
-  # pip install kafka-python
-
-  python test_kafka_producer.py --queue_name <your-selected-queue-name> --input_file  <cs-e4640/data/bts/bts-data-alarm-2017.csv> --kafka <your-kafka-host>
-  # example python test_kafka_producer.py --queue_name iQ --input_file ../../data/bts-data-alarm-2017.csv --kafka localhost:9092
-  ```
-
-- Consume the output from the **Kafka broker**:
-  ```bash
-  python test_kafka_consumer.py --queue_name <your-selected-queue-name> --kafka <your-kafka-host>
-  # example python test_kafka_consumer.py --queue_name oQ  --kafka localhost:9092
-  ```
+Now assume that you choose two queue names:
+* **iqueue123**: indicate the queue where we send the data
+* **oqueue123**: indicate the queue where we receive the alert.
+* **localhost:9092**: is the **Kafka url**
 
 
-#### Define alerting job with Flink
+Run the Flink BTS program:
+```bash
+cd flink-1.19.2
+bin/flink run ../simplebts/target/simplebts-0.1-SNAPSHOT.jar --iqueue iqueue123 --oqueue oqueue123 --kafkaurl localhost:9092  --outkafkaurl localhost:9092 --parallelism 1
+```
+Now start our test producer again with the queue name as **iqueue123**:
+```bash
+cd simplebts/scripts
+python3 test_kafka_producer.py --queue_name iqueue123 --input_file  ../../data/bts-data-alarm-2017.csv --kafka localhost:9092
+```
+and then start a BTS test receivers with queue name as **oqueue123**:
+```bash
+python3 test_kafka_consumer.py --queue_name oqueue123 --kafka localhost:9092
+```
+to see if you can receive any alerts.
 
-Check [the source of BTS in our Git](code/simplebts/). It is a simple example for illustrating the alert purposes. 
-- Define a job via Java and then build with **maven** 
-  ```bash
-  # install maven to compile java project source code
-  sudo apt install maven
-  cd simplebts
-  mvn install
-  # generate target/simplebts-0.1-SNAPSHOT.jar
-  ```
-
-- The file **target/simplebts-0.1-SNAPSHOT.jar** is the one that will be submitted to Flink
-
-#### Submit the job to Flink and return to Kafka
-- Now assume that you choose two queue names:
-  * **iQ**: indicate the queue where we send the data
-  * **oQ**: indicate the queue where we receive the alert.
-  * **localhost:9092**: is the **Kafka url**
-
-- Run the Flink BTS program:
-  ```bash
-  cd flink-1.20.3
-  bin/flink run <Maven-compiler-output> --iqueue <kafka-topic/queue> --oqueue <kafka-topic/queue> --kafkaurl <kafka-url>  --outkafkaurl <kafka-url> --parallelism <Number-of-parallelism>
-  # example bin/flink run ../simplebts/target/simplebts-0.1-SNAPSHOT.jar --iqueue iQ --oqueue oQ --kafkaurl localhost:9092  --outkafkaurl localhost:9092 --parallelism 1
-  ```
-
-
-#### Submit the job to Flink and return to mySQL
+#### Run Flink BTS working with mySQL
 If you want to add another sink like mySQL
 * **iQ**: indicate the queue where we send the data
 * **localhost:9092**: is the **Kafka url** producing data
@@ -187,25 +165,24 @@ If you want to add another sink like mySQL
 * **hong3_database**: is the database name
 * **bts_alert_test**: is the table name which you can change in the tutorial
 
-- Compile and create a jar package for simplebts
-  ```bash
-  cd simplebts-database
-  mvn install
-  ```
+Compile and create a jar package for simplebts
+```bash
+cd simplebts-database
+mvn install
+```
 
-- Run the Flink BTS program:
-  ```bash
-  cd flink-1.20.3
-  bin/flink run ../simplebts-database/target/btsFlink-1.0-SNAPSHOT.jar --iqueue iQ --oqueue oQ --inkafkaurl localhost:9092 --outkafkaurl localhost:9092 --databaseHost localhost:3306 --databaseUser bigdata --databasePass tridep --databaseName hong3_database --tablename bts_alert_test
-  ```
+Run the Flink BTS program:
+```bash
+cd flink-1.19.2
+bin/flink run ../simplebts-database/target/btsFlink-1.0-SNAPSHOT.jar --iqueue iQ --oqueue oQ --inkafkaurl localhost:9092 --outkafkaurl localhost:9092 --databaseHost localhost:3306 --databaseUser bigdata --databasePass tridep --databaseName hong3_database --tablename bts_alert_test
+```
 
-- Start test producer again with the queue name as **iQ** (since the scripts are from simpllebts folder)
-  ```bash
-  cd simplebts/scripts
-  python test_kafka_producer.py --queue_name iQ --input_file  ../../data/bts-data-alarm-2017.csv --kafka localhost:9092
-  ```
-
-- Then you can check and see if you can receive any alerts written into mySQL database.
+Now start our test producer again with the queue name as **iQ** (since the scripts are from simpllebts folder)
+```bash
+cd simplebts/scripts
+python3 test_kafka_producer.py --queue_name iQ --input_file  ../../data/bts-data-alarm-2017.csv --kafka localhost:9092
+```
+Then you can check and see if you can receive any alerts written into mySQL database.
 
 #### Check logs
 Check the logs under **flink/log**:

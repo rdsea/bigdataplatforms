@@ -19,8 +19,7 @@ In this tutorial, we use Apache Flink 1.20.3 and Flink 2.2.0.
 - **Binary** is downloaded from [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the guide for a local machine](https://nightlies.apache.org/flink/flink-docs-stable/). 
 - Docker for Flink
   ```bash
-  docker pull flink:1.20.3
-  docker pull flink:2.2.0
+  docker compose -f docker-compose.yaml up
   ```
 
 ### Flink binary setting
@@ -63,6 +62,8 @@ You can check [the Flink example](https://nightlies.apache.org/flink/flink-docs-
 - If you run flink server on another machine like a cloud can add a parameter with "-m"
   ```bash
   bin/flink run -d -m <FLINK-JOBMANAGER-URL> <PATH/job.jar> <jar-arguments>
+  # OR 
+  docker exec flink-jobmanager-1 flink run /opt/flink/job.jar
   ```
 
 - Alternatively, you can also use the web UI to **Submit New Job** to a Session cluster. 

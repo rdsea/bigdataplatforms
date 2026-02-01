@@ -282,6 +282,8 @@ Now we will capture changes from a SQL database (assume this is a legacy databas
 
   - Insert via python
     ```python
+    # pip install mysql-connector-python
+
     import mysql.connector
     # database configuration
     # change <UserName> <Password> <HostName> <DatabaseName> to your information provided in the hands-on

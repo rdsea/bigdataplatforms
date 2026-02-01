@@ -57,13 +57,13 @@ You can check [the Flink example](https://nightlies.apache.org/flink/flink-docs-
 - Use Flink CLI on the same host if it is setup:
   ```bash
   bin/flink run examples/streaming/WordCount.jar
+  # OR
+  docker exec flink-jobmanager-1 flink run usrlib/WordCount.jar
   ```
 
 - If you run flink server on another machine like a cloud can add a parameter with "-m"
   ```bash
   bin/flink run -d -m <FLINK-JOBMANAGER-URL> <PATH/job.jar> <jar-arguments>
-  # OR 
-  docker exec flink-jobmanager-1 flink run /opt/flink/job.jar
   ```
 
 - Alternatively, you can also use the web UI to **Submit New Job** to a Session cluster. 
@@ -173,6 +173,8 @@ Check [the source of BTS in our Git](code/simplebts/). It is a simple example fo
   cd flink-1.20.3
   bin/flink run <Maven-compiler-output> --iqueue <kafka-topic/queue> --oqueue <kafka-topic/queue> --kafkaurl <kafka-url>  --outkafkaurl <kafka-url> --parallelism <Number-of-parallelism>
   # example bin/flink run ../simplebts/target/simplebts-0.1-SNAPSHOT.jar --iqueue iQ --oqueue oQ --kafkaurl localhost:9092  --outkafkaurl localhost:9092 --parallelism 1
+  # OR 
+  # exmple docker exec <FLINK-JOBMANAGER-CONTAINER> flink run <PATH/job.jar> --iqueue iQ --oqueue oQ --kafkaurl localhost:9092  --outkafkaurl localhost:9092 --parallelism 1
   ```
 
 

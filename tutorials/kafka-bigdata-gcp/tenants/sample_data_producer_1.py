@@ -8,7 +8,7 @@ import time
 from kafka import KafkaProducer
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--queue_name", help="queue name", default="water_input")
+parser.add_argument("--queue_name", help="queue name", default="water_data")
 parser.add_argument(
     "--input_file", help="csv data file", default="./water_dataset_v_05.14.24_1000.csv"
 )

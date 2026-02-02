@@ -8,7 +8,7 @@ import time
 from kafka import KafkaProducer
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--queue_name", help="queue name", default="bts_input")
+parser.add_argument("--queue_name", help="queue name", default="bts_data")
 parser.add_argument(
     "--input_file", help="csv data file", default="./data_bts_bts-data-alarm-2017.csv"
 )

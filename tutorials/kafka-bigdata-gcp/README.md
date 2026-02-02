@@ -263,7 +263,7 @@ You can find sample data for BTS monitoring at [here](../../data/bts/bts-data-al
 
 Repeat the above steps which include:
 - Create Kafka topic `bts_data`
-- Consumer group: `bts_data_cassandra_group`
+- Consumer group: `bts_data_consumer_group`
 - Connector configuration adapted to BTS schema
 
 Each dataset is isolated by:

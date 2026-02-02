@@ -152,12 +152,21 @@ Flink
 
 Check [the source of BTS in our Git](code/simplebts/). It is a simple example for illustrating the alert purposes. 
 - Define a job via Java and then build with **maven** 
+##### Java
   ```bash
   # install maven to compile java project source code
   sudo apt install maven
   cd simplebts
   mvn install
   # generate target/simplebts-0.1-SNAPSHOT.jar
+  ```
+##### Python
+  - download the [flink-sql-connector-kafka-4.0.1-2.0.jar](https://repo.maven.apache.org/maven2/org/apache/flink/flink-sql-connector-kafka/4.0.1-2.0/)
+    - 
+
+  - install the dependency
+  ```bash
+  pip install apache-flink
   ```
 
 - The file **target/simplebts-0.1-SNAPSHOT.jar** is the one that will be submitted to Flink
@@ -169,14 +178,31 @@ Check [the source of BTS in our Git](code/simplebts/). It is a simple example fo
   * **localhost:9092**: is the **Kafka url**
 
 - Run the Flink BTS program:
-  ```bash
-  cd flink-1.20.3
-  bin/flink run <Maven-compiler-output> --iqueue <kafka-topic/queue> --oqueue <kafka-topic/queue> --kafkaurl <kafka-url>  --outkafkaurl <kafka-url> --parallelism <Number-of-parallelism>
-  # example bin/flink run ../simplebts/target/simplebts-0.1-SNAPSHOT.jar --iqueue iQ --oqueue oQ --kafkaurl localhost:9092  --outkafkaurl localhost:9092 --parallelism 1
-  # OR 
-  # exmple docker exec <FLINK-JOBMANAGER-CONTAINER> flink run <PATH/job.jar> --iqueue iQ --oqueue oQ --kafkaurl localhost:9092  --outkafkaurl localhost:9092 --parallelism 1
-  ```
+  - Java
+    ```bash
+    cd flink-1.20.3
+    bin/flink run <Maven-compiler-output> --iqueue <kafka-topic/queue> --oqueue <kafka-topic/queue> --kafkaurl <kafka-url>  --outkafkaurl <kafka-url> --parallelism <Number-of-parallelism>
+    # example bin/flink run ../simplebts/target/simplebts-0.1-SNAPSHOT.jar --iqueue iQ --oqueue oQ --kafkaurl localhost:9092  --outkafkaurl localhost:9092 --parallelism 1
+    # OR 
+    # exmple docker exec <FLINK-JOBMANAGER-CONTAINER> flink run <PATH/job.jar> --iqueue iQ --oqueue oQ --kafkaurl localhost:9092  --outkafkaurl localhost:9092 --parallelism 1
+    ```
 
+  - Python
+    ```bash
+     which python3
+     # return the PATH/PYTHON3
+
+     ../../../flink-1.20.3/bin/flink run \
+      -py simple_alarm_analysis.py \
+      -j PATH/flink-sql-connector-kafka-4.0.1-2.0.jar \
+      -pyexec PATH/PYTHON3 \
+      -pyclientexec PATH/PYTHON3 \
+      --iqueue iQ \
+      --oqueue oQ \
+      --kafkaurl localhost:9092 \
+      --outkafkaurl localhost:9092 \
+      --parallelism 1
+    ```
 
 #### Submit the job to Flink and return to mySQL
 If you want to add another sink like mySQL

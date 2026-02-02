@@ -57,6 +57,7 @@ In Apache Kafka, consumer groups are created implicitly, not explicitly.
 
 A consumer group is formed when:
 - One or more consumers share the same group.id
+- They subscribe to the same topic(s)
 - Kafka assigns topic partitions dynamically among group members
 
 Kafka Connect and Consumer Groups
@@ -75,6 +76,21 @@ This mechanism provides:
     - The same data set as [consistency(Cassandra) Tutorial](../consistency/) which is [A Dataset for Research on Water Sustainability](https://osf.io/g3zvd/overview?view_only=63e9c2f0cdf547d792bdd8e93045f89e).
     - [Sample of BTS monitoring data](../../data/bts/)
 
+### Start GCP Infrastructure with Terraform
+1. Start with terraform initialization
+```
+terraform init
+```
+2. Review the execution plan
+```
+terraform plan
+```
+3. Apply the Terraform configuration to create the infrastructure
+```
+terraform apply
+```
+This process may take several minutes to complete. Once finished, Terraform will output the necessary information, including the IP addresses of the Kafka and Cassandra nodes.
+
 ### Prepare a Kafka Topic
 1. Pick one Kafka node, usually kafka-0, as the producer host.
 
@@ -84,7 +100,7 @@ This mechanism provides:
     replace `your_key` and `your_user` with your actual SSH key and username.
 2. Since we use configured your Kafka brokers to require SASL authentication (via SASL_PLAINTEXT), you need to copy the 'security-cf.properties' file to the Kafka node you will use as the producer.
     ```
-    scp -i ~/.ssh/your_key security-cf.properties your_user@<kafka-0-ip>:/usr/local/kafka/config/security-cf.properties
+    scp -i ~/.ssh/your_key ./client/security-cf.properties your_user@<kafka-0-ip>:/usr/local/kafka/config/security-cf.properties
     ```
     replace `your_key` and `your_user` with your actual SSH key and username.
 3. Prepare a Kafka Topic
@@ -94,80 +110,96 @@ This mechanism provides:
     --bootstrap-server kafka-0:9092,kafka-1:9092,kafka-2:9092 \
     --partitions 3 \
     --replication-factor 3 \
-    --command-config security-cf.properties
+    --command-config /usr/local/kafka/config/security-cf.properties
     ```
     verify the topic creation using
     ```
-    /usr/local/kafka/bin/kafka-topics.sh --list --bootstrap-server kafka-0:9092 --command-config security-cf.properties
+    /usr/local/kafka/bin/kafka-topics.sh --list --bootstrap-server kafka-0:9092 --command-config /usr/local/kafka/config/security-cf.properties
     ```
 ### Set Up Kafka Connect Cassandra Sink
-Prepare a ``cassandra-water-data-sink.json`` file locally (on the Kafka node):
+#### Fix distributed properties file of the connector
+For this tutorial, we already installed Kafka connector for Cassandra which is [Lenses.io Kafka sink Connector](https://docs.lenses.io/latest/connectors/kafka-connectors/sinks/cassandra-1) but you need to configure it before using for every Kafka Connect worker.
+
+First, you need to fix Kafka Connect distributed properties file.
+```
+vim usr/local/kafka/config/connect-distributed.properties
+```
+Replace `localhost` with the actual IP address of `kafka-0` node.
+Then restart Kafka Connect service:
+``` 
+systemctl restart kafka-connect
+```
+
+#### Create a connector
+1. Prepare a connector json file, you could see an example from [cassandra-water-data-sink.json](./kafka-connector/cassandra-water-data-sink.json)
+> !!!Note: you will need to change "Cassandra_IP", "KEYSPACE", "USERNAME-Access-Cassandra", "PASSWORD-Access-Cassandra" as well as KCQL based on your table format to match the data.
+2. Create the connector via REST API
+```
+curl -X POST http://localhost:8083/connectors -H "Content-Type: application/json" -d @cassandra-water-data-sink.json
+```
+3. Verify the connector installation
+```
+curl http://localhost:8083/connector-plugins | jq
+```
+You should see an entry similar to:
 ```
 {
-  "name": "cassandra-water-data-sink",
-  "config": {
-    "connector.class": "com.datamountaineer.streamreactor.connect.cassandra.CassandraSinkConnector",
-    "tasks.max": "2",
-
-    "topics": "water_data",
-    "consumer.group.id": "water_data_cassandra_group",
-
-    "contact.points": "<cassandra-ip>",
-    "loadBalancing.local.dc": "datacenter1",
-
-    "key.space": "BDP_Kafka_Tutorial",
-
-    "connect.cassandra.kcql":
-      "INSERT INTO water_data
-       SELECT
-         timestamp,
-         egridregion,
-         temperaturef,
-         humidity,
-         data_availability_weather,
-         wetbulbtemperaturef,
-         coal,
-         hybrid,
-         naturalgas,
-         nuclear,
-         other,
-         petroleum,
-         solar,
-         wind,
-         data_availability_energy,
-         onsitewuefixedapproach,
-         onsitewuefixedcoldwater,
-         offsitewue
-       FROM water_data
-       PK city, zip",
-
-    "auto.create": "true",
-    "insert.mode": "insert"
-  }
+  "class": "io.lenses.streamreactor.connect.cassandra.CassandraSinkConnector",
+  "type": "sink",
+  "version": "11.4.0"
 }
 ```
-Then, create the connector:
+Also, verify the connector status:
 ```
-curl -X POST http://localhost:8083/connectors \
--H "Content-Type: application/json" \
--d @cassandra-water-data-sink.json
+curl http://localhost:8083/connectors/water_data_cassandra_sink/status | jq
 ```
-Check status:
-```
-curl curl http://localhost:8083/connectors/cassandra-water-data-sink/status
-```
+You should see the connector state as `RUNNING` and tasks state as `RUNNING`.
 #### Verify Consumer Group Creation
-List all consumer groups:
+How Kafka Connect sink connectors handle consumer groups
+
+For a sink connector (e.g., Cassandra Sink):
+- Kafka Connect creates and manages the consumer group automatically
+
+- The consumer group is tied to the connector name
+
+- You must not create or manage it yourself
+
+Check with :
 ```
 /usr/local/kafka/bin/kafka-consumer-groups.sh \
---bootstrap-server kafka-0:9092 \
---list \
---command-config security-cf.properties
+  --bootstrap-server localhost:9092 \
+  --list \
+--command-config /usr/local/kafka/config/security-cf.properties
 ```
 Expected output includes:
-- `water_data_cassandra_group`
+- `cassandra-water-data-sink`
+
 ### Produce data into Kafka
-In this step, we stream the sample dataset from Google Cloud Storage (GCS), parse it, and produce records into Kafka.
+#### Produce with console producer 
+You can use Kafka console producer to produce sample data into Kafka topic.
+```
+/usr/local/kafka/bin/kafka-console-producer.sh   --broker-list localhost:9092   --topic water_data   --producer-property security.protocol=SASL_PLAINTEXT   --producer-property sasl.mechanism=PLAIN   --producer-property sasl.jaas.config='org.apache.kafka.common.security.plain.PlainLoginModule required username="admin" password="admin-secret";'
+```
+Then you can type any message to produce into Kafka topic `water_data`. 
+
+Test the consumer with console consumer:
+```
+/usr/local/kafka/bin/kafka-console-consumer.sh   --bootstrap-server localhost:9092   --topic water_data   --from-beginning   --consumer-property security.protocol=SASL_PLAINTEXT   --consumer-property sasl.mechanism=PLAIN   --consumer-property sasl.jaas.config='org.apache.kafka.common.security.plain.PlainLoginModule required username="admin" password="admin-secret";'
+```
+This command will consume messages from the beginning of the topic.
+
+Then check the Cassandra table to see if the data is persisted with CQLSH:
+```
+cqlsh <cassandra-ip> 9042
+```
+Then:
+```USE your_keyspace_name;
+SELECT * FROM water_data LIMIT 10;
+```
+You should see the data you produced earlier.
+
+#### Produce with a sample data producer script
+In this step, we stream the sample dataset with a script to produce records into Kafka.
 
 1. SSH into the Kafka producer node (e.g., kafka-0) if you are not already connected:
 ```
@@ -181,15 +213,17 @@ sudo apt update
 sudo apt install -y python3 python3-pip
 pip3 install kafka-python
 ```
-3. Copy `sample_data_producer_1.py` to the Kafka producer node. You can use `scp` to transfer the file:
+3. Prepare a producer, you could see an example at [sample_data_producer_1.py](./tenants/sample_data_producer_1.py). You can also use `scp` to transfer the file to the Kafka producer node for using it directly:
 ```
 scp -i ~/.ssh/your_key sample_data_producer_1.py your_user@<kafka-0-ip>:/home/your_user/sample_data_producer_1.py
 ```
+4. Copy the sample dataset to the Kafka producer node. You can see sample data [here](../../tutorials/basiccassandra/datasamples/water_dataset_v_05.14.24_1000.csv). You can use `scp` to transfer the file:
+```
+scp -i ~/.ssh/your_key ../../tutorials/basiccassandra/datasamples/water_dataset_v_05.14.24_1000.csv your_user@<kafka-0-ip>:/home/your_user/water_dataset_v_05.14.24_1000.csv
+```
 replace `your_key` and `your_user` with your actual SSH key and username.
 
-    Note:
-    The dataset is very large. In a real system, batching, back pressure, and rate-limiting should be implemented 
-    to avoid overwhelming Kafka and Cassandra.
+> !!!Note: The dataset is very large. In a real system, batching, back pressure, and rate-limiting should be implemented to avoid overwhelming Kafka and Cassandra.
 
 4. Run the producer script to stream
 Start producing messages:
@@ -218,16 +252,18 @@ cqlsh <cassandra-ip> 9042
 ```
 Then:
 ```
-USE BDP_Kafka_Tutorial;
+USE your_keyspace_name;
 
 SELECT * FROM water_data LIMIT 10;
 ```
 You should observe water_data records persisted in Cassandra.
 
 ### Repeat for the Second Dataset
+You can find sample data for BTS monitoring at [here](../../data/bts/bts-data-alarm-2017.csv).
+
 Repeat the above steps which include:
 - Create Kafka topic `bts_data`
-- Consumer group: `bts_data_cassandra_group`
+- Consumer group: `bts_data_consumer_group`
 - Connector configuration adapted to BTS schema
 
 Each dataset is isolated by:
@@ -275,6 +311,6 @@ This architecture forms a foundational pattern for cloud-native Big Data ingesti
 
 ## Authors
 
-- Tutorial author: Korawit Rupanya.
+- Tutorial author: Korawit Rupanya, Hong-Tri Nguyen.
 
 - Editor: Linh Truong

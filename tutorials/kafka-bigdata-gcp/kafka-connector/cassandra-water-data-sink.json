@@ -1,0 +1,22 @@
+{
+  "name": "cassandra-water-data-sink",
+  "config": {
+  "connector.class": "io.lenses.streamreactor.connect.cassandra.CassandraSinkConnector",
+  "tasks.max": "1",
+  "topics": "water_data",
+  "connect.cassandra.port": "9042",
+  "connect.cassandra.contact.points": "<Cassandra_IP>",
+  "connect.cassandra.load.balancing.local.dc": "datacenter1",
+  "connect.cassandra.auth.provider": "PLAIN",
+  "connect.cassandra.key.space": "<KEYSPACE>",
+  "connect.cassandra.auth.username": "<USERNAME-Access-Cassandra>",
+  "connect.cassandra.auth.password": "<PASSWORD-Access-Cassandra>",
+  "connect.cassandra.kcql": "INSERT INTO waterks.water_data SELECT id, timestamp, value FROM water_data WITHUNWRAP",
+  "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+  "value.converter.schemas.enable": "false",
+  "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+  "errors.tolerance": "all",
+  "errors.log.enable": "true",
+  "errors.log.include.messages": "true"
+  }
+}

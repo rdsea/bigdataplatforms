@@ -25,12 +25,12 @@ producer = KafkaProducer(
 # Load CSV
 df = pd.read_csv(args.input_file)
 
-# Lowercase columns to match Cassandra
+# Lowercase columns
 df.columns = df.columns.str.lower()
 
 for _, row in df.iterrows():
     record = {
-        "timestamp": str(row["timestamp"]),  # now it is a proper numeric timestamp
+        "timestamp": str(row["timestamp"]),
         "city": row["city"],
         "zip": int(row["zip"]),
         "egridregion": row["egridregion"],

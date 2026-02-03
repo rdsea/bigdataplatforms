@@ -116,6 +116,12 @@ This process may take several minutes to complete. Once finished, Terraform will
     ```
     /usr/local/kafka/bin/kafka-topics.sh --list --bootstrap-server kafka-0:9092 --command-config /usr/local/kafka/config/security-cf.properties
     ```
+### Prepare Cassandra Keyspace and Table
+
+Create the keyspace and table in Cassandra to match the data schema. We provide a script to create the keyspace and table at [createWaterDataTable.py](./water-data/createWaterDataTable.py). You will need to modify the script to match your keyspace name and table schema if necessary as well as Cassandra IP address.
+```
+python3 createWaterDataTable.py
+```
 ### Set Up Kafka Connect Cassandra Sink
 #### Fix distributed properties file of the connector
 For this tutorial, we already installed Kafka connector for Cassandra which is [Lenses.io Kafka sink Connector](https://docs.lenses.io/latest/connectors/kafka-connectors/sinks/cassandra-1) but you need to configure it before using for every Kafka Connect worker.
@@ -131,7 +137,7 @@ systemctl restart kafka-connect
 ```
 
 #### Create a connector
-1. Prepare a connector json file, you could see an example from [cassandra-water-data-sink.json](./kafka-connector/cassandra-water-data-sink.json)
+1. Prepare a connector json file, you could see an example from [cassandra-water-data-sink.json](./water-data/cassandra-water-data-sink.json)
 > !!!Note: you will need to change "Cassandra_IP", "KEYSPACE", "USERNAME-Access-Cassandra", "PASSWORD-Access-Cassandra" as well as KCQL based on your table format to match the data.
 2. Create the connector via REST API
 ```
@@ -151,7 +157,7 @@ You should see an entry similar to:
 ```
 Also, verify the connector status:
 ```
-curl http://localhost:8083/connectors/water_data_cassandra_sink/status | jq
+curl http://localhost:8083/connectors/cassandra-water-data/status | jq
 ```
 You should see the connector state as `RUNNING` and tasks state as `RUNNING`.
 #### Verify Consumer Group Creation
@@ -169,12 +175,13 @@ Check with :
 /usr/local/kafka/bin/kafka-consumer-groups.sh \
   --bootstrap-server localhost:9092 \
   --list \
---command-config /usr/local/kafka/config/security-cf.properties
+--command-config /usr/local/kafka/config/security-cf.properties 
 ```
 Expected output includes:
-- `cassandra-water-data-sink`
+- `connect-cassandra-water-data-sink`
 
 ### Produce data into Kafka
+Now that the Kafka topic and Cassandra sink connector are set up, we can produce data into Kafka.
 #### Produce with console producer 
 You can use Kafka console producer to produce sample data into Kafka topic.
 ```
@@ -188,52 +195,19 @@ Test the consumer with console consumer:
 ```
 This command will consume messages from the beginning of the topic.
 
-Then check the Cassandra table to see if the data is persisted with CQLSH:
-```
-cqlsh <cassandra-ip> 9042
-```
-Then:
-```USE your_keyspace_name;
-SELECT * FROM water_data LIMIT 10;
-```
-You should see the data you produced earlier.
-
 #### Produce with a sample data producer script
 In this step, we stream the sample dataset with a script to produce records into Kafka.
-
-1. SSH into the Kafka producer node (e.g., kafka-0) if you are not already connected:
-```
-ssh -i ~/.ssh/your_key your_user@<kafka-0-ip>
-```
-replace `your_key` and `your_user` with your actual SSH key and username.
-
-2. Install required tools on the producer node. Install Python and required dependencies:
-```
-sudo apt update
-sudo apt install -y python3 python3-pip
-pip3 install kafka-python
-```
-3. Prepare a producer, you could see an example at [sample_data_producer_1.py](./tenants/sample_data_producer_1.py). You can also use `scp` to transfer the file to the Kafka producer node for using it directly:
-```
-scp -i ~/.ssh/your_key sample_data_producer_1.py your_user@<kafka-0-ip>:/home/your_user/sample_data_producer_1.py
-```
-4. Copy the sample dataset to the Kafka producer node. You can see sample data [here](../../tutorials/basiccassandra/datasamples/water_dataset_v_05.14.24_1000.csv). You can use `scp` to transfer the file:
-```
-scp -i ~/.ssh/your_key ../../tutorials/basiccassandra/datasamples/water_dataset_v_05.14.24_1000.csv your_user@<kafka-0-ip>:/home/your_user/water_dataset_v_05.14.24_1000.csv
-```
-replace `your_key` and `your_user` with your actual SSH key and username.
-
+1. Prepare a producer, you could see an example at [sendWaterData.py](./water-data/sendWaterData.py). You will need to modify the default arguments in the script to match your topic name and dataset path if necessary as well as Kafka broker address.
+2. You can see sample data [here](../../tutorials/basiccassandra/datasamples/water_dataset_v_05.14.24_1000.csv).
 > !!!Note: The dataset is very large. In a real system, batching, back pressure, and rate-limiting should be implemented to avoid overwhelming Kafka and Cassandra.
 
-4. Run the producer script to stream
-Start producing messages:
+Example command to run the producer script:
 ```
-python3 sample_data_producer_1.py
+python3 sendWaterData.py --kafka <kafka-0-ip>:9092  --input_file ../../basiccassandra/datasamples/water_dataset_v_05.14.24_1000.csv --queue_name water_data
 ```
 You should see no errors if Kafka authentication, topic creation, and network configuration are correct.
 
-### Verify Data Flow End-to-End
-1. Verify Kafka ingestion
+### Verify Kafka ingestion
 On any Kafka node:
 ```
 /usr/local/kafka/bin/kafka-console-consumer.sh \
@@ -245,16 +219,12 @@ On any Kafka node:
 ```
 You should see JSON-formatted water_data data.
 
-2. Verify Cassandra sink
-On any Cassandra node:
-```
-cqlsh <cassandra-ip> 9042
-```
-Then:
-```
-USE your_keyspace_name;
+### Cassandra Sink Data Verification
+Now that data is being produced into Kafka and consumed by Kafka Connect, we need to verify that the data is correctly persisted into Cassandra.
 
-SELECT * FROM water_data LIMIT 10;
+We provide a sample script at [queryWaterDataTable.py](./water-data/queryWaterDataTable.py). You will need to modify the script to match your keyspace name and table schema if necessary as well as Cassandra IP address.
+```
+python3 queryWaterDataTable.py --cassandra <cassandra-ip> --user <username> --password <password> --keyspace <keyspace> --table <table>
 ```
 You should observe water_data records persisted in Cassandra.
 

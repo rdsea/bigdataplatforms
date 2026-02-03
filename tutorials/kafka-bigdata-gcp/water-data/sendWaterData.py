@@ -1,16 +1,18 @@
+# pip install kafka-python
+# pip install pandas
 import pandas as pd
 import json
 from kafka import KafkaProducer
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--queue_name", help="queue name", default="water_data")
+parser.add_argument("--queue_name", help="queue name", default="water_data") # <-- replace with your Kafka topic name
 parser.add_argument(
     "--input_file",
     help="csv data file",
-    default="../../basiccassandra/datasamples/water_dataset_v_05.14.24_1000.csv",
+    default="../../basiccassandra/datasamples/water_dataset_v_05.14.24_1000.csv", # <-- replace with your file path
 )
-parser.add_argument("--kafka", help="kafka host", default="localhost:9092")
+parser.add_argument("--kafka", help="kafka host", default="localhost:9092") # <-- replace with your Kafka broker address
 args = parser.parse_args()
 
 producer = KafkaProducer(

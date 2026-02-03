@@ -5,11 +5,11 @@ from cassandra.auth import PlainTextAuthProvider
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--cassandra", help="cassandra host", default="localhost")
-parser.add_argument("--user", help="cassandra user", default="kafka_user")
-parser.add_argument("--password", help="cassandra password", default="admin")
-parser.add_argument("--keyspace", help="cassandra keyspace", default="waterks")
-parser.add_argument("--table", help="cassandra table", default="water_energy_weather")
+parser.add_argument("--cassandra", help="cassandra host", default="localhost") # <-- replace with your Cassandra IP address
+parser.add_argument("--user", help="cassandra user", default="kafka_user") # <-- replace with your username
+parser.add_argument("--password", help="cassandra password", default="admin") # <-- replace with your password
+parser.add_argument("--keyspace", help="cassandra keyspace", default="waterks") # <-- replace with your keyspace
+parser.add_argument("--table", help="cassandra table", default="water_energy_weather") # <-- replace with your table name
 args = parser.parse_args()
 
 # 1. Define your credentials

@@ -1,0 +1,26 @@
+{
+  "name": "cassandra-water-data",
+  "config": {
+    "connector.class": "io.lenses.streamreactor.connect.cassandra.CassandraSinkConnector",
+    "tasks.max": "1",
+    "topics": "<KAFKA_TOPIC>",
+    "connect.cassandra.contact.points": "<CASSANDRA_IP>",
+    "connect.cassandra.port": "9042",
+    "connect.cassandra.load.balancing.local.dc": "<CASSANDRA_DC>",
+    "connect.cassandra.key.space": "<CASSANDRA_KEYSPACE>",
+    "connect.cassandra.auth.provider": "PLAIN",
+    "connect.cassandra.auth.username": "<CASSANDRA_USER>",
+    "connect.cassandra.auth.password": "<CASSANDRA_PASSWORD>",
+
+  "connect.cassandra.kcql": "INSERT INTO <CASSANDRA_KEYSPACE>.<CASSANDRA_TABLE> SELECT city, timestamp, zip, egridregion, temperaturef, humidity, data_availability_weather, wetbulbtemperaturef, coal, hydro, naturalgas, nuclear, other, petroleum, solar, wind, data_availability_energy, onsitewuefixedapproach, onsitewuefixedcoldwater, offsitewue FROM <KAFKA_TOPIC>",
+
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+
+    "errors.tolerance": "all",
+    "errors.log.enable": "true",
+    "errors.log.include.messages": "true"
+  }
+}
+

@@ -5,7 +5,7 @@ from cassandra.auth import PlainTextAuthProvider
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--cassandra", help="kafka host", default="localhost:9092")
+parser.add_argument("--cassandra", help="cassandra host", default="localhost:9092")
 parser.add_argument("--user", help="cassandra user", default="kafka_user")
 parser.add_argument("--password", help="cassandra password", default="admin")
 parser.add_argument("--keyspace", help="cassandra keyspace", default="waterks")

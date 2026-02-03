@@ -9,9 +9,7 @@ parser.add_argument("--cassandra", help="kafka host", default="localhost:9092")
 parser.add_argument("--user", help="cassandra user", default="kafka_user")
 parser.add_argument("--password", help="cassandra password", default="admin")
 parser.add_argument("--keyspace", help="cassandra keyspace", default="waterks")
-parser.add_argument(
-    "--tablename", help="cassandra table", default="water_energy_weather"
-)
+parser.add_argument("--table", help="cassandra table", default="water_energy_weather")
 args = parser.parse_args()
 
 # 1. Define your credentials

@@ -13,14 +13,16 @@ parser.add_argument("--table", help="cassandra table", default="water_energy_wea
 args = parser.parse_args()
 
 # 1. Define your credentials
-username = args.user
-password = args.password
+cassandra_username = args.user
+cassandra_password = args.password
 cassandra_host = args.cassandra
 cassandra_keyspace = args.keyspace
 cassandra_table = args.table
 
 # 2. Setup the Auth Provider
-auth_provider = PlainTextAuthProvider(username=username, password=password)
+auth_provider = PlainTextAuthProvider(
+    username=cassandra_username, password=cassandra_password
+)
 
 # Connect to the local host (or list of IP addresses)
 cluster = Cluster([cassandra_host], auth_provider=auth_provider)

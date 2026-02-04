@@ -64,7 +64,7 @@ Take a look at [the PySpark cheatsheet for spark functions](https://s3.amazonaws
 
 * How would you manage input for Spark programs?
 ### Data for Spark programs
-In our exercises, data for Spark programs are in Hadoop Filesystem. Check Hadoop Filesystem to make sure that the files are available, e.g.
+In our exercises, data for Spark programs are in Hadoop Filesystem. Check Hadoop Filesystem to make sure that the files are available, e.g. [If the files are not available in hdfs then copy it from the users directory to hdfs, Name of the example file : Taxi_Trips_-_2019_20250207.csv, you can change the name of file as convenient]
 ```
 $hdfs dfs -ls hdfs:///user/mybdp
 hdfs dfs -ls hdfs:///user/mybdp/nytaxi2019.csv
@@ -130,3 +130,33 @@ Check [some important performance configuration](https://spark.apache.org/docs/l
 ### Jupyter
 
 You can use Spark with Jupyter. For example, if you use a free version of [DataBricks](https://databricks.com/try-databricks) or [CSC Rahti](https://research.csc.fi/big-data-computing). However, as learning the platform, we suggest you to use commandlines and also check services of Spark - not just programming Spark programs.
+
+### Bronze & Silver layers
+In real data platforms, we often organize data into layers to make it clear what has been raw and what has been cleaned/treated.
+
+ * Bronze layer: the base/raw data exactly as we received it (e.g., the CSV in HDFS). We keep it mostly unchanged so we can always reprocess from the original source.
+
+ * Silver layer: a treated version of the data after applying a simple rule (filtering, basic cleaning, selecting columns, type casting, etc.). This layer is what we usually use for further analytics.
+
+ For the sake of simplicity in this tutorial we are only keeping two layers and a simple ETL Job.
+
+ We will treat the taxi dataset as Bronze, and create a Silver dataset that contains only rows where:
+
+ ```
+passenger_count > 3
+```
+
+We will write the filtered rows to a new HDFS folder (our Silver layer). The python code can be found here: tutorials/spark/etl.py
+
+```
+spark-submit --master yarn --deploy-mode cluster etl.py \
+  --input_file hdfs:///user/mybdp/nytaxi2019.csv \
+  --silver_dir hdfs:///user/mybdp/silver/nytaxi_passenger_gt3
+```
+Normally in a bigger system it will either be triggered due to some events or a batch like job. 
+
+To check the output of the silver layer:
+```
+hdfs dfs -ls hdfs:///user/mybdp/silver/nytaxi_passenger_gt3
+hdfs dfs -cat hdfs:///user/mybdp/silver/nytaxi_passenger_gt3/part-*.csv | head
+```

@@ -10,7 +10,9 @@ from kafka import KafkaProducer
 parser = argparse.ArgumentParser()
 parser.add_argument("--queue_name", help="queue name", default="bts_input")
 parser.add_argument(
-    "--input_file", help="csv data file", default="./data_bts_bts-data-alarm-2017.csv"
+    "--input_file",
+    help="csv data file",
+    default="../../basiccassandra/datasamples/water_dataset_v_05.14.24_1000.csv",
 )
 parser.add_argument("--kafka", help="kafka host", default="localhost:9092")
 args = parser.parse_args()

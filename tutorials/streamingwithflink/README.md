@@ -51,6 +51,11 @@ taskmanager:
 
 ## Hand-on
 
+### NOTE
+> The instructors provide services, such as kafka and database
+
+> Students focus on setting up flink service and developing the flink jobs
+
 ### SocketWindowWordCount example job
 You can check [the Flink example](https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/try-flink/local_installation/) and test it to see how it works.
 

@@ -26,7 +26,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 04.02  | No lecture/Meetup | Backup| **All**
 05.02  |Tutorial 3 | [Kafka for Big Data](tutorials/basickafka) and [Kafka Data Ingestion](tutorials/kafka-bigdata-gcp)| **Korawit Rupanya**
 6.02  |   |  **Due of the first assignment -13.00**
-11.02  |Lecture 5 | [Programming Models for Big Data Processing](lecturenotes/pdfs/)| **Linh Truong**
+11.02  |Lecture 5 | [Programming Models for Big Data Processing](lecturenotes/pdfs/module3-lecture5-programmingmodels-v0.7.pdf)| **Linh Truong**
 12.02  |Tutorial 4 | [Data Processing with Apache Spark](tutorials/spark/README.md)  | **Debayan Bhattacharya**
 16-20.02  | No lecture week  | Finalizing assignment 1 grading| **All**
 TBD  | **Room TBD** | **Assignment 1 Individual Grading Meeting**   | **All**

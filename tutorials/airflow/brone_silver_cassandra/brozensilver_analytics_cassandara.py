@@ -129,6 +129,8 @@ using existing one like: HTTPOperator, S3, ...
 from cassandra.cluster import Cluster
 from cassandra.auth import PlainTextAuthProvider
 
+THRESHOLD = int(Variable.get("cassandra_threshold", default_var=1000))
+
 
 def copy_large_counts_between_tables(
     keyspace,
@@ -139,6 +141,7 @@ def copy_large_counts_between_tables(
     password=None,
     threshold=1000,
 ):
+    print("threshold", threshold)
     # Connect
     if username and password:
         auth_provider = PlainTextAuthProvider(username=username, password=password)
@@ -383,7 +386,7 @@ t_copy_large_counts = PythonOperator(
         "cassandra_hosts": CASSANDRA_CONF["hosts"],
         "username": CASSANDRA_CONF["username"],
         "password": CASSANDRA_CONF["password"],
-        "threshold": 1000,
+        "threshold": THRESHOLD,
     },
     dag=dag,
 )

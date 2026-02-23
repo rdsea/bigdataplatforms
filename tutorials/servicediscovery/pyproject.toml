@@ -1,0 +1,17 @@
+[project]
+name = "servicediscovery"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "linhsolar", email = "linh.truong@aalto.fi" }
+]
+dependencies = [
+    "pymongo>=4.10.1",
+]
+readme = "README.md"
+requires-python = ">= 3.12"
+
+[tool.rye]
+managed = true
+virtual = true
+dev-dependencies = []

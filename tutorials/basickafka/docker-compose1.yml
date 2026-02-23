@@ -1,0 +1,32 @@
+networks:
+  kafka-tutorials:
+    name: kafka-tutorials
+    driver: bridge
+    #external: true
+
+services:
+  kafka:
+    image: 'apache/kafka:latest'
+    ports:
+      - "9092:9092"
+    networks:
+      - kafka-tutorials
+    environment:
+      - KAFKA_BROKER_ID=0
+      - KAFKA_NODE_ID=0
+      - CLUSTER_ID=O94qfF0pQ4-lNvW65-IeRg
+      - KAFKA_PROCESS_ROLES=controller,broker
+      - KAFKA_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      #change localhost or other ip to allow connection from the other machines
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
+      - KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    volumes:
+      - kafka_data:/tmp/apache/kafka
+
+volumes:
+  kafka_data:
+    driver: local

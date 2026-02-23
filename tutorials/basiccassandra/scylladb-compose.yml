@@ -1,0 +1,81 @@
+# Docker compose for testing scylla
+# see https://hub.docker.com/r/scylladb/scylla/
+# https://opensource.docs.scylladb.com/stable/operating-scylla/procedures/tips/best-practices-scylla-on-docker.html
+
+services:
+  scylla1:
+    image: scylladb/scylla:latest
+    container_name: scyllatest-node1
+    #restart: always
+    hostname: scyllatest-node1
+    networks:
+      - scyllanet
+    # make sure you create the volume and configure it correctly
+    volumes:
+      - scylla1:/var/lib/scylla
+    command: ["--developer-mode=1", "--smp 1", "--overprovisioned=1"]
+    ports:
+      - "9042:9042"
+      - "9160:9160"
+      - "9180:9180"
+      - "10000:10000"
+    healthcheck:
+      # commands and options for health check
+      #test: ["CMD", "nodetool", "status"]
+      test: ["CMD-SHELL", "cqlsh -e 'DESCRIBE KEYSPACES'"]
+      interval: 30s
+      timeout: 5s
+      retries: 10
+
+  scylla2:
+    image: scylladb/scylla:latest
+    container_name: scyllatest-node2
+    #restart: always
+    hostname: scyllatest-node2
+    networks:
+      - scyllanet
+    # make sure you create the volume and configure it correctly
+    volumes:
+      - scylla2:/var/lib/scylla
+    depends_on:
+      scylla1:
+        condition: service_healthy
+    # ports:
+    #  - "29042:9042"
+    #  - "29160:9160"
+    #  - "29180:9180"
+    #  - "20000:10000"
+    command: ["--seeds=scyllatest-node1", "--smp 1", "--overprovisioned=1"]
+
+  scylla3:
+    image: scylladb/scylla:latest
+    container_name: scyllatest-node3
+    #restart: always
+    hostname: scyllatest-node3
+    networks:
+      - scyllanet
+    # make sure you create the volume and configure it correctly
+    volumes:
+      - scylla3:/var/lib/scylla
+    # ports:
+    #  - "39042:9042"
+    #  - "39160:9160"
+    #  - "39180:9180"
+    #  - "30000:10000"
+    #  - "26257:26257"
+    #  - "8080:8080"
+    depends_on:
+      scylla1:
+        condition: service_healthy
+    command: ["--seeds=scyllatest-node1", "--smp 1", "--overprovisioned=1"]
+
+# create a network for scylla nodes
+networks:
+  scyllanet:
+    name: scyllanet
+    driver: bridge
+# some data volumes
+volumes:
+  scylla1:
+  scylla2:
+  scylla3:

@@ -1,0 +1,17 @@
+{
+  "address": "192.168.2.106",
+  "check": {
+    "http": "http://192.168.2.106:3000/health",
+    "id": "api",
+    "interval": "10s",
+    "method": "GET",
+    "name": "HTTP API on port 3000",
+    "timeout": "1s"
+  },
+  "name": "btssensor",
+  "port": 3000,
+  "tags": [
+    "bts",
+    "sensor"
+  ]
+}

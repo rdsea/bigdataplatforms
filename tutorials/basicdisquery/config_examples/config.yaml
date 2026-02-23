@@ -1,0 +1,30 @@
+# simple configuration info for testing distributed queries with trino
+# the assumption is to have a single trino node in a test
+# three different data sources
+# Only basic parameters
+mongodb:
+  # trino coordinator name
+  host: localhost
+  # trino coorinator port
+  port: 18080
+  user: trino_user
+  # trino catalog (in trino/etc/catalog)
+  catalog: mongodb
+cassandra:
+  host: localhost
+  port: 18080
+  user: trino_user
+  # catalog in trino/etc/catalog
+  catalog: cassandra
+bigquery:
+  host: localhost
+  port: 18080
+  user: trino_user
+  catalog: bigquery
+# no specific catalog
+common:
+  # trino coordinator name
+  host: localhost
+  # trino coorinator port
+  port: 18080
+  user: trino_user

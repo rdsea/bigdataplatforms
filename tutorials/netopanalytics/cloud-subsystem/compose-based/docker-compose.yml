@@ -1,0 +1,44 @@
+version: '3'
+services: 
+  database:
+    image: mongo:latest
+    ports:
+      - "27017:27017" # Opening for external services
+    volumes:
+      - /mnt:/data/db
+    environment: 
+      - MONGO_INITDB_ROOT_USERNAME=root # Always use environment variable and never this!
+      - MONGO_INITDB_ROOT_PASSWORD=password 
+  stream-processor:
+    build: ./SparkProcessor
+    depends_on: 
+      - zookeeper
+    environment:
+      - MASTER=spark://spark:7077
+    volumes:
+      - "./SparkProcessor/spark_processor.py:/spark-processor/test_script.py"
+    command: ["test_script.py"]
+  database-processor:
+    build: ./DatabaseIngestor
+    depends_on: 
+      - zookeeper
+      - kafka
+      - database
+    entrypoint: ["python3", "MongoIngestor.py", "192.168.1.12:32812,192.168.1.12:32814", "kafka-database-consumer-group-2"]
+  spark:
+    image: bitnami/spark:latest
+    environment:
+      - SPARK_MODE=master
+    expose:
+      - "7077"
+    ports:
+      - '8080:8080'
+  spark-worker:
+    image: bitnami/spark:latest
+    depends_on: 
+      - spark
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark:7077
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1

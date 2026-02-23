@@ -1,0 +1,83 @@
+# Simple postgres server for using with self-deployment airflow for learning
+# it can be used when configuring airflow with Celery executor
+# version: '3.5'
+services:
+  airflowdb:
+    image: postgres
+    # restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=cse4640
+      - POSTGRES_PASSWORD=cse4640test
+      - POSTGRES_DB=airflowdb
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    # update according to your configuration
+    volumes:
+      - /opt/data/postgres:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: cse4640
+      RABBITMQ_DEFAULT_PASS: cse4640test
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  # airflow-webserver:
+  #   image: apache/airflow:2.8.1
+  #   container_name: airflow_webserver
+  #   restart: always
+  #   depends_on:
+  #     - airflowdb
+  #     - rabbitmq
+  #   environment:
+  #     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+  #     AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://cse4640:cse4640test@localhost:5432/airflowdb
+  #     AIRFLOW__CELERY__BROKER_URL: amqp://cse4640:cse4640test@localhost:5672/
+  #     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://cse4640:cse4640test@localhost:5432/airflowdb
+  #     # AIRFLOW__CORE__FERNET_KEY: "YOUR_SECRET_FERNET_KEY"
+  #     # AIRFLOW__WEBSERVER__SECRET_KEY: "YOUR_SECRET_KEY"
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - ./dags:/opt/airflow/dags
+  #     - ./logs:/opt/airflow/logs
+  #     - ./plugins:/opt/airflow/plugins
+  #   command: webserver
+  #
+  # airflow-scheduler:
+  #   image: apache/airflow:2.8.1
+  #   container_name: airflow_scheduler
+  #   restart: always
+  #   depends_on:
+  #     - airflow-webserver
+  #   environment:
+  #     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+  #     AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://cse4640:cse4640test@localhost:5432/airflowdb
+  #     AIRFLOW__CELERY__BROKER_URL: amqp://cse4640:cse4640test@localhost:5672/
+  #     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://cse4640:cse4640test@localhost:5432/airflowdb
+  #   volumes:
+  #     - ./dags:/opt/airflow/dags
+  #     - ./logs:/opt/airflow/logs
+  #     - ./plugins:/opt/airflow/plugins
+  #   command: scheduler
+  #
+  # airflow-worker:
+  #   image: apache/airflow:2.8.1
+  #   container_name: airflow_worker
+  #   restart: always
+  #   depends_on:
+  #     - airflow-scheduler
+  #   environment:
+  #     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
+  #     AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://cse4640:cse4640test@localhost:5432/airflowdb
+  #     AIRFLOW__CELERY__BROKER_URL: amqp://cse4640:cse4640test@localhost:5672/
+  #     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://cse4640:cse4640test@localhost:5432/airflowdb
+  #   volumes:
+  #     - ./dags:/opt/airflow/dags
+  #     - ./logs:/opt/airflow/logs
+  #     - ./plugins:/opt/airflow/plugins
+  #   command: celery worker

@@ -1,0 +1,28 @@
+[project]
+name = "basicdask"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "linhsolar", email = "linh.truong@aalto.fi" }
+]
+dependencies = [
+    "dask[complete]>=2025.1.0",
+    "graphviz>=0.20.3",
+    "pyarrow>=19.0.0",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/basicdask"]

@@ -233,46 +233,47 @@ If you want to add another sink like mySQL
 
 > Students must change the database name and table name to avoid conflicts with other students
 
-- Compile and create a jar package for simplebts-database
-  ```bash
-  cd simplebts-database
-  mvn install
-  ```
 
 - Run the Flink BTS program:
   - **Java**
-  ```bash
-  cd flink-1.20.3
-  bin/flink run ../simplebts-database/target/btsFlink-1.0-SNAPSHOT.jar \
-  --iqueue iQ \
-  --oqueue oQ \
-  --inkafkaurl localhost:9092 \
-  --outkafkaurl localhost:9092 \
-  --databaseHost localhost:3306 \
-  --databaseUser cse4640 \
-  --databasePass bigdataplatforms \
-  --databaseName bdpdb \
-  --tablename bts_alets
-  ```
+    - Compile and create a jar package for simplebts-database
+    ```bash
+    cd simplebts-database
+    mvn install
+    ```
+    - Submit job
+    ```bash
+    cd flink-1.20.3
+    bin/flink run ../simplebts-database/target/btsFlink-1.0-SNAPSHOT.jar \
+    --iqueue iQ \
+    --oqueue oQ \
+    --inkafkaurl localhost:9092 \
+    --outkafkaurl localhost:9092 \
+    --databaseHost localhost:3306 \
+    --databaseUser cse4640 \
+    --databasePass bigdataplatforms \
+    --databaseName bdpdb \
+    --tablename bts_alets
+    ```
 
   - **Python**
-  ```bash
-  bin/flink run \
-  -py PATH/simple_alarm_toSQL.py \
-  -j PATH/flink-sql-connector-kafka-4.0.1-2.0.jar \
-  -pyexec PATH/PYTHON3 \
-  -pyclientexec PATH/PYTHON3 \
-  --iqueue iQ1 \
-  --oqueue oQ1 \
-  --inkafkaurl localhost:9092 \
-  --outkafkaurl localhost:9092 \
-  --databaseHost localhost:3306 \
-  --databaseUser cse4640 \
-  --databasePass bigdataplatforms \
-  --databaseName bdpdb \
-  --tablename bts_alets \
-  --parallelism 1
-  ```
+    ```bash
+    bin/flink run \
+    -py PATH/simple_alarm_toSQL.py \
+    -j PATH/flink-sql-connector-kafka-4.0.1-2.0.jar \
+    -pyexec PATH/PYTHON3 \
+    -pyclientexec PATH/PYTHON3 \
+    --iqueue iQ1 \
+    --oqueue oQ1 \
+    --inkafkaurl localhost:9092 \
+    --outkafkaurl localhost:9092 \
+    --databaseHost localhost:3306 \
+    --databaseUser cse4640 \
+    --databasePass bigdataplatforms \
+    --databaseName bdpdb \
+    --tablename bts_alets \
+    --parallelism 1
+    ```
 
 - Start test producer again with the queue name as **iQ** (since the scripts are from simpllebts folder)
   ```bash

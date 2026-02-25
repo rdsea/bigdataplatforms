@@ -51,7 +51,7 @@ taskmanager:
 
 ## Hand-on
 
-### NOTE
+##### NOTE
 > The instructors provide services, such as kafka and database
 
 > Students focus on setting up flink service and developing the flink jobs
@@ -142,7 +142,11 @@ Flink
   ```bash
   # pip install kafka-python
 
-  python test_kafka_producer.py --queue_name <your-selected-queue-name> --input_file  <cs-e4640/data/bts/bts-data-alarm-2017.csv> --kafka <your-kafka-host>
+  python test_kafka_producer.py \
+  --queue_name <your-selected-queue-name> \
+  --input_file  <cs-e4640/data/bts/bts-data-alarm-2017.csv> \
+  --kafka <your-kafka-host>
+
   # example python test_kafka_producer.py --queue_name iQ --input_file ../../data/bts-data-alarm-2017.csv --kafka localhost:9092
   ```
 
@@ -165,16 +169,14 @@ Check [the source of BTS in our Git](code/simplebts/). It is a simple example fo
   mvn install
   # generate target/simplebts-0.1-SNAPSHOT.jar
   ```
+- The file **target/simplebts-0.1-SNAPSHOT.jar** is the one that will be submitted to Flink
 ##### Python
   - download the [flink-sql-connector-kafka-4.0.1-2.0.jar](https://repo.maven.apache.org/maven2/org/apache/flink/flink-sql-connector-kafka/4.0.1-2.0/)
-    - 
-
   - install the dependency
   ```bash
   pip install apache-flink
   ```
 
-- The file **target/simplebts-0.1-SNAPSHOT.jar** is the one that will be submitted to Flink
 
 #### Submit the job to Flink and return to Kafka
 - Now assume that you choose two queue names:
@@ -186,7 +188,13 @@ Check [the source of BTS in our Git](code/simplebts/). It is a simple example fo
   - Java
     ```bash
     cd flink-1.20.3
-    bin/flink run <Maven-compiler-output> --iqueue <kafka-topic/queue> --oqueue <kafka-topic/queue> --kafkaurl <kafka-url>  --outkafkaurl <kafka-url> --parallelism <Number-of-parallelism>
+
+    bin/flink run <Maven-compiler-output> \
+    --iqueue <kafka-topic/queue> \
+    --oqueue <kafka-topic/queue> \
+    --kafkaurl <kafka-url>  \
+    --outkafkaurl <kafka-url> \
+    --parallelism <Number-of-parallelism>
     # example bin/flink run ../simplebts/target/simplebts-0.1-SNAPSHOT.jar --iqueue iQ --oqueue oQ --kafkaurl localhost:9092  --outkafkaurl localhost:9092 --parallelism 1
     # OR 
     # exmple docker exec <FLINK-JOBMANAGER-CONTAINER> flink run <PATH/job.jar> --iqueue iQ --oqueue oQ --kafkaurl localhost:9092  --outkafkaurl localhost:9092 --parallelism 1
@@ -196,9 +204,8 @@ Check [the source of BTS in our Git](code/simplebts/). It is a simple example fo
     ```bash
      which python3
      # return the PATH/PYTHON3
-
-     ../../../flink-1.20.3/bin/flink run \
-      -py simple_alarm_analysis.py \
+     bin/flink run \
+      -py PATH/simple_alarm_analysis.py \
       -j PATH/flink-sql-connector-kafka-4.0.1-2.0.jar \
       -pyexec PATH/PYTHON3 \
       -pyclientexec PATH/PYTHON3 \
@@ -216,30 +223,64 @@ If you want to add another sink like mySQL
 * **oQ**: indicate the queue where we send the data
 * **localhost:9092**: is the **Kafka url** broker store data
 * **localhost:3306**: is the baseurl for mySQL
-* **bigdata**: is the database username
-* **tridep**: is the database password
-* **hong3_database**: is the database name
-* **bts_alert_test**: is the table name which you can change in the tutorial
+* **cse4640**: is the database username
+* **bigdataplatforms**: is the database password
+* **bdpdb**: is the database name
+* **bts_alets**: is the table name which you can change in the tutorial
 
-- Compile and create a jar package for simplebts
+- Compile and create a jar package for simplebts-database
   ```bash
   cd simplebts-database
   mvn install
   ```
 
 - Run the Flink BTS program:
+  - Java
   ```bash
   cd flink-1.20.3
-  bin/flink run ../simplebts-database/target/btsFlink-1.0-SNAPSHOT.jar --iqueue iQ --oqueue oQ --inkafkaurl localhost:9092 --outkafkaurl localhost:9092 --databaseHost localhost:3306 --databaseUser bigdata --databasePass tridep --databaseName hong3_database --tablename bts_alert_test
+  bin/flink run ../simplebts-database/target/btsFlink-1.0-SNAPSHOT.jar \
+  --iqueue iQ \
+  --oqueue oQ \
+  --inkafkaurl localhost:9092 \
+  --outkafkaurl localhost:9092 \
+  --databaseHost localhost:3306 \
+  --databaseUser cse4640 \
+  --databasePass bigdataplatforms \
+  --databaseName bdpdb \
+  --tablename bts_alets
   ```
 
+  - Python
+  ```bash
+  bin/flink run \
+  -py PATH/simple_alarm_toSQL.py \
+  -j PATH/flink-sql-connector-kafka-4.0.1-2.0.jar \
+  -pyexec PATH/PYTHON3 \
+  -pyclientexec PATH/PYTHON3 \
+  --iqueue iQ1 \
+  --oqueue oQ1 \
+  --inkafkaurl localhost:9092 \
+  --outkafkaurl localhost:9092 \
+  --databaseHost localhost:3306 \
+  --databaseUser cse4640 \
+  --databasePass bigdataplatforms \
+  --databaseName bdpdb \
+  --tablename bts_alets \
+  --parallelism 1
+
+  ```
 - Start test producer again with the queue name as **iQ** (since the scripts are from simpllebts folder)
   ```bash
   cd simplebts/scripts
-  python test_kafka_producer.py --queue_name iQ --input_file  ../../data/bts-data-alarm-2017.csv --kafka localhost:9092
+  python test_kafka_producer.py \
+  --queue_name iQ \
+  --input_file  ../../data/bts-data-alarm-2017.csv \
+  --kafka localhost:9092
   ```
 
 - Then you can check and see if you can receive any alerts written into mySQL database.
+  
+- using pythong code
 
 #### Check logs
 Check the logs under **flink/log**:

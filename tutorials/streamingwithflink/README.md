@@ -281,19 +281,13 @@ If you want to add another sink like mySQL
   ```
 
 - Then you can check and see if you can receive any alerts written into mySQL database.
-  
   - using pythong code
   ```python
+  # pip install mysql-connector-python
   import mysql.connector
   import csv
   def fetch_rows(host, port, user, password, database, table, limit=None):
-      conn = mysql.connector.connect(
-          host=host,
-          port=port,
-          user=user,
-          password=password,
-          database=database,
-      )
+      conn = mysql.connector.connect(host=host, port=port, user=user, password=password, database=database)
       try:
           cursor = conn.cursor()
           sql = f"SELECT station_id, trend FROM {table}"
@@ -305,7 +299,6 @@ If you want to add another sink like mySQL
       finally:
           conn.close()
 
-
   def main():
       # adjust host
       host = "localhost"
@@ -315,28 +308,19 @@ If you want to add another sink like mySQL
       database = "bdpdb"
       table = "bts_alets"
 
-      rows = fetch_rows(
-          host=host,
-          port=port,
-          user=user,
-          password=password,
-          database=database,
-          table=table,
-          limit=100,
-      )
+      rows = fetch_rows(host=host,port=port,user=user,password=password,database=database,table=table,limit=100)
 
       print(f"Fetched {len(rows)} rows from {database}.{table}:")
       for station_id, trend in rows:
           print(f"station_id={station_id}, trend={trend}")
 
-      # OPTIONAL: also write to CSV
+      # write to CSV
       out_file = "bts_alets_dump.csv"
       with open(out_file, "w", newline="") as f:
           writer = csv.writer(f)
           writer.writerow(["station_id", "trend"])
           writer.writerows(rows)
       print(f"Saved to {out_file}")
-
 
   if __name__ == "__main__":
       main()

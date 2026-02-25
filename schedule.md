@@ -30,7 +30,7 @@ Date    | Lecture/Tutorial/Meetup  | Topics | Responsibles
 12.02  |Tutorial 4 | [Data Processing with Apache Spark](tutorials/spark/README.md)  | **Debayan Bhattacharya**
 16-20.02  | No lecture week  | Finalizing assignment 1 grading| **All**
 TBD  | **Room TBD** | **Assignment 1 Individual Grading Meeting**   | **All**
-25.02  |Lecture 6  | [Workflows for Big Data Platforms](lecturenotes/pdfs/)| **Linh-Truong**
+25.02  |Lecture 6  | [Workflows for Big Data Platforms](lecturenotes/pdfs/module3-lecture6-workflows-v0.7.pdf)| **Linh-Truong**
 25.02  |   | **Release the 2nd assignment**
 26.02  |Tutorial 5| [Data processing examples with Airflow](https://github.com/rdsea/bigdataplatforms/tree/master/tutorials/airflow)| **Korawit Rupanya**
 04.03  |Lecture 7 | [Stream Processing](lecturenotes/pdfs/)). Additional: [Apache Flink for Stream Processing in Big Data Platforms](lecturenotes/pdfs/) | **Linh Truong**

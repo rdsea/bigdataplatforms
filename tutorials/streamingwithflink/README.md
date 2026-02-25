@@ -180,9 +180,9 @@ Check [the source of BTS in our Git](code/simplebts/). It is a simple example fo
 
 #### Submit the job to Flink and return to Kafka
 - Now assume that you choose two queue names:
-  * **iQ**: indicate the queue where we send the data
-  * **oQ**: indicate the queue where we receive the alert.
-  * **localhost:9092**: is the **Kafka url**
+  * `iQ`: indicate the queue where we send the data
+  * `oQ`: indicate the queue where we receive the alert.
+  * `localhost:9092`: is the **Kafka url**
 
 - Run the Flink BTS program:
   - Java
@@ -215,18 +215,23 @@ Check [the source of BTS in our Git](code/simplebts/). It is a simple example fo
       --outkafkaurl localhost:9092 \
       --parallelism 1
     ```
+    - On the client machine:
+        - `pyclientexec` must be a Python that has pyflink and your dependencies (for compiling/translating job graph).
+    - On the cluster machines (TaskManagers):
+        - `pyexec` must be a path that exists on those machines, with pyflink and your dependencies installed.
+
 
 #### Submit the job to Flink and return to mySQL
 If you want to add another sink like mySQL
-* **iQ**: indicate the queue where we send the data
-* **localhost:9092**: is the **Kafka url** producing data
-* **oQ**: indicate the queue where we send the data
-* **localhost:9092**: is the **Kafka url** broker store data
-* **localhost:3306**: is the baseurl for mySQL
-* **cse4640**: is the database username
-* **bigdataplatforms**: is the database password
-* **bdpdb**: is the database name
-* **bts_alets**: is the table name which you can change in the tutorial
+* `iQ`: indicate the queue where we send the data
+* `localhost:9092`: is the **Kafka url** producing data
+* `oQ`: indicate the queue where we send the data
+* `localhost:9092`: is the **Kafka url** broker store data
+* `localhost:3306`: is the baseurl for mySQL
+* `cse4640`: is the database username
+* `bigdataplatforms`: is the database password
+* `bdpdb`: is the database name
+* `bts_alets`: is the table name which you can change in the tutorial
 
 > Students must change the database name and table name to avoid conflicts with other students
 
@@ -269,8 +274,8 @@ If you want to add another sink like mySQL
   --databaseName bdpdb \
   --tablename bts_alets \
   --parallelism 1
-
   ```
+
 - Start test producer again with the queue name as **iQ** (since the scripts are from simpllebts folder)
   ```bash
   cd simplebts/scripts

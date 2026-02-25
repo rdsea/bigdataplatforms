@@ -185,7 +185,7 @@ Check [the source of BTS in our Git](code/simplebts/). It is a simple example fo
   * `localhost:9092`: is the **Kafka url**
 
 - Run the Flink BTS program:
-  - Java
+  - **Java**
     ```bash
     cd flink-1.20.3
 
@@ -200,7 +200,7 @@ Check [the source of BTS in our Git](code/simplebts/). It is a simple example fo
     # exmple docker exec <FLINK-JOBMANAGER-CONTAINER> flink run <PATH/job.jar> --iqueue iQ --oqueue oQ --kafkaurl localhost:9092  --outkafkaurl localhost:9092 --parallelism 1
     ```
 
-  - Python
+  - **Python**
     ```bash
      which python3
      # return the PATH/PYTHON3
@@ -215,10 +215,8 @@ Check [the source of BTS in our Git](code/simplebts/). It is a simple example fo
       --outkafkaurl localhost:9092 \
       --parallelism 1
     ```
-    - On the client machine:
-        - `pyclientexec` must be a Python that has pyflink and your dependencies (for compiling/translating job graph).
-    - On the cluster machines (TaskManagers):
-        - `pyexec` must be a path that exists on those machines, with pyflink and your dependencies installed.
+    - On the client machine: `pyclientexec`, a python path that has pyflink dependencies (for compiling/translating job graph).
+    - On the cluster machines (TaskManagers): `pyexec`, a python path that exists on those machines, with pyflink and dependencies installed.
 
 
 #### Submit the job to Flink and return to mySQL
@@ -242,7 +240,7 @@ If you want to add another sink like mySQL
   ```
 
 - Run the Flink BTS program:
-  - Java
+  - **Java**
   ```bash
   cd flink-1.20.3
   bin/flink run ../simplebts-database/target/btsFlink-1.0-SNAPSHOT.jar \
@@ -257,7 +255,7 @@ If you want to add another sink like mySQL
   --tablename bts_alets
   ```
 
-  - Python
+  - **Python**
   ```bash
   bin/flink run \
   -py PATH/simple_alarm_toSQL.py \
@@ -286,7 +284,7 @@ If you want to add another sink like mySQL
   ```
 
 - Then you can check and see if you can receive any alerts written into mySQL database.
-  - using pythong code
+  - using python code below:
   ```python
   # pip install mysql-connector-python
   import mysql.connector

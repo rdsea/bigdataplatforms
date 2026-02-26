@@ -16,7 +16,7 @@ Check the subdirectories to see some small examples we use in our courses.
 - [Basic AMQP](amqp/)
 - [Basic Kafka](basickafka/)
 
-### Data Storage 
+### Data Storage
 
 - [Basic Cassandra](basiccassandra/)
 - [Consistency in NoSQL with Cassandra](consistency/)          
@@ -42,10 +42,11 @@ Check the subdirectories to see some small examples we use in our courses.
 - [Stream processing with Flink](streamingwithflink/)
 - [An example of a mini edge-cloud big data platform](netopanalytics/)
 
+### AI/LLMs, Agentic Systems and Data Platforms
+
+- [Assisting data platform study with LLMs](llmbdp/)
+
 ## Other related examples
 
 You might see many code examples about IoT, Edge and Clouds from our [IoTCloudSamples](https://github.com/rdsea/IoTCloudSamples/) that you can reuse for big data studies.
 
-We also play with LLMs for assisting the study:
-
-- [Assisting your study with LLMs](llmbdp/)

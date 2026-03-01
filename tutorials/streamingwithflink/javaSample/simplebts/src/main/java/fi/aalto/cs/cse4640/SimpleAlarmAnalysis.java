@@ -67,7 +67,7 @@ public class SimpleAlarmAnalysis {
         DataStream<String> alerts = btsdatastream.flatMap(new BTS_Trend_Parser())
                 .keyBy(new AlarmKeySelector())
                 .window(SlidingEventTimeWindows.of(Time.minutes(5), Time.seconds(5))) // set the window size and the window slide for processing streaming data
-                .process(new TrendDetection()).setParallelism(1);
+                .process(new TrendDetection()).setParallelism(parallelismDegree);
 
         // Store producer attributes using a Properties object
         Properties producerProperties = new Properties();
@@ -78,10 +78,10 @@ public class SimpleAlarmAnalysis {
 
         // Build a Kafka producer to forward the alert
         FlinkKafkaProducer<String> btsProducer = new FlinkKafkaProducer<>(outputQueue, outputSchema, producerProperties, FlinkKafkaProducer.Semantic.AT_LEAST_ONCE); // fault-tolerance
-        alerts.addSink(btsProducer).setParallelism(1); // set the value to scale the output stream
+        alerts.addSink(btsProducer).setParallelism(parallelismDegree); // set the value to scale the output stream
 
         // Use 1 thread to print out the result
-        alerts.print().setParallelism(1); // set the value to scale the output stream
+        alerts.print().setParallelism(parallelismDegree); // set the value to scale the output stream
 
         env.execute("Simple CS-E4640 BTS Flink Application");
     }

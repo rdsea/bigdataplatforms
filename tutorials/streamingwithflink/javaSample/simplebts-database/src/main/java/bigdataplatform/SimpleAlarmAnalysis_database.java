@@ -77,7 +77,7 @@ public class SimpleAlarmAnalysis_database {
         DataStream<String> alerts = btsdatastream.flatMap(new BTS_Trend_Parser())
                 .keyBy(new AlarmKeySelector())
                 .window(SlidingEventTimeWindows.of(Time.minutes(5), Time.seconds(5))) // set the window size and the window slide for processing streaming data
-                .process(new TrendDetection()).setParallelism(1);
+                .process(new TrendDetection()).setParallelism(parallelismDegree);
 
         // Store producer attributes using a Properties object
         Properties producerProperties = new Properties();
@@ -88,7 +88,7 @@ public class SimpleAlarmAnalysis_database {
 
         // Build a Kafka producer to forward the alert
         FlinkKafkaProducer<String> btsProducer = new FlinkKafkaProducer<>(outputQueue, outputSchema, producerProperties, FlinkKafkaProducer.Semantic.AT_LEAST_ONCE); // fault-tolerance
-        alerts.addSink(btsProducer).setParallelism(1); // set the value to scale the output stream
+        alerts.addSink(btsProducer).setParallelism(parallelismDegree); // set the value to scale the output stream
 
         // Add the table creation sink to ensure the table exists before inserting data
         alerts.addSink(new TableCreationSink(
@@ -96,7 +96,7 @@ public class SimpleAlarmAnalysis_database {
                 databaseUser,
                 databasePass,
                 table_name
-        )).setParallelism(1);
+        )).setParallelism(parallelismDegree);
 
         // Define JDBC Sink
         alerts.addSink(
@@ -129,9 +129,9 @@ public class SimpleAlarmAnalysis_database {
                     .withPassword(databasePass)
                     .build()
             )
-        ).setParallelism(1);
+        ).setParallelism(parallelismDegree);
         // Use 1 thread to print out the result
-        alerts.print().setParallelism(1); // set the value to scale the output stream
+        alerts.print().setParallelism(parallelismDegree); // set the value to scale the output stream
     //
         env.execute("test database");
     }

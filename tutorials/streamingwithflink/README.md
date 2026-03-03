@@ -17,10 +17,6 @@ We will practice Apache Flink with simple activities:
 In this tutorial, we use Apache Flink 1.20.3 and Flink 2.2.0.
 
 - **Binary** is downloaded from [Apache Flink from Apache](https://flink.apache.org/downloads.html) and [follow the guide for a local machine](https://nightlies.apache.org/flink/flink-docs-stable/). 
-- Docker for Flink
-  ```bash
-  docker compose -f docker-compose.yaml up
-  ```
 
 ### Flink binary setting
 At the default Flink server only allow a job running. Therefore, for easy testing, you can change the numberOfTaskSlots configuration. (Do similarly with docker-compose taskmanager also)
@@ -42,7 +38,7 @@ taskmanager:
   ```
 - Alternatively, you can also use `docker-compose` to start a cluster. The relevant compose configuration file is in `code/docker-compose.yml`.  You can start the cluster using:
   ```bash
-  docker-compose up -d
+  docker compose up -d --scale taskmanager=3 
   ```
 
 - Then access Flink from a Web Browser

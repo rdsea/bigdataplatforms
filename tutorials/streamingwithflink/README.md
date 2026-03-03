@@ -59,6 +59,8 @@ You can check [the Flink example](https://nightlies.apache.org/flink/flink-docs-
   ```bash
   bin/flink run examples/streaming/WordCount.jar
   # OR
+  bin/flink run -m localhost:8081 examples/streaming/WordCount.jar
+  # OR
   # copy WordCount.jar to your Flink directory such as syncDocker/
   docker exec flink-jobmanager-1 flink run /opt/flink/usrlib/WordCount.jar
   ```

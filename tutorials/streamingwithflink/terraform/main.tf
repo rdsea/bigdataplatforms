@@ -31,7 +31,7 @@ resource "google_compute_firewall" "kafka_firewall" {
     protocol = "tcp"
     ports    = ["22", "9092", "9093", "8083", "8082", "8081"] # SSH, kafka
   }
-  source_ranges = ["0.0.0.0/0"] # Note: For production, restrict this IP range!
+  source_ranges = ["0.0.0.0/0"]
 }
 
 # 3. Create the kafka VM Instance (Ubuntu 24.04 version)
@@ -168,7 +168,7 @@ resource "google_compute_firewall" "mysql_firewall" {
   }
 
   target_tags   = ["mysql-server"]
-  source_ranges = ["0.0.0.0/0"] # WARNING: Open to the world. Restrict this in production!
+  source_ranges = ["0.0.0.0/0"] 
 }
 
 # 2. Create the MySQL VM

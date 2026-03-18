@@ -1,9 +1,4 @@
-/*
- * CS-E4640
- * Linh Truong
- */
-
-package fi.aalto.cs.cse4640;
+package bigdataplatform;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -29,7 +24,17 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.*;
 
-public class SimpleAlarmAnalysis {
+// import org.apache.flink.connector.jdbc.JdbcConnectionOptions;
+// import org.apache.flink.connector.jdbc.JdbcExecutionOptions;
+// import org.apache.flink.connector.jdbc.JdbcSink;
+import org.apache.flink.connector.jdbc.JdbcSink;
+import org.apache.flink.connector.jdbc.JdbcConnectionOptions;
+import org.apache.flink.connector.jdbc.JdbcExecutionOptions;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+public class SimpleAlarmAnalysis_database {
 
     public static void main(String[] args) throws Exception {
         // Using Flink ParameterTool to parse input parameters
@@ -37,8 +42,13 @@ public class SimpleAlarmAnalysis {
 
         String inputQueue = params.get("iqueue", "bts_in");  // name of the input queue of the input stream
         String outputQueue = params.get("oqueue", "bts_out");  // name of the output queue to return the results
-        String inputKafkaHost = params.get("kafkaurl", "localhost:9092");  // set the kafka host
+        String inputKafkaHost = params.get("inkafkaurl", "localhost:9092");  // set the kafka host
         String outKafkaHost = params.get("outkafkaurl", "localhost:9092");  // set the kafka host
+        String databaseHost = params.get("databaseHost", "localhost:3306");
+        String databaseUser = params.get("databaseUser", "bigdata");
+        String databasePass = params.get("databasePass", "tridep");
+        String databaseName = params.get("databaseName", "hong3_database");
+        String table_name = params.get("tablename", "bts_alets");
         int parallelismDegree = params.getInt("parallelism", 1);  // set the level of Parallelism
 
         // Setting up the execution environment
@@ -67,7 +77,7 @@ public class SimpleAlarmAnalysis {
         DataStream<String> alerts = btsdatastream.flatMap(new BTS_Trend_Parser())
                 .keyBy(new AlarmKeySelector())
                 .window(SlidingEventTimeWindows.of(Time.minutes(5), Time.seconds(5))) // set the window size and the window slide for processing streaming data
-                .process(new TrendDetection()).setParallelism(1);
+                .process(new TrendDetection()).setParallelism(parallelismDegree);
 
         // Store producer attributes using a Properties object
         Properties producerProperties = new Properties();
@@ -78,12 +88,52 @@ public class SimpleAlarmAnalysis {
 
         // Build a Kafka producer to forward the alert
         FlinkKafkaProducer<String> btsProducer = new FlinkKafkaProducer<>(outputQueue, outputSchema, producerProperties, FlinkKafkaProducer.Semantic.AT_LEAST_ONCE); // fault-tolerance
-        alerts.addSink(btsProducer).setParallelism(1); // set the value to scale the output stream
+        alerts.addSink(btsProducer).setParallelism(parallelismDegree); // set the value to scale the output stream
 
+        // Add the table creation sink to ensure the table exists before inserting data
+        alerts.addSink(new TableCreationSink(
+                "jdbc:mysql://" + databaseHost + "/" + databaseName,
+                databaseUser,
+                databasePass,
+                table_name
+        )).setParallelism(parallelismDegree);
+
+        // Define JDBC Sink
+        alerts.addSink(
+            JdbcSink.sink(
+                "INSERT INTO " + table_name + "(station_id, trend) VALUES (?, ?)",  // SQL query
+                (statement, record) -> {
+                    // Extract JSON part from the record
+                    String jsonPart = record.substring(record.indexOf("{")); // Extracts: {"btsalarmalert":{"station_id":1161114019, "trend":stable}}
+                    
+                    // Parse JSON
+                    JsonObject jsonObject = JsonParser.parseString(jsonPart).getAsJsonObject();
+                    JsonObject alertObject = jsonObject.getAsJsonObject("btsalarmalert");
+
+                    String stationId = alertObject.get("station_id").getAsString();
+                    String trend = alertObject.get("trend").getAsString();
+
+                    // Set SQL parameters
+                    statement.setString(1, stationId);
+                    statement.setString(2, trend);
+                },
+                JdbcExecutionOptions.builder()
+                    .withBatchSize(100)
+                    .withBatchIntervalMs(200)
+                    .withMaxRetries(3)
+                    .build(),
+                new JdbcConnectionOptions.JdbcConnectionOptionsBuilder()
+                    .withUrl("jdbc:mysql://" + databaseHost + "/"+ databaseName)
+                    .withDriverName("com.mysql.cj.jdbc.Driver")
+                    .withUsername(databaseUser)
+                    .withPassword(databasePass)
+                    .build()
+            )
+        ).setParallelism(parallelismDegree);
         // Use 1 thread to print out the result
-        alerts.print().setParallelism(1); // set the value to scale the output stream
-
-        env.execute("Simple CS-E4640 BTS Flink Application");
+        alerts.print().setParallelism(parallelismDegree); // set the value to scale the output stream
+    //
+        env.execute("Flink BTS Analysis with mySQL");
     }
 
     // This is used to return the key of the events so that we have KeyedStream from the datasource.

@@ -153,7 +153,7 @@ The structure for the directory
 
 Check [the source of BTS in our Git](code/simplebts/). It is a simple example for illustrating the alert purposes. 
 - Define a job via Java and then build with **maven** 
-##### Java
+  - **Java**
   ```bash
   # install maven to compile java project source code
   sudo apt install maven
@@ -162,7 +162,7 @@ Check [the source of BTS in our Git](code/simplebts/). It is a simple example fo
   # generate target/simplebts-0.1-SNAPSHOT.jar
   ```
 - The file **target/simplebts-0.1-SNAPSHOT.jar** is the one that will be submitted to Flink
-##### Python
+  - **Python**
   - download the [flink-sql-connector-kafka-4.0.1-2.0.jar](https://repo.maven.apache.org/maven2/org/apache/flink/flink-sql-connector-kafka/4.0.1-2.0/)
   - install the dependency
   ```bash

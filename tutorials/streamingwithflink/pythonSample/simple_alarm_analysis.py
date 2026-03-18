@@ -1,19 +1,19 @@
-import os
 import json
-import csv
 import argparse
-from pyflink.common import WatermarkStrategy, Duration, Time
+from pyflink.common import WatermarkStrategy, Time
 from pyflink.common.serialization import SimpleStringSchema
-from pyflink.datastream import StreamExecutionEnvironment, CheckpointingMode
-from pyflink.datastream.connectors.kafka import FlinkKafkaConsumer, FlinkKafkaProducer
+from pyflink.datastream import StreamExecutionEnvironment
+
+# from pyflink.datastream.connectors.kafka import FlinkKafkaConsumer, FlinkKafkaProducer
 from pyflink.datastream.functions import (
-    RuntimeContext,
-    MapFunction,
+    # RuntimeContext,
+    # MapFunction,
     ProcessWindowFunction,
 )
 from pyflink.datastream.window import SlidingEventTimeWindows
 import json
-from io import StringIO
+
+# from io import StringIO
 from pyflink.datastream.connectors.kafka import KafkaSource, KafkaOffsetsInitializer
 from pyflink.datastream.connectors.kafka import (
     KafkaSink,
@@ -23,7 +23,7 @@ from pyflink.datastream.connectors.base import DeliveryGuarantee
 from pyflink.common.typeinfo import Types
 
 
-# 1. Define the Data Model (equivalent to your BTSAlarmEvent Java class)
+# 1. Define the Data Model
 class BTSAlarmEvent:
     def __init__(
         self, station_id, datapoint_id, alarm_id, event_time, value, threshold
@@ -40,21 +40,25 @@ class BTSAlarmEvent:
 class TrendDetection(ProcessWindowFunction):
     def process(self, key, context, elements):
         values = [float(e.split(",")[4]) for e in elements]  # Simplified parsing
+
         half = len(values) // 2
+
         first_mean = sum(values[:half]) / half if half > 0 else 0
+
         second_mean = (
             sum(values[half:]) / (len(values) - half) if (len(values) - half) > 0 else 0
         )
 
-        trend = "stable"
         if first_mean > second_mean:
             trend = "down"
         elif first_mean < second_mean:
             trend = "up"
+        else:
+            trend = "stable"
 
         # yield json.dumps({"station_id": key, "trend": trend})
         result = {"station_id": key, "trend": trend}
-        yield json.dumps(result)  # JSON
+        yield json.dumps(result)
 
 
 def run_bts_analysis():
@@ -81,22 +85,12 @@ def run_bts_analysis():
         .build()
     )
 
-    # 3. Create DataStream
+    # 3. Create DataStream of raw strings from Kafka
     ds = env.from_source(
         kafka_source, WatermarkStrategy.for_monotonous_timestamps(), "Kafka Source"
     )
-    #
-    # # 4. Processing Pipeline
-    # (
-    #     ds.key_by(lambda x: x.split(",")[0])  # Assuming CSV format "station_id,..."
-    #     .window(SlidingEventTimeWindows.of(Time.minutes(5), Time.seconds(5)))
-    #     .process(TrendDetection())
-    #     .print()
-    # )
-    #
-    # env.execute("PyFlink BTS Analysis")
 
-    # 4. Sink
+    # 4. Kafka Sink, sending JSON strings to output topic
     kafka_sink = (
         KafkaSink.builder()
         .set_bootstrap_servers(args.outkafkaurl)
@@ -118,13 +112,6 @@ def run_bts_analysis():
         .map(lambda x: str(x), output_type=Types.STRING())
         .sink_to(kafka_sink)
     )
-    # # 3. Pipeline
-    # (
-    #     ds.key_by(lambda x: x.split(",")[0])
-    #     .window(SlidingEventTimeWindows.of(Time.minutes(5), Time.seconds(5)))
-    #     .process(TrendDetection())
-    #     .sink_to(kafka_sink)
-    # )
 
     env.execute("PyFlink BTS Analysis")
 

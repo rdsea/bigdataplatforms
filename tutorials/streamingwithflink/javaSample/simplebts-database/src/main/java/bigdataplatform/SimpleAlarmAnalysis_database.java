@@ -133,7 +133,7 @@ public class SimpleAlarmAnalysis_database {
         // Use 1 thread to print out the result
         alerts.print().setParallelism(parallelismDegree); // set the value to scale the output stream
     //
-        env.execute("test database");
+        env.execute("Flink BTS Analysis with mySQL");
     }
 
     // This is used to return the key of the events so that we have KeyedStream from the datasource.

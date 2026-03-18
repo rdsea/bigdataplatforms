@@ -83,6 +83,7 @@ The structure for the directory
 │   ├── simplebts-database
 │   └── simpleonu
 ├── pythonSample
+│   ├── flink-sql-connector-kafka-4.0.1-2.0.jar
 │   └── simple_alarm_analysis.py
 ├── queue_script
 │   ├── test_amqp_consumer.py

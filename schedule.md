@@ -37,7 +37,7 @@ TBD  | **Room TBD** | **Assignment 1 Individual Grading Meeting**   | **All**
 05.03  |Meet-up | Assignment 2 support| TA
 11.03  |No lecture/Hands-on|  |
 13.03  |   | **Due the 2nd assignment**  |   |
-18.03  |Lecture 8 | [GenAI/LLMs and Big Data Platforms](lecturenotes/pdfs/)| **Linh Truong**
+18.03  |Lecture 8 | [GenAI/LLMs and Big Data Platforms](lecturenotes/pdfs/module4-lecture8-bigdatallm-v0.3.pdf)| **Linh Truong**
 18.03  |   | **Release the third assignment**
 19.03  |Tutorial 6| [Stream Processing with Apache Flink](tutorials/streamingwithflink/README.md) | **Hong-Tri Nguyen**
 16-20.03   | | Finalizing assignment grading 2  | **All**  |

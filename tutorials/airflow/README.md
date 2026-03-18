@@ -63,9 +63,13 @@ You can find the instruction for this example in [alarmanalytics](alarmanalytics
 
 You can find the instruction for this example in [camerastateuploadfile](camerastateuploadfile/README.md).
 
+### Example 3: Alarm Analytics with Cassandra
+
+You can find the instruction for this example in [airflow-cassandra](alarmanalytics_cassandra/README.md)
+
 ### Using Google Cloud Composer
 
-You can also use Google Cloud Composer to setup your Apache Airflow environment. See our [short video here](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=d0136cb0-c5fe-41e5-bfea-acfb0144dace).
+You can also use [Google Cloud Composer](https://cloud.google.com/composer) to setup your Apache Airflow environment. 
 
 ### Using Astronomer
 
@@ -82,6 +86,7 @@ There are several workflow systems with similar concepts that you can practice:
 - [Dagster](https://dagster.io/)
 - [Metaflow](https://metaflow.org/)
 - [Serverless Workflow](https://serverlessworkflow.io/)
+- [N8N](https://n8n.io/)
 
 Also some practical readings:
 

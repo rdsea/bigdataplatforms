@@ -8,29 +8,27 @@
 Apache Kafka is a distributed streaming platform used for building real-time data pipelines and streaming apps [Kafka documentation](http://kafka.apache.org/documentation.html).
 In this manual, all the commands and are written in bold-italic. The commands to be typed on the terminal window are preceded by a dollar ($) sign when the result is included.
 
-- [Accompanying hands-on video](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=33ee67f3-f018-45b2-b6d5-abea00dbbb2a)
-
 ## Prerequisite
 
 > Java is needed for running Kafka. Java must be installed.
 
 ### Step1: Download and extract Kafka binaries
 
-Download the Kafka from this link [Kafka download](https://downloads.apache.org/kafka/3.6.1/kafka_2.13-3.6.1.tgz). For this project we are using Kafka version 3.6.1 for Scala version 2.13. After downloading, follow the following steps:
+Download the Kafka from this link [Kafka download](https://downloads.apache.org/kafka/4.1.1/kafka_2.13-4.1.1.tgz). For this project we are using Kafka version 4.1.1 for Scala version 2.13 After downloading, follow the following steps:
 
 ```bash
 mkdir kafka
-mv kafka_2.13-3.6.1.tgz kafka
+mv kafka_2.13-4.1.1.tgz kafka
 cd kafka/
-tar -xzf kafka_2.13-3.6.1.tgz
-cd kafka_2.13-3.6.1
+tar -xzf kafka_2.13-4.1.1.tgz
+cd kafka_2.13-4.1.1
 ```
 
 Let us assume kafka is under `$KAFKA`
 
 ### Step2: Configure the kafka server
 
-Since we use Kafka without Zookeeper, we will use the configuration file under `$KAFKA/conf/kraft`. Edit the **server.properties** file and pay attention to:
+Since we use Kafka without Zookeeper, we will use the configuration file under `$KAFKA/kafka-4.1.1-src/config`. Edit the **server.properties** file and pay attention to:
 
 ```properties
 # The role of this server. Setting this puts us in KRaft mode
@@ -49,10 +47,10 @@ Get a uuid for Kafka cluster:
 bin/kafka-storage.sh random-uuid
 ```
 
-then use the output uuid for the cluster id, e.g., **GBq4dvG2QtacMXRDdpgbuQ**
+then use the output uuid for the cluster id, e.g., **d-hxI9WHRjKL_A449TNZsg**
 
 ```bash
-bin/kafka-storage.sh format --config config/kraft/server.properties --cluster-id GBq4dvG2QtacMXRDdpgbuQ
+bin/kafka-storage.sh format --config config/server.properties --standalone --cluster-id d-hxI9WHRjKL_A449TNZsg
 ```
 
 To set up a cluster, you can prepare many machines in a similar way but pay attention that:
@@ -65,7 +63,7 @@ To set up a cluster, you can prepare many machines in a similar way but pay atte
 Running the server
 
 ```bash
-bin/kafka-server-start.sh config/kraft/server.properties
+bin/kafka-server-start.sh config/server.properties
 ```
 
 ### Step4: Testing the installation
@@ -100,39 +98,10 @@ A simple script on how to start Kafka producers and consumers from the terminal 
 There are two ways to run Kafka from a container. One is to get the image from [docker hub](https://hub.docker.com/) and then run it by using docker, for example:
 
 ```bash
-docker run bitnami/kafka
+docker run apache/kafka
 ```
 
-Second alternative is to get the docker compose file of the Kafka image [bitnami/kafka](https://github.com/bitnami/containers/blob/main/bitnami/kafka/docker-compose.yml). Save it in the your editor and then do the following. In this example,
-we will assume that the file is saved as docker-compose1.yml in a folder named kafka.
-
-1. To start the zookeeper and kafka servers type:
-
-   ```bash
-   docker-compose -f docker-compose1.yml up
-   ```
-
-2. Open a new terminal and get the name of the kafka container by typing
-
-   ```bash
-   docker-compose -f docker-compose1.yml ps
-   ```
-
-3. Run a terminal inside the container by using the command
-
-   ```bash
-   docker exec -it <Container ID> /bin/bash
-   ```
-
-   Where the container name was obtained from step two
-
-4. Test if Kafka is running correctly in the container by creating a topic
-
-   ```bash
-   kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test
-   ```
-
-   If all went well, you should see the text _Created topic test_ on your terminal.
+For further information, you can look at the [Kafka Docker Image Usage Guide](https://github.com/apache/kafka/blob/trunk/docker/examples/README.md).
 
 ---
 
@@ -144,24 +113,20 @@ We will be using a docker-compose file for for setting up a multi-broker cluster
 
 Running a Kafka cluster in a container is different from running a single instance as many environment variables have to be configured. The docker-compose file for the services is _docker-compose3.yml_. The configuration in the file allows us to use a global Kafka Broker.
 
-_Note: In the `KAFKA_CFG_ADVERTISED_LISTENERS` setting, be sure to update the `BROKER` setting for hostname/external ip of the machine instance. Otherwise, this won't be accessible from any system outside the `localhost`_(check https://github.com/bitnami/containers/tree/main/bitnami/kafka for seeing configuration parameters with bitnami kafka containers)
+_Note: In the `KAFKA_ADVERTISED_LISTENERS` setting, be sure to update the `BROKER` setting for hostname/external ip of the machine instance. Otherwise, this won't be accessible from any system outside the `localhost`_
 
-> Example: - KAFKA_CFG_ADVERTISED_LISTENERS=BROKER://192.168.8.106:9092
+> Example: - KAFKA_ADVERTISED_LISTENERS=BROKER://192.168.8.106:9092
 
 To set a cluster, we need a cluster id that you can generate by using kafka-storage.sh and use the returned uuid for the customer name
 
 ```bash
-$ docker run -it  bitnami/kafka:latest kafka-storage.sh random-uuid
-kafka 14:43:29.43
-kafka 14:43:29.43 Welcome to the Bitnami kafka container
-kafka 14:43:29.43 Subscribe to project updates by watching https://github.com/bitnami/containers
-kafka 14:43:29.43 Submit issues and feature requests at https://github.com/bitnami/containers/issues
-kafka 14:43:29.43
+$ ❯ docker run -it --rm apache/kafka:latest \
+          /opt/kafka/bin/kafka-storage.sh random-uuid
 
-pQooK8X-Q_2cDlViPWvpyg
+0D2OO3VWS-SEy25KMVKUtA
 ```
 
-**pQooK8X-Q_2cDlViPWvpyg** can be used as the cluster id that you can update the compose file.
+**0D2OO3VWS-SEy25KMVKUtA** can be used as the cluster id that you can update the compose file.
 
 1. Start the containers by running
 
@@ -367,6 +332,6 @@ python code/simple_kafka_consumer.py -b BROKER_IP_ADDRESS:9092  -t testbdp2024 -
 
 ## Authors
 
-- Tutorial author: Strasdosky Otewa, Rohit Raj, Guangkai Jiang and Linh Truong
+- Tutorial author: Korawit Rupanya, Strasdosky Otewa, Rohit Raj, Guangkai Jiang and Linh Truong
 
 - Editor: Linh Truong

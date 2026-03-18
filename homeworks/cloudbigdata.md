@@ -1,5 +1,6 @@
 # Homework for Cloud Infrastructures and Architectures of Big Data Platforms
-Last modified: 21.01.2021
+
+Last modified: 06.01.2026
 By Linh Truong(linh.truong@aalto.fi)
 
 >This homework is not graded.
@@ -13,7 +14,7 @@ The goal of this task is to help you to be familiar with dynamic provisioning of
 * Write a program with three functions: (i) test if an MongoDB instance is running, (ii) kill/stop a MongoDB instance, and (iii) start a MongoDB instance
 
 >We do not assume that you master MongoDB. If you do not know MongoDB, it is still possible to practice the homework as it is mainly about managing services (for big data platforms). In our tutorial code, there are some parts dealing with MongoDB that you might take a look:
->* [Data ingestion with MongoDB](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640/-/tree/master/tutorials/data-ingestion-mongodb)
+>* [Data ingestion with MongoDB](../tutorials/data-ingestion-mongodb)
 
 ## 2 - Analyzing data concerns in a big data pipeline
 
@@ -23,7 +24,9 @@ Assume that you take the data from [Airbnb Dataset](http://insideairbnb.com/get-
 Consider that your big data platform must support the analysis of [Avian Vocalizations from CA & NV, USA](https://www.kaggle.com/samhiatt/xenocanto-avian-vocalizations-canv-usa). Would you consider to use different types of data storages/databases, where each storage/database (e.g., database or file storage) would store only one type of data.
 
 ## 4 - Partitioning
-For storing [the BTS data](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640-2019/tree/master/data/bts), should we partition data based on the station or the timestamp of the data?
+
+For storing [the BTS data](../data/bts), should we partition data based on the station or the timestamp of the data?
 
 ## 5 - Distribution
-Given the BTS monitoring, e.g. [the BTS data](https://version.aalto.fi/gitlab/bigdataplatforms/cs-e4640-2019/tree/master/data/bts), do you think we need to distribute data and analysis across multiple places?
+
+Given the BTS monitoring, e.g. [the BTS data](../data/bts), do you think we need to distribute data and analysis across multiple places?

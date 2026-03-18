@@ -5,10 +5,10 @@ for an application scenario and define suitable queries.
 */
 SELECT 
     l.summary,
-    b.country,
+    b.city,
     trip.total_amount
 FROM 
-    mongodb.test.listings l, cassandra.tutorial12345.bird1234 b,
+    mongodb.test.listings l, cassandra.tutorial12345.water1234 b,
     bigquery.taxitesting.taxi_trips trip
 WHERE 
     trip.VendorID = 1

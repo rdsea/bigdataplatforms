@@ -54,7 +54,7 @@ In this use case, we first collect data from a remote site. The collected alarm 
 
 #### Check the source code and compile it
 
-Check [the source of BTS Analytics in our Git](camerastateuploadfile/). It is a simple example for illustrating purposes. You can test if there is any error by
+Check [the source of BTS Analytics in our Git](bts_analytics.py). It is a simple example for illustrating purposes. You can test if there is any error by
 
 ```
 $python3 bts_analytics.py
@@ -111,7 +111,9 @@ Follow the instruction [Managing Airflow connections](https://cloud.google.com/c
 
 ## Step4: Set up Microsoft Teams Notification Connection
 
-To allow Airflow to send notification to Teams, you need to set up incoming webhook on Teams and add the webhook url to Airflow using the connection as described above. Follow the instruction steps: **Prepare MS Teams** and **Prepare Airflow** from [here](https://code.mendhak.com/Airflow-MS-Teams-Operator/#prepare-ms-teams).
+To allow Airflow to send notification to Teams, you need to set up incoming webhook on Teams and add the webhook url to Airflow using the connection as described above. 
+
+Follow  [**Create a MS Teams Web Hook**](https://support.microsoft.com/en-us/office/create-incoming-webhooks-with-workflows-for-microsoft-teams-8ae491c7-0394-4861-ba59-055e33f75498). 
 
 Instead of storing the webhook link into the code, we will store it into a Variable named **teams_webhook**.
 

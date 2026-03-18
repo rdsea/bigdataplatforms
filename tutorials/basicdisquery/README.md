@@ -19,7 +19,7 @@ We will examine three different data sources that you have learned before:
 ### Cassandra
 
 Using [the tutorial basiccassandra](../basiccassandra/) to setup a simple data source for bird data.
->In this example, we have the keyspace name **tutorial12345** and the table **bird1234**
+>In this example, we have the keyspace name **tutorial12345** and the table **water1234**
 
 ### Big Query
 

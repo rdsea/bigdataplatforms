@@ -1,0 +1,30 @@
+{
+  "config": {
+    "connector.class": "io.lenses.streamreactor.connect.cassandra.CassandraSinkConnector",
+    "tasks.max": "1",
+    "topics": "<KAFKA-TOPIC>",
+
+    "connect.cassandra.contact.points": "<CASSANDRA-IP-ADDRESS>",
+    "connect.cassandra.port": "9042",
+    "connect.cassandra.load.balancing.local.dc": "<DATA_CENTER>",
+    "connect.cassandra.keyspace": "<KEYSPACE>",
+
+    "connect.cassandra.auth.provider": "PLAIN",
+    "connect.cassandra.auth.username": "<USERNAME-ACCESS-CASSANDRA>",
+    "connect.cassandra.auth.password": "<PASSWORD-ACCESS-CASSANDRA>",
+
+    "connect.cassandra.kcql":
+      "INSERT INTO <KEYSPACE>.<TABLE> SELECT id, timestamp, value FROM <KAFKA-TOPIC>",
+
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+
+    "consumer.override.group.id": "<CONNECTOR-GROUP-ID>",
+    "consumer.override.auto.offset.reset": "earliest",
+
+    "errors.tolerance": "all",
+    "errors.log.enable": "true",
+    "errors.log.include.messages": "true"
+  }
+}

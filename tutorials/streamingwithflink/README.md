@@ -5,7 +5,7 @@ Some materials:
 * [Apache Flink for Big Data Platforms](../../lecturenotes/pdfs/module3-streaming-flink-v0.6.pdf)
 * [An accompanying hands-on video is available - Update the link later](https://aalto.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=35976699-d98c-4dee-bbe4-ac0500ab604d)
 * [Slides](slides/2025-flink.pdf)
-
+* 
 ## Introduction
 
 We will practice Apache Flink with simple activities:
@@ -48,6 +48,11 @@ taskmanager:
     process:
       size: 1728m
 ```
+Following Flink guide to see if the setting is ok. Move into the directory of your Flink and start Flink:
+```bash
+bin/start-cluster.sh
+```
+then check the [UI](http://localhost:8081)
 
 - Move into the directory of your Flink and start Flink:
   ```bash
@@ -68,7 +73,7 @@ taskmanager:
   > http://localhost:8081
 
 
-## Hand-on
+### Practices with Flink  SocketWindowWordCount example
 
 ##### NOTE
 > The instructors provide services, such as kafka and database
@@ -92,10 +97,9 @@ You can check [the Flink example](https://nightlies.apache.org/flink/flink-docs-
   ```
 - Alternatively, you can also use the web UI to **Submit New Job** to a Session cluster. 
 
-### Ingest BTS dataset and alert with Flink job
+## BTS example
 
 The structure for the directory 
-
 ```
 ├── docker-compose.yaml
 ├── dockerfile
@@ -115,6 +119,57 @@ The structure for the directory
 │   ├── test_kafka_producer.py
 ├── README.md
 ```
+#### Check the source code and compile it
+Check [the source of BTS in our Git](code/simplebts/). It is a simple example for illustrating purposes. 
+
+Define a job via Java which is built with maven.
+
+```bash
+# install maven to compile java project source code
+# sudo apt install maven
+cd simplebts
+mvn install
+# to generate target/simplebts-0.1-SNAPSHOT.jar
+```
+the file **target/simplebts-0.1-SNAPSHOT.jar* is the one that will be submitted to Flink.
+
+#### Test Kafka with the BTS data
+Before running BTS Flink, check if we can send and receive data to/from Kafka. We have two python test programs in **scripts/** and the data file in **cs-e4640/data/bts** or in data folder:
+
+Start a BTS test producer using Kafka client:
+```bash
+# pip install kafka-python-ng
+python test_kafka_producer.py --queue_name [your_selected_queue_name] --input_file  [cs-e4640/data/bts/bts-data-alarm-2017.csv] --kafka [your_kafka_host]
+```
+Then start a BTS test receivers in both Kafka client and Kafka:
+```bash
+python test_kafka_consumer.py --queue_name [your_selected_queue_name] --kafka [your_kafka_host]
+```
+if you see the receiver outputs data, it means that the RabbitMQ is working.
+
+#### Run Flink BTS working with messaging queue
+
+Now assume that you choose two queue names:
+* **iqueue123**: indicate the queue where we send the data
+* **oqueue123**: indicate the queue where we receive the alert.
+* **localhost:9092**: is the **Kafka url**
+
+
+Run the Flink BTS program:
+```bash
+cd flink-1.19.2
+bin/flink run ../simplebts/target/simplebts-0.1-SNAPSHOT.jar --iqueue iqueue123 --oqueue oqueue123 --kafkaurl localhost:9092  --outkafkaurl localhost:9092 --parallelism 1
+```
+Now start our test producer again with the queue name as **iqueue123**:
+```bash
+cd simplebts/scripts
+python3 test_kafka_producer.py --queue_name iqueue123 --input_file  ../../data/bts-data-alarm-2017.csv --kafka localhost:9092
+```
+and then start a BTS test receivers with queue name as **oqueue123**:
+```bash
+python3 test_kafka_consumer.py --queue_name oqueue123 --kafka localhost:9092
+```
+to see if you can receive any alerts.
 
 #### Kafka ingest/produce and consume data
 ##### Kafka setting

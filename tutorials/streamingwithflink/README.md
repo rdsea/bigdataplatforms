@@ -22,8 +22,25 @@ In this tutorial, we use Apache Flink 1.20.3 and Flink 2.2.0.
 At the default Flink server only allow a job running. Therefore, for easy testing, you can change the numberOfTaskSlots configuration. (Do similarly with docker-compose taskmanager also)
 ```bash
 # flink1.20.3/conf/config.yaml 
-taskmanager:
+jobmanager:
+  # To enable this, set the bind-host address to one that has access to an outside facing network
+  # interface, such as 0.0.0.0.
   bind-host: localhost
+  rpc:
+    address: localhost 
+    # The RPC port where the JobManager is reachable. as The actual IP of the jobmanager 
+    port: 6123
+  memory:
+    process:
+      size: 1600m
+  execution:
+
+taskmanager:
+  # To enable this, set the bind-host address to one that has access to an outside facing network
+  # interface, such as 0.0.0.0.
+  bind-host: localhost
+  # Note also that unless all TaskManagers are running on the same machine, this address needs to be
+  # configured separately for each TaskManager. 
   host: localhost
   # The number of task slots that each TaskManager offers. Each slot runs one parallel pipeline.
   numberOfTaskSlots: 10
@@ -34,8 +51,14 @@ taskmanager:
 
 - Move into the directory of your Flink and start Flink:
   ```bash
+  # start-cluster only from the jobmanager if the jobmanager configures to connect with taskmanagers
+  # or when run all in the same machine
   bin/start-cluster.sh
+  # manually start taskmanager and jobmanager
+  bin/jobmanager.sh start
+  bin/taskmanager.sh start
   ```
+  
 - Alternatively, you can also use `docker-compose` to start a cluster. The relevant compose configuration file is in `code/docker-compose.yml`.  You can start the cluster using:
   ```bash
   docker compose up -d --scale taskmanager=3 
@@ -147,7 +170,6 @@ The structure for the directory
   python test_kafka_consumer.py --queue_name <your-selected-queue-name> --kafka <your-kafka-host>
   # example python test_kafka_consumer.py --queue_name oQ  --kafka localhost:9092
   ```
-
 
 #### Define alerting job with Flink
 
@@ -329,6 +351,14 @@ Check the logs under **flink/log**:
 
 to see errors, printout.
 Alternatively, you can also see the logs on the flink UI.
+
+### Java troubleshoot
+
+```bash
+java -version
+update-alternatives --config java
+export JAVA_HOME="JAVA_HOME="/usr/lib/jvm/default-java"
+```
 
 ## Exercise
 

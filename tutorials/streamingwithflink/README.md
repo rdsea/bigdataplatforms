@@ -55,21 +55,18 @@ taskmanager:
 ### SocketWindowWordCount example job
 You can check [the Flink example](https://nightlies.apache.org/flink/flink-docs-release-1.19/docs/try-flink/local_installation/) and test it to see how it works.
 
-- Use Flink CLI on the same host if it is setup:
+- Use Flink CLI to submit the job
   ```bash
+  # on the same host if it is setup:
   bin/flink run examples/streaming/WordCount.jar
-  # OR
+  # OR request via docker
+  docker exec flink-jobmanager-1 bin/flink run examples/streaming/WordCount.jar
+  # OR on another host
   bin/flink run -m localhost:8081 examples/streaming/WordCount.jar
-  # OR
-  # copy WordCount.jar to your Flink directory such as syncDocker/
-  docker exec flink-jobmanager-1 flink run /opt/flink/usrlib/WordCount.jar
-  ```
+  # OR work with python job
+  bin/flink run -py examples/python/table/word_count.py
 
-- If you run flink server on another machine like a cloud can add a parameter with "-m"
-  ```bash
-  bin/flink run -d -m <FLINK-JOBMANAGER-URL> <PATH/job.jar> <jar-arguments>
   ```
-
 - Alternatively, you can also use the web UI to **Submit New Job** to a Session cluster. 
 
 ### Ingest BTS dataset and alert with Flink job
@@ -77,27 +74,22 @@ You can check [the Flink example](https://nightlies.apache.org/flink/flink-docs-
 The structure for the directory 
 
 ```
-Flink
+├── docker-compose.yaml
+├── dockerfile
 ├── data
-│   └── bts-data-alarm-2017.csv
-├── docker-compose
-│   └── docker-compose.yml
-├── simplebts (from code/ in github)
-│   ├── dependency-reduced-pom.xml
-│   ├── pom.xml
-│   └── scripts
-│       ├── test_kafka_consumer.py
-│       └── test_kafka_producer.py
-├── flink-1.20.3
-    ├── bin
-    │   ├── start-cluster.sh
-    │   ├── stop-cluster.sh
-    │   └── flink
-    └── examples
-        ├── batch
-        ├── python
-        ├── streaming
-        └── table
+│   └── bts-data-alarm-2017.csv
+├── javaSample
+│   ├── simplebts
+│   ├── simplebts-database
+│   └── simpleonu
+├── pythonSample
+│   └── simple_alarm_analysis.py
+├── queue_script
+│   ├── test_amqp_consumer.py
+│   ├── test_amqp_producer.py
+│   ├── test_kafka_consumer.py
+│   ├── test_kafka_producer.py
+├── README.md
 ```
 
 #### Kafka ingest/produce and consume data

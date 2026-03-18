@@ -344,6 +344,7 @@ If you want to add another sink like mySQL
       main()
   ```
 
+
 #### Check logs
 Check the logs under **flink/log**:
 * flink * taskexecutor *.log
@@ -352,12 +353,20 @@ Check the logs under **flink/log**:
 to see errors, printout.
 Alternatively, you can also see the logs on the flink UI.
 
-### Java troubleshoot
-
+#### Java troubleshoot
 ```bash
 java -version
 update-alternatives --config java
 export JAVA_HOME="JAVA_HOME="/usr/lib/jvm/default-java"
+```
+
+#### Pythong troubleshoot
+- make sure the python version for taskmanager and client be the same version
+```bash
+# on taskmanager
+/usr/bin/python --version 
+# on local python version
+.venv/bin/python --version
 ```
 
 ## Exercise

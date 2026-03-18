@@ -64,7 +64,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>bigdataplatforms.SimpleAlarmAnalysis_database</mainClass>
+              <mainClass>bigdataplatform.SimpleAlarmAnalysis_database</mainClass>
             </manifest>
           </archive>
         </configuration>
@@ -97,11 +97,6 @@
                   </excludes>
                 </filter>
               </filters>
-              <transformers>
-                <transformer>
-                  <mainClass>fi.aalto.cs.cse4640.SimpleAlarmAnalysis</mainClass>
-                </transformer>
-              </transformers>
               <archive>
                 <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
               </archive>

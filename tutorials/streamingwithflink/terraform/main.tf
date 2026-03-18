@@ -216,7 +216,7 @@ metadata_startup_script = <<-EOT
     # GRANT 1: Standard access to the specific database
     mysql -e "GRANT ALL PRIVILEGES ON bdpdb.* TO 'cse4640'@'%';"
     
-    # GRANT 2: (NEW) Global Replication privileges needed for NiFi CDC
+    # GRANT 2: (NEW) Global Replication privileges  
     # Note: This MUST be on *.* because replication is a server-wide privilege
     mysql -e "GRANT REPLICATION CLIENT, REPLICATION SLAVE ON *.* TO 'cse4640'@'%';"
     

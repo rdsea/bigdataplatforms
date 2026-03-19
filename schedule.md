@@ -33,7 +33,7 @@ TBD  | **Room TBD** | **Assignment 1 Individual Grading Meeting**   | **All**
 25.02  |Lecture 6  | [Workflows for Big Data Platforms](lecturenotes/pdfs/module3-lecture6-workflows-v0.7.pdf)| **Linh-Truong**
 25.02  |   | **Release the 2nd assignment**
 26.02  |Tutorial 5| [Data processing examples with Airflow](https://github.com/rdsea/bigdataplatforms/tree/master/tutorials/airflow)| **Korawit Rupanya**
-04.03  |Lecture 7 | [Stream Processing](lecturenotes/pdfs/module3-lecture7-dataprocessing-streaming-v0.7.pdf)). Additional: [Apache Flink for Stream Processing in Big Data Platforms](lecturenotes/pdfs/) | **Linh Truong**
+04.03  |Lecture 7 | [Stream Processing](lecturenotes/pdfs/module3-lecture7-dataprocessing-streaming-v0.7.pdf)). Additional: [Apache Flink for Stream Processing in Big Data Platforms](2025/lecturenotes/pdfs/module3-streaming-flink-v0.6.pdf) | **Linh Truong**
 05.03  |Meet-up | Assignment 2 support| TA
 11.03  |No lecture/Hands-on|  |
 13.03  |   | **Due the 2nd assignment**  |   |

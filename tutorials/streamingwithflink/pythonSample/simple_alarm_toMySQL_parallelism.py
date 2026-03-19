@@ -215,15 +215,20 @@ def run_bts_analysis():
         dt = datetime.strptime(parts[3], "%Y-%m-%d %H:%M:%S %Z")
         return int(dt.timestamp() * 1000)
 
-    watermark_strategy = WatermarkStrategy.for_bounded_out_of_orderness(
-        Duration.of_seconds(20)
-    ).with_timestamp_assigner(extract_ts)
+    watermark_strategy = (
+        WatermarkStrategy.for_bounded_out_of_orderness(Duration.of_seconds(20))
+        .with_timestamp_assigner(extract_ts)
+        .with_idleness(Duration.of_minutes(1))
+    )
+    # watermark_strategy = WatermarkStrategy.for_bounded_out_of_orderness(
+    #     Duration.of_seconds(20)
+    # ).with_timestamp_assigner(extract_ts)
 
     raw_stream = env.from_source(
         kafka_source,
         watermark_strategy,
         "Kafka Source",
-    )
+    ).set_parallelism(args.parallelism)
 
     # Processing: key by station_id, sliding event-time window, trend detection
     jdbc_url = f"{args.databaseHost}/{args.databaseName}"
@@ -239,10 +244,11 @@ def run_bts_analysis():
             ),
             output_type=Types.STRING(),
         )
+        .set_parallelism(args.parallelism)
     )
 
     # Print like Java alerts.print()
-    alerts.print()
+    alerts.print().set_parallelism(1)
 
     # Kafka sink for alerts (equivalent to FlinkKafkaProducer)
     kafka_sink = (
@@ -257,7 +263,7 @@ def run_bts_analysis():
         .set_delivery_guarantee(DeliveryGuarantee.AT_LEAST_ONCE)
         .build()
     )
-    alerts.sink_to(kafka_sink)
+    alerts.sink_to(kafka_sink).set_parallelism(args.parallelism)
 
     env.execute("PyFlink BTS Analysis with MySQL")
 
